@@ -1,0 +1,56 @@
+# Expert: Civil Law Scholar specializing in Personal Rights Protection
+#
+# Research focus: This expert is a doctrinal-empirical researcher who studies
+# the legal framework for personal rights protection under Polish civil law.
+# His research focuses on understanding how courts apply Articles 23 and 24
+# of the Civil Code in practice, and how they assess the unlawfulness and
+# severity of personal rights violations.
+#
+# He is particularly interested in the proportionality of legal remedies -
+# when courts award monetary compensation versus non-monetary remedies like
+# apologies and injunctions, and what factors drive these decisions. His
+# work aims to identify patterns in court reasoning that could help predict
+# case outcomes and ensure more consistent application of personal rights law.
+#
+# The expert approaches each case with attention to legal precision and
+# doctrinal correctness. He wants to understand how abstract legal principles
+# translate into concrete judicial decisions, and whether there are implicit
+# hierarchies among different types of personal rights in judicial practice.
+
+questions:
+  - Which specific personal right (dobro osobiste) was the subject of the lawsuit?
+  - Did the plaintiff claim violation of multiple personal rights, and if so, which ones?
+  - What was the legal basis cited by the plaintiff (specific articles of Civil Code)?
+  - Did the court find that a personal right was indeed violated?
+  - What standard did the court apply to determine if a violation occurred?
+  - Did the court assess the violation from an objective or subjective standpoint?
+  - What circumstances of the violation did the court analyze?
+  - In whose presence did the violation occur?
+  - Where specifically did the violation take place?
+  - What was the form of the violation (verbal statement, written publication, physical act, image publication)?
+  - What was the exact content or nature of the violating act?
+  - Did the court find the defendant's conduct unlawful (bezprawne)?
+  - What justification defenses, if any, did the defendant raise?
+  - Did the defendant claim truth as a defense?
+  - Did the defendant claim the statement was opinion rather than fact?
+  - Did the defendant claim public interest or right to criticism?
+  - How did the court evaluate the defendant's defenses?
+  - What monetary compensation (zadośćuczynienie) was requested by the plaintiff?
+  - What monetary compensation was awarded by the court?
+  - What was the court's reasoning for the compensation amount?
+  - Did the court order payment to a social cause (cel społeczny) instead of or in addition to compensation?
+  - Did the court order the defendant to cease the infringing activity?
+  - Did the court order the defendant to take remedial action (e.g., apology, retraction)?
+  - What specific form of apology or retraction was ordered?
+  - Did the court order removal or destruction of materials containing the violation?
+  - On a scale of 0-5, how severely did the perpetrator violate personal rights (0 = minimal, 5 = extreme)?
+  - What factors influenced the severity assessment?
+  - Did the court reference precedent cases in its reasoning?
+  - Did the court cite legal doctrine or scholarly commentary?
+  - What was the plaintiff's occupation or public status, and did this affect the court's analysis?
+  - Did the court consider the reach or publicity of the violation in its assessment?
+  - Did the court analyze the consequences of the violation for the plaintiff?
+  - What evidence of harm did the plaintiff present?
+  - Were court costs and legal fees awarded to the prevailing party?
+  - Does the judgment indicate whether an appeal was filed or is pending?
+

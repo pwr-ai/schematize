@@ -1,0 +1,35 @@
+defaults:
+  - _self_
+  - override hydra/launcher: joblib
+
+api_key: ${oc.env:API_KEY}
+api_url: ${oc.env:API_URL}
+model_name: llama3.3
+llm_cache: false
+
+llm:
+  temperature: 0.2
+  max_tokens: 32000
+  enable_thinking: false
+
+case_name: ??? # ["age", "personal_rights", "contracts"]
+
+state_dir: multirun/llama3.3/${case_name}/
+eval_data_dir: schema_generator_agent/data/eval/
+case_dir: ${eval_data_dir}/${case_name}
+
+output_subdir: evaluation/${model_name}/${case_name}
+output: ${hydra:runtime.output_dir}
+
+hydra:
+  launcher:
+    n_jobs: 4
+  run:
+    dir: outputs/${output_subdir}
+  sweep:
+    dir: outputs/
+    subdir: ${output_subdir}
+
+  sweeper:
+    params:
+      case_name: age,personal_rights,contracts

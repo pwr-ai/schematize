@@ -1,0 +1,58 @@
+# Expert: Communication and Media Law Scholar
+#
+# Research focus: This expert specializes in studying personal rights violations
+# in the digital age, with particular emphasis on how the medium of communication
+# affects the nature and severity of violations. Her research examines whether
+# violations occurring on social media platforms differ systematically from
+# traditional offline violations in terms of their characteristics, public reach,
+# and legal outcomes.
+#
+# She is particularly interested in building an empirical dataset that captures
+# the specific circumstances of each violation - where it occurred, what was
+# said or done, and how publicly the violation was witnessed. Her methodology
+# involves detailed case-by-case analysis of civil court judgments to understand
+# patterns in how different contexts shape personal rights violations and their
+# consequences for victims.
+#
+# The expert takes a systematic, data-driven approach and aims to quantify
+# aspects of violations that are often discussed only qualitatively in legal
+# scholarship. She wants to develop severity metrics that could inform both
+# academic research and practical legal guidance.
+
+questions:
+  - What specific type of personal right was violated in this case (e.g., good name, privacy, image, dignity, honor)?
+  - Was this an online or offline violation?
+  - If online, on which specific platform did the violation occur (e.g., Facebook, Twitter/X, Instagram, TikTok, forum, blog, news website comments)?
+  - If offline, in what type of location did the violation occur (e.g., workplace, public space, private gathering, media)?
+  - How many people witnessed or were exposed to the violation?
+  - Was the violation public or private in nature?
+  - If online, is the violating content still accessible or has it been removed?
+  - What exactly did the perpetrator say in the violation?
+  - What exactly did the perpetrator do in the violation?
+  - Was the violation a single incident or part of a pattern of behavior?
+  - If multiple incidents, over what time period did they occur?
+  - Did the violation involve spreading false information about the victim?
+  - Did the violation involve publishing private information without consent?
+  - Did the violation involve unauthorized use of the victim's image?
+  - Did the violation involve insulting or demeaning language?
+  - What specific words or expressions were used by the perpetrator?
+  - On a scale of 0-5, how severe was the violation of personal rights (0 = trivial, 5 = extremely serious)?
+  - What reasoning supports the severity rating assigned?
+  - Did the court explicitly assess the severity of the violation, and if so, how?
+  - What was the date when the violation occurred?
+  - What was the date of the court judgment?
+  - What type of compensation or remedy did the plaintiff request?
+  - What monetary compensation (if any) was awarded by the court?
+  - Did the court order a public apology or retraction?
+  - Did the court order removal of violating content?
+  - Did the court issue an injunction against future violations?
+  - What was the court's reasoning for the awarded remedies?
+  - Did the perpetrator act intentionally or negligently?
+  - What was the perpetrator's stated motivation or purpose?
+  - Did the perpetrator claim their statement was true or justified?
+  - Was the violation connected to the victim's professional life or reputation?
+  - Was the violation connected to the victim's personal or family life?
+  - What harm or consequences did the victim claim to have suffered?
+  - Did the victim provide evidence of specific damages (e.g., lost income, medical costs)?
+  - Did the court accept the claimed consequences as proven?
+

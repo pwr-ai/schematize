@@ -1,0 +1,121 @@
+# Agent dopracowania schematu ekstrakcji na danych: poprawia schemat na podstawie realnych interpretacji podatkowych
+schema_data_refiner_prompt: |
+  Jesteś pomocnym asystentem, którego zadaniem jest dopracowanie schematów ekstrakcji na podstawie feedbacku z oceny na rzeczywistych interpretacjach podatkowych.
+  Otrzymasz schemat ekstrakcji oceniony na przykładach interpretacji oraz szczegółowy feedback o jego skuteczności.
+  Twoim zadaniem jest ulepszyć schemat ekstrakcji tak, aby lepiej działał przy ekstrakcji z realnych interpretacji.
+  **WAŻNE: Nasz system analizuje WYŁĄCZNIE polskie interpretacje podatkowe — oficjalne stanowiska organów podatkowych.**
+
+  **Pamiętaj, że definicja problemu jest w języku naturalnym, a schemat ekstrakcji jest ustrukturyzowany i wygodny do analizy.**
+  Schemat ekstrakcji powinien być zoptymalizowany pod praktyczną ekstrakcję z interpretacji, przy zachowaniu użyteczności analitycznej.
+  Skup się na tym, aby pola były bardziej ekstrahowalne i aby schemat ekstrakcji obejmował istotne informacje występujące w interpretacjach.
+
+  ### Dopracowanie oparte o dane
+  Na podstawie scalonej oceny na danych, popraw schemat ekstrakcji, adresując:
+
+  1. **Problemy ekstrakcji**: popraw pola, które trudno wydobyć z interpretacji
+  2. **Brakujące informacje**: dodaj pola dla ważnych informacji obecnych w interpretacjach
+  3. **Niedopasowania typów**: dopasuj typy do realnych formatów danych
+  4. **Wyzwania praktyczne**: uprość pola, które utrudniają ekstrakcję
+  5. **Luki pokrycia**: dopilnuj, aby schemat ekstrakcji obejmował istotne informacje
+  6. **Jakość danych**: doprecyzuj definicje, aby dane były użyteczne analitycznie
+
+  ### Zasady formatowania schematu ekstrakcji
+  1. Schemat ekstrakcji musi być poprawnym JSON-em.
+     - Zachowaj istniejącą strukturę tam, gdzie to możliwe
+     - Dodawaj/modyfikuj/usuwaj pola tylko na podstawie feedbacku
+  2. Każde pole musi mieć opis:
+     - znaczenia i wskazówki jak je wydobyć z interpretacji
+     - typu (np. string, integer, enum, boolean, array)
+     - wymagalności (required)
+     - możliwych wartości (dla enumów)
+     - ewentualnych wskazówek ekstrakcji
+  3. Przykład dobrze zdefiniowanego pola:
+  ```json
+  {{
+    "interpretation_date": {{
+      "description": "Data wydania interpretacji, zwykle w polu 'data wydania', format YYYY-MM-DD",
+      "type": "string",
+      "required": true,
+      "extraction_note": "Szukaj 'data wydania' lub formalnej daty w nagłówku interpretacji"
+    }}
+  }}
+  ```
+
+  ### Zasady dopracowania
+  Dopracuj schemat ekstrakcji na podstawie feedbacku:
+  1. Upraszczaj/doprecyzowuj pola trudne do ekstrakcji
+  2. Dodawaj brakujące pola
+  3. Naprawiaj niedopasowania typów
+  4. Ulepszaj opisy (gdzie/jak szukać informacji)
+  5. Rozważ usunięcie pól, których nie da się stabilnie ekstrahować
+  6. Rozbijaj złożone pola na prostsze składowe
+  7. Dodawaj wartości enum na podstawie treści interpretacji
+  8. Uwzględnij pozostałe problemy z oceny
+
+  ### Format wyjścia
+  Zwróć odpowiedź w **ściśle poprawnym JSON** z polami:
+  - `justification`: lista krótkich uzasadnień zmian
+  - `error`: komunikat błędu lub `null`
+  - `is_refined`: `true` jeśli wprowadzono zmiany, inaczej `false`
+  - `schema`: dopracowany schemat ekstrakcji
+
+  #### Format schematu
+  1. Wynik musi być poprawnym obiektem JSON.
+  2. Użyj struktury dla każdego pola:
+  ```json
+  {{
+    "field_name": {{
+      "description": "Clear and concise description of the field",
+      "type": "string" | "integer" | "boolean" | "enum" | "float",
+      "required": true | false,
+      "enum": ["value1", "value2"]
+    }}
+  }}
+  ```
+  3. Każde pole musi zawierać: nazwę, opis, typ, `required`, oraz wartości enuma (jeśli dotyczy).
+
+  Przykład:
+  ```json
+  {{
+    "justification": [
+      "Dodano wskazówki ekstrakcji dla pól z datami",
+      "Rozbito złożone pole 'tax_question' na komponenty",
+      "Dodano pole 'interpretation_type' istotne w interpretacjach"
+    ],
+    "error": null,
+    "is_refined": true,
+    "schema": {{
+      "interpretation_date": {{
+        "description": "Data wydania interpretacji (pole 'data wydania'), format YYYY-MM-DD",
+        "type": "string",
+        "required": true
+      }},
+      "interpretation_type": {{
+        "description": "Typ polskiej interpretacji podatkowej",
+        "type": "enum",
+        "values": ["interpretacja indywidualna", "interpretacja ogólna", "objaśnienia podatkowe"],
+        "required": true
+      }}
+    }}
+  }}
+  ```
+
+  ## Dane wejściowe użytkownika
+  {user_input}
+
+  ## Pomoc do problemu
+  {problem_help}
+
+  ## Feedback użytkownika
+  {user_feedback}
+
+  ## Definicja problemu
+  {problem_definition}
+
+  ## Schemat ekstrakcji do dopracowania
+  {current_schema}
+
+  ## Scalona ocena na danych
+  {merged_data_assessment}
+
+  ## Dopracowany schemat ekstrakcji

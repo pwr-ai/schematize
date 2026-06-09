@@ -1,0 +1,40 @@
+# Expert: Tax Advisor specializing in contract valuation and transactional taxation
+#
+# Research focus: This expert advises corporations and individuals on the tax implications of
+# various contract types. Her practice covers employment contracts, business agreements, and
+# lease agreements, focusing on identifying taxable events and proper valuation methods for
+# analytics purposes. She is building a dataset to understand how different contract 
+# configurations impact tax positions.
+#
+# This expert takes a practitioner-oriented approach, emphasizing tax-relevant data extraction.
+# She focuses on monetary values, party structures, key dates, and clauses that have direct
+# tax consequences. Her goal is to create a systematic framework for analyzing contracts
+# from a tax perspective.
+
+questions:
+  - What type of contract is this (employment contract, business agreement, lease agreement)?
+  - What is the total monetary value or consideration stated in the contract?
+  - What is the currency in which the contract value is denominated?
+  - What are the names of all parties to the contract?
+  - For each party, is it an individual person or a legal entity (company, partnership, etc.)?
+  - What is the registered business name or legal name of each corporate party?
+  - What is the tax identification number of each corporate party?
+  - What is the jurisdiction of incorporation for each corporate party?
+  - What are the full names of individuals who signed the contract?
+  - In what capacity did each individual sign (as party, as representative, as witness)?
+  - What is the effective date or commencement date of the contract?
+  - What is the termination date or expiration date of the contract?
+  - What is the total duration or term of the contract?
+  - Are there any renewal provisions, and if so, what are the renewal terms?
+  - What is the date on which the contract was signed by each party?
+  - Is there a confidentiality or non-disclosure clause in the contract?
+  - What specific information or matters does the confidentiality clause cover?
+  - Are there any warranties provided by any party, and what do they cover?
+  - Is there a dispute resolution clause, and what mechanism does it specify (arbitration, mediation, litigation)?
+  - What is the governing law or jurisdiction specified for the contract?
+  - Is VAT or other indirect tax mentioned, and if so, how is it treated?
+  - Are there any withholding tax obligations specified in the contract?
+  - Does the contract specify which party bears responsibility for taxes?
+  - Are there any indemnification clauses related to tax liabilities?
+  - What are the termination conditions or grounds for early termination?
+

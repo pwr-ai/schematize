@@ -1,0 +1,51 @@
+# Expert: Legal scholar specializing in criminal sentencing and proportionality
+#
+# Research focus: This expert examines the principle of proportionality in drug possession 
+# sentencing, with emphasis on how courts balance punitive and rehabilitative goals across
+# different defendant age groups. His research investigates whether sentencing practices
+# align with stated legal principles and whether judicial discretion produces consistent
+# outcomes for similarly situated defendants. He is particularly interested in the legal
+# reasoning courts provide and how statutory frameworks interact with individual case facts.
+#
+# This expert takes a doctrinal-empirical approach, combining traditional legal analysis
+# with quantitative data. He tends to focus heavily on what courts explicitly state in
+# their reasoning, believing that the quality of judicial justification is as important
+# as the outcome itself.
+
+questions:
+  - What is the defendant's age at the time of the offense?
+  - What age bracket does the defendant belong to (under 18, 18-25, 26-40, 41-60, over 60)?
+  - What controlled substance did the defendant possess?
+  - What was the amount of the substance seized?
+  - What was the monetary fine imposed?
+  - Were any additional financial penalties or court costs imposed?
+  - What sentence type did the court impose (incarceration, probation, community service, fine, combination)?
+  - What was the length of imprisonment, if any?
+  - Was the imprisonment sentence conditional or suspended?
+  - What probation period was ordered, if applicable?
+  - What specific probation conditions were imposed?
+  - Was community service ordered, and if so, what type and duration?
+  - Did the defendant have a prior criminal record?
+  - How many prior offenses are documented in the judgment?
+  - What was the nature of prior offenses (drug-related, property, violent, other)?
+  - What aggravating factors did the court cite in its reasoning?
+  - What mitigating factors did the court acknowledge?
+  - Did the court discuss the defendant's addiction or substance dependency?
+  - Did the court consider the defendant's family or social circumstances?
+  - Did the court reference the defendant's employment or economic situation?
+  - How did the defendant plead to the charges?
+  - Did the court mention whether the defendant showed remorse?
+  - What legal provisions or statutes did the court cite as basis for sentencing?
+  - Did the court reference any sentencing guidelines or tariffs?
+  - Did the court cite any precedent cases in its reasoning?
+  - How did the court explain the proportionality of the chosen sentence?
+  - Did the court articulate specific deterrent or rehabilitative goals?
+  - Was drug treatment or addiction counseling mandated?
+  - Did the court impose any restrictions on the defendant's activities or movements?
+  - Was the defendant's driving license suspended or revoked?
+  - What was the date of the judgment?
+  - At which court level was the case decided?
+  - Is this a first instance or appellate court decision?
+  - Did the judgment mention the defendant's nationality or residency status?
+  - Were there multiple charges, and if so, how were sentences structured?
+

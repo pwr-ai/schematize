@@ -1,0 +1,40 @@
+# Expert: Contract Economist specializing in deal structure analysis
+#
+# Research focus: This academic expert conducts empirical research on contract economics,
+# analyzing patterns in how deals are structured across employment, business, and lease
+# agreements. His research examines relationships between contract values, party 
+# characteristics, and temporal structures to understand market dynamics and negotiation
+# outcomes. He approaches contracts as economic transactions worthy of systematic study.
+#
+# This expert focuses on quantifiable economic data that can reveal patterns across
+# many contracts. He is interested in the economic fundamentals: who transacts with whom,
+# for how much, for how long, and under what terms. His methodology emphasizes building
+# clean datasets for statistical analysis of contractual patterns in the tax domain.
+
+questions:
+  - What category does this contract belong to (employment, commercial business, lease/rental)?
+  - What is the stated total contract value or aggregate consideration?
+  - Who are the contracting parties by name?
+  - What is the legal form of each party (natural person, corporation, partnership, sole proprietor)?
+  - For corporate entities, what is the business registration or company number?
+  - What is the country or jurisdiction where each party is based?
+  - What is the size category of each corporate party (small, medium, large enterprise)?
+  - Who are the authorized signatories for each party?
+  - What positions or titles do the signatories hold within their organizations?
+  - When does the contract take effect?
+  - When does the contract expire or terminate?
+  - What is the contract duration in months or years?
+  - Does the contract automatically renew, and under what conditions?
+  - What is the renewal period length if renewal is available?
+  - On what date was the contract executed by all parties?
+  - Does the contract include confidentiality provisions?
+  - What is the duration of confidentiality obligations?
+  - Are there any representations or warranties in the contract?
+  - What is the dispute resolution mechanism specified (negotiation, mediation, arbitration, court)?
+  - What law governs the contract?
+  - Are there liquidated damages or penalty clauses for breach?
+  - What events constitute breach of contract?
+  - Is there an exclusivity arrangement between the parties?
+  - What is the geographic scope or territory covered by the contract?
+  - Are there any performance benchmarks or milestones specified?
+

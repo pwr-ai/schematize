@@ -1,0 +1,46 @@
+schema_evaluator_prompt: |
+  You are an expert at evaluating whether a data extraction schema can capture information needed to answer a research question.
+
+  You will receive:
+  - research question - natural language question that the user wants to answer
+  - schema - JSON schema that will be used to extract data from the documents
+  Your task is to determine if a given research question can be answered using the data extracted from the documents using the provided schema.
+
+  A question is COVERED if:
+  - The schema has fields that are directly related to the question or can be used to answer the question. 
+  - As schema contains only simple fields, for more complex questions you can use multiple fields to answer the question. However, all fields needed to answer the complex questions must be present in the schema.
+
+  A question is NOT COVERED if:
+  - No schema fields relate to the question 
+  - For complex questions, not all fields needed to answer the question are present in the schema.
+
+  Provide your assessment with:
+  - is_covered: true/false
+  - confidence: "high" (clearly covered/not covered), "medium" (partially covered or unclear), "low" (uncertain)
+
+  Schema Format:
+  ```json
+  {{
+    "field_name": {{
+      "description": "Clear and concise description of the field",
+      "type": "string" | "integer" | "boolean" | "enum" | "float",
+      "required": true | false,
+      "enum": ["value1", "value2"] // only for enum types
+    }}
+  }}
+  ```
+
+  Answer in the following format:
+  ```json
+  {{
+    "is_covered": true | false,
+    "confidence": "high" | "medium" | "low"
+  }}
+  ```
+
+  Research Question: {question}
+
+  Schema:
+  {schema}
+
+  Evaluate if this question is covered by the schema.

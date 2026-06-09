@@ -1,0 +1,30 @@
+user_input: Wygeneruj schemat do ekstrakcji danych z orzeczeń sądowych dotyczących przestępstw narkotykowych, ze szczególnym uwzględnieniem wieku oskarżonego oraz wysokości orzeczonej kary.
+problem_help: |
+  1. [Potwierdzenie] Czy dobrze rozumiem, że chcesz zbadać zależność między wiekiem oskarżonego a wysokością orzeczonej kary w sprawach dotyczących przestępstw narkotykowych, na podstawie uzasadnień polskich wyroków sądowych?
+
+  2. [Ramy prawne] Czy interesują Cię konkretne typy czynów z ustawy z dnia 29 lipca 2005 r. o przeciwdziałaniu narkomanii (np. art. 62, art. 59, art. 56, art. 58), i czy chcesz porównać, jak kwalifikacja prawna wpływa na wymiar kary?
+
+  3. [Ramy prawne] Czy chcesz analizować także przepisy Kodeksu karnego i Kodeksu karnego wykonawczego istotne dla wymiaru kary (np. art. 53 k.k., art. 60 k.k., art. 69–72 k.k.), jako potencjalne czynniki różnicujące surowość kary?
+
+  4. [Kontekst procesowy] Czy ograniczasz badanie do wyroków skazujących, czy uwzględniasz również uniewinnienia, umorzenia (w tym warunkowe umorzenie postępowania) oraz wyroki łączne, jeśli pojawiają się w sprawach narkotykowych?
+
+  5. [Kontekst procesowy] Czy istotne jest dla Ciebie rozróżnienie między oskarżonym nieletnim (postępowanie w sprawach nieletnich) a młodocianym w rozumieniu art. 115 § 10 k.k. oraz „dorosłym” oskarżonym — jako odrębne kategorie porównawcze?
+
+  6. [Analiza orzecznictwa] Czy interesuje Cię, czy sądy w uzasadnieniach różnicują wymiar kary w zależności od okoliczności łagodzących/obciążających typowych dla tych spraw (np. uprzednia karalność, uzależnienie, działanie w celu osiągnięcia korzyści majątkowej, współsprawstwo, recydywa)?
+
+  7. [Analiza orzecznictwa] Czy chcesz badać wpływ „ilości i rodzaju środka odurzającego/substancji psychotropowej” oraz celu posiadania (na własny użytek vs. obrót) na wysokość kary — niezależnie od wieku oskarżonego?
+
+  8. [Kontekst temporalny] Czy interesuje Cię, czy linia orzecznicza w zakresie wymiaru kary za przestępstwa narkotykowe zmieniała się w czasie (np. po nowelizacjach Kodeksu karnego lub ustawy o przeciwdziałaniu narkomanii), i czy „moment czynu” ma być zmienną analityczną?
+
+  9. [Przypadki szczególne] Czy chcesz wyodrębnić jako osobne scenariusze sprawy z udziałem osób w wieku bliskim granicy pełnoletności (np. 17–19 lat), sprawy szkolne/akademickie, albo sprawy z równoległymi czynami (np. art. 178a k.k., art. 157 k.k.), aby sprawdzić, czy te konteksty modyfikują surowość kary?
+user_feedback: |
+  1. Tak.
+  2. Wszystkie przestępstwa narkotykowe — posiadanie, obrót, wytwarzanie.
+  3. Tak, szczególnie przepisy o zawieszeniu kary i warunkowym umorzeniu.
+  4. Wyroki skazujące i warunkowe umorzenia. Uniewinnienia nie.
+  5. Tak, to ważna zmienna — chcę te kategorie. Dodatkowo chcę też podzielić wiek oskarżonego na 5 przedziałów wiekowych.
+  6. Tak, wszystkie te okoliczności są ważne.
+  7. Tak, ilość i rodzaj środka są ważne. Cel też.
+  8. Nie, nie interesuje mnie zmiana orzecznictwa w czasie.
+  9. Nie, nie chcę tego wyodrębniać, bo taka informacja będzie już zawarta w wieku oskarżonego. Równoległe czyny też chciałbym przeanalizować, ponieważ mogą wpływać na wymiar kary.
+human_message: Jestem zadowolony. Chcę zakończyć chat.

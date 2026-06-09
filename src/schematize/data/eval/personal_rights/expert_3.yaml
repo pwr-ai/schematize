@@ -1,0 +1,56 @@
+# Expert: Social Psychologist specializing in Harm Assessment
+#
+# Research focus: This expert studies the psychological and social dimensions
+# of personal rights violations, with particular interest in understanding how
+# context shapes both the perpetrator's behavior and the victim's experience
+# of harm. Her research aims to develop empirically-grounded frameworks for
+# assessing violation severity that account for situational factors.
+#
+# She is especially interested in the gap between legal outcomes and subjective
+# harm - cases where victims experience significant distress but receive minimal
+# legal remedy, or where violations deemed serious by courts had limited actual
+# impact. Her work explores how factors like publicity, the words used, the
+# setting, and the perceived intent of the perpetrator affect harm severity.
+#
+# The expert has a nuanced, context-sensitive approach and believes that
+# understanding violations requires capturing the full circumstances - not
+# just what happened, but how it happened and what consequences followed.
+# She acknowledges that severity assessment is inherently subjective and
+# seeks to make that subjectivity explicit and systematic.
+
+questions:
+  - What type of personal right was at stake in this case?
+  - What exactly happened in this case - describe the violating act or statement?
+  - What specific words or phrases did the perpetrator use?
+  - What was the perpetrator's apparent intent or motivation?
+  - Was the violation spontaneous or premeditated?
+  - Where did the violation occur (specific location or medium)?
+  - If the violation was on the internet, which platform or website was involved?
+  - Who was present when the violation occurred?
+  - How many people potentially witnessed or learned about the violation?
+  - Was the violation a one-time event or repeated behavior?
+  - What was the social or professional context of the violation?
+  - Did the violation occur in a context where the victim could respond or defend themselves?
+  - How did the victim describe the impact of the violation on their emotional wellbeing?
+  - Did the victim claim psychological harm such as anxiety, depression, or humiliation?
+  - Did the victim claim social consequences such as damaged reputation or lost relationships?
+  - Did the victim claim professional or financial consequences?
+  - What evidence did the victim provide to support claimed consequences?
+  - Did the court accept the victim's claims about consequences as credible?
+  - On a scale of 0-5, how severe was this violation of personal rights (0 = trivial like calling someone "idiot", 5 = devastating)?
+  - What factors most strongly influenced the severity rating?
+  - Was the violation primarily verbal, written, visual, or physical in nature?
+  - Did the violation target the victim's professional reputation or personal life?
+  - Did the violation involve disclosure of private or intimate information?
+  - Did the violation spread beyond its original context (e.g., went viral, was republished)?
+  - How did the perpetrator respond when confronted about the violation?
+  - Did the perpetrator apologize or attempt to make amends before litigation?
+  - Did the perpetrator continue the violating behavior after being sued?
+  - What remedy did the victim seek from the court?
+  - What remedy did the court ultimately provide?
+  - Did the victim express satisfaction with the court's remedy in the judgment?
+  - What was the time period between the violation and the court judgment?
+  - Did prolonged litigation itself cause additional harm to the victim?
+  - Was the defendant a private individual or an entity (media outlet, company)?
+  - Did the public nature of the proceedings expose the victim to additional scrutiny?
+

@@ -1,0 +1,137 @@
+# Init Chat Agent: Initiates chat with summarization of the schema generation process
+init_chat_generation_summarizer_prompt: |
+  You are a helpful assistant tasked with creating a summary to present to the user about their schema.
+  This summary will be shown to the user to remind them what they originally requested and what schema was generated.
+  After reading this summary, the user will provide feedback on what they want to change or improve in the schema.
+  **IMPORTANT: Our system analyzes legal judgments - court rulings, legal proceedings, and legal entities.**
+  
+  ### Purpose
+  Create a clear, concise summary addressed directly to the user that:
+  1. **Reminds them what they asked for** - Their original problem or goal
+  2. **Shows what was created** - What information the schema extracts
+  3. **Describes the current schema** - Overview of the main fields and their purpose
+  4. **Invites refinement** - Lets them know they can now request adjustments
+  
+  ### Summary Guidelines
+  1. **Address the user directly**: Use "you" and "your" (e.g., "You requested a schema to...")
+  2. **Focus on their original intent**: What did they ask to extract and analyze?
+  3. **Describe what was built for them**: What fields exist and what they capture
+  4. **Be conversational and helpful**: Write as if presenting work to a colleague
+  5. **Be concise**: 2-4 paragraphs maximum
+  6. **Avoid technical process details**: Don't mention iterations or generation steps
+  7. **End with invitation for feedback**: Encourage them to request changes
+  
+  ### Output Format
+  Return ONLY plain text (not JSON, not markdown). Write a natural, conversational summary addressed to the user.
+  **IMPORTANT: Write the summary in POLISH language.**
+  
+  ### Example Output
+  ```
+  Na podstawie Twojego zapytania stworzyłem schemat do ekstrakcji ustrukturyzowanych informacji z polskich wyroków sądowych dotyczących spraw o odszkodowanie w sprawach cywilnych. Chciałeś przeanalizować, jak sądy orzekają w sprawach dotyczących odszkodowań za szkody materialne i zidentyfikować czynniki wpływające na wysokość zasądzonych kwot.
+
+  Wygenerowany schemat obejmuje 16 kluczowych pól zorganizowanych w trzech głównych obszarach: 1) Metadane sprawy (data wyroku, sąd orzekający, sygnatura akt, rodzaj postępowania), 2) Szczegóły sprawy (strony postępowania, przedmiot sporu, rodzaj szkody, żądana kwota), oraz 3) Orzeczenie sądu (rozstrzygnięcie, zasądzona kwota, podstawa prawna, kluczowe argumenty). Użyłem głównie prostych typów pól (string, enum, integer) z jasnymi wskazówkami ekstrakcji dla każdego pola, aby dane były łatwe w analizie statystycznej.
+
+  Schemat jest dostosowany specyficznie do polskich wyroków sądowych i zawiera pola dla elementów takich jak instancja sądu, podstawy prawne (Kodeks cywilny), rodzaje rozstrzygnięć (uwzględniono, oddalono, częściowo uwzględniono) oraz inne elementy typowe dla polskich orzeczeń. Każde pole ma opis, który pomoże w spójnej ekstrakcji informacji z tych dokumentów.
+
+  Proszę, przejrzyj schemat i daj mi znać, co chciałbyś dostosować, dodać lub usunąć, aby lepiej odpowiadał Twoim potrzebom.
+  ```
+  
+  ### User Input
+  {user_input}
+
+  ## Problem Help
+  {problem_help}
+
+  ## User Feedback To Problem Help
+  {user_feedback}
+
+  ## Problem Definition
+  {problem_definition}
+  
+  ## Current Schema
+  {current_schema}
+  
+  ## Generation Summary (Polish language)
+
+init_chat_system_message_prompt: |
+  You are a helpful chat agent that helps user to refine schema. 
+  User provide instructions how to refine schema. 
+  You should return refined schema based on the user message. 
+  If user wants to end the conversation, return json with "end_conversation" field set to true.
+  *Refuse to answer questions and instructions outside of the schema refinement.* 
+  You can use provided additional context to know more about the user's problem. 
+  But user messages are more important than additional context, even if they are contradictory to additional context.
+  If you think that you need to refine the schema, return it, otherwise do not return schema, and continue the conversation, eg. ask user for more information.
+
+  Refine = udoskonalać (Polish language)
+
+
+
+init_chat_first_message_prompt: |
+  {generation_summary}
+  ======
+  # Current schema:
+  ```json
+  {current_schema}
+  ```
+
+  # Additional context:
+  ## Initial user input
+  {user_input}
+
+  ## Problem help
+  {problem_help}
+
+  ## User feedback
+  {user_feedback}
+
+  ## Problem definition
+  {problem_definition}
+
+  # Output Format
+  If you think that you need to refine the schema, return it in the following format.
+
+  1. The output must be a valid JSON object.
+  2. Use the following structure for each field:
+  ```json
+  {{
+    "field_name": {{
+      "description": "Clear and concise description of the field",
+      "type": "string" | "integer" | "boolean" | "enum" | "float",
+      "required": true | false,
+      "enum": ["value1", "value2"] // only for enum types
+    }}
+  }}
+  ```
+  3. Each field must include:
+    - A meaningful name
+    - A clear description
+    - A valid type
+    - Whether it's required
+    - Enum values if applicable
+  
+  Example:
+  ```json
+  I refined the schema based on your feedback, by adding field 'defendant_gender' to the schema. Let me know if you need any other refinements.
+
+  {{
+    "justification": [
+      "Added field 'defendant_gender' to the schema, because user asked about it"
+    ],
+    "is_refined": true,
+    "end_conversation": false, // if true, the conversation will end, set to true if user wants to end the conversation
+    "schema": {{ 
+      "judgment_date": {{
+        "description": "Date when the judgment was issued, formatted as YYYY-MM-DD",
+        "type": "string",
+        "required": true
+      }},
+      "defendant_gender": {{
+        "description": "Gender of the defendant",
+        "type": "enum",
+        "values": ["male", "female", "other", "unknown"],
+        "required": true
+      }}
+    }}
+  }}
+  ```

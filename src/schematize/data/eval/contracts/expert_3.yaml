@@ -1,0 +1,44 @@
+# Expert: Legal Analyst specializing in contractual risk and clause structure
+#
+# Research focus: This expert analyzes contracts from a legal-structural perspective,
+# focusing on how clauses allocate rights, obligations, and risks between parties. Her
+# work spans employment contracts, business agreements, and lease agreements, with
+# particular interest in understanding how legal protections and dispute mechanisms
+# are structured. She builds analytical datasets to study patterns in contract drafting.
+#
+# This expert approaches contracts as legal instruments that reveal negotiating power
+# and risk allocation between parties. She is interested in the interplay between core
+# commercial terms and protective clauses like warranties, confidentiality, and dispute
+# resolution. Her goal is to understand how contracts balance the interests of different
+# party types through their clause structures.
+
+questions:
+  - What is the contract type classification (employment, business/commercial, lease)?
+  - What is the total contract value stated in the agreement?
+  - What is the full legal name of each party as it appears in the contract?
+  - What is the legal status of each party (individual, corporation, partnership, government entity)?
+  - What is the registered address or principal place of business of each party?
+  - Is any party acting through an agent or authorized representative?
+  - Who physically signed the contract for each party?
+  - What date did each signatory execute the contract?
+  - What is the contract start date?
+  - What is the contract end date or term limit?
+  - Is the contract open-ended or fixed-term?
+  - What renewal options exist and what triggers them?
+  - Is there a confidentiality clause, and what is its scope?
+  - What is the duration of confidentiality obligations after contract termination?
+  - What warranties or guarantees are provided by each party?
+  - What subject matters do the warranties specifically address?
+  - What dispute resolution procedure is specified (negotiation, mediation, arbitration, court)?
+  - What is the applicable law or governing law clause?
+  - What venue or forum is specified for resolving disputes?
+  - Are there limitation of liability provisions, and what do they cover?
+  - What is the monetary cap on liability, if specified?
+  - Are there any indemnification obligations between the parties?
+  - What circumstances trigger indemnification?
+  - What termination notice requirements exist?
+  - What are the grounds for termination by each party?
+  - What are the consequences of termination on outstanding obligations?
+  - Are there any non-solicitation or non-compete restrictions?
+  - What remedies are available for breach of contract?
+
