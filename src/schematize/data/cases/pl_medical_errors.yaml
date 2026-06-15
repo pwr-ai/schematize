@@ -1,0 +1,33 @@
+user_input: W jaki sposób sądy cywilne ustalają wysokość zadośćuczynienia za błędy medyczne i jakie okoliczności wpływają na kwoty zasądzane na rzecz pacjentów?
+problem_help: 
+  1. [Potwierdzenie] Rozumiem, że chcesz zbadać, jakie kryteria i argumenty sądy cywilne wskazują w uzasadnieniach wyroków przy ustalaniu wysokości zadośćuczynienia za krzywdę wynikłą z błędu medycznego oraz które okoliczności korelują z wysokością zasądzanych kwot — czy dobrze rozumiem?
+
+  2. [Potwierdzenie] Czy interesuje Cię wyłącznie zadośćuczynienie pieniężne za doznaną krzywdę (art. 445 § 1 Kodeksu cywilnego i/lub art. 448 Kodeksu cywilnego), czy także powiązane roszczenia, np. odszkodowanie (art. 444 Kodeksu cywilnego) oraz renta (art. 444 § 2 Kodeksu cywilnego)?
+
+  3. [Ramy prawne] Czy kluczowe jest dla Ciebie rozróżnienie podstawy odpowiedzialności: odpowiedzialność deliktowa (art. 415 k.c.), odpowiedzialność na zasadzie ryzyka za podwładnego (art. 430 k.c.) oraz odpowiedzialność podmiotu leczniczego (np. wątek winy organizacyjnej), i czy chcesz sprawdzić, czy wybór podstawy prawnej wpływa na wysokość zadośćuczynienia?
+
+  4. [Kontekst procesowy] Czy chcesz porównywać podejście do miarkowania zadośćuczynienia między sądem pierwszej instancji a sądem drugiej instancji (w tym, jak często sądy zmieniają kwotę zasądzoną) i czy to ma być jedna z głównych zmiennych badawczych?
+
+  5. [Kontekst procesowy] Czy interesuje Cię, czy status pozwanego (lekarz jako osoba fizyczna, szpital/podmiot leczniczy, ubezpieczyciel odpowiedzialności cywilnej) różnicuje wysokość zasądzanego zadośćuczynienia lub sposób uzasadniania?
+
+  6. [Analiza orzecznictwa] Czy chcesz badać wpływ opinii biegłych (np. ustaleń co do związku przyczynowego, stopnia trwałego uszczerbku na zdrowiu, rokowań) na wysokość zadośćuczynienia i na to, jakie elementy opinii sądy uznają za decydujące?
+
+  7. [Analiza orzecznictwa] Które okoliczności materialnoprawne mają być dla Ciebie kluczowe jako potencjalne „determinanty kwoty” — np. czas trwania i intensywność cierpień, nieodwracalność skutków, wiek pacjenta, niepełnosprawność, utrata samodzielności, wpływ na życie rodzinne i zawodowe?
+
+  8. [Analiza orzecznictwa] Czy interesuje Cię, w jaki sposób sądy uzasadniają „odpowiedniość” zadośćuczynienia — np. czy odwołują się do porównania z innymi orzeczeniami, do funkcji kompensacyjnej, do stopy życiowej społeczeństwa, i czy te wzorce argumentacyjne chcesz porównać między sądami?
+
+  9. [Kontekst temporalny] Czy chcesz zbadać, czy w czasie zmieniała się praktyka zasądzania kwot (np. trend wzrostowy) oraz czy sądy wiążą to z czynnikami takimi jak inflacja lub ewolucja standardów ochrony pacjenta, niezależnie od konkretnych nowelizacji?
+
+  10. [Przypadki szczególne] Czy chcesz wyodrębnić szczególne kategorie błędów i skutków (np. błąd diagnostyczny vs błąd terapeutyczny vs błąd okołoporodowy; śmierć pacjenta i roszczenia osób bliskich na podstawie art. 446 § 4 k.c.) i porównać, czy te typy spraw prowadzą do istotnie różnych kwot i innego sposobu uzasadniania?
+user_feedback: |
+  1. Tak, chcę znaleźć zmienne, które przewidują wysokość kwoty.
+  2. Zadośćuczynienie i odszkodowanie. Renty nie.
+  3. Nie, podstawa prawna to nie jest moja zmienna.
+  4. Tak, chcę wiedzieć jak często sąd odwoławczy zmienia kwotę i w którą stronę.
+  5. Tak, szczególnie różnica między szpitalem a ubezpieczycielem.
+  6. Tak. Czy sąd oparł kwotę na procentowym uszczerbku z opinii biegłego, czy wyszedł poza nią.
+  7. Wszystkie wymienione okoliczności są ważne.
+  8. Tak, czy sądy porównują się do innych wyroków i czy robią to wprost.
+  9. Nie.
+  10. Tak, skategoryzuj błędy i skutki. 
+human_message: Jestem zadowolony. Chcę zakończyć chat.

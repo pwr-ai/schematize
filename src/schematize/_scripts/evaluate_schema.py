@@ -14,7 +14,10 @@ from schematize.settings import PROMPTS_PATH
 from schematize.utils.langchain import setup_langchain_llm_cache
 
 
-@hydra.main(version_base=None, config_path="../../../config", config_name="evaluate")
+_CONFIG_PATH = str(Path(__file__).parent / "../../../config")
+
+
+@hydra.main(version_base=None, config_path=_CONFIG_PATH, config_name="evaluate")
 def main(cfg: DictConfig) -> None:
     logging.getLogger("httpx").setLevel(logging.WARNING)
 

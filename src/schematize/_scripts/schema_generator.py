@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
+from typing import Annotated, Optional
 
+import typer
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
@@ -8,44 +10,45 @@ from schematize.agents.agent_state import agent_state_to_json
 from schematize.agents.schema_generator import SchemaGenerator
 from schematize.utils.load import load_prompts
 
-MODEL_NAME = "gpt-4o-mini"
-LANGUAGE = "pl"
-SYSTEM_TYPE = "tax"
-TEMPERATURE = 0.2
-MAX_TOKENS = 32_000
-MODELS_KWARGS: dict = {"reasoning_effort": "low"} if MODEL_NAME.startswith("o") else {}
-
-OUTPUT_PATH = "state.json"
+app = typer.Typer()
 
 
-def main() -> None:
+@app.command()
+def main(
+    model: Annotated[str, typer.Option()] = "gpt-4o-mini",
+    language: Annotated[str, typer.Option(help="pl or en")] = "en",
+    system_type: Annotated[str, typer.Option(help="tax or law")] = "tax",
+    temperature: Annotated[float, typer.Option()] = 0.2,
+    max_tokens: Annotated[int, typer.Option()] = 32_000,
+    output: Annotated[Path, typer.Option()] = Path("state.json"),
+    api_url: Annotated[Optional[str], typer.Option()] = None,
+    api_key: Annotated[Optional[str], typer.Option()] = None,
+) -> None:
     load_dotenv(".env")
 
-    assert LANGUAGE in ["pl", "en"], "Invalid language"
-    assert SYSTEM_TYPE in ["law", "tax"], "Invalid system type"
+    if language not in ("pl", "en"):
+        raise typer.BadParameter(f"language must be 'pl' or 'en', got '{language}'")
+    if system_type not in ("tax", "law"):
+        raise typer.BadParameter(f"system_type must be 'tax' or 'law', got '{system_type}'")
 
     try:
         from schematize.retrieval.weaviate import DocumentType, WeaviateRetriever
     except ImportError:
-        raise SystemExit(
-            "This script requires the weaviate extra: pip install schematize[weaviate]"
-        )
+        raise typer.Exit("This script requires the weaviate extra: pip install schematize[weaviate]")
 
-    document_type = (
-        DocumentType.JUDGMENT if SYSTEM_TYPE == "law" else DocumentType.TAX_INTERPRETATION
-    )
+    document_type = DocumentType.JUDGMENT if system_type == "law" else DocumentType.TAX_INTERPRETATION
+    prompts = load_prompts(language, system_type)
+    retriever = WeaviateRetriever(document_type=document_type, language=language)
 
-    prompts = load_prompts(LANGUAGE, SYSTEM_TYPE)
-    retriever = WeaviateRetriever(document_type=document_type, language=LANGUAGE)
-
+    model_kwargs = {"reasoning_effort": "low"} if model.startswith("o") else {}
     llm = ChatOpenAI(
-        model=MODEL_NAME,
-        base_url=os.getenv("API_URL"),
-        api_key=os.getenv("API_KEY"),
-        temperature=TEMPERATURE,
-        max_tokens=MAX_TOKENS,
+        model=model,
+        base_url=api_url or os.getenv("API_URL"),
+        api_key=api_key or os.getenv("API_KEY"),
+        temperature=temperature,
+        max_tokens=max_tokens,
         use_responses_api=False,
-        **MODELS_KWARGS,
+        **model_kwargs,
     )
 
     schema_system = SchemaGenerator(
@@ -66,17 +69,16 @@ def main() -> None:
         recursion_limit=100,
     )
 
-    print("Input text with description of the schema to generate:")
+    typer.echo("Describe the schema to generate:")
     input_text = input()
 
     final_state = schema_system.stream_graph_updates(input_text)
 
-    output_path = Path(OUTPUT_PATH)
-    with output_path.open("w") as f:
+    with output.open("w") as f:
         f.write(agent_state_to_json(final_state))
 
-    print(f"State saved to {output_path}")
+    typer.echo(f"State saved to {output}")
 
 
 if __name__ == "__main__":
-    main()
+    app()

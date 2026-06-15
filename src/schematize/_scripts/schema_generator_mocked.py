@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
 import hydra
 import yaml
 from langchain_core.messages import AIMessage, HumanMessage
@@ -14,42 +15,14 @@ from schematize.utils.langchain import setup_langchain_llm_cache
 from schematize.utils.load import load_prompts
 
 
-def load_cases() -> dict[str, dict[str, str]]:
-    assert CASES_PATH.exists(), "Cases directory does not exist"
-    cases = {}
-    for case_file in CASES_PATH.glob("*.yaml"):
-        with open(case_file, "r") as f:
-            cases[case_file.stem] = yaml.safe_load(f)
-    return cases
+_CONFIG_PATH = str(Path(__file__).parent / "../../../config")
+
+load_dotenv()
 
 
-def create_mock_problem_helper(problem_help_text: str):
-    def mock_problem_helper(state: AgentState) -> dict[str, Any]:
-        response = AIMessage(content=problem_help_text)
-        return {"messages": [response], "problem_help": problem_help_text}
-    return mock_problem_helper
-
-
-def create_mock_user_feedback(user_feedback_text: str):
-    def mock_user_feedback(state: AgentState) -> dict[str, Any]:
-        return {
-            "user_feedback": user_feedback_text,
-            "messages": [HumanMessage(content=user_feedback_text)],
-        }
-    return mock_user_feedback
-
-
-def create_mock_human_message(human_message_text: str):
-    def mock_human_message(state: AgentState) -> dict[str, Any]:
-        return {
-            "messages": [HumanMessage(content=human_message_text)],
-            "final_messages": [HumanMessage(content=human_message_text)],
-        }
-    return mock_human_message
-
-
-@hydra.main(version_base=None, config_path="../../../config", config_name="run_mocked")
+@hydra.main(version_base=None, config_path=_CONFIG_PATH, config_name="run_mocked")
 def main(cfg: DictConfig) -> None:
+    
     assert cfg.case.language in ["pl", "en"], "Invalid language"
     assert cfg.case.system_type in ["law", "tax"], "Invalid system type"
 
@@ -129,6 +102,38 @@ def main(cfg: DictConfig) -> None:
 
     print(f"State saved to {output_path}")
 
+def load_cases() -> dict[str, dict[str, str]]:
+    assert CASES_PATH.exists(), "Cases directory does not exist"
+    cases = {}
+    for case_file in CASES_PATH.glob("*.yaml"):
+        with open(case_file, "r") as f:
+            cases[case_file.stem] = yaml.safe_load(f)
+    return cases
+
+
+def create_mock_problem_helper(problem_help_text: str):
+    def mock_problem_helper(state: AgentState) -> dict[str, Any]:
+        response = AIMessage(content=problem_help_text)
+        return {"messages": [response], "problem_help": problem_help_text}
+    return mock_problem_helper
+
+
+def create_mock_user_feedback(user_feedback_text: str):
+    def mock_user_feedback(state: AgentState) -> dict[str, Any]:
+        return {
+            "user_feedback": user_feedback_text,
+            "messages": [HumanMessage(content=user_feedback_text)],
+        }
+    return mock_user_feedback
+
+
+def create_mock_human_message(human_message_text: str):
+    def mock_human_message(state: AgentState) -> dict[str, Any]:
+        return {
+            "messages": [HumanMessage(content=human_message_text)],
+            "final_messages": [HumanMessage(content=human_message_text)],
+        }
+    return mock_human_message
 
 if __name__ == "__main__":
     main()
