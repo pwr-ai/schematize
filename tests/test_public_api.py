@@ -64,6 +64,24 @@ def test_document_retriever_protocol():
     assert isinstance(MyRetriever(), DocumentRetriever)
 
 
+def test_huggingface_import_guard():
+    import importlib
+    import importlib.util
+    import sys
+
+    hf_modules = [k for k in sys.modules if k.startswith(("datasets", "sentence_transformers", "faiss"))]
+    for mod in hf_modules:
+        del sys.modules[mod]
+
+    if importlib.util.find_spec("datasets") is None or importlib.util.find_spec("faiss") is None:
+        import pytest
+
+        with pytest.raises(ImportError, match="schematize\\[huggingface\\]"):
+            import schematize.retrieval.huggingface  # noqa: F401
+
+            importlib.reload(schematize.retrieval.huggingface)
+
+
 def test_weaviate_import_guard():
     import importlib
     import sys
