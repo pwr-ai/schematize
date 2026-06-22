@@ -18,18 +18,17 @@ dependencies = [
     "langgraph>=0.6",
     "typing-extensions>=4.0",
     "typer>=0.26.7",
+    "loguru>=0.7",
 ]
 
 [project.optional-dependencies]
 weaviate = [
     "weaviate-client>=4.11",
-    "loguru>=0.7",
 ]
 huggingface = [
     "datasets>=3.0",
     "sentence-transformers>=3.0",
     "faiss-cpu>=1.8",
-    "loguru>=0.7",
 ]
 scripts = [
     "hydra-core>=1.3",

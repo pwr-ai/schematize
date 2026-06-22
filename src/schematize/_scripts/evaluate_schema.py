@@ -13,7 +13,6 @@ from schematize.eval.evaluator import SchemaEvaluator
 from schematize.settings import PROMPTS_PATH
 from schematize.utils.langchain import setup_langchain_llm_cache
 
-
 _CONFIG_PATH = str(Path(__file__).parent / "../../../config")
 
 

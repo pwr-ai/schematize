@@ -1,13 +1,11 @@
 defaults:
   - _self_
   - case: ???
+  - retriever: mmlw
 
 api_key: ${oc.env:API_KEY}
 api_url: ${oc.env:API_URL}
-# model_name: gpt-5.2
-model_name: gpt-5-nano
-# model_name: llama-4-scout-17b
-wv_collection_name: LegalDocuments
+model_name: ???
 llm_cache: false
 
 llm:
@@ -25,15 +23,16 @@ schema_generator:
   data_assessment_num_examples: 2
   data_assessment_random_seed: 17
 
-output_subdir: generated_schemas/${model_name}/${case.name}/maxrr_${schema_generator.max_refinement_rounds}_minrr_${schema_generator.min_refinement_rounds}_maxdrr_${schema_generator.max_data_refinement_rounds}_mindrr_${schema_generator.min_data_refinement_rounds}_dane_${schema_generator.data_assessment_num_examples}
+single_run_output_subdir: generated_schemas/${model_name}
+multirun_output_subdir: generated_schemas/${model_name}/${case.name}/maxrr_${schema_generator.max_refinement_rounds}_minrr_${schema_generator.min_refinement_rounds}_maxdrr_${schema_generator.max_data_refinement_rounds}_mindrr_${schema_generator.min_data_refinement_rounds}_dane_${schema_generator.data_assessment_num_examples}
 output: ${hydra:runtime.output_dir}
 
 hydra:
   run:
-    dir: outputs/${output_subdir}
+    dir: outputs/${single_run_output_subdir}
   sweep:
     dir: multirun/
-    subdir: ${output_subdir}
+    subdir: ${multirun_output_subdir}
     
   sweeper:
     params:

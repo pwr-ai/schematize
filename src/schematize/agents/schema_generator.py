@@ -4,6 +4,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
+from loguru import logger
 
 from schematize.agents.agent_state import AgentState
 from schematize.agents.basic_agents import (
@@ -21,6 +22,23 @@ from schematize.agents.data_agents import (
     SchemaDataRefinerAgent,
 )
 from schematize.retrieval.base import DocumentRetriever
+
+_NODE_TO_AGENT = {
+    "llm_problem_definer_helper": "ProblemDefinerHelperAgent",
+    "llm_problem_definer": "ProblemDefinerAgent",
+    "llm_schema_generator": "SchemaGeneratorAgent",
+    "llm_first_schema_assessment": "SchemaAssessmentAgent",
+    "llm_schema_assessment": "SchemaAssessmentAgent",
+    "llm_schema_refiner": "SchemaRefinerAgent",
+    "llm_query_generator": "QueryGeneratorAgent",
+    "llm_schema_data_assessment": "SchemaDataAssessmentAgent",
+    "llm_schema_data_assessment_merger": "SchemaDataAssessmentMergerAgent",
+    "llm_schema_data_refiner": "SchemaDataRefinerAgent",
+    "summarizer": "InitChatAgent",
+    "chat": "ChatAgent",
+    "human_message": "Human",
+    "user_feedback_node": "Human",
+}
 
 
 class HumanFeedback:
@@ -210,9 +228,7 @@ class SchemaGenerator:
             raise NotImplementedError(
                 "Can't use stream_graph_updates with use_interrupt set!"
             )
-        print("👤 Human:")
-        print(user_input)
-        print("-" * 50)
+        logger.info("👤 Human:\n{}\n{}", user_input, "-" * 50)
         initial_state = AgentState(
             messages=[],
             user_input=user_input,
@@ -229,19 +245,21 @@ class SchemaGenerator:
             data_refinement_rounds=0,
         )
 
-        for state in self.graph.stream(
-            initial_state, stream_mode="values", config={"recursion_limit": self.recursion_limit}
+        final_state = None
+        for event_type, data in self.graph.stream(
+            initial_state,
+            stream_mode=["updates", "values"],
+            config={"recursion_limit": self.recursion_limit},
         ):
-            if state["messages"]:
-                full_content = state["messages"][-1].content
-                if state["messages"][-1].type == "human":
-                    print("👤 Human:")
-                else:
-                    print("🤖 Assistant:")
-                print(full_content)
-                print("-" * 50)
+            if event_type == "updates":
+                for node_name, update in data.items():
+                    agent = _NODE_TO_AGENT.get(node_name, node_name)
+                    for msg in update.get("messages", []):
+                        logger.info("🤖 {}:\n{}\n{}", agent, msg.content, "-" * 50)
+            else:
+                final_state = data
 
-        return state
+        return final_state
 
     def get_complete_results(self, user_input: str, current_schema: dict = None) -> dict:
         if self.use_interrupt:

@@ -3,6 +3,7 @@ from typing import Any
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
+from loguru import logger
 
 from schematize.agents.agent_state import AgentState
 from schematize.agents.output_models import ChatOutput
@@ -11,27 +12,21 @@ from schematize.agents.output_models import ChatOutput
 class InitChatAgent:
     def __init__(self, llm, summarizer_prompt, system_message: str, first_message: str) -> None:
         self.parser = StrOutputParser()
-        summarizer_prompt = PromptTemplate.from_template(summarizer_prompt)
+        self.prompt = PromptTemplate.from_template(summarizer_prompt)
         self.system_message = system_message
         self.first_message = first_message
-        self.chain = summarizer_prompt | llm
+        self.chain = self.prompt | llm
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        user_input = state["user_input"]
-        problem_help = state["problem_help"]
-        user_feedback = state["user_feedback"]
-        problem_definition = state["problem_definition"]
-        current_schema = state["current_schema"]
-
-        response = self.chain.invoke(
-            {
-                "user_input": user_input,
-                "problem_help": problem_help,
-                "user_feedback": user_feedback,
-                "problem_definition": problem_definition,
-                "current_schema": current_schema,
-            }
-        )
+        inputs = {
+            "user_input": state["user_input"],
+            "problem_help": state["problem_help"],
+            "user_feedback": state["user_feedback"],
+            "problem_definition": state["problem_definition"],
+            "current_schema": state["current_schema"],
+        }
+        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        response = self.chain.invoke(inputs)
         generation_summary = self.parser.parse(response.content)
         message = self._format_message(generation_summary, state)
         return {
@@ -60,6 +55,11 @@ class ChatAgent:
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
         final_messages = state["final_messages"]
+        logger.debug(
+            "{} | messages:\n{}",
+            type(self).__name__,
+            "\n---\n".join(f"[{m.type}] {m.content}" for m in final_messages),
+        )
         response = self.llm.invoke(final_messages)
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "final_messages": [response["raw"]]}

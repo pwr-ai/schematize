@@ -4,6 +4,7 @@ from typing import Any
 
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
+from loguru import logger
 from pydantic import BaseModel
 
 from schematize.agents.output_models import (
@@ -19,18 +20,19 @@ class QueryGeneratorAgent:
 
     def __init__(self, llm, prompt) -> None:
         structured_llm = llm.with_structured_output(self.Query, include_raw=True)
-        prompt = PromptTemplate.from_template(prompt)
-        self.chain = prompt | structured_llm
+        self.prompt = PromptTemplate.from_template(prompt)
+        self.chain = self.prompt | structured_llm
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
-        response = self.chain.invoke(
-            {
-                "user_input": state["user_input"],
-                "problem_help": state["problem_help"],
-                "user_feedback": state["user_feedback"],
-                "problem_definition": state["problem_definition"],
-            }
-        )
+        inputs = {
+            "user_input": state["user_input"],
+            "problem_help": state["problem_help"],
+            "user_feedback": state["user_feedback"],
+            "problem_definition": state["problem_definition"],
+        }
+        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        response = self.chain.invoke(inputs)
+        logger.info("{} | query: {}", type(self).__name__, response["parsed"].query)
         return {"messages": [response["raw"]], "query": response["parsed"].query}
 
 
@@ -45,8 +47,8 @@ class SchemaDataAssessmentAgent:
         random_seed: int = 17,
     ) -> None:
         self.parser = StrOutputParser()
-        prompt = PromptTemplate.from_template(prompt)
-        self.chain = prompt | llm
+        self.prompt = PromptTemplate.from_template(prompt)
+        self.chain = self.prompt | llm
         self.random = random.Random(random_seed)
         self.top_k = top_k
         self.num_examples = num_examples
@@ -75,33 +77,40 @@ class SchemaDataAssessmentAgent:
         current_schema: str,
     ) -> tuple[list[Any], list[str]]:
         example_documents = await self._get_example_documents(query)
-        tasks = [
-            self.chain.ainvoke(
-                {
-                    "user_input": user_input,
-                    "problem_help": problem_help,
-                    "user_feedback": user_feedback,
-                    "problem_definition": problem_definition,
-                    "current_schema": current_schema,
-                    "example_document": doc,
-                }
-            )
-            for doc in example_documents
-        ]
+        tasks = []
+        for doc in example_documents:
+            inputs = {
+                "user_input": user_input,
+                "problem_help": problem_help,
+                "user_feedback": user_feedback,
+                "problem_definition": problem_definition,
+                "current_schema": current_schema,
+                "example_document": doc,
+            }
+            logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+            tasks.append(self.chain.ainvoke(inputs))
         responses = await asyncio.gather(*tasks)
         data_assessment_results = [self.parser.parse(r.content) for r in responses]
         return responses, data_assessment_results
 
     async def _get_example_documents(self, query: str) -> list[Any]:
         documents = await self.retriever(query, max_docs=self.top_k)
-        return self.random.sample(documents, min(self.num_examples, len(documents)))
+        sampled = self.random.sample(documents, min(self.num_examples, len(documents)))
+        logger.info(
+            "{} | retrieved {} docs, sampled {}: {}",
+            type(self).__name__,
+            len(documents),
+            len(sampled),
+            [str(d)[:120] for d in sampled],
+        )
+        return sampled
 
 
 class SchemaDataAssessmentMergerAgent:
     def __init__(self, llm, prompt) -> None:
         structured_llm = llm.with_structured_output(DataAssessmentMergerOutput, include_raw=True)
-        prompt = PromptTemplate.from_template(prompt)
-        self.chain = prompt | structured_llm
+        self.prompt = PromptTemplate.from_template(prompt)
+        self.chain = self.prompt | structured_llm
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         data_assessment_results = state["data_assessment_results"]
@@ -109,36 +118,36 @@ class SchemaDataAssessmentMergerAgent:
             f"### Assessment {i + 1}\n\n{r}\n\n"
             for i, r in enumerate(data_assessment_results)
         )
-        response = self.chain.invoke(
-            {
-                "user_input": state["user_input"],
-                "problem_help": state["problem_help"],
-                "user_feedback": state["user_feedback"],
-                "problem_definition": state["problem_definition"],
-                "current_schema": state["current_schema"],
-                "data_assessment_results": data_assessment_results_str,
-            }
-        )
+        inputs = {
+            "user_input": state["user_input"],
+            "problem_help": state["problem_help"],
+            "user_feedback": state["user_feedback"],
+            "problem_definition": state["problem_definition"],
+            "current_schema": state["current_schema"],
+            "data_assessment_results": data_assessment_results_str,
+        }
+        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        response = self.chain.invoke(inputs)
         return {"messages": [response["raw"]], "merged_data_assessment": response["parsed"].model_dump()}
 
 
 class SchemaDataRefinerAgent:
     def __init__(self, llm, prompt) -> None:
         structured_llm = llm.with_structured_output(SchemaRefinementOutput, include_raw=True)
-        prompt = PromptTemplate.from_template(prompt)
-        self.chain = prompt | structured_llm
+        self.prompt = PromptTemplate.from_template(prompt)
+        self.chain = self.prompt | structured_llm
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
-        response = self.chain.invoke(
-            {
-                "user_input": state["user_input"],
-                "problem_help": state["problem_help"],
-                "user_feedback": state["user_feedback"],
-                "problem_definition": state["problem_definition"],
-                "current_schema": state["current_schema"],
-                "merged_data_assessment": state["merged_data_assessment"],
-            }
-        )
+        inputs = {
+            "user_input": state["user_input"],
+            "problem_help": state["problem_help"],
+            "user_feedback": state["user_feedback"],
+            "problem_definition": state["problem_definition"],
+            "current_schema": state["current_schema"],
+            "merged_data_assessment": state["merged_data_assessment"],
+        }
+        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        response = self.chain.invoke(inputs)
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "data_refinement_rounds": 1}
         if parsed.is_refined:

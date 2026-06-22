@@ -10,10 +10,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from loguru import logger
+
 try:
     import numpy as np
     from datasets import Dataset, load_dataset
-    from loguru import logger
     from sentence_transformers import SentenceTransformer
 except ImportError as _err:
     raise ImportError(

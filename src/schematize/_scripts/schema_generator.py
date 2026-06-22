@@ -23,6 +23,14 @@ def main(
     output: Annotated[Path, typer.Option()] = Path("state.json"),
     api_url: Annotated[Optional[str], typer.Option()] = None,
     api_key: Annotated[Optional[str], typer.Option()] = None,
+    retriever_type: Annotated[str, typer.Option(help="weaviate | mmlw | huggingface")] = "weaviate",
+    dataset: Annotated[Optional[str], typer.Option(help="HuggingFace dataset identifier")] = None,
+    text_column: Annotated[str, typer.Option(help="Dataset column to embed and search")] = "text",
+    max_documents: Annotated[Optional[int], typer.Option(help="Max rows to index (None = all)")] = None,
+    index_path: Annotated[Optional[str], typer.Option(help="Directory to cache the FAISS index")] = None,
+    collection_name: Annotated[Optional[str], typer.Option(help="Weaviate collection name")] = None,
+    target_vector: Annotated[Optional[str], typer.Option(help="Weaviate named vector")] = None,
+    wv_filter: Annotated[Optional[list[str]], typer.Option(help="Weaviate filters as key=value")] = None,
 ) -> None:
     load_dotenv(".env")
 
@@ -31,14 +39,33 @@ def main(
     if system_type not in ("tax", "law"):
         raise typer.BadParameter(f"system_type must be 'tax' or 'law', got '{system_type}'")
 
-    try:
-        from schematize.retrieval.weaviate import DocumentType, WeaviateRetriever
-    except ImportError:
-        raise typer.Exit("This script requires the weaviate extra: pip install schematize[weaviate]")
-
-    document_type = DocumentType.JUDGMENT if system_type == "law" else DocumentType.TAX_INTERPRETATION
     prompts = load_prompts(language, system_type)
-    retriever = WeaviateRetriever(document_type=document_type, language=language)
+
+    if retriever_type == "weaviate":
+        try:
+            from schematize.retrieval.weaviate import WeaviateRetriever
+        except ImportError:
+            raise typer.Exit("Weaviate retriever requires: pip install schematize[weaviate]")
+        if not collection_name:
+            raise typer.BadParameter("--collection-name is required for weaviate retriever")
+        filters = dict(f.split("=", 1) for f in (wv_filter or []))
+        retriever = WeaviateRetriever(
+            collection_name=collection_name,
+            target_vector=target_vector,
+            filters=filters,
+        )
+    else:
+        try:
+            from schematize.retrieval.huggingface import (
+                HuggingFaceRetriever,
+                MMLWRobertaV2Retriever,
+            )
+        except ImportError:
+            raise typer.Exit("HuggingFace retriever requires: pip install schematize[huggingface]")
+        if not dataset:
+            raise typer.BadParameter("--dataset is required for huggingface/mmlw retriever")
+        kwargs = dict(dataset_name=dataset, text_column=text_column, max_documents=max_documents, index_path=index_path)
+        retriever = MMLWRobertaV2Retriever(**kwargs) if retriever_type == "mmlw" else HuggingFaceRetriever(**kwargs)
 
     model_kwargs = {"reasoning_effort": "low"} if model.startswith("o") else {}
     llm = ChatOpenAI(

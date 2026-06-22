@@ -1,11 +1,14 @@
+import logging
+import sys
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
 import hydra
 import yaml
+from dotenv import load_dotenv
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_openai import ChatOpenAI
+from loguru import logger
 from omegaconf import DictConfig
 
 from schematize.agents.agent_state import AgentState, agent_state_to_json
@@ -14,10 +17,13 @@ from schematize.settings import CASES_PATH
 from schematize.utils.langchain import setup_langchain_llm_cache
 from schematize.utils.load import load_prompts
 
-
 _CONFIG_PATH = str(Path(__file__).parent / "../../../config")
 
 load_dotenv()
+
+logger.remove()
+logger.add(sys.stderr, level="INFO")
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 @hydra.main(version_base=None, config_path=_CONFIG_PATH, config_name="run_mocked")
@@ -26,19 +32,9 @@ def main(cfg: DictConfig) -> None:
     assert cfg.case.language in ["pl", "en"], "Invalid language"
     assert cfg.case.system_type in ["law", "tax"], "Invalid system type"
 
-    try:
-        from schematize.retrieval.weaviate import DocumentType, WeaviateRetriever
-    except ImportError:
-        raise SystemExit(
-            "This script requires the weaviate extra: pip install schematize[weaviate]"
-        )
-
     if cfg.llm_cache:
         setup_langchain_llm_cache()
 
-    document_type = (
-        DocumentType.JUDGMENT if cfg.case.system_type == "law" else DocumentType.TAX_INTERPRETATION
-    )
     prompts = load_prompts(cfg.case.language, cfg.case.system_type)
     cases = load_cases()
 
@@ -46,7 +42,7 @@ def main(cfg: DictConfig) -> None:
     assert case_name in cases, f"Case '{case_name}' not found. Available: {list(cases.keys())}"
     case_data = cases[case_name]
 
-    retriever = WeaviateRetriever(document_type=document_type, language=cfg.case.language)
+    retriever = _build_retriever(cfg.retriever)
 
     llm = ChatOpenAI(
         model=cfg.model_name,
@@ -99,8 +95,38 @@ def main(cfg: DictConfig) -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w") as f:
         f.write(agent_state_to_json(final_state))
+    logger.info("State saved to {}", output_path)
 
-    print(f"State saved to {output_path}")
+    schema_path = Path(cfg.output) / "schema.yaml"
+    with schema_path.open("w") as f:
+        yaml.dump(final_state.get("current_schema"), f, allow_unicode=True, sort_keys=False)
+    logger.info("Schema saved to {}", schema_path)
+
+def _build_retriever(r_cfg):
+    if r_cfg.type == "weaviate":
+        try:
+            from schematize.retrieval.weaviate import WeaviateRetriever
+        except ImportError:
+            raise SystemExit("Weaviate retriever requires: pip install schematize[weaviate]")
+        filters = dict(r_cfg.wv_filters) if r_cfg.wv_filters else {}
+        return WeaviateRetriever(
+            collection_name=r_cfg.collection_name,
+            target_vector=r_cfg.target_vector or None,
+            filters=filters,
+        )
+    try:
+        from schematize.retrieval.huggingface import HuggingFaceRetriever, MMLWRobertaV2Retriever
+    except ImportError:
+        raise SystemExit("HuggingFace retriever requires: pip install schematize[huggingface]")
+    kwargs = dict(
+        dataset_name=r_cfg.dataset_name,
+        text_column=r_cfg.text_column,
+        split=r_cfg.split,
+        max_documents=r_cfg.max_documents,
+        index_path=r_cfg.index_path,
+    )
+    return MMLWRobertaV2Retriever(**kwargs) if r_cfg.type == "mmlw" else HuggingFaceRetriever(**kwargs)
+
 
 def load_cases() -> dict[str, dict[str, str]]:
     assert CASES_PATH.exists(), "Cases directory does not exist"

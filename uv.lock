@@ -4031,6 +4031,7 @@ dependencies = [
     { name = "langchain-openai" },
     { name = "langchain-text-splitters" },
     { name = "langgraph" },
+    { name = "loguru" },
     { name = "pydantic" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
@@ -4049,7 +4050,6 @@ dev = [
 huggingface = [
     { name = "datasets" },
     { name = "faiss-cpu" },
-    { name = "loguru" },
     { name = "sentence-transformers" },
 ]
 notebooks = [
@@ -4064,7 +4064,6 @@ scripts = [
     { name = "tqdm" },
 ]
 weaviate = [
-    { name = "loguru" },
     { name = "weaviate-client" },
 ]
 
@@ -4092,8 +4091,7 @@ requires-dist = [
     { name = "langchain-openai", specifier = ">=0.3" },
     { name = "langchain-text-splitters", specifier = ">=0.3" },
     { name = "langgraph", specifier = ">=0.6" },
-    { name = "loguru", marker = "extra == 'huggingface'", specifier = ">=0.7" },
-    { name = "loguru", marker = "extra == 'weaviate'", specifier = ">=0.7" },
+    { name = "loguru", specifier = ">=0.7" },
     { name = "matplotlib", marker = "extra == 'notebooks'", specifier = ">=3.0" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.0" },
     { name = "pandas", marker = "extra == 'notebooks'", specifier = ">=2.0" },
