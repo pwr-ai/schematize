@@ -99,8 +99,8 @@ Prompts are bundled with the package under `configs/prompt/{language}/{system_ty
 # Interactive — prompts for user input
 schematize-run
 
-# Mocked — replays a stored case via Hydra
-schematize-run-mocked +case=en_age
+# Mocked — replays a stored case (see below)
+schematize-run-mocked +case=en_age cases_path=/path/to/cases model_name=gpt-4o
 
 # Evaluate schemas against expert questions
 schematize-evaluate +case_name=age
@@ -110,8 +110,39 @@ Or run directly from the repo:
 
 ```bash
 python scripts/schema_generator.py
-python scripts/schema_generator_mocked.py +case=en_age
+python scripts/schema_generator_mocked.py +case=en_age cases_path=data/cases model_name=gpt-4o
 python scripts/evaluate_schema.py +case_name=age
+```
+
+### Mocked runner cases
+
+The mocked runner replays pre-written cases instead of prompting for live user input. A case is a YAML file that can define any combination of:
+
+```yaml
+# my_case.yaml
+user_input: "Extract information about personal injury lawsuits"
+problem_help: "The schema should capture plaintiff, defendant, compensation, and verdict."
+user_feedback: "Add a field for the court name."
+human_message: "Can you also add a field for the date of the ruling?"
+```
+
+| Key | Description |
+|---|---|
+| `user_input` | Initial prompt passed to the pipeline |
+| `problem_help` | Mocked AI response during the problem-definition step |
+| `user_feedback` | Mocked human feedback used during schema refinement |
+| `human_message` | Mocked final human message in the interactive chat |
+
+All keys are optional — omit any that you want to run interactively. The case filename (without `.yaml`) becomes the case name used with `+case=<name>`.
+
+Example cases are available in [`data/cases/`](data/cases/) in the repository. Pass that directory (or your own) via `cases_path`:
+
+```bash
+# From a cloned repo
+schematize-run-mocked +case=en_age cases_path=data/cases model_name=gpt-4o
+
+# After pip install, point at your own cases
+schematize-run-mocked +case=my_case cases_path=/path/to/my/cases model_name=gpt-4o
 ```
 
 ## Schema model

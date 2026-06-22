@@ -6,6 +6,7 @@ defaults:
 api_key: ${oc.env:API_KEY}
 api_url: ${oc.env:API_URL}
 model_name: ???
+cases_path: data/cases
 llm_cache: false
 
 llm:

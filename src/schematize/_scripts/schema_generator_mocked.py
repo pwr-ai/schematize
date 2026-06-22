@@ -13,7 +13,6 @@ from omegaconf import DictConfig
 
 from schematize.agents.agent_state import AgentState, agent_state_to_json
 from schematize.agents.schema_generator import SchemaGenerator
-from schematize.settings import CASES_PATH
 from schematize.utils.langchain import setup_langchain_llm_cache
 from schematize.utils.load import load_prompts
 
@@ -36,7 +35,7 @@ def main(cfg: DictConfig) -> None:
         setup_langchain_llm_cache()
 
     prompts = load_prompts(cfg.case.language, cfg.case.system_type)
-    cases = load_cases()
+    cases = load_cases(Path(cfg.cases_path))
 
     case_name = cfg.case.name
     assert case_name in cases, f"Case '{case_name}' not found. Available: {list(cases.keys())}"
@@ -128,10 +127,10 @@ def _build_retriever(r_cfg):
     return MMLWRobertaV2Retriever(**kwargs) if r_cfg.type == "mmlw" else HuggingFaceRetriever(**kwargs)
 
 
-def load_cases() -> dict[str, dict[str, str]]:
-    assert CASES_PATH.exists(), "Cases directory does not exist"
+def load_cases(cases_path: Path) -> dict[str, dict[str, str]]:
+    assert cases_path.exists(), f"Cases directory does not exist: {cases_path}"
     cases = {}
-    for case_file in CASES_PATH.glob("*.yaml"):
+    for case_file in cases_path.glob("*.yaml"):
         with open(case_file, "r") as f:
             cases[case_file.stem] = yaml.safe_load(f)
     return cases
