@@ -4,7 +4,8 @@ defaults:
 
 api_key: ${oc.env:API_KEY}
 api_url: ${oc.env:API_URL}
-model_name: gpt-5.2
+# model_name: gpt-5.2
+model_name: gpt-5-nano
 # model_name: llama-4-scout-17b
 wv_collection_name: LegalDocuments
 llm_cache: false

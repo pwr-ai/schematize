@@ -1,10 +1,9 @@
 import asyncio
 from enum import Enum
-from pathlib import Path
 
 import typer
 
-from schematize.retrieval.huggingface import HuggingFaceRetriever, MMLWRobertaRetriever
+from schematize.retrieval.huggingface import HuggingFaceRetriever, MMLWRobertaV2Retriever
 
 app = typer.Typer()
 
@@ -26,17 +25,15 @@ def main(
     device: str = typer.Option(None, help="Device for embedding model (None = auto-detect)"),
     index_path: str = typer.Option(None, help="Directory to save/load the FAISS index"),
 ) -> None:
-    resolved_index_path = index_path or str(Path.cwd() / ".cache" / "schematize" / dataset.replace("/", "_"))
-
     async def run() -> None:
         if retriever == RetrieverType.mmlw:
-            r = MMLWRobertaRetriever(
+            r = MMLWRobertaV2Retriever(
                 dataset_name=dataset,
                 text_column=text_column,
                 max_documents=max_documents,
                 split=split,
                 device=device,
-                index_path=resolved_index_path,
+                index_path=index_path,
             )
         else:
             r = HuggingFaceRetriever(
@@ -45,7 +42,7 @@ def main(
                 max_documents=max_documents,
                 split=split,
                 device=device,
-                index_path=resolved_index_path,
+                index_path=index_path,
             )
         docs = await r(query, max_docs=max_docs)
         for i, doc in enumerate(docs, 1):
