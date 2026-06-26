@@ -7,6 +7,7 @@ from langchain_core.prompts import PromptTemplate
 from loguru import logger
 from pydantic import BaseModel
 
+from schematize.agents.agent_state import msg_usage
 from schematize.agents.output_models import (
     DataAssessmentMergerOutput,
     SchemaRefinementOutput,
@@ -33,7 +34,7 @@ class QueryGeneratorAgent:
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
         logger.info("{} | query: {}", type(self).__name__, response["parsed"].query)
-        return {"messages": [response["raw"]], "query": response["parsed"].query}
+        return {"messages": [response["raw"]], "query": response["parsed"].query, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 
 
 class SchemaDataAssessmentAgent:
@@ -65,7 +66,7 @@ class SchemaDataAssessmentAgent:
                 state["current_schema"],
             )
         )
-        return {"messages": responses, "data_assessment_results": data_assessment_results}
+        return {"messages": responses, "data_assessment_results": data_assessment_results, "token_usage": [msg_usage(r, type(self).__name__) for r in responses]}
 
     async def _process_documents(
         self,
@@ -128,7 +129,7 @@ class SchemaDataAssessmentMergerAgent:
         }
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
-        return {"messages": [response["raw"]], "merged_data_assessment": response["parsed"].model_dump()}
+        return {"messages": [response["raw"]], "merged_data_assessment": response["parsed"].model_dump(), "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 
 
 class SchemaDataRefinerAgent:
@@ -149,7 +150,7 @@ class SchemaDataRefinerAgent:
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
         parsed = response["parsed"]
-        update_dict = {"messages": [response["raw"]], "data_refinement_rounds": 1}
+        update_dict = {"messages": [response["raw"]], "data_refinement_rounds": 1, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
         if parsed.is_refined:
             update_dict["current_schema"] = parsed.schema_
             update_dict["schema_history"] = [parsed.schema_]

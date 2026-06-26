@@ -1,49 +1,19 @@
-# Expert: Sociologist researching criminal justice and social stratification
-#
-# Research focus: This expert studies how drug possession sentencing intersects with social
-# inequality, examining whether defendants from different social backgrounds receive different
-# treatment even when charged with similar offenses. She is interested in how age interacts
-# with other sociodemographic factors to produce sentencing outcomes, and whether courts
-# implicitly consider social capital and future prospects when determining punishment.
-# Her work aims to inform harm reduction policies and alternatives to incarceration.
-# She focuses on individual case analysis rather than jurisdictional comparisons.
-#
-# This expert approaches research from a critical perspective, questioning whether formal
-# legal equality translates to substantive equality in practice. She prefers collecting
-# rich contextual data that reveals the social world behind each case.
-
 questions:
-  - How old was the defendant when the offense occurred?
-  - Which age group does the defendant fall into (juvenile, young adult 18-25, adult 26-40, middle-aged 41-60, elderly 60+)?
-  - What is the defendant's gender?
-  - What type of drug was involved in the possession charge?
-  - How much of the substance was found?
-  - What fine amount did the court impose?
-  - Was the fine proportionate to the defendant's apparent financial means?
-  - What primary sanction was ordered (prison, suspended sentence, probation, community work, fine)?
-  - How long was the prison sentence, if imposed?
-  - Was the prison sentence suspended, and under what terms?
-  - What were the probation requirements?
-  - What form of community service was required, if any?
-  - Does the judgment indicate the defendant's prior criminal involvement?
-  - What prior convictions appear in the record?
-  - Is there a pattern of repeated drug offenses in the defendant's history?
-  - What factors did the court treat as aggravating?
-  - What factors did the court treat as mitigating?
-  - Does the judgment mention the defendant's housing situation or stability?
-  - Did the court discuss the defendant's employment history or job prospects?
-  - Was the defendant's education level mentioned?
-  - Did the court reference family support systems available to the defendant?
-  - Were there dependent children or elderly relatives the defendant cares for?
-  - Did the judgment discuss substance addiction or dependency issues?
-  - Was mental health mentioned as a factor in the case?
-  - Did the court acknowledge social disadvantage or difficult life circumstances?
-  - Did the defendant admit guilt or contest the charges?
-  - Was the defendant in custody awaiting trial, and for how long?
-  - Was drug rehabilitation or treatment ordered?
-  - Did the court impose supervision by a probation officer?
-  - Were any social services or support programs referenced in the sentence?
-  - When was the case decided?
-  - Did the judgment reference the defendant's behavior since the offense?
-  - Was the defendant's potential for social reintegration discussed?
-
+  - Czy wyrok dotyczy przestępstwa wynikającego z ustawy z dnia 29 lipca 2005 r. o przeciwdziałaniu narkomanii?
+  - Ile lat miał Oskarżony w chwili popełnienia zarzuconego mu czynu?
+  - Jaki status związany z wiekiem przypisał Sąd Oskarżonemu?
+  - Jaki artykuł ustawy z dnia 29 lipca 2005 r. o przeciwdziałaniu narkomanii stanowił podstawę prawną przypisanego Oskarżonemu czynu?
+  - Jaką substancję psychoaktywną wskazano w opisie czynu?
+  - Jaka ilość środka odurzającego została określona przez Sąd w wydanym wyroku?
+  - Jaki cel działania przypisał Oskarżonemu Sąd?
+  - Czy Oskarżony był uprzednio karany za popełnienie jakiegokolwiek przestępstwa?
+  - Czy Sąd przyjął, że Oskarżony działał w warunkach recydywy?
+  - Czy Sąd stwierdził, że Oskarżony jest osobą uzależnioną od narkotyków?
+  - Czy Oskarżony popełnił czyn wspólnie i w porozumieniu z inną osobą?
+  - Czy Sąd zastosował wobec Oskarżonego nadzwyczajne złagodzenie kary?
+  - Czy postępowanie zakończyło się wyrokiem skazującym, czy też warunkowym umorzeniem postępowania?
+  - Jeżeli Sąd wymierzył karę pozbawienia wolności, to w jakiej wysokości? Podaj jej wysokość w latach i miesiącach.
+  - Jeżeli sąd wymierzył karę ograniczenia wolności, to w jakiej wysokości? Podaj jej wysokość w latach i miesiącach.
+  - Jeżeli sąd wymierzył grzywnę, to w jakiej wysokości? Podaj liczbę stawek dziennych i wysokość jednej stawki.
+  - Czy wykonanie kary pozbawienia wolności zostało warunkowo zawieszone?
+  - Czy wyrok dotyczył równocześnie innych czynów zabronionych stypizowanych poza ustawą o przeciwdziałaniu narkomanii?

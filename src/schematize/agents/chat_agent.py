@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from loguru import logger
 
-from schematize.agents.agent_state import AgentState
+from schematize.agents.agent_state import AgentState, msg_usage
 from schematize.agents.output_models import ChatOutput
 
 
@@ -36,6 +36,7 @@ class InitChatAgent:
                 SystemMessage(content=self.system_message),
                 AIMessage(content=message),
             ],
+            "token_usage": [msg_usage(response, type(self).__name__)],
         }
 
     def _format_message(self, generation_summary: str, state: AgentState) -> str:
@@ -62,7 +63,7 @@ class ChatAgent:
         )
         response = self.llm.invoke(final_messages)
         parsed = response["parsed"]
-        update_dict = {"messages": [response["raw"]], "final_messages": [response["raw"]]}
+        update_dict = {"messages": [response["raw"]], "final_messages": [response["raw"]], "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 
         if parsed.is_refined:
             update_dict["current_schema"] = parsed.schema_

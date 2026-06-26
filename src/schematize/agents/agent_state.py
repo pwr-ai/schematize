@@ -24,6 +24,12 @@ class AgentState(TypedDict):
     data_refinement_rounds: Annotated[int, operator.add]
     final_messages: Annotated[list, add_messages]
     end_conversation: bool | None
+    token_usage: Annotated[list, operator.add]
+
+
+def msg_usage(msg, node: str) -> dict:
+    usage = getattr(msg, "usage_metadata", None) or {}
+    return {"node": node, **usage}
 
 
 class AgentStateEncoder(json.JSONEncoder):

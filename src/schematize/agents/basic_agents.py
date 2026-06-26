@@ -4,7 +4,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from loguru import logger
 
-from schematize.agents.agent_state import AgentState
+from schematize.agents.agent_state import AgentState, msg_usage
 from schematize.agents.output_models import (
     SchemaAssessmentOutput,
     SchemaGenerationOutput,
@@ -23,7 +23,7 @@ class ProblemDefinerHelperAgent:
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
         parsed_response = self.parser.parse(response.content)
-        return {"messages": [response], "problem_help": parsed_response}
+        return {"messages": [response], "problem_help": parsed_response, "token_usage": [msg_usage(response, type(self).__name__)]}
 
 
 class ProblemDefinerAgent:
@@ -41,7 +41,7 @@ class ProblemDefinerAgent:
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
         parsed_response = self.parser.parse(response.content)
-        return {"messages": [response], "problem_definition": parsed_response}
+        return {"messages": [response], "problem_definition": parsed_response, "token_usage": [msg_usage(response, type(self).__name__)]}
 
 
 class SchemaGeneratorAgent:
@@ -60,7 +60,7 @@ class SchemaGeneratorAgent:
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
         parsed = response["parsed"]
-        update_dict = {"messages": [response["raw"]]}
+        update_dict = {"messages": [response["raw"]], "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
         if parsed.is_generated:
             update_dict["current_schema"] = parsed.schema_.model_dump()
             update_dict["schema_history"] = [parsed.schema_.model_dump()]
@@ -83,7 +83,7 @@ class SchemaAssessmentAgent:
         }
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
-        return {"messages": [response["raw"]], "assessment_result": response["parsed"].model_dump()}
+        return {"messages": [response["raw"]], "assessment_result": response["parsed"].model_dump(), "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 
 
 class SchemaRefinerAgent:
@@ -104,7 +104,7 @@ class SchemaRefinerAgent:
         logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
         response = self.chain.invoke(inputs)
         parsed = response["parsed"]
-        update_dict = {"messages": [response["raw"]], "refinement_rounds": 1}
+        update_dict = {"messages": [response["raw"]], "refinement_rounds": 1, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
         if parsed.is_refined:
             update_dict["current_schema"] = parsed.schema_.model_dump()
             update_dict["schema_history"] = [parsed.schema_.model_dump()]

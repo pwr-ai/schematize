@@ -1,0 +1,57 @@
+# Expert: Criminologist specializing in drug policy and sentencing disparities
+#
+# Research focus: This expert is conducting empirical research on sentencing outcomes in drug 
+# possession cases, with particular interest in how defendant age influences judicial decisions.
+# The study aims to identify whether certain age groups face systematically different treatment
+# in the justice system, and how prior criminal history and case circumstances interact with
+# age to produce sentencing outcomes. The expert is interested in building a comprehensive
+# dataset that could inform evidence-based drug policy reform, particularly regarding the
+# proportionality of fines and alternative sentences (probation, community service) for
+# first-time vs. repeat offenders across different life stages.
+#
+# The expert has a methodologically rigorous approach - she wants to capture all potentially
+# relevant variables about individual cases and their outcomes, focusing on factors that courts
+# explicitly or implicitly consider when sentencing. Her goal is to build a rich dataset that
+# reveals patterns in how age interacts with other case characteristics to produce sentencing
+# outcomes.
+
+questions:
+  - What is the defendant's exact age or date of birth as stated in the judgment?
+  - Into which age category does the defendant fall (minor under 18, young adult 18-25, adult 26-40, middle-aged 41-60, senior over 60)?
+  - What is the defendant's gender?
+  - What specific controlled substance (as defined under the Controlled Substances Act) was the defendant found in possession of?
+  - What quantity or weight of the controlled substance was involved in the case?
+  - Was the possession characterized as for personal use or did the court suggest intent to distribute?
+  - What was the total monetary fine imposed by the court?
+  - Was the fine suspended in whole or in part, and if so, under what conditions?
+  - What type of primary sentence was given (imprisonment, suspended imprisonment, probation, community service, fine only, conditional discharge)?
+  - If imprisonment was imposed, what was the exact duration of the sentence?
+  - Was any portion of the imprisonment sentence suspended, and for how long?
+  - What was the duration and specific conditions of probation, if applicable?
+  - How many hours of community service were ordered, if any?
+  - Is this the defendant's first criminal offense overall?
+  - Does the defendant have prior criminal convictions, and if so, how many?
+  - What types of prior offenses appear in the defendant's criminal history?
+  - Were any of the prior convictions specifically drug-related offenses?
+  - How recent were the defendant's prior convictions relative to this offense?
+  - What specific aggravating circumstances did the court identify and weigh in sentencing?
+  - What specific mitigating circumstances did the court recognize and weigh in sentencing?
+  - Did the court mention the defendant's employment status or occupation?
+  - Did the court reference the defendant's family situation, including dependents or caregiving responsibilities?
+  - Did the court discuss the defendant's health conditions, including mental health or addiction issues?
+  - Did the court mention the defendant's education level or socioeconomic background?
+  - Did the defendant express remorse or accept responsibility for the offense?
+  - Did the defendant cooperate with law enforcement during the investigation or arrest?
+  - Was the defendant represented by private counsel, a public defender, or self-represented?
+  - What was the defendant's plea (guilty, not guilty, no contest)?
+  - Was there a plea agreement, and if so, what were its terms?
+  - Did the court reference specific sentencing guidelines, statutory provisions, or precedent cases?
+  - How did the court articulate its reasoning for the chosen sentence?
+  - Did the court explicitly consider the defendant's potential for rehabilitation?
+  - Was substance abuse treatment, drug counseling, or rehabilitation program ordered as part of the sentence?
+  - Was the defendant required to undergo drug testing as a condition of the sentence?
+  - Under what circumstances was the defendant apprehended (traffic stop, search warrant, routine check)?
+  - Was the defendant under the influence of substances at the time of arrest?
+  - Were there any co-defendants in the case?
+  - What was the date of the offense and the date of the judgment?
+  - What level of court adjudicated the case?

@@ -243,6 +243,7 @@ class SchemaGenerator:
             data_assessment_results=None,
             merged_data_assessment=None,
             data_refinement_rounds=0,
+            token_usage=[],
         )
 
         final_state = None
@@ -256,6 +257,8 @@ class SchemaGenerator:
                     agent = _NODE_TO_AGENT.get(node_name, node_name)
                     for msg in update.get("messages", []):
                         logger.info("🤖 {}:\n{}\n{}", agent, msg.content, "-" * 50)
+                    for usage in update.get("token_usage", []):
+                        logger.info("📊 {} | tokens: {}", agent, usage)
             else:
                 final_state = data
 
@@ -280,9 +283,13 @@ class SchemaGenerator:
             merged_data_assessment=None,
             data_refinement_rounds=0,
             final_messages=[],
+            token_usage=[],
+            cumulative_token_usage=None,
         )
         config = {"recursion_limit": self.recursion_limit} if self.recursion_limit is not None else {}
-        return self.graph.invoke(initial_state, config=config)
+        result = self.graph.invoke(initial_state, config=config)
+        result["cumulative_token_usage"] = total_token_usage(result.get("token_usage", []))
+        return result
 
     def route_after_assessment(self, state: AgentState) -> str:
         assessment = state.get("assessment_result", {})
