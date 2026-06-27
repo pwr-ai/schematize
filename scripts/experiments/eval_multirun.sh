@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODEL=${1:-gpt-5.4-nano}
+MODEL=${1:-gpt-5.4-mini}
 GENERATION_MODEL=${2:-gpt-5.4-nano}
 CASES=(pl_age pl_personal_rights)
 

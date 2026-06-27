@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 from pathlib import Path
@@ -7,7 +8,7 @@ import hydra
 import yaml
 from langchain_openai import ChatOpenAI
 from omegaconf import DictConfig
-from tqdm import tqdm
+from tqdm.asyncio import tqdm as atqdm
 
 from schematize.eval.evaluator import SchemaEvaluator
 from schematize.settings import PROMPTS_PATH
@@ -38,7 +39,7 @@ def main(cfg: DictConfig) -> None:
 
     evaluator = SchemaEvaluator(llm, prompts["schema_evaluator_prompt"])
 
-    state_paths = _get_state_paths(Path(cfg.state_dir))[:2]
+    state_paths = _get_state_paths(Path(cfg.state_dir))
     case_dir = Path(cfg.case_dir)
 
     if not case_dir.exists():
@@ -47,23 +48,97 @@ def main(cfg: DictConfig) -> None:
     expert_files = sorted(case_dir.glob("expert_*.yaml"))
     assert len(expert_files) > 0, f"No expert files found in {case_dir}"
 
-    for state_path in tqdm(state_paths):
-        state = _load_state(state_path)
-        if cfg.final_only:
-            schema_history = [state["current_schema"]] if state.get("current_schema") else []
-        else:
-            schema_history = state.get("schema_history", [])
-            if state.get("current_schema"):
-                schema_history.append(state["current_schema"])
+    asyncio.run(_run_all(evaluator, state_paths, case_dir, expert_files, cfg))
 
-        results = _evaluate(evaluator, state_path, case_dir, schema_history, expert_files)
 
-        output_path = (
-            Path(cfg.output) / state_path.relative_to(cfg.state_dir).parent / "evaluation.json"
+async def _run_all(
+    evaluator: SchemaEvaluator,
+    state_paths: list[Path],
+    case_dir: Path,
+    expert_files: list[Path],
+    cfg: DictConfig,
+) -> None:
+    semaphore = asyncio.Semaphore(cfg.get("max_concurrent", 10))
+    await atqdm.gather(
+        *[
+            _evaluate_and_save(evaluator, p, case_dir, expert_files, cfg, semaphore)
+            for p in state_paths
+        ],
+        desc="States",
+    )
+
+
+async def _evaluate_and_save(
+    evaluator: SchemaEvaluator,
+    state_path: Path,
+    case_dir: Path,
+    expert_files: list[Path],
+    cfg: DictConfig,
+    semaphore: asyncio.Semaphore,
+) -> None:
+    state = _load_state(state_path)
+    if cfg.final_only:
+        schema_history = [state["current_schema"]] if state.get("current_schema") else []
+    else:
+        schema_history = state.get("schema_history", [])
+        if state.get("current_schema"):
+            schema_history.append(state["current_schema"])
+
+    results = await _evaluate(evaluator, state_path, case_dir, schema_history, expert_files, semaphore)
+
+    output_path = (
+        Path(cfg.output) / state_path.relative_to(cfg.state_dir).parent / "evaluation.json"
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w") as f:
+        json.dump(results, f, indent=2)
+
+
+async def _evaluate(
+    evaluator: SchemaEvaluator,
+    state_path: Path,
+    case_dir: Path,
+    schema_history: list[dict],
+    expert_files: list[Path],
+    semaphore: asyncio.Semaphore,
+) -> dict[str, Any]:
+    schema_results: dict[int, dict] = {
+        i: {"schema_index": i, "num_fields": len(schema), "experts": []}
+        for i, schema in enumerate(schema_history)
+    }
+
+    async def eval_one(schema_idx: int, schema: dict, expert_file: Path) -> tuple:
+        questions = _load_expert_questions(expert_file)
+        async with semaphore:
+            evaluation = await evaluator.aevaluate_schema(schema, questions)
+        return schema_idx, expert_file.stem, evaluation
+
+    tasks = [
+        eval_one(schema_idx, schema, expert_file)
+        for schema_idx, schema in enumerate(schema_history)
+        for expert_file in expert_files
+    ]
+
+    for coro in asyncio.as_completed(tasks):
+        schema_idx, expert_stem, evaluation = await coro
+        schema_results[schema_idx]["experts"].append(
+            {
+                "expert": expert_stem,
+                "total_questions": evaluation.total_questions,
+                "covered_questions": evaluation.covered_questions,
+                "high_confidence": evaluation.high_confidence_coverage,
+                "medium_confidence": evaluation.medium_confidence_coverage,
+                "low_confidence": evaluation.low_confidence_coverage,
+            }
         )
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, "w") as f:
-            json.dump(results, f, indent=2)
+
+    return {
+        "state_path": str(state_path),
+        "case_dir": str(case_dir),
+        "num_schemas": len(schema_history),
+        "num_experts": len(expert_files),
+        "evaluations": [schema_results[i] for i in range(len(schema_history))],
+    }
 
 
 def _load_state(state_path: Path) -> dict:
@@ -87,47 +162,6 @@ def _get_state_paths(state_dir: Path) -> list[Path]:
     if not result:
         raise ValueError(f"No unevaluated state files found in {state_dir}")
     return result
-
-
-def _evaluate(
-    evaluator: SchemaEvaluator,
-    state_path: Path,
-    case_dir: Path,
-    schema_history: list[dict],
-    expert_files: list[Path],
-) -> dict[str, Any]:
-    results: dict[str, Any] = {
-        "state_path": str(state_path),
-        "case_dir": str(case_dir),
-        "num_schemas": len(schema_history),
-        "num_experts": len(expert_files),
-        "evaluations": [],
-    }
-
-    for schema_idx, schema in tqdm(
-        enumerate(schema_history), desc="Evaluating schemas", total=len(schema_history)
-    ):
-        schema_results: dict[str, Any] = {
-            "schema_index": schema_idx,
-            "num_fields": len(schema),
-            "experts": [],
-        }
-        for expert_file in expert_files:
-            questions = _load_expert_questions(expert_file)
-            evaluation = evaluator.evaluate_schema(schema, questions)
-            schema_results["experts"].append(
-                {
-                    "expert": expert_file.stem,
-                    "total_questions": evaluation.total_questions,
-                    "covered_questions": evaluation.covered_questions,
-                    "high_confidence": evaluation.high_confidence_coverage,
-                    "medium_confidence": evaluation.medium_confidence_coverage,
-                    "low_confidence": evaluation.low_confidence_coverage,
-                }
-            )
-        results["evaluations"].append(schema_results)
-
-    return results
 
 
 if __name__ == "__main__":

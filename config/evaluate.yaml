@@ -8,6 +8,7 @@ model_name: gpt-5.4-mini
 generation_model_name: ???
 llm_cache: false
 final_only: false
+max_concurrent: 10
 
 llm:
   temperature: 0.2
@@ -21,18 +22,9 @@ state_dir: multirun/generated_schemas/${generation_model_name}/${case_name}/
 eval_data_dir: data/eval/
 case_dir: ${eval_data_dir}/${case_name}
 
-output_subdir: evaluation/${model_name}/${case_name}
+output_subdir: evaluation/${model_name}/${generation_model_name}/${case_name}
 output: ${hydra:runtime.output_dir}
 
 hydra:
-  launcher:
-    n_jobs: 4
   run:
     dir: outputs/${output_subdir}
-  sweep:
-    dir: outputs/
-    subdir: ${output_subdir}
-
-  sweeper:
-    params:
-      case_name: pl_age,pl_personal_rights

@@ -140,12 +140,18 @@ class SchemaGenerator:
         data_assessment_top_k: int = 50,
         data_assessment_num_examples: int = 3,
         data_assessment_random_seed: int = 17,
+        skip_problem_definition: bool = False,
+        skip_refinement: bool = False,
+        skip_data_grounded: bool = False,
     ) -> None:
         self.recursion_limit = recursion_limit
         self.max_refinement_rounds = max_refinement_rounds
         self.min_refinement_rounds = min_refinement_rounds
         self.max_data_refinement_rounds = max_data_refinement_rounds
         self.min_data_refinement_rounds = min_data_refinement_rounds
+        self.skip_problem_definition = skip_problem_definition
+        self.skip_refinement = skip_refinement
+        self.skip_data_grounded = skip_data_grounded
 
         self.problem_definer_helper = ProblemDefinerHelperAgent(llm, prompt_problem_definer_helper)
         self.use_interrupt = use_interrupt
@@ -189,34 +195,47 @@ class SchemaGenerator:
     def build_graph(self, compilation_kwargs: dict[str, Any] | None = None):
         graph_builder = StateGraph(AgentState)
 
-        graph_builder.add_node("llm_problem_definer_helper", self.problem_definer_helper)
-        graph_builder.add_node("user_feedback_node", self.human_feedback)
-        graph_builder.add_node("llm_problem_definer", self.problem_definer)
+        if self.skip_problem_definition:
+            graph_builder.add_edge(START, "llm_query_generator")
+        else:
+            graph_builder.add_node("llm_problem_definer_helper", self.problem_definer_helper)
+            graph_builder.add_node("user_feedback_node", self.human_feedback)
+            graph_builder.add_node("llm_problem_definer", self.problem_definer)
+            graph_builder.add_edge(START, "llm_problem_definer_helper")
+            graph_builder.add_edge("llm_problem_definer_helper", "user_feedback_node")
+            graph_builder.add_edge("user_feedback_node", "llm_problem_definer")
+            graph_builder.add_edge("llm_problem_definer", "llm_query_generator")
+
         graph_builder.add_node("llm_query_generator", self.query_generator)
         graph_builder.add_node("llm_schema_generator", self.schema_generator)
-        graph_builder.add_node("llm_first_schema_assessment", self.schema_assessment)
-        graph_builder.add_node("llm_schema_refiner", self.schema_refiner)
-        graph_builder.add_node("llm_schema_assessment", self.schema_assessment)
-        graph_builder.add_node("llm_schema_data_assessment", self.schema_data_assessment)
-        graph_builder.add_node("llm_schema_data_assessment_merger", self.schema_data_assessment_merger)
-        graph_builder.add_node("llm_schema_data_refiner", self.schema_data_refiner)
         graph_builder.add_node("summarizer", self.summarizer)
         graph_builder.add_node("human_message", self.human_message)
         graph_builder.add_node("chat", self.chat_agent)
 
-        graph_builder.add_edge(START, "llm_problem_definer_helper")
-        graph_builder.add_edge("llm_problem_definer_helper", "user_feedback_node")
-        graph_builder.add_edge("user_feedback_node", "llm_problem_definer")
-        graph_builder.add_edge("llm_problem_definer", "llm_query_generator")
         graph_builder.add_edge("llm_query_generator", "llm_schema_generator")
-        graph_builder.add_edge("llm_schema_generator", "llm_schema_assessment")
-        graph_builder.add_conditional_edges("llm_schema_assessment", self.route_after_assessment)
-        graph_builder.add_edge("llm_schema_refiner", "llm_schema_assessment")
-        graph_builder.add_edge("llm_schema_data_assessment", "llm_schema_data_assessment_merger")
-        graph_builder.add_conditional_edges(
-            "llm_schema_data_assessment_merger", self.route_after_data_assessment_merger
-        )
-        graph_builder.add_edge("llm_schema_data_refiner", "llm_schema_data_assessment")
+
+        if self.skip_refinement:
+            next_after_schema = "summarizer" if self.skip_data_grounded else "llm_schema_data_assessment"
+            graph_builder.add_edge("llm_schema_generator", next_after_schema)
+        else:
+            graph_builder.add_node("llm_schema_assessment", self.schema_assessment)
+            graph_builder.add_node("llm_schema_refiner", self.schema_refiner)
+            graph_builder.add_edge("llm_schema_generator", "llm_schema_assessment")
+            graph_builder.add_conditional_edges("llm_schema_assessment", self.route_after_assessment)
+            graph_builder.add_edge("llm_schema_refiner", "llm_schema_assessment")
+
+        if not self.skip_data_grounded:
+            graph_builder.add_node("llm_schema_data_assessment", self.schema_data_assessment)
+            graph_builder.add_node(
+                "llm_schema_data_assessment_merger", self.schema_data_assessment_merger
+            )
+            graph_builder.add_node("llm_schema_data_refiner", self.schema_data_refiner)
+            graph_builder.add_edge("llm_schema_data_assessment", "llm_schema_data_assessment_merger")
+            graph_builder.add_conditional_edges(
+                "llm_schema_data_assessment_merger", self.route_after_data_assessment_merger
+            )
+            graph_builder.add_edge("llm_schema_data_refiner", "llm_schema_data_assessment")
+
         graph_builder.add_edge("summarizer", "human_message")
         graph_builder.add_edge("human_message", "chat")
         graph_builder.add_conditional_edges("chat", self.route_after_chat)
@@ -234,7 +253,7 @@ class SchemaGenerator:
             user_input=user_input,
             problem_help=None,
             user_feedback=None,
-            problem_definition=None,
+            problem_definition=user_input if self.skip_problem_definition else None,
             query=None,
             current_schema=current_schema,
             schema_history=[],
@@ -274,7 +293,7 @@ class SchemaGenerator:
             user_input=user_input,
             problem_help=None,
             user_feedback=None,
-            problem_definition=None,
+            problem_definition=user_input if self.skip_problem_definition else None,
             query=None,
             current_schema=current_schema,
             schema_history=[],
@@ -300,7 +319,7 @@ class SchemaGenerator:
             return "llm_schema_refiner"
         if needs_refinement and not max_rounds_reached:
             return "llm_schema_refiner"
-        return "llm_schema_data_assessment"
+        return "summarizer" if self.skip_data_grounded else "llm_schema_data_assessment"
 
     def route_after_data_assessment_merger(self, state: AgentState) -> str:
         assessment = state.get("merged_data_assessment", {})
