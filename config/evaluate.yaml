@@ -4,18 +4,21 @@ defaults:
 
 api_key: ${oc.env:API_KEY}
 api_url: ${oc.env:API_URL}
-model_name: llama3.3
+model_name: gpt-5.4-mini
+generation_model_name: ???
 llm_cache: false
+final_only: false
 
 llm:
   temperature: 0.2
   max_tokens: 32000
-  enable_thinking: false
+  model_kwargs:
+    reasoning_effort: "medium"
 
-case_name: ??? # ["age", "personal_rights", "contracts"]
+case_name: ??? # ["pl_age", "pl_personal_rights", "pl_medical_errors"]
 
-state_dir: multirun/llama3.3/${case_name}/
-eval_data_dir: schema_generator_agent/data/eval/
+state_dir: multirun/generated_schemas/${generation_model_name}/${case_name}/
+eval_data_dir: data/eval/
 case_dir: ${eval_data_dir}/${case_name}
 
 output_subdir: evaluation/${model_name}/${case_name}
@@ -32,4 +35,4 @@ hydra:
 
   sweeper:
     params:
-      case_name: age,personal_rights,contracts
+      case_name: pl_age,pl_personal_rights

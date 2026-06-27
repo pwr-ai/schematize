@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CASES=(pl_medical_errors pl_personal_rights) # pl_age
+CASES=(pl_personal_rights) # pl_age
 MODELS=(gpt-5.4-nano)
 
 for model in "${MODELS[@]}"; do

@@ -29,9 +29,8 @@ def main(cfg: DictConfig) -> None:
         api_key=cfg.api_key,
         temperature=cfg.llm.temperature,
         max_tokens=cfg.llm.max_tokens,
-        extra_body={
-            "chat_template_kwargs": {"enable_thinking": cfg.llm.enable_thinking},
-        },
+        use_responses_api=False,
+        **cfg.llm.model_kwargs,
     )
 
     with open(PROMPTS_PATH / "evaluator.yaml", "r") as f:
@@ -39,7 +38,7 @@ def main(cfg: DictConfig) -> None:
 
     evaluator = SchemaEvaluator(llm, prompts["schema_evaluator_prompt"])
 
-    state_paths = _get_state_paths(Path(cfg.state_dir))
+    state_paths = _get_state_paths(Path(cfg.state_dir))[:2]
     case_dir = Path(cfg.case_dir)
 
     if not case_dir.exists():
@@ -50,9 +49,12 @@ def main(cfg: DictConfig) -> None:
 
     for state_path in tqdm(state_paths):
         state = _load_state(state_path)
-        schema_history = state.get("schema_history", [])
-        if state.get("current_schema"):
-            schema_history.append(state["current_schema"])
+        if cfg.final_only:
+            schema_history = [state["current_schema"]] if state.get("current_schema") else []
+        else:
+            schema_history = state.get("schema_history", [])
+            if state.get("current_schema"):
+                schema_history.append(state["current_schema"])
 
         results = _evaluate(evaluator, state_path, case_dir, schema_history, expert_files)
 
@@ -75,6 +77,9 @@ def _load_expert_questions(expert_path: Path) -> list[str]:
 
 
 def _get_state_paths(state_dir: Path) -> list[Path]:
+    direct = state_dir / "state.json"
+    if direct.exists():
+        return [direct]
     result = [
         p for p in state_dir.glob("*/state.json")
         if not (p.parent / "evaluation.json").exists()

@@ -288,7 +288,6 @@ class SchemaGenerator:
         )
         config = {"recursion_limit": self.recursion_limit} if self.recursion_limit is not None else {}
         result = self.graph.invoke(initial_state, config=config)
-        result["cumulative_token_usage"] = total_token_usage(result.get("token_usage", []))
         return result
 
     def route_after_assessment(self, state: AgentState) -> str:

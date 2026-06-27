@@ -4,7 +4,7 @@ from typing import Any, Literal
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import PromptTemplate
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, create_model
 
 
 class CoverageAssessment(BaseModel):
@@ -23,32 +23,43 @@ class SchemaEvaluation:
     low_confidence_coverage: int
 
 
+def _build_batch_model(n: int) -> type[BaseModel]:
+    fields = {
+        f"question_{i + 1}": (CoverageAssessment, Field(description=f"Assessment for question {i + 1}"))
+        for i in range(n)
+    }
+    return create_model("BatchCoverageAssessment", **fields)
+
+
 class SchemaEvaluator:
     def __init__(self, llm: BaseChatModel, evaluation_prompt: str):
         self.llm = llm
         self.evaluation_prompt_template = PromptTemplate.from_template(evaluation_prompt)
 
-    def evaluate_question(self, question: str, schema: dict[str, Any]) -> CoverageAssessment:
+    def evaluate_all(self, questions: list[str], schema: dict[str, Any]) -> dict[str, CoverageAssessment]:
         schema_json = json.dumps(schema, indent=2)
-        structured_llm = self.llm.with_structured_output(CoverageAssessment)
+        numbered = "\n".join(f"{i + 1}. {q}" for i, q in enumerate(questions))
+        batch_model = _build_batch_model(len(questions))
+        structured_llm = self.llm.with_structured_output(batch_model)
         chain = self.evaluation_prompt_template | structured_llm
-        return chain.invoke({"question": question, "schema": schema_json})
+        result = chain.invoke({"questions": numbered, "schema": schema_json})
+        return {f"question_{i + 1}": getattr(result, f"question_{i + 1}") for i in range(len(questions))}
 
     def evaluate_schema(self, schema: dict[str, Any], questions: list[str]) -> SchemaEvaluation:
+        assessments = self.evaluate_all(questions, schema)
         covered_count = 0
         high_conf = 0
         medium_conf = 0
         low_conf = 0
 
-        for question in questions:
-            evaluation = self.evaluate_question(question, schema)
-            if evaluation.is_covered:
+        for assessment in assessments.values():
+            if assessment.is_covered:
                 covered_count += 1
-                if evaluation.confidence == "high":
+                if assessment.confidence == "high":
                     high_conf += 1
-                elif evaluation.confidence == "medium":
+                elif assessment.confidence == "medium":
                     medium_conf += 1
-                elif evaluation.confidence == "low":
+                elif assessment.confidence == "low":
                     low_conf += 1
 
         return SchemaEvaluation(
