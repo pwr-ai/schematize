@@ -1,0 +1,96 @@
+site_name: schematize
+site_description: Automated extraction-schema generation using a multi-agent LangGraph pipeline
+site_url: https://pwr-ai.github.io/schematize
+repo_name: pwr-ai/schematize
+repo_url: https://github.com/pwr-ai/schematize
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            heading_level: 2
+            merge_init_into_class: true
+            show_signature_annotations: true
+            separate_signature: true
+            line_length: 60
+            show_root_full_path: false
+            show_labels: false
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quickstart: quickstart.md
+  - Pipeline: pipeline.md
+  - Guides:
+      - Custom Retriever: guides/custom-retriever.md
+      - HuggingFace Adapter: guides/huggingface.md
+      - Weaviate Adapter: guides/weaviate.md
+      - Evaluation: guides/evaluation.md
+      - Command-Line Runners: guides/cli.md
+  - API Reference:
+      - SchemaGenerator: api/schema_generator.md
+      - Schema Models: api/schema.md
+      - Retrieval: api/retrieval.md
+      - Evaluator: api/evaluator.md
+      - Agent State: api/state.md
+  - Configuration: configuration.md
+  - FAQ: faq.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - tables
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/pwr-ai/schematize
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/schematize/

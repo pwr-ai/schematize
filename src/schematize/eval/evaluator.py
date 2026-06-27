@@ -8,6 +8,14 @@ from pydantic import BaseModel, Field, create_model
 
 
 class CoverageAssessment(BaseModel):
+    """Per-question verdict from the LLM judge.
+
+    Attributes:
+        is_covered: Whether the schema contains the fields needed to answer the question.
+        confidence: How certain the judge is — `high` (clearly covered or not), `medium`
+            (partially covered or ambiguous), `low` (uncertain).
+    """
+
     is_covered: bool = Field(description="Whether the question is covered by the schema")
     confidence: Literal["high", "medium", "low"] = Field(
         description="Confidence level: high (clearly covered/not covered), medium (partially covered or unclear), low (uncertain)"
@@ -16,6 +24,16 @@ class CoverageAssessment(BaseModel):
 
 @dataclass
 class SchemaEvaluation:
+    """Aggregate evaluation result for a schema against a question set.
+
+    Attributes:
+        total_questions: Number of questions evaluated.
+        covered_questions: Questions answered by the schema (any confidence).
+        high_confidence_coverage: Covered questions judged with high confidence.
+        medium_confidence_coverage: Covered questions judged with medium confidence.
+        low_confidence_coverage: Covered questions judged with low confidence.
+    """
+
     total_questions: int
     covered_questions: int
     high_confidence_coverage: int
@@ -32,6 +50,17 @@ def _build_batch_model(n: int) -> type[BaseModel]:
 
 
 class SchemaEvaluator:
+    """Scores an extraction schema against a set of expert questions.
+
+    For each question the LLM judge checks whether the schema contains the fields
+    needed to answer it, and reports a `CoverageAssessment` with a confidence level.
+    The aggregate result is a `SchemaEvaluation` with confidence-weighted counts.
+
+    Args:
+        llm: Language model used as the judge.
+        evaluation_prompt: Prompt template with `{questions}` and `{schema}` placeholders.
+    """
+
     def __init__(self, llm: BaseChatModel, evaluation_prompt: str):
         self.llm = llm
         self.evaluation_prompt_template = PromptTemplate.from_template(evaluation_prompt)

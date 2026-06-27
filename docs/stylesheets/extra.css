@@ -1,0 +1,5 @@
+/* Prevent mkdocstrings signature code blocks from overflowing horizontally */
+.doc-signature pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}

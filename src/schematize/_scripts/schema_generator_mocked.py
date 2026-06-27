@@ -12,7 +12,7 @@ from loguru import logger
 from omegaconf import DictConfig
 
 from schematize.agents.agent_state import AgentState, agent_state_to_json
-from schematize.agents.schema_generator import SchemaGenerator
+from schematize.agents.schema_generator import SchemaGenerator, SchemaGeneratorPrompts
 from schematize.utils.langchain import setup_langchain_llm_cache
 from schematize.utils.load import load_prompts
 
@@ -53,28 +53,18 @@ def main(cfg: DictConfig) -> None:
         **cfg.llm.model_kwargs,
     )
 
+    sg_cfg = cfg.schema_generator
     schema_system = SchemaGenerator(
         llm,
         retriever,
-        prompts["problem_definer_helper_prompt"],
-        prompts["problem_definer_prompt"],
-        prompts["schema_generator_prompt"],
-        prompts["schema_assessment_prompt"],
-        prompts["schema_refiner_prompt"],
-        prompts["query_generator_prompt"],
-        prompts["schema_data_assessment_prompt"],
-        prompts["schema_data_assessment_merger_prompt"],
-        prompts["schema_data_refiner_prompt"],
-        prompts["init_chat_generation_summarizer_prompt"],
-        prompts["init_chat_system_message_prompt"],
-        prompts["init_chat_first_message_prompt"],
-        max_refinement_rounds=cfg.schema_generator.max_refinement_rounds,
-        min_refinement_rounds=cfg.schema_generator.min_refinement_rounds,
-        max_data_refinement_rounds=cfg.schema_generator.max_data_refinement_rounds,
-        min_data_refinement_rounds=cfg.schema_generator.min_data_refinement_rounds,
-        data_assessment_top_k=cfg.schema_generator.data_assessment_top_k,
-        data_assessment_num_examples=cfg.schema_generator.data_assessment_num_examples,
-        data_assessment_random_seed=cfg.schema_generator.data_assessment_random_seed,
+        SchemaGeneratorPrompts(**prompts),
+        max_refinement_rounds=sg_cfg.max_refinement_rounds,
+        min_refinement_rounds=sg_cfg.min_refinement_rounds,
+        max_data_refinement_rounds=sg_cfg.max_data_refinement_rounds,
+        min_data_refinement_rounds=sg_cfg.min_data_refinement_rounds,
+        data_assessment_top_k=sg_cfg.data_assessment_top_k,
+        data_assessment_num_examples=sg_cfg.data_assessment_num_examples,
+        data_assessment_random_seed=sg_cfg.data_assessment_random_seed,
         recursion_limit=100,
     )
 

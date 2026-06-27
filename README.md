@@ -1,15 +1,55 @@
+<div align="center">
+
 # schematize
 
-Agentic system for automated extraction-schema generation. Given a natural language description of what information you want to extract, schematize runs a multi-agent LangGraph pipeline that produces a structured schema suitable for information extraction from documents.
+**Turn a plain-English research question into a typed, data-tested extraction schema.**
 
-## Features
+[![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)
+[![Python](https://img.shields.io/pypi/pyversions/schematize.svg)](https://pypi.org/project/schematize/)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Docs](https://img.shields.io/badge/docs-pwr--ai.github.io-blue.svg)](https://pwr-ai.github.io/schematize)
 
-- Multi-agent pipeline: problem definition → query generation → schema generation → refinement → data-grounded assessment
-- Interactive chat at the end to refine the schema further
-- Built-in evaluator that scores schemas against expert questions
-- Language support: English (`en`) and Polish (`pl`)
-- Domain support: tax interpretations (`tax`) and legal judgments (`law`)
-- Pluggable document retriever via a clean protocol — bring your own corpus or use the optional Weaviate adapter
+[Documentation](https://pwr-ai.github.io/schematize) ·
+[Quickstart](https://pwr-ai.github.io/schematize/quickstart/) ·
+[Pipeline](https://pwr-ai.github.io/schematize/pipeline/) ·
+[API reference](https://pwr-ai.github.io/schematize/api/schema_generator/)
+
+</div>
+
+---
+
+`schematize` is a Python library that turns a natural-language description of *what you want to
+extract* into a **typed, validated extraction schema** — field names, types, descriptions, and
+enums — ready to drive structured information extraction from a document collection.
+
+Instead of hand-writing JSON schemas and discovering their gaps in production, you describe the
+problem. A multi-agent [LangGraph](https://langchain-ai.github.io/langgraph/) pipeline asks
+clarifying questions, drafts a schema, critiques and refines it, **tests it against real documents
+from your corpus**, and opens a chat for final tweaks.
+
+## Why schematize?
+
+- **Designing extraction schemas by hand is slow and brittle.** You guess the fields, miss edge
+  cases, and only find out when extraction quality is poor.
+- **Raw "ask an LLM for a schema" gives you an untested first draft.** No critique loop, no contact
+  with your actual data, no typing guarantees.
+- **schematize closes the loop:** clarify → draft → criteria-based refinement → **data-grounded
+  refinement against retrieved documents** → interactive chat. The output is a Pydantic model you
+  can plug straight into an extraction pipeline.
+- **Use any LLM.** schematize accepts any LangChain chat model and any OpenAI-compatible endpoint, so
+  you can run it through a [LiteLLM](https://github.com/BerriAI/litellm) proxy — which is exactly how
+  we ran our experiments — and reach OpenAI, Anthropic, Gemini, or local models through one
+  interface. No provider lock-in.
+- **Bring your own data.** Implementing a retriever is one async method; HuggingFace and Weaviate
+  adapters are built in. A schema-coverage evaluator is included too.
+
+| | Hand-written schema | Ask-an-LLM once | **schematize** |
+|---|:---:|:---:|:---:|
+| Clarifies an ambiguous request | ❌ | ❌ | ✅ |
+| Iterative critique & refinement | ❌ | ❌ | ✅ |
+| Validated against **real documents** | ❌ | ❌ | ✅ |
+| Typed Pydantic output | manual | ❌ | ✅ |
+| Built-in coverage evaluation | ❌ | ❌ | ✅ |
 
 ## Install
 
@@ -17,17 +57,15 @@ Agentic system for automated extraction-schema generation. Given a natural langu
 pip install schematize
 ```
 
-With the optional Weaviate adapter (for the built-in legal document retriever):
+Optional adapters and tooling:
 
 ```bash
-pip install schematize[weaviate]
+pip install "schematize[huggingface]"   # FAISS retriever over HuggingFace datasets
+pip install "schematize[weaviate]"      # hybrid-search retriever for a Weaviate instance
+pip install "schematize[scripts]"       # Hydra-based CLI runners
 ```
 
-With the Hydra-based runner scripts:
-
-```bash
-pip install schematize[scripts]
-```
+Requires Python 3.12+. Full options in the [installation guide](https://pwr-ai.github.io/schematize/installation/).
 
 ## Quickstart
 
@@ -35,162 +73,190 @@ pip install schematize[scripts]
 from langchain_openai import ChatOpenAI
 from schematize import SchemaGenerator, load_prompts
 
-# 1. Implement the DocumentRetriever protocol to fetch example documents
-#    for data-grounded schema refinement.
 
+# 1. Any object with this async __call__ is a valid retriever (DocumentRetriever protocol).
+#    Return documents relevant to `query`; each is shown to the data-assessment agent.
 class MyRetriever:
     async def __call__(self, query: str, max_docs: int = 100) -> list:
-        # Return a list of documents relevant to `query`.
-        # Each document can be any object — it is passed as `example_document`
-        # to the data assessment prompt.
-        return []  # replace with your retrieval logic
+        return [
+            {"text": "The court awarded 15,000 PLN in damages for breach of personal rights..."},
+            {"text": "Claim dismissed; the plaintiff failed to prove the violation..."},
+        ]
 
-# 2. Load prompts for your language/domain.
-prompts = load_prompts(language="en", system_type="tax")
+
+# 2. Load bundled prompts for your language/domain (en|pl × law|tax).
+prompts = load_prompts(language="en", system_type="law")
 
 llm = ChatOpenAI(model="gpt-4o", temperature=0.2)
 
-schema_system = SchemaGenerator(
-    llm=llm,
-    retriever=MyRetriever(),
-    **{k: v for k, v in prompts.items()},  # unpacks all required prompt args
+generator = SchemaGenerator(llm=llm, retriever=MyRetriever(), **prompts)
+
+# 3. Run the pipeline (interactive: it asks clarifying questions in the terminal).
+state = generator.stream_graph_updates(
+    "Study personal-rights violations in civil cases and assess their severity."
 )
-
-# 3. Run the interactive pipeline.
-schema_system.stream_graph_updates("Extract information about tax rulings on cryptocurrency")
+print(state["current_schema"])
 ```
 
-### Using the built-in Weaviate adapter
-
-If you have a Weaviate index with legal documents, use the built-in retriever:
+A generated schema looks like this — a typed spec you can act on immediately:
 
 ```python
-from schematize.retrieval.weaviate import DocumentType, WeaviateRetriever
+{
+    "fields": [
+        {"name": "violation_type", "type_": "enum", "enum_name": "ViolationType",
+         "enum_values": ["privacy", "reputation", "image", "bodily_integrity"],
+         "description": "Category of personal right that was violated."},
+        {"name": "severity", "type_": "integer",
+         "description": "Severity of the violation on a 0–5 scale."},
+        {"name": "compensation_awarded", "type_": "boolean",
+         "description": "Whether monetary compensation was granted."},
+        {"name": "compensation_amount", "type_": "float",
+         "description": "Awarded amount in PLN, if any."},
+    ]
+}
+```
 
-retriever = WeaviateRetriever(
-    document_type=DocumentType.TAX_INTERPRETATION,
-    language="pl",
+Turn it into a Pydantic model and use it for extraction:
+
+```python
+from schematize import SchemaFields, DynamicModelFactory
+
+model_cls = DynamicModelFactory()(SchemaFields(**state["current_schema"]))
+```
+
+## Use any LLM (via LiteLLM)
+
+`SchemaGenerator` takes any LangChain [`BaseChatModel`](https://python.langchain.com/docs/concepts/chat_models/).
+Because it also honours an OpenAI-compatible `base_url`, the simplest way to reach **any** provider is
+to put a [LiteLLM](https://github.com/BerriAI/litellm) proxy in front and point schematize at it —
+the setup we used for our experiments:
+
+```python
+from langchain_openai import ChatOpenAI
+
+# Point at a LiteLLM proxy; the model name routes to OpenAI, Anthropic, Gemini, local, etc.
+llm = ChatOpenAI(model="claude-opus-4-8", base_url="http://localhost:4000", api_key="sk-litellm")
+```
+
+One interface, 100+ providers, no lock-in. See [Configuration](https://pwr-ai.github.io/schematize/configuration/).
+
+## Retrieval is pluggable
+
+The core library has **no retrieval dependency**. Implementing your own retriever is a single async
+method — the `DocumentRetriever` protocol shown in the quickstart — so you can wrap Elasticsearch,
+Postgres FTS, a REST API, or any vector store.
+
+Two adapters ship in the box:
+
+**HuggingFace** (`[huggingface]`) — FAISS index over any HuggingFace dataset, cached to disk:
+
+```python
+from schematize.retrieval.huggingface import HuggingFaceRetriever
+
+retriever = HuggingFaceRetriever(
+    dataset_name="JuDDGES/pl-court-raw", text_column="text", index_path=".cache/court-index"
 )
 ```
 
-Required environment variables:
-
-| Variable     | Description                 |
-|--------------|-----------------------------|
-| `WV_URL`     | Weaviate host               |
-| `WV_PORT`    | Weaviate HTTP port          |
-| `WV_GRPC_PORT` | Weaviate gRPC port        |
-| `WV_API_KEY` | Weaviate API key            |
-
-## Prompts
-
-Prompts are bundled with the package under `configs/prompt/{language}/{system_type}/`:
-
-| Language | System type | Description              |
-|----------|-------------|--------------------------|
-| `en`     | `tax`       | English, tax rulings     |
-| `en`     | `law`       | English, court judgments |
-| `pl`     | `tax`       | Polish, tax rulings      |
-| `pl`     | `law`       | Polish, court judgments  |
-
-## Runner scripts (requires `[scripts]` extra)
-
-```bash
-# Interactive — prompts for user input
-schematize-run
-
-# Mocked — replays a stored case (see below)
-schematize-run-mocked +case=en_age cases_path=/path/to/cases model_name=gpt-4o
-
-# Evaluate schemas against expert questions
-schematize-evaluate +case_name=age
-```
-
-Or run directly from the repo:
-
-```bash
-python scripts/schema_generator.py
-python scripts/schema_generator_mocked.py +case=en_age cases_path=data/cases model_name=gpt-4o
-python scripts/evaluate_schema.py +case_name=age
-```
-
-### Mocked runner cases
-
-The mocked runner replays pre-written cases instead of prompting for live user input. A case is a YAML file that can define any combination of:
-
-```yaml
-# my_case.yaml
-user_input: "Extract information about personal injury lawsuits"
-problem_help: "The schema should capture plaintiff, defendant, compensation, and verdict."
-user_feedback: "Add a field for the court name."
-human_message: "Can you also add a field for the date of the ruling?"
-```
-
-| Key | Description |
-|---|---|
-| `user_input` | Initial prompt passed to the pipeline |
-| `problem_help` | Mocked AI response during the problem-definition step |
-| `user_feedback` | Mocked human feedback used during schema refinement |
-| `human_message` | Mocked final human message in the interactive chat |
-
-All keys are optional — omit any that you want to run interactively. The case filename (without `.yaml`) becomes the case name used with `+case=<name>`.
-
-Example cases are available in [`data/cases/`](data/cases/) in the repository. Pass that directory (or your own) via `cases_path`:
-
-```bash
-# From a cloned repo
-schematize-run-mocked +case=en_age cases_path=data/cases model_name=gpt-4o
-
-# After pip install, point at your own cases
-schematize-run-mocked +case=my_case cases_path=/path/to/my/cases model_name=gpt-4o
-```
-
-## Schema model
+**Weaviate** (`[weaviate]`) — hybrid search against a Weaviate instance:
 
 ```python
-from schematize.schema.model import DynamicModelFactory, NamedFieldDef, SchemaFields
+from schematize.retrieval.weaviate import WeaviateRetriever
 
-spec = SchemaFields(fields=[
-    NamedFieldDef(name="amount", type_="float", description="Fine amount in PLN"),
-    NamedFieldDef(name="age_category", type_="enum", enum_name="AgeGroup",
-                  enum_values=["minor", "young_adult", "adult", "senior"],
-                  description="Defendant's age category"),
-])
-
-Model = DynamicModelFactory()(spec)
+retriever = WeaviateRetriever(collection_name="LegalDocuments")
 ```
 
-## Evaluator
+Needs `WV_URL`, `WV_PORT`, `WV_GRPC_PORT`, `WV_API_KEY`. See the
+[Weaviate guide](https://pwr-ai.github.io/schematize/guides/weaviate/).
+
+`MMLWRobertaV2Retriever` (Polish-optimised, built on the HuggingFace base) is a worked **example of a
+custom retriever** — read it as a template for specialising retrieval to your own model or language.
+See the [custom retriever guide](https://pwr-ai.github.io/schematize/guides/custom-retriever/).
+
+## Evaluate a schema
+
+Score how well a schema can answer a set of expert questions:
 
 ```python
-from schematize.eval.evaluator import SchemaEvaluator
+import yaml
+from langchain_openai import ChatOpenAI
+from schematize import SchemaEvaluator
+from schematize.settings import PROMPTS_PATH
 
-evaluator = SchemaEvaluator(llm, evaluation_prompt)
-result = evaluator.evaluate_schema(schema_dict, questions=["What is the fine amount?", ...])
+with open(PROMPTS_PATH / "evaluator.yaml") as f:
+    evaluation_prompt = yaml.safe_load(f)["schema_evaluator_prompt"]
+
+evaluator = SchemaEvaluator(ChatOpenAI(model="gpt-4o"), evaluation_prompt)
+result = evaluator.evaluate_schema(schema, questions=["How severe was the violation?", ...])
 print(result.covered_questions, "/", result.total_questions)
+```
+
+More in the [evaluation guide](https://pwr-ai.github.io/schematize/guides/evaluation/).
+
+## Command-line runners
+
+With the `[scripts]` extra you get three console scripts:
+
+```bash
+schematize-run                              # interactive pipeline
+schematize-run-mocked +case=en_age          # replay a stored case (no live prompts)
+schematize-evaluate +case_name=age          # evaluate against expert questions
+```
+
+See the [CLI guide](https://pwr-ai.github.io/schematize/guides/cli/) for mocked-case files and options.
+
+## Reproducing our study
+
+The experiments from our paper are driven by the mocked runner (schema generation) and the evaluator
+(schema scoring against expert questions). Cases live in [`data/cases/`](data/cases/) and expert
+question sets in [`data/eval/`](data/eval/) (`pl_age`, `pl_personal_rights`, `pl_medical_errors`).
+
+```bash
+git clone https://github.com/pwr-ai/schematize && cd schematize
+uv sync --extra scripts --extra huggingface
+
+# Configure the LLM in a .env file (we used a LiteLLM proxy — see "Use any LLM" above)
+printf 'API_KEY=...\nAPI_URL=...\n' > .env
+
+# 1. Generate schemas for every case (multiple runs per case)
+bash scripts/experiments/search_params.sh
+
+# 2. Ablation over pipeline components (no problem-definition / no refinement / no data-grounding)
+bash scripts/experiments/ablation.sh <model>
+
+# 3. Evaluate generated schemas against expert questions
+bash scripts/experiments/eval_multirun.sh <eval_model> <generation_model>
+```
+
+The shell scripts in [`scripts/experiments/`](scripts/experiments/) are thin Hydra wrappers; edit the
+`MODEL`/`CASES` variables at the top to change the grid. Results are written to the Hydra output
+directory.
+
+> **Note:** exact model names, seeds, and hyperparameters used in the paper are documented in the
+> [reproduction guide](https://pwr-ai.github.io/schematize/) — fill in once the study is published.
+
+## Citation
+
+If you use schematize in your research, please cite:
+
+```bibtex
+@misc{schematize,
+  title  = {schematize: Agentic Extraction-Schema Generation},
+  author = {Sawczyn, Albert and others},
+  year   = {2026},
+  note   = {TODO: replace with the published reference}
+}
 ```
 
 ## Development
 
 ```bash
-# Install with dev dependencies
 uv sync --extra dev
-
-# Lint
-make check
-
-# Test
-make test
-
-# Fix lint
-make fix
+make check    # ruff lint
+make test     # pytest + coverage
+make fix      # ruff --fix
 ```
 
-## Environment
+## License
 
-Set API credentials in a `.env` file (auto-loaded by scripts):
-
-```
-API_KEY=...
-API_URL=...   # optional, for self-hosted endpoints
-```
+Released under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) © Albert Sawczyn.

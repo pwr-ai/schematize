@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
 from schematize.agents.agent_state import agent_state_to_json
-from schematize.agents.schema_generator import SchemaGenerator
+from schematize.agents.schema_generator import SchemaGenerator, SchemaGeneratorPrompts
 from schematize.utils.load import load_prompts
 
 app = typer.Typer()
@@ -81,18 +81,7 @@ def main(
     schema_system = SchemaGenerator(
         llm,
         retriever,
-        prompts["problem_definer_helper_prompt"],
-        prompts["problem_definer_prompt"],
-        prompts["schema_generator_prompt"],
-        prompts["schema_assessment_prompt"],
-        prompts["schema_refiner_prompt"],
-        prompts["query_generator_prompt"],
-        prompts["schema_data_assessment_prompt"],
-        prompts["schema_data_assessment_merger_prompt"],
-        prompts["schema_data_refiner_prompt"],
-        prompts["init_chat_generation_summarizer_prompt"],
-        prompts["init_chat_system_message_prompt"],
-        prompts["init_chat_first_message_prompt"],
+        SchemaGeneratorPrompts(**prompts),
         recursion_limit=100,
     )
 
