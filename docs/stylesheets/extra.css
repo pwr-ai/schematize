@@ -1,5 +1,81 @@
-/* Prevent mkdocstrings signature code blocks from overflowing horizontally */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+
 .doc-signature pre {
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.md-header__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem !important;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.md-header__button.md-logo img {
+  transform: scale(1.7);
+  transform-origin: left center;
+}
+
+[data-md-color-scheme="default"] .md-header {
+  background-color: #1e3a35;
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background-color: #122620;
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+  background-color: #1e3a35;
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link--active,
+[data-md-color-scheme="slate"] .md-tabs__link:hover {
+  color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] .md-header__title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+[data-md-color-scheme="slate"] .md-header .md-icon,
+[data-md-color-scheme="slate"] .md-header .md-search__icon,
+[data-md-color-scheme="slate"] .md-header .md-header__button,
+[data-md-color-scheme="slate"] .md-header .md-source,
+[data-md-color-scheme="slate"] .md-header .md-source__repository {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #418B7E;
+  --md-primary-fg-color--light: #5aa899;
+  --md-primary-fg-color--dark: #2e6358;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
+  --md-accent-fg-color: #C19324;
+  --md-accent-fg-color--transparent: rgba(193, 147, 36, 0.1);
+  --md-accent-bg-color: #ffffff;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #5aa899;
+  --md-primary-fg-color--light: #72bdb1;
+  --md-primary-fg-color--dark: #418B7E;
+  --md-primary-bg-color: rgba(255, 255, 255, 0.1);
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
+  --md-accent-fg-color: #E1B74B;
+  --md-accent-fg-color--transparent: rgba(225, 183, 75, 0.1);
+  --md-accent-bg-color: rgba(255, 255, 255, 0.1);
 }

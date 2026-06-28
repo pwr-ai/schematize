@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/logo.png" alt="schematize logo" width="200" height="200">
+
 # schematize
 
 **Turn a plain-English research question into a typed, data-tested extraction schema.**

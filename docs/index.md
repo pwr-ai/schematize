@@ -1,4 +1,10 @@
-# schematize
+<div style="text-align: center; padding: 2.5rem 0 1.5rem;">
+  <img src="assets/logo.png" alt="schematize logo" style="width: 200px; height: 200px;">
+  <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; font-weight: 700; margin: 0.5rem 0 0.25rem; letter-spacing: -0.02em;">schematize</h1>
+  <p style="font-size: 1.1rem; color: var(--md-default-fg-color--light); max-width: 560px; margin: 0 auto;">Automated extraction-schema generation using a multi-agent LangGraph pipeline.</p>
+</div>
+
+---
 
 **schematize** turns a natural language research question into a typed, validated extraction schema — ready to drive structured information extraction from document collections.
 
