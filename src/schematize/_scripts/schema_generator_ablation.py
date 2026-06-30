@@ -89,9 +89,8 @@ def main(cfg: DictConfig) -> None:
         f.write(agent_state_to_json(final_state))
     logger.info("State saved to {}", output_path)
 
-    schema_path = Path(cfg.output) / "schema.yaml"
-    with schema_path.open("w") as f:
-        yaml.dump(final_state.get("current_schema"), f, allow_unicode=True, sort_keys=False)
+    schema_path = Path(cfg.output) / "schema.json"
+    schema_path.write_text(final_state.get("current_schema").model_dump_json(indent=2))
     logger.info("Schema saved to {}", schema_path)
 
 

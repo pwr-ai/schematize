@@ -21,10 +21,10 @@ schema_generator:
   max_data_refinement_rounds: 3
   min_data_refinement_rounds: 1
   data_assessment_top_k: 50
-  data_assessment_num_examples: 2
+  data_assessment_num_examples: 3
   data_assessment_random_seed: 17
 
-single_run_output_subdir: generated_schemas/${model_name}
+single_run_output_subdir: generated_schemas/${model_name}/${case.name}
 multirun_output_subdir: generated_schemas/${model_name}/${case.name}/maxrr_${schema_generator.max_refinement_rounds}_minrr_${schema_generator.min_refinement_rounds}_maxdrr_${schema_generator.max_data_refinement_rounds}_mindrr_${schema_generator.min_data_refinement_rounds}_dane_${schema_generator.data_assessment_num_examples}
 output: ${hydra:runtime.output_dir}
 
