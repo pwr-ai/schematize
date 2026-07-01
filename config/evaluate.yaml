@@ -18,7 +18,7 @@ llm:
 
 case_name: ??? # ["pl_age", "pl_personal_rights", "pl_medical_errors"]
 
-state_dir: multirun/generated_schemas/${generation_model_name}/${case_name}/
+state_dir: ???
 eval_data_dir: data/eval/
 case_dir: ${eval_data_dir}/${case_name}
 
