@@ -3,7 +3,7 @@ set -euo pipefail
 
 MODEL=${1:-gpt-5.4-mini}
 GENERATION_MODEL=${2:-gpt-5.4-nano}
-CASES=(pl_age pl_personal_rights)
+CASES=(pl_medical_errors) # (pl_age pl_personal_rights)
 
 for case in "${CASES[@]}"; do
     echo "Evaluating multirun ${MODEL} / ${GENERATION_MODEL} / ${case}"

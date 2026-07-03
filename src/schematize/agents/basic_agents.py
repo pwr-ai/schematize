@@ -10,6 +10,7 @@ from schematize.agents.output_models import (
     SchemaGenerationOutput,
     SchemaRefinementOutput,
 )
+from schematize.utils.retry import StructuredOutputRunner
 
 
 class ProblemDefinerHelperAgent:
@@ -45,10 +46,11 @@ class ProblemDefinerAgent:
 
 
 class SchemaGeneratorAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(SchemaGenerationOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, SchemaGenerationOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
         inputs = {
@@ -68,10 +70,11 @@ class SchemaGeneratorAgent:
 
 
 class SchemaAssessmentAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(SchemaAssessmentOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, SchemaAssessmentOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
         inputs = {
@@ -87,10 +90,11 @@ class SchemaAssessmentAgent:
 
 
 class SchemaRefinerAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(SchemaRefinementOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, SchemaRefinementOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
         inputs = {

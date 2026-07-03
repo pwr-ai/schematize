@@ -7,6 +7,7 @@ from loguru import logger
 
 from schematize.agents.agent_state import AgentState, msg_usage
 from schematize.agents.output_models import ChatOutput
+from schematize.utils.retry import StructuredOutputRunner
 
 
 class InitChatAgent:
@@ -51,8 +52,8 @@ class InitChatAgent:
 
 
 class ChatAgent:
-    def __init__(self, llm) -> None:
-        self.llm = llm.with_structured_output(ChatOutput, include_raw=True)
+    def __init__(self, llm, max_retries: int = 3) -> None:
+        self.chain = StructuredOutputRunner(llm, ChatOutput, max_retries=max_retries)
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
         final_messages = state["final_messages"]
@@ -61,7 +62,7 @@ class ChatAgent:
             type(self).__name__,
             "\n---\n".join(f"[{m.type}] {m.content}" for m in final_messages),
         )
-        response = self.llm.invoke(final_messages)
+        response = self.chain.invoke(final_messages)
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "final_messages": [response["raw"]], "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 

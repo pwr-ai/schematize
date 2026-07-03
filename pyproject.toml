@@ -38,6 +38,7 @@ scripts = [
 notebooks = [
     "pandas>=2.0",
     "matplotlib>=3.0",
+    "seaborn>=0.13",
     "jupyter>=1.0",
     "ipykernel>=6.0",
 ]

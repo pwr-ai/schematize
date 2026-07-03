@@ -5,6 +5,7 @@ defaults:
 
 api_key: ${oc.env:API_KEY}
 api_url: ${oc.env:API_URL}
+
 model_name: ???
 cases_path: data/cases
 llm_cache: false
@@ -12,16 +13,15 @@ llm_cache: false
 llm:
   temperature: 0.2
   max_tokens: 32000
-  model_kwargs:
-    reasoning_effort: "medium"
+  reasoning_effort: "medium"
 
 schema_generator:
-  max_refinement_rounds: 4
-  min_refinement_rounds: 1
-  max_data_refinement_rounds: 3
-  min_data_refinement_rounds: 1
+  max_refinement_rounds: 3
+  min_refinement_rounds: 2
+  max_data_refinement_rounds: 4
+  min_data_refinement_rounds: 2
   data_assessment_top_k: 50
-  data_assessment_num_examples: 3
+  data_assessment_num_examples: 1
   data_assessment_random_seed: 17
 
 single_run_output_subdir: generated_schemas/${model_name}/${case.name}

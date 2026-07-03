@@ -92,6 +92,7 @@ async def _evaluate_and_save(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w") as f:
         json.dump(results, f, indent=2)
+    print(f"Evaluation results saved to {output_path}")
 
 
 async def _evaluate(

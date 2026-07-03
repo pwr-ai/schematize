@@ -6,6 +6,8 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel, Field, create_model
 
+from schematize.utils.retry import StructuredOutputRunner
+
 
 class CoverageAssessment(BaseModel):
     """Per-question verdict from the LLM judge.
@@ -59,14 +61,28 @@ class SchemaEvaluator:
     Args:
         llm: Language model used as the judge.
         evaluation_prompt: Prompt template with `{questions}` and `{schema}` placeholders.
+        max_retries: Retries for structured-output calls that fail with an
+            `openai.OpenAIError`. Default: 3.
     """
 
-    def __init__(self, llm: BaseChatModel, evaluation_prompt: str):
+    def __init__(
+        self,
+        llm: BaseChatModel,
+        evaluation_prompt: str,
+        max_retries: int = 3,
+    ):
         self.llm = llm
         self.evaluation_prompt_template = PromptTemplate.from_template(evaluation_prompt)
+        self.max_retries = max_retries
 
-    def _build_chain(self, n: int):
-        return self.evaluation_prompt_template | self.llm.with_structured_output(_build_batch_model(n))
+    def _build_chain(self, n: int) -> StructuredOutputRunner:
+        return StructuredOutputRunner(
+            self.llm,
+            _build_batch_model(n),
+            self.evaluation_prompt_template,
+            self.max_retries,
+            include_raw=False,
+        )
 
     def _parse_assessments(self, result: Any, n: int) -> dict[str, CoverageAssessment]:
         return {f"question_{i + 1}": getattr(result, f"question_{i + 1}") for i in range(n)}

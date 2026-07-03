@@ -42,7 +42,6 @@ def main(cfg: DictConfig) -> None:
     case_data = cases[case_name]
 
     retriever = _build_retriever(cfg.retriever)
-
     llm = ChatOpenAI(
         model=cfg.model_name,
         base_url=cfg.api_url,
@@ -50,7 +49,7 @@ def main(cfg: DictConfig) -> None:
         temperature=cfg.llm.temperature,
         max_tokens=cfg.llm.max_tokens,
         use_responses_api=False,
-        **cfg.llm.model_kwargs,
+        reasoning_effort=cfg.llm.reasoning_effort,
     )
 
     sg_cfg = cfg.schema_generator

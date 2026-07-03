@@ -12,5 +12,6 @@ for case in "${CASES[@]}"; do
         "model_name=${EVAL_MODEL}" \
         "generation_model_name=baseline/${GENERATION_MODEL}" \
         "state_dir=outputs/baseline/${GENERATION_MODEL}/${case}" \
+        "output_subdir=baseline_evaluation/${EVAL_MODEL}/${GENERATION_MODEL}/${case}" \
         "final_only=true"
 done

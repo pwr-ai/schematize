@@ -13,16 +13,18 @@ from schematize.agents.output_models import (
     SchemaRefinementOutput,
 )
 from schematize.retrieval.base import DocumentRetriever
+from schematize.utils.retry import StructuredOutputRunner
 
 
 class QueryGeneratorAgent:
     class Query(BaseModel):
         query: str
 
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(self.Query, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, self.Query, self.prompt, max_retries
+        )
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         inputs = {
@@ -108,10 +110,11 @@ class SchemaDataAssessmentAgent:
 
 
 class SchemaDataAssessmentMergerAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(DataAssessmentMergerOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, DataAssessmentMergerOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         data_assessment_results = state["data_assessment_results"]
@@ -133,10 +136,11 @@ class SchemaDataAssessmentMergerAgent:
 
 
 class SchemaDataRefinerAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(SchemaRefinementOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, SchemaRefinementOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         inputs = {
