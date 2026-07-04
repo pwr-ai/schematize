@@ -34,7 +34,7 @@ def main(cfg: DictConfig) -> None:
         **cfg.llm.model_kwargs,
     )
 
-    with open(PROMPTS_PATH / "evaluator.yaml", "r") as f:
+    with open(PROMPTS_PATH / "eval" / "schema_evaluator.yaml", "r") as f:
         prompts = yaml.safe_load(f)
 
     evaluator = SchemaEvaluator(llm, prompts["schema_evaluator_prompt"])

@@ -59,6 +59,7 @@ docs = [
 schematize-run = "schematize._scripts.schema_generator:app"
 schematize-run-mocked = "schematize._scripts.schema_generator_mocked:main"
 schematize-evaluate = "schematize._scripts.evaluate_schema:main"
+schematize-evaluate-agreement = "schematize._scripts.evaluate_annotator_agreement:main"
 
 [build-system]
 requires = ["hatchling"]

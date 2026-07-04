@@ -8,7 +8,7 @@ MODELS=(
     # gpt-5.4
     # llama-4-scout-17b
     # qwen3.6-35b-a3b
-    qwen3.5-9B
+    google/gemma-4-e4b-it
     # claude-sonnet-4.6
     # claude-opus-4-7
 )

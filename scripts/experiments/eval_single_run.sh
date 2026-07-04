@@ -6,9 +6,9 @@ GENERATION_MODELS=(
     # gpt-5.4-nano
     # gpt-5.4-mini
     # gpt-5.4
-    llama-4-scout-17b
-    qwen3.6-35b-a3b
-    # # google/gemma-4-26B-A4B-it
+    # llama-4-scout-17b
+    # qwen3.6-35b-a3b
+    gemma-4-e4b-it
     # claude-sonnet-4.6
     # claude-opus-4-7
 )

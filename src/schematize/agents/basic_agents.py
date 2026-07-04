@@ -64,8 +64,8 @@ class SchemaGeneratorAgent:
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
         if parsed.is_generated:
-            update_dict["current_schema"] = parsed.schema_.model_dump()
-            update_dict["schema_history"] = [parsed.schema_.model_dump()]
+            update_dict["current_schema"] = parsed.schema_
+            update_dict["schema_history"] = [parsed.schema_]
         return update_dict
 
 
@@ -110,6 +110,6 @@ class SchemaRefinerAgent:
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "refinement_rounds": 1, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
         if parsed.is_refined:
-            update_dict["current_schema"] = parsed.schema_.model_dump()
-            update_dict["schema_history"] = [parsed.schema_.model_dump()]
+            update_dict["current_schema"] = parsed.schema_
+            update_dict["schema_history"] = [parsed.schema_]
         return update_dict

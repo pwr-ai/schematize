@@ -64,6 +64,7 @@ def main(cfg: DictConfig) -> None:
         data_assessment_top_k=sg_cfg.data_assessment_top_k,
         data_assessment_num_examples=sg_cfg.data_assessment_num_examples,
         data_assessment_random_seed=sg_cfg.data_assessment_random_seed,
+        data_assessment_document_max_chars=sg_cfg.data_assessment_document_max_chars,
         recursion_limit=100,
     )
 

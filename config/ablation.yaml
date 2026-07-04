@@ -10,7 +10,7 @@ cases_path: data/cases
 llm_cache: false
 
 llm:
-  temperature: 0.2
+  temperature: 1
   max_tokens: 32000
   model_kwargs:
     reasoning_effort: "medium"
@@ -23,6 +23,7 @@ schema_generator:
   data_assessment_top_k: 50
   data_assessment_num_examples: 2
   data_assessment_random_seed: 17
+  data_assessment_document_max_chars: 32_000
   skip_problem_definition: false
   skip_refinement: false
   skip_data_grounded: false
@@ -32,4 +33,4 @@ output: ${hydra:runtime.output_dir}
 
 hydra:
   run:
-    dir: ${output_subdir}
+    dir: outputs/${output_subdir}

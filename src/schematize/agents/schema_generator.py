@@ -23,6 +23,7 @@ from schematize.agents.data_agents import (
     SchemaDataRefinerAgent,
 )
 from schematize.retrieval.base import DocumentRetriever
+from schematize.schema.model import SchemaFields
 
 
 @dataclass
@@ -92,6 +93,9 @@ class SchemaGenerator:
         data_assessment_top_k: Documents retrieved per query for the assessment pool. Default: 50.
         data_assessment_num_examples: Documents sampled per assessment round. Default: 3.
         data_assessment_random_seed: Seed for reproducible document sampling. Default: 17.
+        data_assessment_document_max_chars: Max characters of a retrieved document's string
+            representation included in the assessment prompt, to avoid exceeding the model's
+            context window on long documents. Default: 32_000.
         max_retries: Retries for structured-output calls that fail with an
             `openai.OpenAIError` (rate limits, transient API errors, or a reasoning
             model exhausting its `max_tokens` budget before producing output). Default: 3.
@@ -120,6 +124,7 @@ class SchemaGenerator:
         data_assessment_top_k: int = 50,
         data_assessment_num_examples: int = 3,
         data_assessment_random_seed: int = 17,
+        data_assessment_document_max_chars: int = 32_000,
         max_retries: int = 3,
         skip_problem_definition: bool = False,
         skip_refinement: bool = False,
@@ -161,6 +166,8 @@ class SchemaGenerator:
             top_k=data_assessment_top_k,
             num_examples=data_assessment_num_examples,
             random_seed=data_assessment_random_seed,
+            max_retries=max_retries,
+            document_max_chars=data_assessment_document_max_chars,
         )
         self.schema_data_assessment_merger = SchemaDataAssessmentMergerAgent(
             llm,
@@ -235,7 +242,7 @@ class SchemaGenerator:
 
         return graph_builder.compile(**(compilation_kwargs or {}))
 
-    def stream_graph_updates(self, user_input: str, current_schema: dict = None) -> None:
+    def stream_graph_updates(self, user_input: str, current_schema: SchemaFields | None = None) -> None:
         if self.use_interrupt:
             raise NotImplementedError(
                 "Can't use stream_graph_updates with use_interrupt set!"
@@ -276,7 +283,7 @@ class SchemaGenerator:
 
         return final_state
 
-    def get_complete_results(self, user_input: str, current_schema: dict = None) -> dict:
+    def get_complete_results(self, user_input: str, current_schema: SchemaFields | None = None) -> dict:
         if self.use_interrupt:
             raise NotImplementedError(
                 "Can't use get_complete_results with use_interrupt set!"
