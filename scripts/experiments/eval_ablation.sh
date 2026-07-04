@@ -9,7 +9,7 @@ CASES=(pl_age pl_personal_rights pl_medical_errors)
 
 run_eval() {
     local model=$1 case=$2 skip_pd=$3 skip_sr=$4 skip_dg=$5
-    local combo="pd${skip_pd}_sr${skip_sr}_dg${skip_dg}"
+    local combo="pd${skip_pd^}_sr${skip_sr^}_dg${skip_dg^}"
     echo "--- Evaluating ${model} / ${case} / ${combo} ---"
     uv run python scripts/evaluate_schema.py \
         "case_name=${case}" \
@@ -24,11 +24,11 @@ for model in "${MODELS[@]}"; do
     for case in "${CASES[@]}"; do
         echo "=== Evaluate ablation: ${model} / ${case} ==="
 
-        # run_eval "${model}" "${case}" true false false    # No problem definition
-        # run_eval "${model}" "${case}" false true false    # No schema refinement
+        run_eval "${model}" "${case}" true false false    # No problem definition
+        run_eval "${model}" "${case}" false true false    # No schema refinement
         run_eval "${model}" "${case}" false false true      # No data-grounded refinement
-        # run_eval "${model}" "${case}" true true false      # No problem definition + no schema refinement
-        # run_eval "${model}" "${case}" true false true      # No problem definition + no data-grounded refinement
+        run_eval "${model}" "${case}" true true false      # No problem definition + no schema refinement
+        run_eval "${model}" "${case}" true false true      # No problem definition + no data-grounded refinement
         run_eval "${model}" "${case}" false true true        # No schema refinement + no data-grounded refinement
         run_eval "${model}" "${case}" true true true         # No problem definition + no schema refinement + no data-grounded refinement
     done

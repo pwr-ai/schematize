@@ -3,7 +3,7 @@ set -euo pipefail
 
 EVAL_MODEL=${1:-gpt-5.4-mini}
 GENERATION_MODELS=(
-    # gpt-5.4-nano
+    gpt-5.4-nano
     gpt-5.4-mini
     gpt-5.4
     llama-4-scout-17b

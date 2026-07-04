@@ -11,6 +11,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from loguru import logger
 
+from schematize.agents.agent_state import msg_usage
 from schematize.agents.output_models import SchemaGenerationOutput
 
 _SCRIPT_DIR = Path(__file__).parent
@@ -98,7 +99,14 @@ def main(
     # schematize-evaluate can point at this directory directly via state_dir=...
     state_path = out_dir / "state.json"
     state_path.write_text(
-        json.dumps({"current_schema": schema_dict, "schema_history": [schema_dict]}, indent=2)
+        json.dumps(
+            {
+                "current_schema": schema_dict,
+                "schema_history": [schema_dict],
+                "token_usage": [msg_usage(response["raw"], "SchemaGeneratorBaseline")],
+            },
+            indent=2,
+        )
     )
     logger.info("State saved to {}", state_path)
 
