@@ -14,7 +14,7 @@ CASES=(pl_age pl_personal_rights pl_medical_errors)
 
 for model in "${MODELS[@]}"; do
 for case in "${CASES[@]}"; do
-        echo "=== Baseline: ${model} / ${case} ==="
-        uv run python scripts/baseline.py --case "${case}" --model "${model}"
+        echo "=== Baseline (no PD): ${model} / ${case} ==="
+        uv run python scripts/baseline.py --case "${case}" --model "${model}" --no-pd
     done
 done

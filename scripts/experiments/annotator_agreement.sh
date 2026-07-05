@@ -2,7 +2,7 @@
 set -euo pipefail
 
 EVAL_MODEL=${1:-gpt-5.4-mini}
-CASES=(pl_age pl_personal_rights pl_medical_errors)
+CASES=(pl_personal_rights pl_medical_errors)
 
 for case in "${CASES[@]}"; do
     echo "=== Annotator agreement: ${case} ==="

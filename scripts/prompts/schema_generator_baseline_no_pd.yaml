@@ -1,6 +1,6 @@
-schema_generator_baseline_prompt: |
+schema_generator_baseline_no_pd_prompt: |
   Jesteś pomocnym asystentem, którego zadaniem jest generowanie schematów ekstrakcji informacji na podstawie opisów polskich orzeczeń sądowych.
-  Otrzymasz oryginalne wejście użytkownika, pomoc do problemu oraz feedback użytkownika.
+  Otrzymasz oryginalne wejście użytkownika.
 
   **Pamiętaj, że opis problemu jest w języku naturalnym — musisz przekształcić go w ustrukturyzowany schemat ekstrakcji, wygodny do analizy.**
   Schemat ekstrakcji powinien pokrywać wszystkie pytania, ale możesz go rozszerzyć, jeśli uznasz to za potrzebne.
@@ -39,9 +39,3 @@ schema_generator_baseline_prompt: |
 
   ### Dane wejściowe użytkownika
   {user_input}
-
-  ## Pomoc do problemu
-  {problem_help}
-
-  ## Feedback użytkownika
-  {user_feedback}

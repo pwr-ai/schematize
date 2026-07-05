@@ -15,13 +15,13 @@ CASES=(pl_age pl_personal_rights pl_medical_errors)
 
 for generation_model in "${GENERATION_MODELS[@]}"; do
     for case in "${CASES[@]}"; do
-        echo "=== Evaluate baseline: ${generation_model} / ${case} ==="
+        echo "=== Evaluate baseline (no PD): ${generation_model} / ${case} ==="
         uv run python scripts/evaluate_schema.py \
             "case_name=${case}" \
             "model_name=${EVAL_MODEL}" \
-            "generation_model_name=baseline/${generation_model}" \
-            "state_dir=outputs/baseline/${generation_model}/${case}" \
-            "output_subdir=baseline_evaluation/${EVAL_MODEL}/${generation_model}/${case}" \
+            "generation_model_name=baseline_no_pd/${generation_model}" \
+            "state_dir=outputs/baseline_no_pd/${generation_model}/${case}" \
+            "output_subdir=baseline_no_pd_evaluation/${EVAL_MODEL}/${generation_model}/${case}" \
             "final_only=true"
     done
 done
