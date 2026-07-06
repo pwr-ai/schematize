@@ -15,10 +15,9 @@ Usage:
 import asyncio
 import json
 import logging
-import os
 import time
 from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated, Any, Optional
 
 import typer
 import yaml
@@ -73,13 +72,14 @@ def main(
     output_root: Annotated[Path, typer.Option()] = REPO_ROOT / "multirun/generated_schemas",
     dataset: Annotated[str, typer.Option()] = "JuDDGES/pl-court-raw",
     text_column: Annotated[str, typer.Option()] = "full_text",
-    max_documents: Annotated[int, typer.Option(help="Corpus cap for the FAISS index")] = 20_000,
+    max_documents: Annotated[Optional[int], typer.Option(help="Corpus cap for the FAISS index (None = full corpus)")] = None,
     top_k_docs: Annotated[int, typer.Option(help="Documents fed to ScheMatiQ")] = 50,
-    max_keys_schema: Annotated[int, typer.Option()] = 30,
+    max_keys_schema: Annotated[Optional[int], typer.Option(help="Column cap (None = unlimited, ScheMatiQ's native default)")] = None,
     documents_batch_size: Annotated[int, typer.Option()] = 4,
     max_iters: Annotated[int, typer.Option()] = 6,
     temperature: Annotated[float, typer.Option()] = 0.2,
     passage_k: Annotated[int, typer.Option(help="Passages per document (ScheMatiQ retriever)")] = 8,
+    device: Annotated[Optional[str], typer.Option(help="Torch device for embedding models (None = auto-detect)")] = None,
     full_dialogue: Annotated[bool, typer.Option(help="Give ScheMatiQ the full case dialogue as query")] = True,
     run_name: Annotated[str, typer.Option()] = "run_0",
 ) -> None:
@@ -120,21 +120,24 @@ def main(
 
     from schematize.retrieval.huggingface import MMLWRobertaV2Retriever
 
-    # Same retriever as schematize's default (config/retriever/mmlw.yaml) so the
-    # baseline sees the exact same document subset as the schematize pipeline.
+    # Same document retriever as schematize's default (config/retriever/mmlw.yaml) so the
+    # baseline builds its document shortlist with the same model as the schematize pipeline.
     doc_retriever = MMLWRobertaV2Retriever(
         dataset_name=dataset,
         text_column=text_column,
         max_documents=max_documents,
-        device="mps",
-        index_path=REPO_ROOT / ".cache/schematize" / f"{dataset.replace('/', '_')}_mmlw_{max_documents}",
+        device=device,
+        index_path=REPO_ROOT / ".cache/schematize" / f"{dataset.replace('/', '_')}_mmlw_{max_documents or 'full'}",
     )
-    passage_embedding_model = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    # Localize ScheMatiQ's passage retriever to mmlw for Polish (its default is a weak
+    # multilingual MiniLM). Algorithm unchanged; only the embedding backbone is swapped.
+    passage_embedding_model = "sdadas/mmlw-retrieval-roberta-large-v2"
 
     llm = PatchedOpenAILLM(model=model, temperature=temperature)
     passage_retriever = EmbeddingRetriever(
         model_name=passage_embedding_model,
         k=passage_k,
+        device=device,
         enable_preprocessing=False,  # preprocessor targets academic papers, not court rulings
     )
 
@@ -150,8 +153,10 @@ def main(
             continue
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        retrieval_query = case["user_input"]
+        # One query drives both document selection and schema discovery, so the
+        # retrieved documents match what ScheMatiQ actually reasons over.
         schema_query = build_query(case, full_dialogue)
+        retrieval_query = schema_query
 
         typer.echo(f"=== {case_name}: retrieving {top_k_docs} documents ===")
         results = asyncio.run(doc_retriever(retrieval_query, max_docs=top_k_docs))

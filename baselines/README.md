@@ -42,16 +42,24 @@ Pipeline per case:
 
 1. **Document retrieval** — top `--top-k-docs` (50) rulings from
    `JuDDGES/pl-court-raw` using `sdadas/mmlw-retrieval-roberta-large-v2`
-   (schematize's default retriever, `config/retriever/mmlw.yaml`) over a
-   `--max-documents` (20 000) corpus slice. The FAISS index is cached at
-   `.cache/schematize/JuDDGES_pl-court-raw_mmlw_20000` and reused across runs.
-   The retrieval query is the case's `user_input`.
+   (schematize's default retriever, `config/retriever/mmlw.yaml`) over the
+   **full corpus** by default (`--max-documents null`; pass an integer to cap it).
+   The FAISS index is cached at `.cache/schematize/JuDDGES_pl-court-raw_mmlw_full`
+   and reused across runs.
+   The retrieval query is the same as the discovery query (full case dialogue),
+   and documents are fed to ScheMatiQ in descending relevance order.
 2. **Schema discovery** — ScheMatiQ `discover_schema` with the **full case
    dialogue** as query (`user_input` + clarification questions + user answers;
-   `--no-full-dialogue` for the query-only variant), its own passage-level
-   `EmbeddingRetriever` (multilingual MiniLM, `--passage-k` 8 passages/doc),
-   batches of `--documents-batch-size` (4) docs, up to `--max-iters` (6)
-   iterations or Jaccard convergence, capped at `--max-keys-schema` (30) columns.
+   `--no-full-dialogue` for the query-only variant), its passage-level
+   `EmbeddingRetriever` localized to **`sdadas/mmlw-retrieval-roberta-large-v2`**
+   for Polish (`--passage-k` 8 passages/doc; the ScheMatiQ default is a weak
+   multilingual MiniLM — only the embedding backbone is swapped, the algorithm is
+   unchanged), batches of `--documents-batch-size` (4) docs, up to `--max-iters`
+   (6) iterations or Jaccard convergence. Column count is **unlimited** by
+   default (`--max-keys-schema null`, ScheMatiQ's native `MAX_KEYS_DEFAULT`);
+   pass an integer to cap and prune to the most query-relevant columns.
+   Note: ScheMatiQ reads at most `documents_batch_size × max_iters`
+   (≈24) documents — the top-`top_k_docs` shortlist only needs to exceed that.
 3. **Output** — per case under
    `multirun/generated_schemas/schematiq_<model>_<variant>/<case>/run_0/`:
    - `schematiq_artifact.json` — native ScheMatiQ artifact (columns,
@@ -113,10 +121,10 @@ pipeline; verified equivalences:
 
 Known caveats:
 
-1. **Corpus cap** — the baseline indexes `train[:20000]` (full 394k corpus is
-   impractical to embed locally). Schematize's `config/retriever/mmlw.yaml`
-   defaults to `max_documents: null`; for exact document parity, run
-   schematize with `retriever.max_documents=20000` and the same `index_path`.
+1. **Corpus** — the baseline now indexes the **full corpus** by default
+   (`--max-documents null`), matching schematize's `config/retriever/mmlw.yaml`
+   (`max_documents: null`), so both systems retrieve from the same pool. Pass an
+   integer to `--max-documents` to cap it for a faster smoke test.
 2. **Evaluator prompt format note** — `evaluator.yaml` describes a
    name-keyed schema format, while both systems actually submit the
    `{"fields": [...]}` dump. Both deviate identically, so the comparison is
@@ -127,6 +135,10 @@ Known caveats:
    protocol-divergent.
 
 ## Reference results (2026-07-06, gpt-5.4-mini, full_dialogue)
+
+> **Stale:** these numbers predate localizing the passage retriever to mmlw and
+> aligning the retrieval query with the discovery query. Re-run before citing.
+
 
 | Case | Fields | Coverage per expert |
 |---|---|---|

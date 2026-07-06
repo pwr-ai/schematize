@@ -43,6 +43,7 @@ for case in "${CASES[@]}"; do
         "case_name=${case}" \
         "model_name=${EVAL_MODEL}" \
         "generation_model_name=${GENERATION_NAME}" \
+        "state_dir=multirun/generated_schemas/${GENERATION_NAME}/${case}" \
         "final_only=true" \
         $([[ -z "$API_URL" ]] && echo "api_url=null")
 done
