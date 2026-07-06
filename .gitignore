@@ -43,3 +43,7 @@ htmlcov/
 
 # OS
 .DS_Store
+
+# baselines: third-party clone + local retrieval index cache
+baselines/ScheMatiQ/
+.cache/
