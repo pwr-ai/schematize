@@ -93,12 +93,30 @@ def main(
     class PatchedOpenAILLM(OpenAILLM):
         """ScheMatiQ passes ``max_output_tokens`` to all backends, but its OpenAI
         path forwards kwargs verbatim to chat.completions.create(), which only
-        accepts ``max_tokens``. Remap it here."""
+        accepts ``max_tokens``. Additionally, the native OpenAI API (unlike the
+        LiteLLM proxy) rejects ``max_tokens`` and non-default ``temperature`` for
+        reasoning models — on such errors, retry with the adjusted params."""
 
         def generate(self, prompt, **kwargs):
             if "max_output_tokens" in kwargs:
                 kwargs["max_tokens"] = kwargs.pop("max_output_tokens")
-            return super().generate(prompt, **kwargs)
+            try:
+                return super().generate(prompt, **kwargs)
+            except Exception as e:
+                msg = str(e)
+                retried = False
+                if "max_completion_tokens" in msg and "max_tokens" in msg:
+                    tokens = kwargs.pop("max_tokens", None) or self._default_args.get("max_tokens")
+                    self._default_args.pop("max_tokens", None)
+                    self._default_args["max_completion_tokens"] = tokens
+                    retried = True
+                if "temperature" in msg and ("unsupported" in msg.lower() or "does not support" in msg.lower()):
+                    kwargs.pop("temperature", None)
+                    self._default_args.pop("temperature", None)
+                    retried = True
+                if not retried:
+                    raise
+                return super().generate(prompt, **kwargs)
 
     from schematize.retrieval.huggingface import MMLWRobertaV2Retriever
 
