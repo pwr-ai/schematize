@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/logo.png" alt="schematize logo" width="200" height="200">
+<img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo.png" alt="schematize logo" width="200" height="200">
 
 # schematize
 
