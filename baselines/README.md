@@ -12,16 +12,14 @@ arXiv:2604.09237) — query-driven schema discovery over a document collection.
 # 1. Pull + install ScheMatiQ (pinned commit) into the uv environment
 bash baselines/setup_schematiq.sh
 
-# 2. Inference → evaluation → private HF upload, in one go
-#    Native OpenAI:
-API_KEY=sk-... HF_TOKEN=hf_... bash baselines/run_schematiq_eval.sh
-#    LiteLLM proxy:
-API_URL=http://localhost:4000 API_KEY=<proxy-key> HF_TOKEN=hf_... \
-  bash baselines/run_schematiq_eval.sh
+# 2. Inference, then evaluation
+bash baselines/baseline_schematiq.sh
+bash baselines/eval_schematiq.sh
 ```
 
-`API_URL` semantics: **unset = native OpenAI API**, set = OpenAI-compatible
-proxy endpoint. This applies to both the inference and the evaluation step.
+`API_KEY`/`API_URL` are read the same way as in `scripts/experiments/` — from
+the environment or `.env` (unset `API_URL` = native OpenAI API, set = an
+OpenAI-compatible proxy such as LiteLLM). Both steps pick them up automatically.
 
 ## Scripts
 
@@ -33,19 +31,19 @@ checks out the pinned commit used for the published baseline results
 (`uv sync --extra huggingface --extra scripts`) plus `schematiq-lib` in
 editable mode, and smoke-tests the import.
 
-### `run_schematiq_baseline.py` (inference)
+### `run_schematiq_baseline.py --case <case> --model <model>` (inference, one case)
 
-Runs ScheMatiQ schema discovery per case in `data/cases/*.yaml` and writes
-schematize-compatible outputs.
+Runs ScheMatiQ schema discovery for a single case in `data/cases/*.yaml` and
+writes a schematize-compatible output, mirroring `scripts/baseline.py`.
 
-Pipeline per case:
+Pipeline:
 
 1. **Document retrieval** — top `--top-k-docs` (50) rulings from
    `JuDDGES/pl-court-raw` using `sdadas/mmlw-retrieval-roberta-large-v2`
    (schematize's default retriever, `config/retriever/mmlw.yaml`) over the
    **full corpus** by default (`--max-documents null`; pass an integer to cap it).
-   The FAISS index is cached at `.cache/schematize/JuDDGES_pl-court-raw_mmlw_full`
-   and reused across runs.
+   The FAISS index is cached at `.cache/schematize/JuDDGES_pl-court-raw`
+   (schematize's default retriever cache location) and reused across runs.
    The retrieval query is the same as the discovery query (full case dialogue),
    and documents are fed to ScheMatiQ in descending relevance order.
 2. **Schema discovery** — ScheMatiQ `discover_schema` with the **full case
@@ -60,18 +58,17 @@ Pipeline per case:
    pass an integer to cap and prune to the most query-relevant columns.
    Note: ScheMatiQ reads at most `documents_batch_size × max_iters`
    (≈24) documents — the top-`top_k_docs` shortlist only needs to exceed that.
-3. **Output** — per case under
-   `multirun/generated_schemas/schematiq_<model>_<variant>/<case>/run_0/`:
+3. **Output** — under
+   `outputs/schematiq/schematiq_<model>_<variant>/<case>/run_0/`:
    - `schematiq_artifact.json` — native ScheMatiQ artifact (columns,
      observation unit, document contributions, schema evolution).
    - `state.json` — schematize-compatible state: `current_schema` in
-     `SchemaFields` format (see below), the case dialogue, and baseline
-     metadata. Existing `state.json` ⇒ the case is skipped (idempotent).
+     `SchemaFields` format (see below) plus baseline metadata. Existing
+     `state.json` ⇒ the case is skipped (idempotent).
 
-Environment: `OPENAI_API_KEY` (required), `OPENAI_BASE_URL` (optional proxy),
-`OMP_NUM_THREADS=1` (**required on macOS arm64** — faiss-cpu segfaults when
-torch has initialized OpenMP; exit code 139, masked as 0 if piped through
-`tee`).
+Environment: `API_KEY` (required, envvar or `.env`), `API_URL` (optional
+proxy) — read the same way as `scripts/baseline.py`, and mapped internally to
+`OPENAI_API_KEY`/`OPENAI_BASE_URL` for ScheMatiQ's OpenAI backend.
 
 ScheMatiQ adaptations (in `PatchedOpenAILLM`, no upstream changes):
 
@@ -86,22 +83,17 @@ Schema mapping ScheMatiQ → schematize `SchemaFields`: column `name` → field
 `allowed_values` present → `type_: enum` with `enum_values`, else
 `type_: string`.
 
-### `run_schematiq_eval.sh [gen_model] [eval_model]` (end-to-end)
+### `baseline_schematiq.sh` (inference, all models × all cases)
 
-Chains the three stages: inference (above) → `scripts/evaluate_schema.py`
-per case (`final_only=true`, judge = `eval_model`, default `gpt-5.4-mini`) →
-`upload_baseline_results.py`. Upload is skipped when `HF_TOKEN` is unset or
-`SKIP_UPLOAD=1`. `HF_REPO_ID` overrides the target dataset.
+Loops `run_schematiq_baseline.py` over the same `MODELS` × `CASES` matrix as
+`scripts/experiments/baseline.sh` (edit the `MODELS` array to enable more
+generation models).
 
-### `upload_baseline_results.py` (HF upload)
+### `eval_schematiq.sh [eval_model]` (evaluation, all models × all cases)
 
-Collects states + `evaluation.json` files and pushes a **private** HF dataset
-(default `ktagowski/schematize-schematiq-baseline`) with two configs:
-
-- `schemas` — one row per (case, run): dialogue, generated schema JSON, native
-  ScheMatiQ artifact JSON, field count, runtime.
-- `evaluation` — one row per (case, run, schema, expert): total/covered
-  questions, high/medium/low-confidence covered counts, coverage rate.
+Runs `scripts/evaluate_schema.py` per generation model / case (`final_only=true`,
+judge = `eval_model`, default `gpt-5.4-mini`) against the outputs of
+`baseline_schematiq.sh`, mirroring `scripts/experiments/eval_baseline.sh`.
 
 ## Evaluation protocol — parity with schematize
 
@@ -133,18 +125,3 @@ Known caveats:
    concatenated into `description`, which gives the judge slightly more prose
    per field than typical schematize descriptions. Content-equivalent, not
    protocol-divergent.
-
-## Reference results (2026-07-06, gpt-5.4-mini, full_dialogue)
-
-> **Stale:** these numbers predate localizing the passage retriever to mmlw and
-> aligning the retrieval query with the discovery query. Re-run before citing.
-
-
-| Case | Fields | Coverage per expert |
-|---|---|---|
-| pl_age | 30 | 23/37, 13/18, 24/30 |
-| pl_medical_errors | 18 | 15/33 |
-| pl_personal_rights | 8 | 11/29, 11/26, 17/23 |
-
-Macro-average coverage ≈ 59%. Full details:
-[`ktagowski/schematize-schematiq-baseline`](https://huggingface.co/datasets/ktagowski/schematize-schematiq-baseline) (private).

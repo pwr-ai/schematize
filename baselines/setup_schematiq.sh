@@ -27,8 +27,6 @@ uv run python -c "import schematiq; print('schematiq', schematiq.__version__, 'O
 cat <<'EOF'
 
 Next steps:
-  OMP_NUM_THREADS=1 OPENAI_API_KEY=<litellm-key> OPENAI_BASE_URL=http://localhost:4000 \
-    uv run python baselines/run_schematiq_baseline.py --model gpt-5.4-mini
-  # then evaluate with scripts/evaluate_schema.py and upload with
-  # baselines/upload_baseline_results.py (needs HF_TOKEN).
+  API_KEY=<litellm-key> API_URL=http://localhost:4000 bash baselines/baseline_schematiq.sh
+  API_KEY=<litellm-key> API_URL=http://localhost:4000 bash baselines/eval_schematiq.sh
 EOF
