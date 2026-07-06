@@ -10,7 +10,7 @@
 #   eval_model  judge model for evaluate_schema.py            (default: gpt-5.4-mini)
 #
 # Environment:
-#   API_URL     OpenAI-compatible endpoint / LiteLLM proxy (default: http://localhost:4000)
+#   API_URL     unset = native OpenAI API; set = OpenAI-compatible proxy (e.g. LiteLLM http://localhost:4000)
 #   API_KEY     key for that endpoint (required)
 #   HF_TOKEN    HuggingFace token; if unset the upload step is skipped
 #   HF_REPO_ID  target dataset repo (default: ktagowski/schematize-schematiq-baseline)
@@ -19,8 +19,8 @@ set -euo pipefail
 
 GEN_MODEL="${1:-gpt-5.4-mini}"
 EVAL_MODEL="${2:-gpt-5.4-mini}"
-API_URL="${API_URL:-http://localhost:4000}"
-API_KEY="${API_KEY:?API_KEY is required (LiteLLM proxy / OpenAI key)}"
+API_URL="${API_URL:-}"  # empty = native OpenAI
+API_KEY="${API_KEY:?API_KEY is required (OpenAI key, or proxy key when API_URL is set)}"
 HF_REPO_ID="${HF_REPO_ID:-ktagowski/schematize-schematiq-baseline}"
 
 CASES=(pl_age pl_medical_errors pl_personal_rights)
@@ -29,20 +29,22 @@ GENERATION_NAME="schematiq_${GEN_MODEL}_full_dialogue"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$(dirname "$SCRIPT_DIR")"
 
-echo "=== 1/3 ScheMatiQ inference (${GEN_MODEL} via ${API_URL}) ==="
+echo "=== 1/3 ScheMatiQ inference (${GEN_MODEL} via ${API_URL:-native OpenAI}) ==="
 # OMP_NUM_THREADS=1: faiss-cpu segfaults on macOS arm64 with torch's OpenMP otherwise.
-OMP_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false \
-OPENAI_API_KEY="$API_KEY" OPENAI_BASE_URL="$API_URL" \
+# OPENAI_BASE_URL is only exported when a proxy is configured; unset = api.openai.com.
+env OMP_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false \
+    OPENAI_API_KEY="$API_KEY" ${API_URL:+OPENAI_BASE_URL="$API_URL"} \
     uv run python baselines/run_schematiq_baseline.py --model "$GEN_MODEL"
 
 echo "=== 2/3 Schema evaluation (judge: ${EVAL_MODEL}) ==="
 for case in "${CASES[@]}"; do
     echo "Evaluating ${GENERATION_NAME} / ${case}"
-    API_URL="$API_URL" API_KEY="$API_KEY" uv run python scripts/evaluate_schema.py \
+    API_KEY="$API_KEY" API_URL="${API_URL}" uv run python scripts/evaluate_schema.py \
         "case_name=${case}" \
         "model_name=${EVAL_MODEL}" \
         "generation_model_name=${GENERATION_NAME}" \
-        "final_only=true"
+        "final_only=true" \
+        $([[ -z "$API_URL" ]] && echo "api_url=null")
 done
 
 if [[ "${SKIP_UPLOAD:-0}" == "1" ]]; then
