@@ -3,8 +3,8 @@ name = "schematize"
 version = "0.1.0"
 description = "Agentic system for automated extraction-schema generation from natural language descriptions"
 readme = "README.md"
-license = { text = "CC-BY-SA-4.0" }
-authors = [{ name = "Albert Sawczyn", email = "albert.sawczyn@pwr.edu.pl" }]
+license = { text = "MIT" }
+authors = [{ name = "Albert Sawczyn", email = "albert.sawczyn@pwr.edu.pl"}, { name = "Jakub Binkowski", email = "jakub.binkowski@pwr.edu.pl" }]
 requires-python = ">=3.12"
 dependencies = [
     "python-dotenv>=1.0.0",

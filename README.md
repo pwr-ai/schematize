@@ -4,11 +4,11 @@
 
 # schematize
 
-**Turn a plain-English research question into a typed, data-tested extraction schema.**
+**Turn a plain-English research problem into a typed, data-tested extraction schema.**
 
 [![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)
 [![Python](https://img.shields.io/pypi/pyversions/schematize.svg)](https://pypi.org/project/schematize/)
-[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docs](https://img.shields.io/badge/docs-pwr--ai.github.io-blue.svg)](https://pwr-ai.github.io/schematize)
 
 [Documentation](https://pwr-ai.github.io/schematize) ·
@@ -242,12 +242,7 @@ directory.
 If you use schematize in your research, please cite:
 
 ```bibtex
-@misc{schematize,
-  title  = {schematize: Agentic Extraction-Schema Generation},
-  author = {Sawczyn, Albert and others},
-  year   = {2026},
-  note   = {TODO: replace with the published reference}
-}
+TBA
 ```
 
 ## Development
@@ -261,4 +256,4 @@ make fix      # ruff --fix
 
 ## License
 
-Released under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) © Albert Sawczyn.
+Released under the [MIT License](LICENSE).
