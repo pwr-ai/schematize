@@ -12,11 +12,14 @@ Usage:
 
 import json
 import os
+import subprocess
+import tempfile
 from pathlib import Path
 from typing import Annotated
 
 import typer
 from datasets import Dataset
+from huggingface_hub import HfApi
 
 app = typer.Typer()
 
@@ -109,6 +112,26 @@ def main(
     if eval_rows:
         Dataset.from_list(eval_rows).push_to_hub(
             repo_id, config_name="evaluation", private=True, token=token
+        )
+
+    # Also upload the raw source files (state.json, schematiq artifacts,
+    # evaluation.json) as a zip, so results are inspectable without parquet.
+    with tempfile.TemporaryDirectory() as tmp:
+        zip_path = Path(tmp) / f"{generation_name}_source.zip"
+        sources = [str((state_root / generation_name).relative_to(REPO_ROOT))]
+        eval_dir = eval_root / eval_model / generation_name
+        if eval_dir.exists():
+            sources.append(str(eval_dir.relative_to(REPO_ROOT)))
+        subprocess.run(
+            ["zip", "-r", str(zip_path), *sources, "-x", "*.DS_Store"],
+            cwd=REPO_ROOT, check=True, capture_output=True,
+        )
+        HfApi(token=token).upload_file(
+            path_or_fileobj=str(zip_path),
+            path_in_repo=f"raw/{generation_name}_source.zip",
+            repo_id=repo_id,
+            repo_type="dataset",
+            commit_message=f"Add raw source zip for {generation_name}",
         )
     typer.echo(f"Uploaded to https://huggingface.co/datasets/{repo_id} (private)")
 
