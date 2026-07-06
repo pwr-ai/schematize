@@ -64,6 +64,7 @@ def main(cfg: DictConfig) -> None:
         data_assessment_top_k=sg_cfg.data_assessment_top_k,
         data_assessment_num_examples=sg_cfg.data_assessment_num_examples,
         data_assessment_random_seed=sg_cfg.data_assessment_random_seed,
+        data_assessment_document_max_chars=sg_cfg.data_assessment_document_max_chars,
         skip_problem_definition=sg_cfg.skip_problem_definition,
         skip_refinement=sg_cfg.skip_refinement,
         skip_data_grounded=sg_cfg.skip_data_grounded,
@@ -89,9 +90,8 @@ def main(cfg: DictConfig) -> None:
         f.write(agent_state_to_json(final_state))
     logger.info("State saved to {}", output_path)
 
-    schema_path = Path(cfg.output) / "schema.yaml"
-    with schema_path.open("w") as f:
-        yaml.dump(final_state.get("current_schema"), f, allow_unicode=True, sort_keys=False)
+    schema_path = Path(cfg.output) / "schema.json"
+    schema_path.write_text(final_state.get("current_schema").model_dump_json(indent=2))
     logger.info("Schema saved to {}", schema_path)
 
 

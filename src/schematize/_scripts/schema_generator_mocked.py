@@ -42,7 +42,6 @@ def main(cfg: DictConfig) -> None:
     case_data = cases[case_name]
 
     retriever = _build_retriever(cfg.retriever)
-
     llm = ChatOpenAI(
         model=cfg.model_name,
         base_url=cfg.api_url,
@@ -50,7 +49,7 @@ def main(cfg: DictConfig) -> None:
         temperature=cfg.llm.temperature,
         max_tokens=cfg.llm.max_tokens,
         use_responses_api=False,
-        **cfg.llm.model_kwargs,
+        reasoning_effort=cfg.llm.reasoning_effort,
     )
 
     sg_cfg = cfg.schema_generator
@@ -65,6 +64,7 @@ def main(cfg: DictConfig) -> None:
         data_assessment_top_k=sg_cfg.data_assessment_top_k,
         data_assessment_num_examples=sg_cfg.data_assessment_num_examples,
         data_assessment_random_seed=sg_cfg.data_assessment_random_seed,
+        data_assessment_document_max_chars=sg_cfg.data_assessment_document_max_chars,
         recursion_limit=100,
     )
 
@@ -86,9 +86,8 @@ def main(cfg: DictConfig) -> None:
         f.write(agent_state_to_json(final_state))
     logger.info("State saved to {}", output_path)
 
-    schema_path = Path(cfg.output) / "schema.yaml"
-    with schema_path.open("w") as f:
-        yaml.dump(final_state.get("current_schema"), f, allow_unicode=True, sort_keys=False)
+    schema_path = Path(cfg.output) / "schema.json"
+    schema_path.write_text(final_state.get("current_schema").model_dump_json(indent=2))
     logger.info("Schema saved to {}", schema_path)
 
 def _build_retriever(r_cfg):

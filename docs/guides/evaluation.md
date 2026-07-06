@@ -15,7 +15,7 @@ from schematize.settings import PROMPTS_PATH
 llm = ChatOpenAI(model="gpt-4o")
 
 # Load the bundled evaluation prompt (works after pip install, not just from the repo root).
-with open(PROMPTS_PATH / "evaluator.yaml") as f:
+with open(PROMPTS_PATH / "eval" / "schema_evaluator.yaml") as f:
     evaluation_prompt = yaml.safe_load(f)["schema_evaluator_prompt"]
 
 evaluator = SchemaEvaluator(llm=llm, evaluation_prompt=evaluation_prompt)

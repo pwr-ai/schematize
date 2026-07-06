@@ -47,3 +47,6 @@ htmlcov/
 # baselines: third-party clone + local retrieval index cache
 baselines/ScheMatiQ/
 .cache/
+
+# mkdocs build output
+site/

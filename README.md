@@ -185,7 +185,7 @@ from langchain_openai import ChatOpenAI
 from schematize import SchemaEvaluator
 from schematize.settings import PROMPTS_PATH
 
-with open(PROMPTS_PATH / "evaluator.yaml") as f:
+with open(PROMPTS_PATH / "eval" / "schema_evaluator.yaml") as f:
     evaluation_prompt = yaml.safe_load(f)["schema_evaluator_prompt"]
 
 evaluator = SchemaEvaluator(ChatOpenAI(model="gpt-4o"), evaluation_prompt)

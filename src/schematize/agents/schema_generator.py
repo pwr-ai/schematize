@@ -23,6 +23,8 @@ from schematize.agents.data_agents import (
     SchemaDataRefinerAgent,
 )
 from schematize.retrieval.base import DocumentRetriever
+from schematize.schema.model import SchemaFields
+
 
 @dataclass
 class SchemaGeneratorPrompts:
@@ -91,6 +93,12 @@ class SchemaGenerator:
         data_assessment_top_k: Documents retrieved per query for the assessment pool. Default: 50.
         data_assessment_num_examples: Documents sampled per assessment round. Default: 3.
         data_assessment_random_seed: Seed for reproducible document sampling. Default: 17.
+        data_assessment_document_max_chars: Max characters of a retrieved document's string
+            representation included in the assessment prompt, to avoid exceeding the model's
+            context window on long documents. Default: 32_000.
+        max_retries: Retries for structured-output calls that fail with an
+            `openai.OpenAIError` (rate limits, transient API errors, or a reasoning
+            model exhausting its `max_tokens` budget before producing output). Default: 3.
         use_interrupt: Use LangGraph interrupts instead of terminal input for human steps.
             Not yet fully implemented; raises `NotImplementedError` if set. Default: False.
         graph_compilation_kwargs: Extra kwargs forwarded to `StateGraph.compile`.
@@ -116,6 +124,8 @@ class SchemaGenerator:
         data_assessment_top_k: int = 50,
         data_assessment_num_examples: int = 3,
         data_assessment_random_seed: int = 17,
+        data_assessment_document_max_chars: int = 32_000,
+        max_retries: int = 3,
         skip_problem_definition: bool = False,
         skip_refinement: bool = False,
         skip_data_grounded: bool = False,
@@ -136,11 +146,19 @@ class SchemaGenerator:
         )
         self.problem_definer = ProblemDefinerAgent(llm, prompts.problem_definer_prompt)
 
-        self.schema_generator = SchemaGeneratorAgent(llm, prompts.schema_generator_prompt)
-        self.schema_assessment = SchemaAssessmentAgent(llm, prompts.schema_assessment_prompt)
-        self.schema_refiner = SchemaRefinerAgent(llm, prompts.schema_refiner_prompt)
+        self.schema_generator = SchemaGeneratorAgent(
+            llm, prompts.schema_generator_prompt, max_retries
+        )
+        self.schema_assessment = SchemaAssessmentAgent(
+            llm, prompts.schema_assessment_prompt, max_retries
+        )
+        self.schema_refiner = SchemaRefinerAgent(
+            llm, prompts.schema_refiner_prompt, max_retries
+        )
 
-        self.query_generator = QueryGeneratorAgent(llm, prompts.query_generator_prompt)
+        self.query_generator = QueryGeneratorAgent(
+            llm, prompts.query_generator_prompt, max_retries
+        )
         self.schema_data_assessment = SchemaDataAssessmentAgent(
             llm,
             prompts.schema_data_assessment_prompt,
@@ -148,11 +166,17 @@ class SchemaGenerator:
             top_k=data_assessment_top_k,
             num_examples=data_assessment_num_examples,
             random_seed=data_assessment_random_seed,
+            max_retries=max_retries,
+            document_max_chars=data_assessment_document_max_chars,
         )
         self.schema_data_assessment_merger = SchemaDataAssessmentMergerAgent(
-            llm, prompts.schema_data_assessment_merger_prompt
+            llm,
+            prompts.schema_data_assessment_merger_prompt,
+            max_retries,
         )
-        self.schema_data_refiner = SchemaDataRefinerAgent(llm, prompts.schema_data_refiner_prompt)
+        self.schema_data_refiner = SchemaDataRefinerAgent(
+            llm, prompts.schema_data_refiner_prompt, max_retries
+        )
         self.summarizer = InitChatAgent(
             llm,
             prompts.init_chat_generation_summarizer_prompt,
@@ -164,7 +188,7 @@ class SchemaGenerator:
             raise NotImplementedError("Human message with interrupt is not implemented yet!")
         self.human_message = HumanMessageAgent()
 
-        self.chat_agent = ChatAgent(llm)
+        self.chat_agent = ChatAgent(llm, max_retries)
 
         self.graph = self.build_graph(compilation_kwargs=graph_compilation_kwargs)
 
@@ -218,7 +242,7 @@ class SchemaGenerator:
 
         return graph_builder.compile(**(compilation_kwargs or {}))
 
-    def stream_graph_updates(self, user_input: str, current_schema: dict = None) -> None:
+    def stream_graph_updates(self, user_input: str, current_schema: SchemaFields | None = None) -> None:
         if self.use_interrupt:
             raise NotImplementedError(
                 "Can't use stream_graph_updates with use_interrupt set!"
@@ -259,7 +283,7 @@ class SchemaGenerator:
 
         return final_state
 
-    def get_complete_results(self, user_input: str, current_schema: dict = None) -> dict:
+    def get_complete_results(self, user_input: str, current_schema: SchemaFields | None = None) -> dict:
         if self.use_interrupt:
             raise NotImplementedError(
                 "Can't use get_complete_results with use_interrupt set!"

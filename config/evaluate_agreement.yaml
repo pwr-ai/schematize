@@ -1,13 +1,10 @@
 defaults:
   - _self_
-  - override hydra/launcher: joblib
 
 api_key: ${oc.env:API_KEY}
 api_url: ${oc.env:API_URL}
 model_name: gpt-5.4-mini
-generation_model_name: ???
 llm_cache: false
-final_only: false
 max_concurrent: 10
 
 llm:
@@ -17,12 +14,10 @@ llm:
     reasoning_effort: "medium"
 
 case_name: ??? # ["pl_age", "pl_personal_rights", "pl_medical_errors"]
-
-state_dir: ???
 eval_data_dir: data/eval/
 case_dir: ${eval_data_dir}/${case_name}
 
-output_subdir: evaluation/${model_name}/${generation_model_name}/${case_name}
+output_subdir: annotator_agreement/${model_name}/${case_name}
 output: ${hydra:runtime.output_dir}
 
 hydra:

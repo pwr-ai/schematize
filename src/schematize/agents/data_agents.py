@@ -13,16 +13,18 @@ from schematize.agents.output_models import (
     SchemaRefinementOutput,
 )
 from schematize.retrieval.base import DocumentRetriever
+from schematize.utils.retry import RetryingChain, StructuredOutputRunner
 
 
 class QueryGeneratorAgent:
     class Query(BaseModel):
         query: str
 
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(self.Query, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, self.Query, self.prompt, max_retries
+        )
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         inputs = {
@@ -46,14 +48,17 @@ class SchemaDataAssessmentAgent:
         top_k: int = 50,
         num_examples: int = 3,
         random_seed: int = 17,
+        max_retries: int = 3,
+        document_max_chars: int = 32_000,
     ) -> None:
         self.parser = StrOutputParser()
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | llm
+        self.chain = RetryingChain(self.prompt | llm, max_retries, name=type(self).__name__)
         self.random = random.Random(random_seed)
         self.top_k = top_k
         self.num_examples = num_examples
         self.retriever = retriever
+        self.document_max_chars = document_max_chars
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         responses, data_assessment_results = asyncio.run(
@@ -80,13 +85,14 @@ class SchemaDataAssessmentAgent:
         example_documents = await self._get_example_documents(query)
         tasks = []
         for doc in example_documents:
+            document_text = str(doc)[: self.document_max_chars]
             inputs = {
                 "user_input": user_input,
                 "problem_help": problem_help,
                 "user_feedback": user_feedback,
                 "problem_definition": problem_definition,
                 "current_schema": current_schema,
-                "example_document": doc,
+                "example_document": document_text,
             }
             logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
             tasks.append(self.chain.ainvoke(inputs))
@@ -108,10 +114,11 @@ class SchemaDataAssessmentAgent:
 
 
 class SchemaDataAssessmentMergerAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(DataAssessmentMergerOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, DataAssessmentMergerOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         data_assessment_results = state["data_assessment_results"]
@@ -133,10 +140,11 @@ class SchemaDataAssessmentMergerAgent:
 
 
 class SchemaDataRefinerAgent:
-    def __init__(self, llm, prompt) -> None:
-        structured_llm = llm.with_structured_output(SchemaRefinementOutput, include_raw=True)
+    def __init__(self, llm, prompt, max_retries: int = 3) -> None:
         self.prompt = PromptTemplate.from_template(prompt)
-        self.chain = self.prompt | structured_llm
+        self.chain = StructuredOutputRunner(
+            llm, SchemaRefinementOutput, self.prompt, max_retries
+        )
 
     def __call__(self, state: dict[str, Any]) -> dict[str, Any]:
         inputs = {

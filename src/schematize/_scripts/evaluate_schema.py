@@ -34,7 +34,7 @@ def main(cfg: DictConfig) -> None:
         **cfg.llm.model_kwargs,
     )
 
-    with open(PROMPTS_PATH / "evaluator.yaml", "r") as f:
+    with open(PROMPTS_PATH / "eval" / "schema_evaluator.yaml", "r") as f:
         prompts = yaml.safe_load(f)
 
     evaluator = SchemaEvaluator(llm, prompts["schema_evaluator_prompt"])
@@ -92,6 +92,7 @@ async def _evaluate_and_save(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with open(output_path, "w") as f:
         json.dump(results, f, indent=2)
+    print(f"Evaluation results saved to {output_path}")
 
 
 async def _evaluate(

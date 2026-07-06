@@ -20,6 +20,7 @@ def main(
     system_type: Annotated[str, typer.Option(help="tax or law")] = "tax",
     temperature: Annotated[float, typer.Option()] = 0.2,
     max_tokens: Annotated[int, typer.Option()] = 32_000,
+    reasoning_effort: Annotated[Optional[str], typer.Option(help="low | medium | high")] = None,
     output: Annotated[Path, typer.Option()] = Path("state.json"),
     api_url: Annotated[Optional[str], typer.Option()] = None,
     api_key: Annotated[Optional[str], typer.Option()] = None,
@@ -31,6 +32,14 @@ def main(
     collection_name: Annotated[Optional[str], typer.Option(help="Weaviate collection name")] = None,
     target_vector: Annotated[Optional[str], typer.Option(help="Weaviate named vector")] = None,
     wv_filter: Annotated[Optional[list[str]], typer.Option(help="Weaviate filters as key=value")] = None,
+    max_refinement_rounds: Annotated[int, typer.Option()] = 3,
+    min_refinement_rounds: Annotated[int, typer.Option()] = 2,
+    max_data_refinement_rounds: Annotated[int, typer.Option()] = 3,
+    min_data_refinement_rounds: Annotated[int, typer.Option()] = 2,
+    data_assessment_top_k: Annotated[int, typer.Option()] = 50,
+    data_assessment_num_examples: Annotated[int, typer.Option()] = 3,
+    data_assessment_random_seed: Annotated[int, typer.Option()] = 17,
+    data_assessment_document_max_chars: Annotated[int, typer.Option()] = 32_000,
 ) -> None:
     load_dotenv(".env")
 
@@ -67,7 +76,6 @@ def main(
         kwargs = dict(dataset_name=dataset, text_column=text_column, max_documents=max_documents, index_path=index_path)
         retriever = MMLWRobertaV2Retriever(**kwargs) if retriever_type == "mmlw" else HuggingFaceRetriever(**kwargs)
 
-    model_kwargs = {"reasoning_effort": "low"} if model.startswith("o") else {}
     llm = ChatOpenAI(
         model=model,
         base_url=api_url or os.getenv("API_URL"),
@@ -75,13 +83,21 @@ def main(
         temperature=temperature,
         max_tokens=max_tokens,
         use_responses_api=False,
-        **model_kwargs,
+        reasoning_effort=reasoning_effort,
     )
 
     schema_system = SchemaGenerator(
         llm,
         retriever,
         SchemaGeneratorPrompts(**prompts),
+        max_refinement_rounds=max_refinement_rounds,
+        min_refinement_rounds=min_refinement_rounds,
+        max_data_refinement_rounds=max_data_refinement_rounds,
+        min_data_refinement_rounds=min_data_refinement_rounds,
+        data_assessment_top_k=data_assessment_top_k,
+        data_assessment_num_examples=data_assessment_num_examples,
+        data_assessment_random_seed=data_assessment_random_seed,
+        data_assessment_document_max_chars=data_assessment_document_max_chars,
         recursion_limit=100,
     )
 

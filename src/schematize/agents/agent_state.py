@@ -7,6 +7,8 @@ from langgraph.graph.message import add_messages
 from pydantic import BaseModel
 from typing_extensions import TypedDict
 
+from schematize.schema.model import SchemaFields
+
 
 class AgentState(TypedDict):
     messages: Annotated[list, add_messages]
@@ -15,7 +17,7 @@ class AgentState(TypedDict):
     user_feedback: str | None
     problem_definition: str | None
     query: str | None
-    current_schema: dict[str, Any] | None
+    current_schema: SchemaFields | None
     schema_history: Annotated[list, operator.add]
     refinement_rounds: Annotated[int, operator.add]
     assessment_result: dict[str, Any] | None
