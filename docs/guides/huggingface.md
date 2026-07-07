@@ -79,18 +79,11 @@ retriever = MMLWRobertaV2Retriever(
 )
 ```
 
----
-
 ## Choosing the right retriever
 
-| | `HuggingFaceRetriever` | `MMLWRobertaV2Retriever` |
-|---|---|---|
-| Language | Any | Polish (optimised) |
-| Model | Your choice | `sdadas/mmlw-retrieval-roberta-large-v2` |
-| Memory | Depends on model | ~1.3 GB (bfloat16) |
-| Query prefix | None | `[query]: ` (automatic) |
-
----
+Use `HuggingFaceRetriever` for any language or model. Use `MMLWRobertaV2Retriever` if you're working
+in Polish — it's pre-configured for `sdadas/mmlw-retrieval-roberta-large-v2`, applies the `[query]: `
+prefix automatically, and uses about 1.3 GB in bfloat16.
 
 ## API reference
 

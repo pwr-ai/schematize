@@ -26,26 +26,9 @@ from langchain_openai import ChatOpenAI
 llm = ChatOpenAI(model="gpt-4o", api_key="sk-...")
 ```
 
-Any LangChain `BaseChatModel` works, so you are not tied to one provider. The simplest way to reach
-**any** model is a [LiteLLM](https://github.com/BerriAI/litellm) proxy — the setup we used for our
-experiments — pointed at via `base_url`:
-
-```python
-from langchain_openai import ChatOpenAI
-
-# The model name routes through the proxy to OpenAI, Anthropic, Gemini, a local model, etc.
-llm = ChatOpenAI(
-    model="claude-opus-4-8",
-    base_url="http://localhost:4000",
-    api_key="sk-litellm",
-)
-```
-
-The same pattern covers any OpenAI-compatible endpoint (Ollama, vLLM, a self-hosted gateway):
-
-```python
-llm = ChatOpenAI(model="llama3.1", base_url="http://localhost:11434/v1", api_key="ollama")
-```
+You are not tied to OpenAI: any OpenAI-compatible endpoint works, including a local Ollama/vLLM server
+or a [LiteLLM](https://github.com/BerriAI/litellm) proxy in front of another provider. See
+[Configuration](configuration.md#using-any-provider-via-litellm) for the setup.
 
 ---
 

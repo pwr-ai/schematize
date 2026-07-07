@@ -56,19 +56,9 @@ See the [Pipeline](pipeline.md) page for the full stopping rules.
 
 Any of them. `SchemaGenerator` takes any LangChain
 [`BaseChatModel`](https://python.langchain.com/docs/concepts/chat_models/), and because it honours an
-OpenAI-compatible `base_url` you can put a [LiteLLM](https://github.com/BerriAI/litellm) proxy in
-front and reach 100+ providers through one interface — no provider lock-in. **This is how we ran our
-experiments.**
-
-```python
-from langchain_openai import ChatOpenAI
-
-# Point at a LiteLLM proxy; the model name routes to OpenAI, Anthropic, Gemini, local, etc.
-llm = ChatOpenAI(model="claude-opus-4-8", base_url="http://localhost:4000", api_key="sk-litellm")
-```
-
-The same pattern works for any OpenAI-compatible endpoint (Ollama, vLLM, a self-hosted gateway). See
-[Configuration](configuration.md#using-any-provider-via-litellm).
+OpenAI-compatible `base_url` you can point it at Ollama, vLLM, or a [LiteLLM](https://github.com/BerriAI/litellm)
+proxy in front of another provider. See [Configuration](configuration.md#using-any-provider-via-litellm)
+for the setup we use.
 
 ---
 

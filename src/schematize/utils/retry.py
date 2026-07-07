@@ -7,12 +7,17 @@ from langchain_core.prompts import BasePromptTemplate
 from langchain_core.runnables import Runnable
 from loguru import logger
 from openai import OpenAIError
+from pydantic import ValidationError
+
+_RETRYABLE_ERRORS = (OpenAIError, ValidationError)
 
 
 class RetryingChain:
     """Wraps an arbitrary `Runnable`, retrying `invoke`/`ainvoke` unchanged on any
     `openai.OpenAIError` (e.g. rate limits, transient API errors, or a reasoning
-    model exhausting its `max_tokens` budget before producing any output).
+    model exhausting its `max_tokens` budget before producing any output) or
+    `pydantic.ValidationError` (e.g. the model emitting malformed JSON that fails
+    structured-output parsing).
     """
 
     def __init__(self, chain: Runnable, max_retries: int = 3, name: str = "") -> None:
@@ -24,7 +29,7 @@ class RetryingChain:
         for attempt in range(self._max_retries + 1):
             try:
                 return self.chain.invoke(inputs)
-            except OpenAIError as exc:
+            except _RETRYABLE_ERRORS as exc:
                 if attempt == self._max_retries:
                     raise
                 logger.info(
@@ -40,7 +45,7 @@ class RetryingChain:
         for attempt in range(self._max_retries + 1):
             try:
                 return await self.chain.ainvoke(inputs)
-            except OpenAIError as exc:
+            except _RETRYABLE_ERRORS as exc:
                 if attempt == self._max_retries:
                     raise
                 logger.warning(

@@ -4,33 +4,23 @@
   <p style="font-size: 1.1rem; color: var(--md-default-fg-color--light); max-width: 560px; margin: 0 auto;">Automated extraction-schema generation using a multi-agent LangGraph pipeline.</p>
 </div>
 
----
-
-**schematize** turns a natural language research question into a typed, validated extraction schema — ready to drive structured information extraction from document collections.
+**schematize** turns a natural language research question into a typed, validated extraction schema, ready to drive structured information extraction from document collections.
 
 Instead of hand-crafting a JSON schema, you describe what you want to extract. The pipeline asks clarifying questions, drafts a schema, refines it against quality criteria, tests it against real documents from your corpus, and opens a chat so you can make final adjustments.
 
----
-
 ## Why schematize?
 
-- **Designing extraction schemas by hand is slow and brittle.** You guess the fields, miss edge cases, and only find out when extraction quality is poor.
-- **Asking an LLM for a schema once gives you an untested first draft** — no critique loop, no contact with your real data, no typing guarantees.
-- **schematize closes the loop:** clarify → draft → criteria-based refinement → data-grounded refinement against retrieved documents → interactive chat. The result is a Pydantic model you can plug straight into extraction.
-- **Use any LLM:** works with any LangChain chat model and any OpenAI-compatible endpoint — run it through a [LiteLLM](https://github.com/BerriAI/litellm) proxy (the setup we used) to reach OpenAI, Anthropic, Gemini, or local models through one interface, with no provider lock-in.
-- **Bring your own data:** implementing a retriever is a single async method; HuggingFace and Weaviate adapters ship in the box, plus a built-in evaluator that scores how well a schema answers your expert questions.
+Hand-crafting an extraction schema means guessing at fields, missing edge cases, and only finding out when extraction quality is poor. Asking an LLM for a schema once is better, but you still get an untested first draft with no critique loop and no contact with your real data.
 
----
+schematize closes that loop: clarify → draft → criteria-based refinement → data-grounded refinement against retrieved documents → interactive chat. The result is a Pydantic model you can plug straight into extraction.
 
 ## Key features
 
-- **Five-stage agentic pipeline** — clarification → schema generation → criteria-based refinement → data-grounded refinement → interactive chat
-- **Model-agnostic** — any `BaseChatModel`; reach 100+ providers through a LiteLLM proxy, no lock-in
-- **Pluggable retrieval** — implement one async method, or use the bundled HuggingFace and Weaviate adapters
-- **Typed output** — schemas are Pydantic models with named fields, types, descriptions, and enum support
-- **Configurable depth** — control refinement rounds, document sample size, and which pipeline stages to run
-
----
+- Five-stage pipeline: clarification, query generation, criteria-based refinement, data-grounded refinement, and interactive chat.
+- Model-agnostic. Any LangChain `BaseChatModel` works, including a LiteLLM proxy in front of open- or closed-weight models — see [Configuration](configuration.md#using-any-provider-via-litellm).
+- Data connectors are pluggable — implement one async method, or use the bundled HuggingFace and Weaviate adapters.
+- Typed output. Schemas are Pydantic models, so they plug directly into an extractor.
+- An expert-question coverage evaluator is included, so you can score how well a schema answers the questions your domain experts actually care about.
 
 ## Quick look
 
@@ -62,8 +52,6 @@ print(state["current_schema"])
 
 For real corpora, swap in the bundled [HuggingFace](guides/huggingface.md) or [Weaviate](guides/weaviate.md) adapter.
 
----
-
 ## What you get
 
 A generated schema is a typed spec — field names, types, descriptions, and enums:
@@ -89,8 +77,6 @@ from schematize import SchemaFields, DynamicModelFactory
 
 model_cls = DynamicModelFactory()(SchemaFields(**state["current_schema"]))
 ```
-
----
 
 ## Next steps
 
