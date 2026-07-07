@@ -6,10 +6,13 @@
 
 **Turn a plain-English research problem into a typed, data-tested extraction schema.**
 
+
 [![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)
-[![Python](https://img.shields.io/pypi/pyversions/schematize.svg)](https://pypi.org/project/schematize/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docs](https://img.shields.io/badge/docs-pwr--ai.github.io-blue.svg)](https://pwr-ai.github.io/schematize)
+[![Python](https://img.shields.io/pypi/pyversions/schematize.svg)](https://pypi.org/project/schematize/)
+[![CI](https://github.com/pwr-ai/schematize/actions/workflows/ci.yml/badge.svg)](https://github.com/pwr-ai/schematize/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 [Documentation](https://pwr-ai.github.io/schematize) ·
 [Quickstart](https://pwr-ai.github.io/schematize/quickstart/) ·
