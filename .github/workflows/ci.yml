@@ -49,15 +49,12 @@ jobs:
       - name: Build wheel
         run: uv build --wheel
 
-      - name: Install built wheel with extras
+      - name: Install built wheel with extras and import
         run: |
-          uv venv --python ${{ matrix.python }}
           wheel=$(ls dist/*.whl)
-          uv pip install "${wheel}[weaviate,huggingface]"
-
-      - name: Import package and bundled data
-        run: |
-          uv run --no-project python - <<'PY'
+          uv run --no-project --python ${{ matrix.python }} \
+            --with "${wheel}[weaviate,huggingface]" \
+            python - <<'PY'
           import schematize
           from schematize.utils.load import load_prompts
           import schematize.retrieval.weaviate
