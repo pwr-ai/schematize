@@ -59,7 +59,7 @@ Pipeline:
    Note: ScheMatiQ reads at most `documents_batch_size × max_iters`
    (≈24) documents — the top-`top_k_docs` shortlist only needs to exceed that.
 3. **Output** — under
-   `outputs/schematiq/schematiq_<model>_<variant>/<case>/run_0/`:
+   `outputs/schematiq/schematiq_<model>_<variant>/<case>/`:
    - `schematiq_artifact.json` — native ScheMatiQ artifact (columns,
      observation unit, document contributions, schema evolution).
    - `state.json` — schematize-compatible state: `current_schema` in

@@ -79,3 +79,73 @@
   --md-accent-fg-color--transparent: rgba(225, 183, 75, 0.1);
   --md-accent-bg-color: rgba(255, 255, 255, 0.1);
 }
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 1.25rem 0;
+}
+
+.chat-msg {
+  max-width: 85%;
+  padding: 0.7rem 1rem;
+  border-radius: 1rem;
+  line-height: 1.5;
+}
+
+.chat-msg > p:first-child {
+  margin-top: 0;
+}
+
+.chat-msg > p:last-child {
+  margin-bottom: 0;
+}
+
+.chat-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.65;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chat-user {
+  align-self: flex-end;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  border-bottom-right-radius: 0.3rem;
+}
+
+.chat-user .chat-label {
+  color: inherit;
+}
+
+.chat-assistant {
+  align-self: flex-start;
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color);
+  border-bottom-left-radius: 0.3rem;
+}
+
+.case-cards.grid.cards {
+  grid-template-columns: 1fr;
+}
+
+.case-cards.grid.cards > ul,
+.case-cards.grid.cards > ol {
+  grid-template-columns: 1fr;
+}
+
+.case-cards.grid.cards > ul > li,
+.case-cards.grid.cards > ol > li {
+  border: 2px solid var(--md-primary-fg-color);
+}
+
+.case-cards.grid.cards > ul > li:hover,
+.case-cards.grid.cards > ol > li:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
+}

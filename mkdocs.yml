@@ -30,6 +30,7 @@ theme:
     - search.suggest
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
   icon:
     repo: fontawesome/brands/github
 
@@ -56,6 +57,11 @@ nav:
   - Installation: installation.md
   - Quickstart: quickstart.md
   - Pipeline: pipeline.md
+  - Examples:
+      - Overview: examples/index.md
+      - Age at Sentencing: examples/age.md
+      - Medical Malpractice Compensation: examples/medical_errors.md
+      - Personal Rights Violations: examples/personal_rights.md
   - Guides:
       - Custom Retriever: guides/custom-retriever.md
       - HuggingFace Adapter: guides/huggingface.md
@@ -85,7 +91,11 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - attr_list
+  - md_in_html
   - tables
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_css:
   - stylesheets/extra.css

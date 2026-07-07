@@ -77,11 +77,10 @@ def main(
     max_keys_schema: Annotated[Optional[int], typer.Option(help="Column cap (None = unlimited)")] = None,
     documents_batch_size: Annotated[int, typer.Option()] = 4,
     max_iters: Annotated[int, typer.Option()] = 6,
-    temperature: Annotated[float, typer.Option()] = 0.2,
-    passage_k: Annotated[int, typer.Option(help="Passages per document")] = 8,
+    temperature: Annotated[float, typer.Option()] = 1,
+    passage_k: Annotated[int, typer.Option(help="Passages per document")] = 15,
     device: Annotated[Optional[str], typer.Option()] = None,
     full_dialogue: Annotated[bool, typer.Option(help="Give ScheMatiQ the full case dialogue as query")] = True,
-    run_name: Annotated[str, typer.Option()] = "run_0",
     api_key: Annotated[Optional[str], typer.Option("--api-key", envvar="API_KEY")] = None,
     api_url: Annotated[Optional[str], typer.Option("--api-url", envvar="API_URL")] = None,
 ) -> None:
@@ -127,7 +126,7 @@ def main(
     case_data = _load_case(cases_path, case)
     variant = "full_dialogue" if full_dialogue else "query_only"
     gen_name = f"schematiq_{model}_{variant}"
-    out_dir = output / gen_name / case / run_name
+    out_dir = output / gen_name / case
     if (out_dir / "state.json").exists():
         typer.echo(f"Skipping {case} (state.json exists)")
         raise typer.Exit()
@@ -145,6 +144,25 @@ def main(
     # multilingual MiniLM). Algorithm unchanged; only the embedding backbone is swapped.
     passage_embedding_model = "sdadas/mmlw-retrieval-roberta-large-v2"
     llm = PatchedOpenAILLM(model=model, temperature=temperature)
+
+    token_usage: list[dict] = []
+    _orig_create = llm._client.chat.completions.create
+
+    def _create_with_usage_tracking(*args, **kwargs):
+        resp = _orig_create(*args, **kwargs)
+        if resp.usage:
+            cached_tokens = getattr(resp.usage.prompt_tokens_details, "cached_tokens", None) or 0
+            token_usage.append({
+                "node": "ScheMatiQ",
+                "input_tokens": resp.usage.prompt_tokens,
+                "output_tokens": resp.usage.completion_tokens,
+                "total_tokens": resp.usage.total_tokens,
+                "input_token_details": {"cache_read": cached_tokens},
+            })
+        return resp
+
+    llm._client.chat.completions.create = _create_with_usage_tracking
+
     passage_retriever = EmbeddingRetriever(
         model_name=passage_embedding_model, k=passage_k, device=device, enable_preprocessing=False
     )
@@ -195,6 +213,7 @@ def main(
             {
                 "current_schema": schema_dict,
                 "schema_history": [schema_dict],
+                "token_usage": token_usage,
                 "baseline": {"system": "ScheMatiQ", "variant": variant, "model": model, "elapsed_seconds": elapsed},
             },
             indent=2,
