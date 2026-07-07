@@ -35,7 +35,7 @@ def main(cfg: DictConfig) -> None:
         **cfg.llm.model_kwargs,
     )
 
-    with open(PROMPTS_PATH / "eval" / "annotator_agreement.yaml", "r") as f:
+    with open(PROMPTS_PATH / "eval" / "annotator_agreement.yaml", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
 
     evaluator = AnnotatorAgreementEvaluator(llm, prompts["annotator_agreement_prompt"])
@@ -51,7 +51,7 @@ def main(cfg: DictConfig) -> None:
 
     output_path = Path(cfg.output) / "agreement.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)
     print(f"Annotator agreement results saved to {output_path}")
 
@@ -92,7 +92,7 @@ async def _evaluate_all_pairs(
 
 
 def _load_expert_questions(expert_path: Path) -> list[str]:
-    with open(expert_path, "r") as f:
+    with open(expert_path, encoding="utf-8") as f:
         return yaml.safe_load(f).get("questions", [])
 
 

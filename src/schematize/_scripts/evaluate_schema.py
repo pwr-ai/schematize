@@ -34,7 +34,7 @@ def main(cfg: DictConfig) -> None:
         **cfg.llm.model_kwargs,
     )
 
-    with open(PROMPTS_PATH / "eval" / "schema_evaluator.yaml", "r") as f:
+    with open(PROMPTS_PATH / "eval" / "schema_evaluator.yaml", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
 
     evaluator = SchemaEvaluator(llm, prompts["schema_evaluator_prompt"])
@@ -90,7 +90,7 @@ async def _evaluate_and_save(
         Path(cfg.output) / state_path.relative_to(cfg.state_dir).parent / "evaluation.json"
     )
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)
     print(f"Evaluation results saved to {output_path}")
 
@@ -143,12 +143,12 @@ async def _evaluate(
 
 
 def _load_state(state_path: Path) -> dict:
-    with open(state_path, "r") as f:
+    with open(state_path, encoding="utf-8") as f:
         return json.load(f)
 
 
 def _load_expert_questions(expert_path: Path) -> list[str]:
-    with open(expert_path, "r") as f:
+    with open(expert_path, encoding="utf-8") as f:
         return yaml.safe_load(f).get("questions", [])
 
 

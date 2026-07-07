@@ -1,8 +1,10 @@
+from importlib.metadata import version
+
 import schematize
 
 
 def test_version():
-    assert schematize.__version__ == "0.1.0"
+    assert schematize.__version__ == version("schematize")
 
 
 def test_public_exports():

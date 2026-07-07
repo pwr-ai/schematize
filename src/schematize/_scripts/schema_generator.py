@@ -106,7 +106,7 @@ def main(
 
     final_state = schema_system.stream_graph_updates(input_text)
 
-    with output.open("w") as f:
+    with output.open("w", encoding="utf-8") as f:
         f.write(agent_state_to_json(final_state))
 
     typer.echo(f"State saved to {output}")

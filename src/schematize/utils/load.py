@@ -20,6 +20,6 @@ def load_prompts(language: str, system_type: str) -> dict[str, str]:
     ]
     prompts = {}
     for name in prompt_names:
-        with open(PROMPTS_PATH / language / system_type / f"{name}.yaml", "r") as f:
+        with open(PROMPTS_PATH / language / system_type / f"{name}.yaml", encoding="utf-8") as f:
             prompts.update(yaml.safe_load(f))
     return prompts

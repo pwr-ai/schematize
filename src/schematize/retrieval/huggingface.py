@@ -87,7 +87,7 @@ class _BaseHuggingFaceRetriever:
         if not (p and (p / "dataset").exists() and (p / "embeddings.faiss").exists()):
             return False
         meta = p / "metadata.json"
-        return meta.exists() and json.loads(meta.read_text()) == self._index_metadata()
+        return meta.exists() and json.loads(meta.read_text(encoding="utf-8")) == self._index_metadata()
 
     def _load(self) -> None:
         p = self.index_path
@@ -127,7 +127,9 @@ class _BaseHuggingFaceRetriever:
             dataset.save_faiss_index("embeddings", str(self.index_path / "embeddings.faiss"))
             dataset.drop_index("embeddings")
             dataset.save_to_disk(str(self.index_path / "dataset"))
-            (self.index_path / "metadata.json").write_text(json.dumps(self._index_metadata()))
+            (self.index_path / "metadata.json").write_text(
+                json.dumps(self._index_metadata()), encoding="utf-8"
+            )
             dataset.load_faiss_index("embeddings", str(self.index_path / "embeddings.faiss"))
 
         self._model = model

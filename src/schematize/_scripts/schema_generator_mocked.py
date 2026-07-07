@@ -82,12 +82,12 @@ def main(cfg: DictConfig) -> None:
 
     output_path = Path(cfg.output) / "state.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open("w") as f:
+    with output_path.open("w", encoding="utf-8") as f:
         f.write(agent_state_to_json(final_state))
     logger.info("State saved to {}", output_path)
 
     schema_path = Path(cfg.output) / "schema.json"
-    schema_path.write_text(final_state.get("current_schema").model_dump_json(indent=2))
+    schema_path.write_text(final_state.get("current_schema").model_dump_json(indent=2), encoding="utf-8")
     logger.info("Schema saved to {}", schema_path)
 
 def _build_retriever(r_cfg):
@@ -120,7 +120,7 @@ def load_cases(cases_path: Path) -> dict[str, dict[str, str]]:
     assert cases_path.exists(), f"Cases directory does not exist: {cases_path}"
     cases = {}
     for case_file in cases_path.glob("*.yaml"):
-        with open(case_file, "r") as f:
+        with open(case_file, encoding="utf-8") as f:
             cases[case_file.stem] = yaml.safe_load(f)
     return cases
 
