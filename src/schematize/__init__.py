@@ -1,6 +1,11 @@
 """schematize — agentic extraction-schema generation."""
 
-__version__ = "0.1.0"
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version("schematize")
+except PackageNotFoundError:
+    __version__ = "0.0.0"
 
 from schematize.agents.agent_state import AgentState, agent_state_to_json
 from schematize.agents.schema_generator import SchemaGenerator, SchemaGeneratorPrompts
