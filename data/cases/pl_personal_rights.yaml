@@ -1,0 +1,33 @@
+user_input: Chciałbym zbadać sprawy o naruszenie dóbr osobistych. Chciałbym oceniać jak bardzo sprawca naruszył dobra osobiste.
+problem_help: | #gpt-5.2
+  1. [Potwierdzenie] Rozumiem, że chcesz analizować polskie orzeczenia sądowe w sprawach o naruszenie dóbr osobistych oraz to, jak sądy „ważą” stopień (intensywność) naruszenia przy rozstrzyganiu o ochronie i ewentualnych świadczeniach. Czy dobrze rozumiem?
+
+  2. [Potwierdzenie] Czy interesuje Cię ocena „jak bardzo sprawca naruszył dobra osobiste” jako element ustalenia bezprawności i winy, czy raczej jako czynnik wpływający na zakres ochrony (np. wysokość zadośćuczynienia/powiązane środki), czy oba te wątki?
+
+  3. [Ramy prawne] Czy chcesz koncentrować się na roszczeniach z art. 24 § 1–2 Kodeksu cywilnego oraz art. 448 Kodeksu cywilnego (zadośćuczynienie/suma na cel społeczny), czy również na roszczeniach z przepisów szczególnych (np. Prawo prasowe w zakresie sprostowania i odpowiedzialności za publikacje)?
+
+  4. [Ramy prawne] Czy istotne jest dla Ciebie rozróżnienie rodzaju dobra osobistego (np. cześć/dobre imię, prywatność, wizerunek, nietykalność mieszkania, tajemnica korespondencji) jako zmiennej wpływającej na ocenę stopnia naruszenia?
+
+  5. [Kontekst procesowy] Czy analizujesz postępowania cywilne o ochronę dóbr osobistych (powód–pozwany), czy także sytuacje, w których naruszenie dóbr osobistych pojawia się „przy okazji” innych postępowań (np. pracowniczych, rodzinnych), i chcesz je porównywać?
+
+  6. [Kontekst procesowy] Czy interesuje Cię, czy podejście do oceny intensywności naruszenia różni się między sądem pierwszej instancji a sądem drugiej instancji (np. w zakresie zmiany wysokości zadośćuczynienia lub treści przeprosin)?
+
+  7. [Analiza orzecznictwa] Jakie kryteria „stopnia naruszenia” chcesz badać w uzasadnieniach wyroków: np. zasięg naruszenia (lokalne vs ogólnopolskie), czas trwania, powtarzalność, umyślność, motywacja sprawcy, skutki dla życia prywatnego i zawodowego powoda?
+
+  8. [Analiza orzecznictwa] Czy chcesz sprawdzać, czy sądy wymagają określonego standardu dowodowego dla wykazania intensywności krzywdy (np. zeznania świadków, dokumentacja medyczna, opinia biegłego psychologa/psychiatry) i czy to wpływa na rozstrzygnięcie?
+
+  9. [Kontekst temporalny] Czy interesuje Cię, czy linia orzecznicza w zakresie oceny intensywności naruszenia (i jej przełożenia na zadośćuczynienie oraz treść przeprosin) ewoluowała w czasie — np. wraz ze wzrostem znaczenia naruszeń w Internecie i mediach społecznościowych?
+
+  10. [Przypadki szczególne] Czy chcesz wydzielić szczególne kategorie spraw jako osobne segmenty analizy — np. naruszenia w Internecie (portale, media społecznościowe), przez media (prasa/telewizja), przez pracodawcę (mobbing/naruszenie godności), albo przez organy władzy publicznej?
+user_feedback: |
+  1. Tak, chociaż mnie interesuje nie tyle to jak sądy to "ważą", ale raczej samo to co ludzie w ogóle do sądu wnoszą — czy sprawy stają się coraz błahsze.
+  2. Bardziej bezprawność — czy sąd w ogóle uznał naruszenie. Zadośćuczynienie drugorzędnie, ale też jest istotne.
+  3. Interesuje mnie głównie Art. 24 KC i Art. 23 KC. Ale jeśli powołali się na inne przepisy, to chciałbym wiedzieć o nich.
+  4. Tak, rodzaj dobra osobistego jest bardzo ważny.
+  5. Tylko cywilne ochronę dóbr osobistych.
+  6. Nie.
+  7. Przede wszystkim co konkretnie sprawca zrobił lub powiedział — to jest sedno. Chcę wiedzieć czy ktoś pozwał za "osła", "durnia" czy za coś poważniejszego. Miejsce i okoliczności zdarzenia też są istotne. 
+  8. Chciałbym subiektywną ocenę anotatora (skala 0-5) jak poważne było naruszenie obiektywnie. To jest kluczowe dla mojej hipotezy — że z roku na rok ludzie skarżą się o coraz bardziej błahe rzeczy.
+  9. Tak.
+  10. Tak, chciałbym kategoryzować przez miejsce naruszenia dóbr osobistych: miejsce publiczne, miejsce prywatne, miejsce pracy. Oddzielnie powinno być pole na portale społecznościowe.
+human_message: Jestem zadowolony. Chcę zakończyć chat.

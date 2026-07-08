@@ -1,0 +1,6 @@
+type: weaviate
+collection_name: LegalDocuments
+target_vector: base
+wv_filters:
+  language: pl
+  document_type: judgment

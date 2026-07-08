@@ -1,0 +1,6 @@
+type: huggingface
+dataset_name: JuDDGES/pl-court-raw
+text_column: full_text
+split: train
+max_documents: null
+index_path: null

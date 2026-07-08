@@ -1,0 +1,36 @@
+defaults:
+  - _self_
+  - case: ???
+  - retriever: mmlw
+
+api_key: ${oc.env:API_KEY}
+api_url: ${oc.env:API_URL}
+model_name: ???
+cases_path: data/cases
+llm_cache: false
+
+llm:
+  temperature: 1
+  max_tokens: 32000
+  model_kwargs:
+    reasoning_effort: "medium"
+
+schema_generator:
+  max_refinement_rounds: 4
+  min_refinement_rounds: 1
+  max_data_refinement_rounds: 3
+  min_data_refinement_rounds: 1
+  data_assessment_top_k: 50
+  data_assessment_num_examples: 2
+  data_assessment_random_seed: 17
+  data_assessment_document_max_chars: 32_000
+  skip_problem_definition: false
+  skip_refinement: false
+  skip_data_grounded: false
+
+output_subdir: ablation/generated_schemas/${model_name}/${case.name}/pd${schema_generator.skip_problem_definition}_sr${schema_generator.skip_refinement}_dg${schema_generator.skip_data_grounded}
+output: ${hydra:runtime.output_dir}
+
+hydra:
+  run:
+    dir: outputs/${output_subdir}

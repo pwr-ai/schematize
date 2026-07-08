@@ -1,0 +1,31 @@
+# Examples
+
+<div style="text-align: center; padding: 1rem 0 1.5rem;">
+  <p style="font-size: 1.1rem; color: var(--md-default-fg-color--light); max-width: 640px; margin: 0 auto;">Three real runs of the schematize pipeline, end to end: the clarification chat, then the extraction schema it produced.</p>
+</div>
+
+Each case below is a real, unedited pipeline run against a real research question — no cherry-picking of a "nice" answer. The clarifying-question exchange is shown verbatim in Polish and in an English translation; the assistant's longer turns are condensed for readability. The same case was then run through five different LLMs, so you can compare how schema shape and coverage change with the model.
+
+<div class="grid cards case-cards" markdown>
+
+-   **[:material-gavel: Age at Sentencing](age.md)**
+
+    ---
+
+    Does a defendant's age predict the type and severity of the sentence in drug-offense cases?
+
+-   **[:material-hospital-box: Medical Malpractice Compensation](medical_errors.md)**
+
+    ---
+
+    What drives the amount of compensation Polish civil courts award for medical errors?
+
+-   **[:material-account-alert: Personal Rights Violations](personal_rights.md)**
+
+    ---
+
+    Are personal-rights lawsuits becoming more trivial over time?
+
+</div>
+
+Want to try it on your own question? See the [quickstart](../quickstart.md) or [pipeline overview](../pipeline.md).
