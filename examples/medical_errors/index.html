@@ -1367,12 +1367,84 @@
 <p class="admonition-title">About the English text on this page</p>
 <p>This run was performed in Polish — the prompts, conversation, and generated schema field
 descriptions are all originally in Polish. The English tabs are <strong>machine translations</strong>
-produced after the fact for readability, not reviewed by a native speaker. Treat the Polish
-tab as the source of truth.</p>
+produced after the fact for readability.</p>
 </div>
 <h2 id="the-conversation">The conversation</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">🇵🇱 Polski</label><label for="__tabbed_1_2">🇬🇧 English</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">🇬🇧 English</label><label for="__tabbed_1_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="chat" markdown="1">
+<div class="chat-msg chat-user" markdown="1">
+<span class="chat-label">You</span></p>
+<p>How do civil courts determine the amount of compensation for pain and suffering (zadośćuczynienie) in medical malpractice cases, and what circumstances affect the amounts awarded to patients?</p>
+<p></div>
+<div class="chat-msg chat-assistant" markdown="1">
+<span class="chat-label">Assistant</span></p>
+<ol>
+<li>
+<p>[Confirmation] I understand you want to study which criteria and arguments civil courts cite when setting the amount of compensation for harm caused by medical malpractice, and which circumstances correlate with the amounts awarded — is that right?</p>
+</li>
+<li>
+<p>[Confirmation] Are you interested only in monetary compensation for non-pecuniary harm ("zadośćuczynienie", Art. 445 §1 / 448 Civil Code), or also related claims such as damages for pecuniary loss ("odszkodowanie", Art. 444) and an annuity ("renta", Art. 444 §2)?</p>
+</li>
+<li>
+<p>[Legal framework] Is it important to distinguish the basis of liability — tort liability, vicarious/risk-based liability for a subordinate, and the liability of the medical entity (e.g. organizational fault) — and do you want to check whether the choice of legal basis affects the amount awarded?</p>
+</li>
+<li>
+<p>[Procedural context] Do you want to compare how first- and second-instance courts assess the amount (including how often the appellate court changes it), as one of the main study variables?</p>
+</li>
+<li>
+<p>[Procedural context] Are you interested in whether the defendant's status (a physician as an individual, a hospital/medical entity, or a liability insurer) differentiates the amount awarded or how it's justified?</p>
+</li>
+<li>
+<p>[Case-law analysis] Do you want to study the influence of expert opinions (e.g. findings on causation, degree of permanent health impairment, prognosis) on the amount awarded, and which elements of the opinion courts treat as decisive?</p>
+</li>
+<li>
+<p>[Case-law analysis] Which substantive circumstances should be the key potential "amount determinants" for you — e.g. duration and intensity of suffering, irreversibility of effects, patient's age, disability, loss of independence, impact on family and professional life?</p>
+</li>
+<li>
+<p>[Case-law analysis] Are you interested in how courts justify the "appropriateness" of the amount — e.g. whether they compare it to other rulings, invoke a compensatory function, or reference the standard of living — and do you want to compare these argumentation patterns across courts?</p>
+</li>
+<li>
+<p>[Temporal context] Do you want to study whether the practice of awarding amounts has changed over time (e.g. an upward trend), and whether courts link this to factors such as inflation or evolving patient-protection standards?</p>
+</li>
+<li>
+<p>[Special cases] Do you want to separate out specific categories of errors and consequences (e.g. diagnostic vs. treatment vs. perinatal error; patient death and claims by relatives) and compare whether these case types lead to significantly different amounts and different reasoning?</p>
+</li>
+</ol>
+<p></div>
+<div class="chat-msg chat-user" markdown="1">
+<span class="chat-label">You</span></p>
+<ol>
+<li>Yes, I want to find the variables that predict the amount.</li>
+<li>Compensation (zadośćuczynienie) and damages (odszkodowanie). Not the annuity.</li>
+<li>No, the legal basis isn't a variable I care about.</li>
+<li>Yes, I want to know how often the appellate court changes the amount, and in which direction.</li>
+<li>Yes, especially the difference between a hospital and an insurer.</li>
+<li>Yes. Whether the court based the amount on the percentage impairment from the expert opinion, or went beyond it.</li>
+<li>All the circumstances listed matter.</li>
+<li>Yes, whether courts compare themselves to other rulings, and whether they do so explicitly.</li>
+<li>No.</li>
+<li>Yes, categorize the errors and consequences.</li>
+</ol>
+<p></div>
+<div class="chat-msg chat-assistant" markdown="1">
+<span class="chat-label">Assistant</span></p>
+<p>We're studying how civil courts determine the amount of compensation (zadośćuczynienie) and damages (odszkodowanie) for medical malpractice, and which circumstances predict the amount awarded. We account for the defendant's type (hospital, physician, insurer), the role of expert opinions (including percentage health impairment), differences between first and second instance, and the category of medical error and its consequences for the patient (pain and suffering, permanent impairment, disability, impact on family and professional life, death). The legal basis is Art. 445 and 448 KC (compensation) and Art. 444 KC (damages); the choice of liability basis is not a separate study variable.</p>
+<p></div>
+<div class="chat-msg chat-assistant" markdown="1">
+<span class="chat-label">Assistant</span></p>
+<p>Based on your question, I've prepared an extraction schema for analyzing civil rulings in medical malpractice cases, to check which circumstances predict the amount of compensation and damages awarded and how courts justify those amounts. The schema targets patient cases against hospitals, medical entities, physicians, and insurers, covering both first instance and whether the appellate court changes the amount, and in which direction.</p>
+<p>The generated schema includes fields to capture the claim type and outcome, amounts claimed and awarded, the distinction between compensation and damages, the defendant type, the type of medical error, and consequences for the patient such as pain and suffering, permanent impairment, disability, loss of independence, impact on family and professional life, or death. It also extracts information about the expert opinion, including the percentage health impairment and whether the court based the amount on it, as well as whether the court explicitly compared the case to other rulings and invoked the compensatory function and an individualized assessment of harm.</p>
+<p>The schema also lets you separately record the different categories of medical error, the consequence for the patient, and how the awards were assessed, so you can later study which variables actually correlate with the amounts awarded. If you'd like, you can now point out anything to refine, simplify, or add.</p>
+<p></div>
+<div class="chat-msg chat-user" markdown="1">
+<span class="chat-label">You</span></p>
+<p>I'm satisfied. I want to end the chat.</p>
+<p></div>
+</div></p>
+<p><em>The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run.</em></p>
+</div>
 <div class="tabbed-block">
 <p><div class="chat" markdown="1">
 <div class="chat-msg chat-user" markdown="1">
@@ -1446,79 +1518,6 @@ tab as the source of truth.</p>
 </div></p>
 <p><em>Pytania doprecyzowujące i odpowiedzi pokazane są dosłownie; dłuższe wypowiedzi asystenta skrócono dla czytelności.</em></p>
 </div>
-<div class="tabbed-block">
-<p><div class="chat" markdown="1">
-<div class="chat-msg chat-user" markdown="1">
-<span class="chat-label">You</span></p>
-<p>How do civil courts determine the amount of compensation for pain and suffering (zadośćuczynienie) in medical malpractice cases, and what circumstances affect the amounts awarded to patients?</p>
-<p></div>
-<div class="chat-msg chat-assistant" markdown="1">
-<span class="chat-label">Assistant</span></p>
-<ol>
-<li>
-<p>[Confirmation] I understand you want to study which criteria and arguments civil courts cite when setting the amount of compensation for harm caused by medical malpractice, and which circumstances correlate with the amounts awarded — is that right?</p>
-</li>
-<li>
-<p>[Confirmation] Are you interested only in monetary compensation for non-pecuniary harm ("zadośćuczynienie", Art. 445 §1 / 448 Civil Code), or also related claims such as damages for pecuniary loss ("odszkodowanie", Art. 444) and an annuity ("renta", Art. 444 §2)?</p>
-</li>
-<li>
-<p>[Legal framework] Is it important to distinguish the basis of liability — tort liability, vicarious/risk-based liability for a subordinate, and the liability of the medical entity (e.g. organizational fault) — and do you want to check whether the choice of legal basis affects the amount awarded?</p>
-</li>
-<li>
-<p>[Procedural context] Do you want to compare how first- and second-instance courts assess the amount (including how often the appellate court changes it), as one of the main study variables?</p>
-</li>
-<li>
-<p>[Procedural context] Are you interested in whether the defendant's status (a physician as an individual, a hospital/medical entity, or a liability insurer) differentiates the amount awarded or how it's justified?</p>
-</li>
-<li>
-<p>[Case-law analysis] Do you want to study the influence of expert opinions (e.g. findings on causation, degree of permanent health impairment, prognosis) on the amount awarded, and which elements of the opinion courts treat as decisive?</p>
-</li>
-<li>
-<p>[Case-law analysis] Which substantive circumstances should be the key potential "amount determinants" for you — e.g. duration and intensity of suffering, irreversibility of effects, patient's age, disability, loss of independence, impact on family and professional life?</p>
-</li>
-<li>
-<p>[Case-law analysis] Are you interested in how courts justify the "appropriateness" of the amount — e.g. whether they compare it to other rulings, invoke a compensatory function, or reference the standard of living — and do you want to compare these argumentation patterns across courts?</p>
-</li>
-<li>
-<p>[Temporal context] Do you want to study whether the practice of awarding amounts has changed over time (e.g. an upward trend), and whether courts link this to factors such as inflation or evolving patient-protection standards?</p>
-</li>
-<li>
-<p>[Special cases] Do you want to separate out specific categories of errors and consequences (e.g. diagnostic vs. treatment vs. perinatal error; patient death and claims by relatives) and compare whether these case types lead to significantly different amounts and different reasoning?</p>
-</li>
-</ol>
-<p></div>
-<div class="chat-msg chat-user" markdown="1">
-<span class="chat-label">You</span></p>
-<ol>
-<li>Yes, I want to find the variables that predict the amount.</li>
-<li>Compensation (zadośćuczynienie) and damages (odszkodowanie). Not the annuity.</li>
-<li>No, the legal basis isn't a variable I care about.</li>
-<li>Yes, I want to know how often the appellate court changes the amount, and in which direction.</li>
-<li>Yes, especially the difference between a hospital and an insurer.</li>
-<li>Yes. Whether the court based the amount on the percentage impairment from the expert opinion, or went beyond it.</li>
-<li>All the circumstances listed matter.</li>
-<li>Yes, whether courts compare themselves to other rulings, and whether they do so explicitly.</li>
-<li>No.</li>
-<li>Yes, categorize the errors and consequences.</li>
-</ol>
-<p></div>
-<div class="chat-msg chat-assistant" markdown="1">
-<span class="chat-label">Assistant</span></p>
-<p>We're studying how civil courts determine the amount of compensation (zadośćuczynienie) and damages (odszkodowanie) for medical malpractice, and which circumstances predict the amount awarded. We account for the defendant's type (hospital, physician, insurer), the role of expert opinions (including percentage health impairment), differences between first and second instance, and the category of medical error and its consequences for the patient (pain and suffering, permanent impairment, disability, impact on family and professional life, death). The legal basis is Art. 445 and 448 KC (compensation) and Art. 444 KC (damages); the choice of liability basis is not a separate study variable.</p>
-<p></div>
-<div class="chat-msg chat-assistant" markdown="1">
-<span class="chat-label">Assistant</span></p>
-<p>Based on your question, I've prepared an extraction schema for analyzing civil rulings in medical malpractice cases, to check which circumstances predict the amount of compensation and damages awarded and how courts justify those amounts. The schema targets patient cases against hospitals, medical entities, physicians, and insurers, covering both first instance and whether the appellate court changes the amount, and in which direction.</p>
-<p>The generated schema includes fields to capture the claim type and outcome, amounts claimed and awarded, the distinction between compensation and damages, the defendant type, the type of medical error, and consequences for the patient such as pain and suffering, permanent impairment, disability, loss of independence, impact on family and professional life, or death. It also extracts information about the expert opinion, including the percentage health impairment and whether the court based the amount on it, as well as whether the court explicitly compared the case to other rulings and invoked the compensatory function and an individualized assessment of harm.</p>
-<p>The schema also lets you separately record the different categories of medical error, the consequence for the patient, and how the awards were assessed, so you can later study which variables actually correlate with the amounts awarded. If you'd like, you can now point out anything to refine, simplify, or add.</p>
-<p></div>
-<div class="chat-msg chat-user" markdown="1">
-<span class="chat-label">You</span></p>
-<p>I'm satisfied. I want to end the chat.</p>
-<p></div>
-</div></p>
-<p><em>The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run and has not been reviewed by a native speaker.</em></p>
-</div>
 </div>
 </div>
 <h2 id="the-generated-schema">The generated schema</h2>
@@ -1526,8 +1525,8 @@ tab as the source of truth.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">GPT-5.4</label><label for="__tabbed_2_2">GPT-5.4 mini</label><label for="__tabbed_2_3">Claude Sonnet 4.6</label><label for="__tabbed_2_4">Gemma 4 E4B IT</label><label for="__tabbed_2_5">GPT-5.4 nano</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><strong>150 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">🇵🇱 Polski</label><label for="__tabbed_3_2">🇬🇧 English</label></div>
+<p><strong>150 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">🇬🇧 English</label><label for="__tabbed_3_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -1540,60 +1539,59 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>odszkodowanie_base_amount_before_reductions_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Kwota bazowa odszkodowania ustalona przed redukcjami typu przyczynienie lub zaliczenie świadczeń, w PLN. Wypełniaj tylko przy jawnej kalkulacji sądu; nie rekonstruuj.</td>
+<td><code>case_signature</code></td>
+<td>string</td>
+<td>Case number of the analyzed ruling, copied exactly from the header or operative part.</td>
 </tr>
 <tr>
-<td><code>zadoscuczynienie_base_amount_before_reductions_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Kwota bazowa zadośćuczynienia ustalona przez sąd przed redukcjami typu przyczynienie lub zaliczenie wcześniejszych świadczeń, w PLN. Wypełniaj tylko gdy sąd podaje tę bazę explicite; nie rekonstruuj jej z arytmetyki pośredniej.</td>
+<td><code>judgment_date_iso</code></td>
+<td>string</td>
+<td>Normalized date the ruling was issued, in YYYY-MM-DD format.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_amount_after_offsets_before_final_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Kwota odszkodowania po zastosowaniu offsetów lub zaliczeń, ale przed finalną kwotą zasądzoną, jeśli sąd pokazuje taki etap kalkulacji wprost. Nie wyliczaj samodzielnie.</td>
+<td><code>court_name</code></td>
+<td>string</td>
+<td>Full name of the court that issued the ruling.</td>
+</tr>
+<tr>
+<td><code>court_division</code></td>
+<td>string</td>
+<td>Name of the adjudicating division, if stated in the header.</td>
 </tr>
 <tr>
 <td><code>is_document_in_scope</code></td>
 <td>enum</td>
-<td>Required: true. Typ: enum. Czy dokument mieści się w zakresie badania spraw cywilnych dotyczących błędów medycznych i analizy kwot zadośćuczynienia lub odszkodowania. To pole ma priorytet walidacyjny: gdy wartość to no, pola merytoryczne med-mal powinny pozostać puste albo przyjmować not_applicable.</td>
+<td>Whether the document falls within the scope of the study on civil medical-malpractice cases and compensation/damages amounts.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_amount_scope</code></td>
+<td><code>out_of_scope_reason</code></td>
 <td>enum</td>
-<td>Required: false. Typ: enum. Zakres kwoty odszkodowania w rekordzie: na osobę czy łącznie dla wszystkich powodów.</td>
+<td>Main reason the document is considered out of scope or partially out of scope.</td>
 </tr>
 <tr>
-<td><code>zadoscuczynienie_amount_after_offsets_before_final_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Kwota zadośćuczynienia po zastosowaniu offsetów lub zaliczeń, ale przed finalną kwotą zasądzoną, jeśli sąd pokazuje taki etap kalkulacji wprost. Nie wyliczaj samodzielnie.</td>
+<td><code>out_of_scope_secondary_reason</code></td>
+<td>enum</td>
+<td>Additional reason for exclusion, when the document meets more than one out-of-scope category.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_claimed_initial_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Kwota odszkodowania pierwotnie dochodzona w pozwie lub przed zmianami powództwa, w PLN.</td>
+<td><code>out_of_scope_reason_excerpt</code></td>
+<td>string</td>
+<td>Short justification for excluding or partially excluding the document, ideally a brief quote or summary.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_claimed_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Końcowa kwota odszkodowania dochodzona na moment wyrokowania w analizowanej instancji, w PLN.</td>
+<td><code>proceeding_type</code></td>
+<td>enum</td>
+<td>Main type of proceeding. Use <code>civil_medical_malpractice</code> only when the case's core is civil liability for treatment, diagnosis, a procedure, childbirth, or medical care.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_awarded_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Łączna kwota odszkodowania zasądzona w analizowanym orzeczeniu, w PLN.</td>
-</tr>
-<tr>
-<td><code>odszkodowanie_pretrial_payment_pln</code></td>
-<td>float</td>
-<td>Required: false. Typ: float. Kwota wcześniejszej wypłaty odnoszona do odszkodowania, w PLN.</td>
+<td><code>proceeding_type_secondary</code></td>
+<td>enum</td>
+<td>Secondary classification of the proceeding type for borderline or mixed cases.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
 <table>
 <thead>
 <tr>
@@ -1604,54 +1602,54 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>odszkodowanie_base_amount_before_reductions_pln</code></td>
-<td>float</td>
-<td>Base damages amount established by the court before reductions (e.g. contributory negligence, offsets).</td>
+<td><code>case_signature</code></td>
+<td>string</td>
+<td>Required: false. Typ: string. Sygnatura akt analizowanego orzeczenia. Przepisz dokładnie z nagłówka lub sentencji.</td>
 </tr>
 <tr>
-<td><code>zadoscuczynienie_base_amount_before_reductions_pln</code></td>
-<td>float</td>
-<td>Base compensation amount established by the court before reductions.</td>
+<td><code>judgment_date_iso</code></td>
+<td>string</td>
+<td>Required: false. Typ: string. Znormalizowana data wydania orzeczenia w formacie YYYY-MM-DD. Wypełniaj tylko gdy data wynika wprost z dokumentu.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_amount_after_offsets_before_final_pln</code></td>
-<td>float</td>
-<td>Damages amount after offsets/deductions, but before the final awarded amount, when the court shows this calculation step explicitly.</td>
+<td><code>court_name</code></td>
+<td>string</td>
+<td>Required: false. Typ: string. Pełna nazwa sądu, który wydał analizowane orzeczenie. Przepisz z nagłówka.</td>
+</tr>
+<tr>
+<td><code>court_division</code></td>
+<td>string</td>
+<td>Required: false. Typ: string. Nazwa wydziału orzekającego, jeśli wskazana w nagłówku.</td>
 </tr>
 <tr>
 <td><code>is_document_in_scope</code></td>
 <td>enum</td>
-<td>Whether the document falls within the scope of the medical-malpractice compensation study.</td>
+<td>Required: true. Typ: enum. Czy dokument mieści się w zakresie badania spraw cywilnych dotyczących błędów medycznych i analizy kwot zadośćuczynienia lub odszkodowania. To pole ma priorytet walidacyjny: gdy wartość to no, pola merytoryczne med-mal powinny pozostać puste albo przyjmować not_applicable.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_amount_scope</code></td>
+<td><code>out_of_scope_reason</code></td>
 <td>enum</td>
-<td>Whether the damages amount is per claimant or aggregated across all claimants.</td>
+<td>Required: false. Typ: enum. Główny powód uznania dokumentu za poza zakresem lub częściowo poza zakresem. Dla dokumentów w pełni relewantnych użyj not_applicable.</td>
 </tr>
 <tr>
-<td><code>zadoscuczynienie_amount_after_offsets_before_final_pln</code></td>
-<td>float</td>
-<td>Compensation amount after offsets/deductions, but before the final awarded amount.</td>
+<td><code>out_of_scope_secondary_reason</code></td>
+<td>enum</td>
+<td>Required: false. Typ: enum. Dodatkowy powód wyłączenia, gdy dokument spełnia więcej niż jedną kategorię poza zakresem.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_claimed_initial_pln</code></td>
-<td>float</td>
-<td>Damages amount originally claimed in the initial complaint.</td>
+<td><code>out_of_scope_reason_excerpt</code></td>
+<td>string</td>
+<td>Required: false. Typ: string. Krótkie uzasadnienie wyłączenia lub częściowego wyłączenia dokumentu, najlepiej w formie krótkiego cytatu albo streszczenia.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_claimed_pln</code></td>
-<td>float</td>
-<td>Final damages amount claimed at the time of the ruling under analysis.</td>
+<td><code>proceeding_type</code></td>
+<td>enum</td>
+<td>Required: true. Typ: enum. Główny rodzaj postępowania. Używaj civil_medical_malpractice tylko gdy rdzeniem sprawy jest odpowiedzialność cywilna za leczenie, diagnozę, zabieg, poród lub opiekę medyczną.</td>
 </tr>
 <tr>
-<td><code>odszkodowanie_awarded_pln</code></td>
-<td>float</td>
-<td>Total damages amount awarded in the ruling under analysis.</td>
-</tr>
-<tr>
-<td><code>odszkodowanie_pretrial_payment_pln</code></td>
-<td>float</td>
-<td>Amount of any pre-trial payment credited against the damages.</td>
+<td><code>proceeding_type_secondary</code></td>
+<td>enum</td>
+<td>Required: false. Typ: enum. Pomocnicza klasyfikacja rodzaju postępowania dla przypadków granicznych lub mieszanych.</td>
 </tr>
 </tbody>
 </table>
@@ -3341,8 +3339,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>83 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">🇵🇱 Polski</label><label for="__tabbed_4_2">🇬🇧 English</label></div>
+<p><strong>83 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">🇬🇧 English</label><label for="__tabbed_4_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3355,60 +3353,59 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>claim_amounts_separated</code></td>
+<td><code>case_domain</code></td>
+<td>enum</td>
+<td>Domain of the case established from the ruling's content — medical malpractice, another civil case, or undetermined.</td>
+</tr>
+<tr>
+<td><code>is_medical_malpractice_case</code></td>
 <td>boolean</td>
-<td>Czy dokument wyraźnie rozdziela kwoty zadośćuczynienia i odszkodowania. Użyj <code>false</code>, gdy występuje tylko jedna łączna kwota lub rozbicie nie jest podane.</td>
+<td>Whether the document concerns a medical-malpractice case and patient claims. Used as a quick domain filter.</td>
+</tr>
+<tr>
+<td><code>medical_error_alleged_but_not_adjudicated</code></td>
+<td>boolean</td>
+<td>Whether a medical error is alleged but not substantively ruled on by the court.</td>
+</tr>
+<tr>
+<td><code>liability_found</code></td>
+<td>boolean</td>
+<td>Whether the court found the defendant liable for the medical event or its consequences.</td>
+</tr>
+<tr>
+<td><code>medical_error_found_by_court</code></td>
+<td>boolean</td>
+<td>Whether the court explicitly found that a medical error occurred.</td>
 </tr>
 <tr>
 <td><code>remedy_type</code></td>
 <td>enum</td>
-<td>Jakie świadczenie jest analizowane w orzeczeniu. Użyj <code>jedna_laczna_kwota</code>, gdy dokument podaje jedną łączną kwotę bez wyraźnego rozbicia na zadośćuczynienie i odszkodowanie.</td>
+<td>Which remedy is being analyzed in the ruling — compensation, damages, both, or a single combined amount.</td>
+</tr>
+<tr>
+<td><code>claim_amounts_separated</code></td>
+<td>boolean</td>
+<td>Whether the document clearly separates the compensation and damages amounts.</td>
+</tr>
+<tr>
+<td><code>amount_claimed_total</code></td>
+<td>float</td>
+<td>Total amount claimed by the plaintiff, if the document states a single sum or does not separate the claims.</td>
+</tr>
+<tr>
+<td><code>amount_claimed_zadoscuczynienie</code></td>
+<td>float</td>
+<td>Compensation amount claimed by the plaintiff, if the document clearly separates the claims.</td>
 </tr>
 <tr>
 <td><code>amount_claimed_odszkodowanie</code></td>
 <td>float</td>
-<td>Kwota odszkodowania dochodzona przez powoda, jeśli dokument wyraźnie rozdziela żądania. Jeśli podana jest tylko jedna łączna kwota, pozostaw puste i użyj <code>amount_claimed_total</code>.</td>
-</tr>
-<tr>
-<td><code>amount_awarded_odszkodowanie_first_instance</code></td>
-<td>float</td>
-<td>Kwota odszkodowania zasądzona w I instancji. Jeśli brak takiego rozstrzygnięcia, pozostaw puste; w przypadku wprost oddalonego roszczenia użyj 0.0.</td>
-</tr>
-<tr>
-<td><code>amount_awarded_odszkodowanie_final</code></td>
-<td>float</td>
-<td>Końcowa kwota odszkodowania wynikająca z analizowanego orzeczenia po rozpoznaniu sprawy, także po apelacji. Jeśli brak rozbicia lub brak świadczenia, pozostaw puste albo użyj 0.0 przy wprost oddalonym roszczeniu.</td>
-</tr>
-<tr>
-<td><code>amount_assessment_present</code></td>
-<td>boolean</td>
-<td>Czy sąd w dokumencie ustala, miarkuje albo wprost ocenia konkretną kwotę świadczenia. Użyj <code>false</code>, gdy brak takiej oceny, nawet jeśli sprawa dotyczy roszczenia o zadośćuczynienie lub odszkodowanie.</td>
-</tr>
-<tr>
-<td><code>appellate_change_amount_odszkodowanie</code></td>
-<td>float</td>
-<td>O ile zmieniła się kwota odszkodowania w II instancji względem kwoty sprzed zmiany. Podawaj jako dodatnią wartość w złotych, jeśli da się to ustalić.</td>
-</tr>
-<tr>
-<td><code>medical_expenses_amount</code></td>
-<td>float</td>
-<td>Kwota kosztów leczenia lub innych wydatków medycznych uwzględnionych jako element odszkodowania, jeśli została wyodrębniona w orzeczeniu. Wartość w złotych.</td>
-</tr>
-<tr>
-<td><code>rehabilitation_expenses_amount</code></td>
-<td>float</td>
-<td>Kwota kosztów rehabilitacji uwzględnionych jako element odszkodowania, jeśli została wyodrębniona w orzeczeniu. Wartość w złotych.</td>
-</tr>
-<tr>
-<td><code>care_expenses_amount</code></td>
-<td>float</td>
-<td>Kwota kosztów opieki osób trzecich uwzględnionych jako element odszkodowania, jeśli została wyodrębniona w orzeczeniu. Wartość w złotych.</td>
+<td>Damages amount claimed by the plaintiff, if the document clearly separates the claims.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
 <table>
 <thead>
 <tr>
@@ -3419,54 +3416,54 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>claim_amounts_separated</code></td>
+<td><code>case_domain</code></td>
+<td>enum</td>
+<td>Domena sprawy ustalona na podstawie treści orzeczenia. Użyj <code>bled_medyczny</code>, gdy dokument dotyczy błędu medycznego i roszczeń pacjenta; <code>inna_sprawa_cywilna</code>, gdy sprawa nie jest medyczna; <code>nieustalone</code>, gdy nie da się tego potwierdzić.</td>
+</tr>
+<tr>
+<td><code>is_medical_malpractice_case</code></td>
 <td>boolean</td>
-<td>Whether the document clearly separates the compensation amount from the damages amount.</td>
+<td>Czy dokument dotyczy sprawy o błąd medyczny i roszczenia pacjenta. Używaj jako szybkiego filtra domeny; powinno być spójne z <code>case_domain</code>.</td>
+</tr>
+<tr>
+<td><code>medical_error_alleged_but_not_adjudicated</code></td>
+<td>boolean</td>
+<td>Czy w dokumencie pojawia się zarzut błędu medycznego, ale sąd nie rozstrzyga go merytorycznie lub nie przesądza o nim wprost. Pomaga odróżnić zarzut strony od sądowego ustalenia.</td>
+</tr>
+<tr>
+<td><code>liability_found</code></td>
+<td>boolean</td>
+<td>Czy sąd ustalił odpowiedzialność pozwanego za zdarzenie medyczne lub jego skutki. Używaj tylko wtedy, gdy odpowiedzialność wynika wprost z sentencji albo uzasadnienia.</td>
+</tr>
+<tr>
+<td><code>medical_error_found_by_court</code></td>
+<td>boolean</td>
+<td>Czy sąd wprost stwierdził wystąpienie błędu medycznego. Nie myl z samym zarzutem strony; pole ma odzwierciedlać ustalenie sądu.</td>
 </tr>
 <tr>
 <td><code>remedy_type</code></td>
 <td>enum</td>
-<td>Which type of remedy is analyzed in the ruling (compensation, damages, both, or a single combined amount).</td>
+<td>Jakie świadczenie jest analizowane w orzeczeniu. Użyj <code>jedna_laczna_kwota</code>, gdy dokument podaje jedną łączną kwotę bez wyraźnego rozbicia na zadośćuczynienie i odszkodowanie.</td>
+</tr>
+<tr>
+<td><code>claim_amounts_separated</code></td>
+<td>boolean</td>
+<td>Czy dokument wyraźnie rozdziela kwoty zadośćuczynienia i odszkodowania. Użyj <code>false</code>, gdy występuje tylko jedna łączna kwota lub rozbicie nie jest podane.</td>
+</tr>
+<tr>
+<td><code>amount_claimed_total</code></td>
+<td>float</td>
+<td>Łączna kwota dochodzona przez powoda, jeśli dokument podaje jedną sumę albo nie rozdziela roszczeń. Podawaj w złotych; gdy brak danych, pozostaw puste.</td>
+</tr>
+<tr>
+<td><code>amount_claimed_zadoscuczynienie</code></td>
+<td>float</td>
+<td>Kwota zadośćuczynienia dochodzona przez powoda, jeśli dokument wyraźnie rozdziela żądania. Jeśli podana jest tylko jedna łączna kwota, pozostaw puste i użyj <code>amount_claimed_total</code>.</td>
 </tr>
 <tr>
 <td><code>amount_claimed_odszkodowanie</code></td>
 <td>float</td>
-<td>Damages amount claimed by the plaintiff, if the claims are clearly separated.</td>
-</tr>
-<tr>
-<td><code>amount_awarded_odszkodowanie_first_instance</code></td>
-<td>float</td>
-<td>Damages amount awarded at first instance.</td>
-</tr>
-<tr>
-<td><code>amount_awarded_odszkodowanie_final</code></td>
-<td>float</td>
-<td>Final damages amount resulting from the ruling under analysis, including after appeal.</td>
-</tr>
-<tr>
-<td><code>amount_assessment_present</code></td>
-<td>boolean</td>
-<td>Whether the court actually determines or assesses a specific remedy amount in the document.</td>
-</tr>
-<tr>
-<td><code>appellate_change_amount_odszkodowanie</code></td>
-<td>float</td>
-<td>By how much the damages amount changed on appeal, relative to the prior amount.</td>
-</tr>
-<tr>
-<td><code>medical_expenses_amount</code></td>
-<td>float</td>
-<td>Medical/treatment costs included as part of the awarded damages, if separately identified.</td>
-</tr>
-<tr>
-<td><code>rehabilitation_expenses_amount</code></td>
-<td>float</td>
-<td>Rehabilitation costs included as part of the awarded damages, if separately identified.</td>
-</tr>
-<tr>
-<td><code>care_expenses_amount</code></td>
-<td>float</td>
-<td>Third-party care costs included as part of the awarded damages, if separately identified.</td>
+<td>Kwota odszkodowania dochodzona przez powoda, jeśli dokument wyraźnie rozdziela żądania. Jeśli podana jest tylko jedna łączna kwota, pozostaw puste i użyj <code>amount_claimed_total</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -4287,8 +4284,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>62 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">🇵🇱 Polski</label><label for="__tabbed_5_2">🇬🇧 English</label></div>
+<p><strong>62 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">🇬🇧 English</label><label for="__tabbed_5_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -4301,60 +4298,59 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>kwota_odszkodowania_zadana</code></td>
-<td>float</td>
-<td>Kwota odszkodowania żądana przez powoda w PLN (szkoda majątkowa z art. 444 § 1 k.c.); wartość 0 jeśli roszczenie o odszkodowanie nie było dochodzone</td>
-</tr>
-<tr>
-<td><code>kwota_odszkodowania_zasadzona</code></td>
-<td>float</td>
-<td>Kwota odszkodowania zasądzonego przez sąd w PLN (szkoda majątkowa z art. 444 § 1 k.c.); wartość 0 jeśli powództwo w tym zakresie zostało oddalone</td>
-</tr>
-<tr>
-<td><code>kwota_odszkodowania_sad_i_instancji</code></td>
-<td>float</td>
-<td>Kwota odszkodowania zasądzona przez sąd I instancji w PLN (art. 444 § 1 k.c.) — uzupełniać wyłącznie dla orzeczeń sądu II instancji; wartość 0 jeśli sąd I instancji oddalił powództwo; pole 'kwota_odszkodowania_i_instancji_znana' wskazuje, czy wartość jest dostępna; pole kluczowe dla Q6</td>
-</tr>
-<tr>
-<td><code>kwota_odszkodowania_i_instancji_znana</code></td>
+<td><code>czy_sprawa_dotyczy_bledu_medycznego</code></td>
 <td>boolean</td>
-<td>Czy kwota odszkodowania zasądzona przez sąd I instancji jest znana i dostępna w analizowanym orzeczeniu; false dla orzeczeń sądu I instancji lub gdy kwota I instancji nie jest podana w uzasadnieniu; pole pomocnicze dla 'kwota_odszkodowania_sad_i_instancji'</td>
+<td>Whether the analyzed document concerns a medical-malpractice case. Filtering field — fill in before extracting the remaining fields.</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_zadana</code></td>
-<td>float</td>
-<td>Kwota zadośćuczynienia żądana przez powoda w PLN; wartość 0 jeśli roszczenie o zadośćuczynienie nie było dochodzone</td>
+<td><code>sygnatura_akt</code></td>
+<td>string</td>
+<td>Case number of the court ruling — unique identifier needed for dataset management and deduplication.</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_zasadzona</code></td>
-<td>float</td>
-<td>Kwota zadośćuczynienia zasądzona przez sąd w PLN; wartość 0 jeśli powództwo w tym zakresie zostało oddalone</td>
+<td><code>rok_orzeczenia</code></td>
+<td>integer</td>
+<td>Year the analyzed ruling was issued.</td>
 </tr>
 <tr>
-<td><code>swiadczenia_zaliczone_na_poczet_zadoscuczynienia</code></td>
-<td>float</td>
-<td>Kwota zewnętrznych świadczeń (np. wypłaconych przez ubezpieczyciela przed procesem, ZUS, inne podmioty) odliczona przez sąd od należnego zadośćuczynienia przy ustalaniu kwoty zasądzonej; wartość 0 jeśli sąd nie dokonał odliczeń lub brak informacji o odliczeniach; pole istotne dla prawidłowej interpretacji kwoty netto zasądzonej w kontekście modeli predykcyjnych Q1, Q2, Q5</td>
+<td><code>instancja_sadu</code></td>
+<td>enum</td>
+<td>Instance and type of court that issued the ruling — first-instance regional court (high claim value), first-instance district court (low claim value), or appellate court as second instance.</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_na_powoda_min</code></td>
-<td>float</td>
-<td>Minimalna kwota zadośćuczynienia zasądzona na jednego powoda w PLN — w sprawach wieloosobowych (liczba_powodow &gt; 1) pozwala uchwycić rozpiętość kwot indywidualnych; równa kwocie zasądzonej dla pojedynczego powoda; pole kluczowe dla Q10</td>
+<td><code>identyfikator_sadu</code></td>
+<td>string</td>
+<td>Name or identifier of the court that issued the ruling — enables grouping rulings by court or appellate district.</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_na_powoda_max</code></td>
-<td>float</td>
-<td>Maksymalna kwota zadośćuczynienia zasądzona na jednego powoda w PLN — w sprawach wieloosobowych (liczba_powodow &gt; 1) pozwala uchwycić rozpiętość kwot indywidualnych; równa kwocie zasądzonej dla pojedynczego powoda; pole kluczowe dla Q10</td>
+<td><code>wydzial_sadu</code></td>
+<td>string</td>
+<td>Division of the court that issued the ruling (e.g. civil, labor, commercial) — enables filtering to civil divisions.</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_sad_i_instancji</code></td>
-<td>float</td>
-<td>Kwota zadośćuczynienia zasądzona przez sąd I instancji w PLN — uzupełniać wyłącznie dla orzeczeń sądu II instancji; wartość 0 jeśli sąd I instancji oddalił powództwo; pole 'kwota_zadoscuczynienia_i_instancji_znana' wskazuje, czy wartość jest dostępna; pole kluczowe dla Q6</td>
+<td><code>rodzaj_pozwanego</code></td>
+<td>enum</td>
+<td>Status of the defendant — physician as a natural person, hospital/medical entity, liability insurer, or a combination.</td>
+</tr>
+<tr>
+<td><code>podmiot_leczniczy_publiczny_prywatny</code></td>
+<td>enum</td>
+<td>Whether the defendant (or insured) medical entity is public or private.</td>
+</tr>
+<tr>
+<td><code>typ_bledu_medycznego</code></td>
+<td>enum</td>
+<td>Type of medical error underlying the claim — diagnostic, therapeutic/surgical, perinatal, pharmacological, anesthesiological, nursing, other.</td>
+</tr>
+<tr>
+<td><code>kategoria_skutku_zdrowotnego</code></td>
+<td>enum</td>
+<td>Category of health outcome resulting from the medical error.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
 <table>
 <thead>
 <tr>
@@ -4365,54 +4361,54 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>kwota_odszkodowania_zadana</code></td>
-<td>float</td>
-<td>Damages amount claimed by the plaintiff (PLN); 0 if damages were not claimed.</td>
-</tr>
-<tr>
-<td><code>kwota_odszkodowania_zasadzona</code></td>
-<td>float</td>
-<td>Damages amount awarded by the court (PLN); 0 if the claim was dismissed.</td>
-</tr>
-<tr>
-<td><code>kwota_odszkodowania_sad_i_instancji</code></td>
-<td>float</td>
-<td>Damages amount awarded by the first-instance court (PLN) — only for second-instance rulings.</td>
-</tr>
-<tr>
-<td><code>kwota_odszkodowania_i_instancji_znana</code></td>
+<td><code>czy_sprawa_dotyczy_bledu_medycznego</code></td>
 <td>boolean</td>
-<td>Whether the first-instance damages amount is known and available in the ruling under analysis.</td>
+<td>Czy analizowany dokument dotyczy sprawy o błąd medyczny (malpractice) — true jeśli przedmiotem sprawy jest roszczenie wynikające z działania lub zaniechania personelu medycznego; false jeśli dokument dotyczy innej domeny (np. wypadek komunikacyjny, błąd budowlany) nawet jeśli powołuje te same artykuły k.c. (art. 445 § 1, art. 444); pole filtrujące — wypełnić jako pierwsze przed ekstrakcją pozostałych pól</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_zadana</code></td>
-<td>float</td>
-<td>Compensation amount claimed by the plaintiff (PLN); 0 if compensation was not claimed.</td>
+<td><code>sygnatura_akt</code></td>
+<td>string</td>
+<td>Sygnatura akt sprawy sądowej (np. 'I C 123/20') — unikalny identyfikator orzeczenia niezbędny do zarządzania zbiorem danych i deduplikacji</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_zasadzona</code></td>
-<td>float</td>
-<td>Compensation amount awarded by the court (PLN); 0 if the claim was dismissed.</td>
+<td><code>rok_orzeczenia</code></td>
+<td>integer</td>
+<td>Rok wydania analizowanego orzeczenia (np. 2021) — standardowy atrybut zbioru danych sądowych; wymagany</td>
 </tr>
 <tr>
-<td><code>swiadczenia_zaliczone_na_poczet_zadoscuczynienia</code></td>
-<td>float</td>
-<td>External payments (e.g. from an insurer, social security) offset against the compensation by the court.</td>
+<td><code>instancja_sadu</code></td>
+<td>enum</td>
+<td>Instancja i rodzaj sądu, który wydał analizowane orzeczenie; 'pierwsza_sad_okregowy' = sąd okręgowy orzekający jako I instancja (wysoki WPS); 'pierwsza_sad_rejonowy' = sąd rejonowy orzekający jako I instancja (niski WPS, np. roszczenia do 75 000 PLN); 'druga' = sąd apelacyjny jako II instancja; szukaj w nagłówku orzeczenia</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_na_powoda_min</code></td>
-<td>float</td>
-<td>Minimum compensation amount awarded per plaintiff, in multi-plaintiff cases.</td>
+<td><code>identyfikator_sadu</code></td>
+<td>string</td>
+<td>Nazwa lub identyfikator sądu, który wydał orzeczenie (np. 'Sąd Okręgowy w Warszawie' lub 'Sąd Apelacyjny w Krakowie') — umożliwia grupowanie orzeczeń według sądu lub okręgu apelacyjnego dla porównań międzysądowych; pole kluczowe dla Q7 i Q8</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_na_powoda_max</code></td>
-<td>float</td>
-<td>Maximum compensation amount awarded per plaintiff, in multi-plaintiff cases.</td>
+<td><code>wydzial_sadu</code></td>
+<td>string</td>
+<td>Wydział sądu, który wydał orzeczenie (np. 'cywilny', 'pracy', 'gospodarczy') — umożliwia filtrowanie rekordów do wydziałów cywilnych oraz detekcję nieadekwatnych dokumentów (np. z wydziałów pracy) mogących zaburzyć analizy porównawcze; szukaj w nagłówku orzeczenia lub sygnaturze akt</td>
 </tr>
 <tr>
-<td><code>kwota_zadoscuczynienia_sad_i_instancji</code></td>
-<td>float</td>
-<td>Compensation amount awarded by the first-instance court (PLN) — only for second-instance rulings.</td>
+<td><code>rodzaj_pozwanego</code></td>
+<td>enum</td>
+<td>Status pozwanego w sprawie — lekarz jako osoba fizyczna, szpital/podmiot leczniczy, ubezpieczyciel OC lub kombinacja; pole kluczowe dla Q5</td>
+</tr>
+<tr>
+<td><code>podmiot_leczniczy_publiczny_prywatny</code></td>
+<td>enum</td>
+<td>Czy podmiot leczniczy będący pozwanym (lub ubezpieczany) jest podmiotem publicznym (SP ZOZ, jednostka samorządowa) czy prywatnym (spółka, praktyka prywatna); 'nieustalony' jeśli brak danych w orzeczeniu; pole kluczowe dla Q5 — może różnicować kwoty niezależnie od formalnego statusu pozwanego</td>
+</tr>
+<tr>
+<td><code>typ_bledu_medycznego</code></td>
+<td>enum</td>
+<td>Rodzaj błędu medycznego stanowiącego podstawę faktyczną roszczenia; 'diagnostyczny' = błąd w rozpoznaniu choroby; 'terapeutyczny_chirurgiczny' = błąd w leczeniu lub zabiegu chirurgicznym; 'okoloporodowy' = błąd podczas porodu lub opieki perinatalnej; 'farmakologiczny' = błąd w doborze lub dawkowaniu leku; 'anestezjologiczny' = błąd związany ze znieczuleniem; pole kluczowe dla Q3</td>
+</tr>
+<tr>
+<td><code>kategoria_skutku_zdrowotnego</code></td>
+<td>enum</td>
+<td>Kategoria skutku zdrowotnego będącego następstwem błędu medycznego; pole kluczowe dla Q4 i Q10</td>
 </tr>
 </tbody>
 </table>
@@ -4948,8 +4944,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>23 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">🇵🇱 Polski</label><label for="__tabbed_6_2">🇬🇧 English</label></div>
+<p><strong>23 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">🇬🇧 English</label><label for="__tabbed_6_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -4962,39 +4958,72 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>kwoty_zasadzone</code></td>
+<td><code>instancja_sadowa</code></td>
 <td>string</td>
-<td>Lista szczegółowych zasądzonych kwot. Każdy element listy powinien być obiektem zawierającym kwotę ('value') i jej typ ('type': 'zadośćuczynienie' lub 'odszkodowanie').</td>
+<td>Court instance issuing the ruling (first instance or appeal).</td>
 </tr>
 <tr>
-<td><code>total_odszkodowanie_pln</code></td>
-<td>float</td>
-<td>Suma wszystkich kwot zasądzonych tytułem odszkodowania w tym orzeczeniu.</td>
+<td><code>charakter_roszczenia_klasyfikacja</code></td>
+<td>enum</td>
+<td>Main nature of the claim examined in the ruling, to which the awarded amounts relate.</td>
+</tr>
+<tr>
+<td><code>typ_sprawy_podstawy_odpowiedzialnosci</code></td>
+<td>enum</td>
+<td>Precise legal basis of liability (e.g. tort liability vs. medical-entity organizational liability, including informational liability).</td>
+</tr>
+<tr>
+<td><code>typ_bledu_medycznego</code></td>
+<td>enum</td>
+<td>Categorization of the type of medical error that caused the harm.</td>
+</tr>
+<tr>
+<td><code>status_pozwanego</code></td>
+<td>enum</td>
+<td>Legal status of the defendant (physician, medical entity, insurer).</td>
+</tr>
+<tr>
+<td><code>charakter_szkody_fizycznej</code></td>
+<td>enum</td>
+<td>Categorization of the nature of the patient's permanent health impairment.</td>
+</tr>
+<tr>
+<td><code>analiza_opinii_biegla</code></td>
+<td>enum</td>
+<td>Granular assessment of how the court used the expert's findings.</td>
 </tr>
 <tr>
 <td><code>zgodnosc_biegly_vs_kwota</code></td>
 <td>enum</td>
-<td>Ocena korelacji między procentowym uszczerbkiem (z opinii) a kwotą zasądzoną (Q2).</td>
+<td>Assessment of the correlation between the expert's percentage impairment and the awarded amount.</td>
 </tr>
 <tr>
-<td><code>opis_wplywu_zawodowego</code></td>
-<td>string</td>
-<td>Szczegółowy opis stopnia wpływu uszczerbku na zdolność pacjenta do wykonywania pracy (kluczowy dla odszkodowania).</td>
+<td><code>wiek_pacjenta</code></td>
+<td>integer</td>
+<td>Patient's age at the time of the event or the ruling, key for damage assessment.</td>
 </tr>
 <tr>
-<td><code>specyficzne_koszty_leczenia_PLN</code></td>
-<td>string</td>
-<td>Szczegółowy wykaz zasądzonych kosztów leczenia, rehabilitacji i opieki po zdarzeniu (składnik odszkodowania).</td>
-</tr>
-<tr>
-<td><code>utracony_dochod_PLN</code></td>
-<td>string</td>
-<td>Szczegółowy wykaz zasądzonych dochodów, które pacjent utracił lub utracił przewidywany (składnik odszkodowania).</td>
-</tr>
-<tr>
-<td><code>total_zadośćuczynienie_pln</code></td>
+<td><code>procent_uszczerbku_glowny</code></td>
 <td>float</td>
-<td>Suma wszystkich kwot zasądzonych tytułem zadośćuczynienia w tym orzeczeniu.</td>
+<td>Main percentage of permanent health impairment, if stated by the expert and accepted by the court.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>instancja_sadowa</code></td>
+<td>string</td>
+<td>Instancja sądowa wydająca orzeczenie (I instancji lub apelacyjna).</td>
 </tr>
 <tr>
 <td><code>charakter_roszczenia_klasyfikacja</code></td>
@@ -5011,69 +5040,35 @@ tab as the source of truth.</p>
 <td>enum</td>
 <td>Kategoryzacja samego typu błędu medycznego, który doprowadził do szkody (kluczowa dla Q10).</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
-<table>
-<thead>
 <tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>kwoty_zasadzone</code></td>
-<td>string</td>
-<td>List of individual awarded amounts, each tagged with its type (compensation or damages).</td>
+<td><code>status_pozwanego</code></td>
+<td>enum</td>
+<td>Status prawny podmiotu pozwanego (lekarz, szpital/podmiot, ubezpieczyciel), kluczowa zmienna porównawcza.</td>
 </tr>
 <tr>
-<td><code>total_odszkodowanie_pln</code></td>
-<td>float</td>
-<td>Sum of all amounts awarded as damages in this ruling.</td>
+<td><code>charakter_szkody_fizycznej</code></td>
+<td>enum</td>
+<td>Kategoryzacja charakteru trwałego uszczerbku na zdrowiu pacjenta (skutek).</td>
+</tr>
+<tr>
+<td><code>analiza_opinii_biegla</code></td>
+<td>enum</td>
+<td>Granularna ocena, jak sąd wykorzystał ustalenia biegłych (Q2).</td>
 </tr>
 <tr>
 <td><code>zgodnosc_biegly_vs_kwota</code></td>
 <td>enum</td>
-<td>Whether the awarded amount matches the percentage health impairment from the expert opinion, or diverges from it.</td>
+<td>Ocena korelacji między procentowym uszczerbkiem (z opinii) a kwotą zasądzoną (Q2).</td>
 </tr>
 <tr>
-<td><code>opis_wplywu_zawodowego</code></td>
-<td>string</td>
-<td>Description of how the health impairment affects the patient's ability to work.</td>
+<td><code>wiek_pacjenta</code></td>
+<td>integer</td>
+<td>Wiek pacjenta w chwili wystąpienia zdarzenia lub orzekania, kluczowy dla miarkowania.</td>
 </tr>
 <tr>
-<td><code>specyficzne_koszty_leczenia_PLN</code></td>
-<td>string</td>
-<td>Detailed breakdown of awarded treatment, rehabilitation, and care costs.</td>
-</tr>
-<tr>
-<td><code>utracony_dochod_PLN</code></td>
-<td>string</td>
-<td>Detailed breakdown of the patient's lost or expected income awarded as damages.</td>
-</tr>
-<tr>
-<td><code>total_zadośćuczynienie_pln</code></td>
+<td><code>procent_uszczerbku_glowny</code></td>
 <td>float</td>
-<td>Sum of all amounts awarded as compensation in this ruling.</td>
-</tr>
-<tr>
-<td><code>charakter_roszczenia_klasyfikacja</code></td>
-<td>enum</td>
-<td>Main nature of the claim the awarded amounts relate to (compensation, damages, or both).</td>
-</tr>
-<tr>
-<td><code>typ_sprawy_podstawy_odpowiedzialnosci</code></td>
-<td>enum</td>
-<td>Precise legal basis of liability (tort, organizational liability of the medical entity, informational, other).</td>
-</tr>
-<tr>
-<td><code>typ_bledu_medycznego</code></td>
-<td>enum</td>
-<td>Category of the medical error that caused the harm (diagnostic, treatment, informational, surgical, other).</td>
+<td>Główny procentowy stopień trwałego uszczerbku na zdrowiu, jeśli podany przez biegłego i przyjęty przez sąd.</td>
 </tr>
 </tbody>
 </table>
@@ -5298,8 +5293,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>48 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">🇵🇱 Polski</label><label for="__tabbed_7_2">🇬🇧 English</label></div>
+<p><strong>48 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">🇬🇧 English</label><label for="__tabbed_7_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -5312,60 +5307,59 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>zado_s_amount_definition</code></td>
-<td>enum</td>
-<td>Definicja, czy kwota zadośćuczynienia w danych dotyczy kwoty głównej (bez odsetek) czy jest podana wraz z odsetkami/częściowo z odsetkami. Odczytuj wg sentencji (np. czy sąd rozdziela: „kwota z odsetkami od dnia…”).</td>
-</tr>
-<tr>
-<td><code>awarded_zadosc_pln_present</code></td>
-<td>boolean</td>
-<td>Czy zasądzona kwota zadośćuczynienia jest podana. UWAGA spójność: jeśli <code>has_zadosc=true</code> i <code>zadosc_disposition_category</code> wskazuje oddalenie w całości/części, ustaw domyślnie <code>awarded_zadosc_zero_amount=true</code>, <code>awarded_zadosc_pln=0</code> oraz <code>awarded_zadosc_pln_present=true</code> (jeżeli w sentencji nie ma wprost „0 zł”, kodowanie wykonaj na podstawie wyniku: brak uwzględnienia).</td>
-</tr>
-<tr>
-<td><code>claimed_odszkodowanie_pln_present</code></td>
-<td>boolean</td>
-<td>Czy żądana kwota odszkodowania jest podana w materiale (w pozwie/żądaniu/ustaleniach)? Gate: przy braku odszkodowania ustaw <code>nie_dotyczy</code>.</td>
-</tr>
-<tr>
-<td><code>claimed_odszkodowanie_pln</code></td>
-<td>float</td>
-<td>Żądana kwota odszkodowania (PLN), jeśli wskazana w materiale lub w ustaleniach sądu.</td>
-</tr>
-<tr>
-<td><code>awarded_odszkodowanie_pln_present</code></td>
-<td>boolean</td>
-<td>Czy sąd zasądził/uwzględnił odszkodowanie oraz czy kwota jest podana (albo wynika z braku uwzględnienia)? Gate: jeśli <code>has_odszkodowanie=false</code> -&gt; <code>nie_dotyczy</code>/pomijaj.</td>
-</tr>
-<tr>
-<td><code>awarded_odszkodowanie_pln</code></td>
-<td>float</td>
-<td>Łączna kwota zasądzona tytułem odszkodowania (szkoda majątkowa), w PLN. Jeśli roszczenie oddalono w całości i dokument pozwala to zakodować jako 0, wpisz 0.</td>
-</tr>
-<tr>
-<td><code>awarded_odszkodowanie_zero_amount</code></td>
-<td>boolean</td>
-<td>Czy sąd rozstrzygnął, że odszkodowanie nie przysługuje (wartość uwzględniona = 0). Używaj jako analogii do <code>awarded_zadosc_zero_amount</code> dla zadośćuczynienia.</td>
-</tr>
-<tr>
 <td><code>claim_type_primary</code></td>
 <td>enum</td>
-<td>Dominujący typ świadczenia/roszczenia pieniężnego, którego wysokość ma być analizowana (rdzeń ilościowy). Wypełniaj na podstawie sentencji/rozstrzygnięcia. Jeśli w tej samej sprawie występują równolegle zarówno zadośćuczynienie, jak i odszkodowanie, wybierz <code>oba_zadośćuczynienie_i_odszkodowanie</code> (żeby ograniczyć arbitralność).</td>
+<td>Dominant type of monetary claim analyzed — compensation, damages, both, or other.</td>
+</tr>
+<tr>
+<td><code>liability_source</code></td>
+<td>enum</td>
+<td>Nature/source of liability described in the reasoning or facts — medical error, workplace accident, other tort.</td>
+</tr>
+<tr>
+<td><code>defendant_status_primary</code></td>
+<td>enum</td>
+<td>Dominant status of the defendant — medical entity/hospital, insurer, physician as a natural person, State Treasury/public entity, etc.</td>
+</tr>
+<tr>
+<td><code>pct_uszczerbek_source_type</code></td>
+<td>enum</td>
+<td>Source of the percentage/numeric parameter used to determine the extent of permanent health impairment.</td>
+</tr>
+<tr>
+<td><code>expert_opinion_used</code></td>
+<td>boolean</td>
+<td>Whether a credible expert/medical opinion was used to determine the extent of the harm.</td>
+</tr>
+<tr>
+<td><code>expert_provided_pct_uszczerbek</code></td>
+<td>boolean</td>
+<td>Whether a percentage figure appears in the ruling in the context of permanent health impairment.</td>
+</tr>
+<tr>
+<td><code>expert_pct_uszczerbek_source_explicit</code></td>
+<td>boolean</td>
+<td>Whether the court explicitly states that the percentage/numeric parameter comes from an expert opinion or other medical document.</td>
+</tr>
+<tr>
+<td><code>expert_pct_uszczerbek_value_present</code></td>
+<td>boolean</td>
+<td>Whether the reasoning explicitly states a specific percentage value for the permanent impairment.</td>
+</tr>
+<tr>
+<td><code>expert_pct_uszczerbek_value</code></td>
+<td>float</td>
+<td>Value of the percentage impairment (in %), if stated explicitly.</td>
 </tr>
 <tr>
 <td><code>court_explicitly_connected_pct_to_amount</code></td>
 <td>boolean</td>
-<td>Czy uzasadnienie miarkowania wprost łączy zastosowaną kwotę z wartością procentu/uszczerbku (np. „kwota odpowiada 8%” / „w oparciu o 8% zasądza…”)? Jeśli sąd wspomina procent, ale nie pokazuje mechanizmu „% → kwota”, koduj <code>false</code>.</td>
-</tr>
-<tr>
-<td><code>claimed_zadosc_pln_present</code></td>
-<td>boolean</td>
-<td>Czy żądana kwota zadośćuczynienia jest podana w materiale (w pozwie/żądaniu/ustaleniach)? Gate: przy braku zadośćuczynienia ustaw <code>nie_dotyczy</code>.</td>
+<td>Whether the reasoning explicitly ties the awarded amount to a percentage impairment value.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
 <table>
 <thead>
 <tr>
@@ -5376,54 +5370,54 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>zado_s_amount_definition</code></td>
-<td>enum</td>
-<td>Whether the compensation amount is principal only, or includes/partly includes interest.</td>
-</tr>
-<tr>
-<td><code>awarded_zadosc_pln_present</code></td>
-<td>boolean</td>
-<td>Whether the awarded compensation amount is stated in the ruling.</td>
-</tr>
-<tr>
-<td><code>claimed_odszkodowanie_pln_present</code></td>
-<td>boolean</td>
-<td>Whether the claimed damages amount is stated in the pleadings or findings.</td>
-</tr>
-<tr>
-<td><code>claimed_odszkodowanie_pln</code></td>
-<td>float</td>
-<td>Damages amount claimed by the plaintiff (PLN), if stated.</td>
-</tr>
-<tr>
-<td><code>awarded_odszkodowanie_pln_present</code></td>
-<td>boolean</td>
-<td>Whether the court awarded damages and whether the amount is stated (or follows from a dismissal).</td>
-</tr>
-<tr>
-<td><code>awarded_odszkodowanie_pln</code></td>
-<td>float</td>
-<td>Total damages amount awarded (PLN).</td>
-</tr>
-<tr>
-<td><code>awarded_odszkodowanie_zero_amount</code></td>
-<td>boolean</td>
-<td>Whether the court ruled that no damages are due (awarded amount = 0).</td>
-</tr>
-<tr>
 <td><code>claim_type_primary</code></td>
 <td>enum</td>
-<td>Dominant type of monetary claim being analyzed (compensation, damages, both, or other).</td>
+<td>Dominujący typ świadczenia/roszczenia pieniężnego, którego wysokość ma być analizowana (rdzeń ilościowy). Wypełniaj na podstawie sentencji/rozstrzygnięcia. Jeśli w tej samej sprawie występują równolegle zarówno zadośćuczynienie, jak i odszkodowanie, wybierz <code>oba_zadośćuczynienie_i_odszkodowanie</code> (żeby ograniczyć arbitralność).</td>
+</tr>
+<tr>
+<td><code>liability_source</code></td>
+<td>enum</td>
+<td>Charakter/źródło odpowiedzialności opisane w uzasadnieniu lub w podstawie faktycznej. Jeśli zdarzenie nie jest „medycznym błędem” (np. wypadek przy pracy), ustaw wartość inną niż <code>błąd_medyczny</code>.</td>
+</tr>
+<tr>
+<td><code>defendant_status_primary</code></td>
+<td>enum</td>
+<td>Dominujący status pozwanego (lub strony dominującej w odpowiedzialności). Dobieraj kategorię wg tego, kto jest wskazywany jako podmiot odpowiedzialny (zwykle wątek odpowiedzialności organizacyjnej/organizacyjno-instytucjonalnej, ubezpieczyciel/OC, itd.). W sprawach ze Skarbem Państwa wybieraj <code>skarb_panstwa_jednostka_publiczna</code> (np. dyrektor szpitala w strukturze publicznej/jednostka publiczna). Jeśli rozstrzygnięcie dotyczy konkretnie dyrektora jednostki penitencjarnej – wybierz <code>dyrektor_jednostki_penitencjarnej</code>.</td>
+</tr>
+<tr>
+<td><code>pct_uszczerbek_source_type</code></td>
+<td>enum</td>
+<td>Źródło parametru procentowego/liczbowego używanego do ustaleń o rozmiarze trwałych następstw (np. uszczerbek w %). Jeśli sąd operuje innym dokumentem medycznym/orzeczeniem poza ZUS – koduj jako <code>inne_orzeczenie_medyczne</code>.</td>
+</tr>
+<tr>
+<td><code>expert_opinion_used</code></td>
+<td>boolean</td>
+<td>Czy w sprawie wykorzystano wiarygodne źródło opiniodawcze/medyczne do ustaleń rozmiaru krzywdy/niepełnosprawności/uszczerbku (np. opinie biegłych sądowych i/lub orzeczenia ZUS)?</td>
+</tr>
+<tr>
+<td><code>expert_provided_pct_uszczerbek</code></td>
+<td>boolean</td>
+<td>Czy w treści orzeczenia/uzasadnienia pojawia się liczba w formie procentu w kontekście uszczerbku/trwałych następstw (niezależnie od tego, czy pochodzi z opinii biegłych czy z orzeczeń ZUS)?</td>
+</tr>
+<tr>
+<td><code>expert_pct_uszczerbek_source_explicit</code></td>
+<td>boolean</td>
+<td>Czy sąd wprost wskazuje, że podany procent/liczbowy parametr pochodzi z opinii biegłych lub innego dokumentu medycznego/ZUS (np. „biegli przyjęli 8%”, „z orzeczenia wynika 8%”)?</td>
+</tr>
+<tr>
+<td><code>expert_pct_uszczerbek_value_present</code></td>
+<td>boolean</td>
+<td>Czy uzasadnienie zawiera wprost konkretną wartość procentową (lub równoważny parametr liczbowy) w kontekście trwałych następstw? Uwaga: różne formy liczb (np. „8 procent”) też wliczają się do tej kategorii.</td>
+</tr>
+<tr>
+<td><code>expert_pct_uszczerbek_value</code></td>
+<td>float</td>
+<td>Wartość procentowego uszczerbku (w %), jeśli wskazana wprost (lub równoważny parametr liczbowy przeliczony do procentów na poziomie tekstu – gdy tekst nie rozróżnia jednostek, wpisz liczbę).</td>
 </tr>
 <tr>
 <td><code>court_explicitly_connected_pct_to_amount</code></td>
 <td>boolean</td>
-<td>Whether the reasoning explicitly ties the awarded amount to a percentage health impairment.</td>
-</tr>
-<tr>
-<td><code>claimed_zadosc_pln_present</code></td>
-<td>boolean</td>
-<td>Whether the claimed compensation amount is stated in the pleadings or findings.</td>
+<td>Czy uzasadnienie miarkowania wprost łączy zastosowaną kwotę z wartością procentu/uszczerbku (np. „kwota odpowiada 8%” / „w oparciu o 8% zasądza…”)? Jeśli sąd wspomina procent, ale nie pokazuje mechanizmu „% → kwota”, koduj <code>false</code>.</td>
 </tr>
 </tbody>
 </table>

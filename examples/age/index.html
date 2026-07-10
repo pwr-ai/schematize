@@ -1367,12 +1367,80 @@
 <p class="admonition-title">About the English text on this page</p>
 <p>This run was performed in Polish — the prompts, conversation, and generated schema field
 descriptions are all originally in Polish. The English tabs are <strong>machine translations</strong>
-produced after the fact for readability, not reviewed by a native speaker. Treat the Polish
-tab as the source of truth.</p>
+produced after the fact for readability.</p>
 </div>
 <h2 id="the-conversation">The conversation</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">🇵🇱 Polski</label><label for="__tabbed_1_2">🇬🇧 English</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">🇬🇧 English</label><label for="__tabbed_1_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="chat" markdown="1">
+<div class="chat-msg chat-user" markdown="1">
+<span class="chat-label">You</span></p>
+<p>Generate a schema for extracting data from court rulings on drug-related crimes, with particular focus on the defendant's age and the severity of the sentence handed down.</p>
+<p></div>
+<div class="chat-msg chat-assistant" markdown="1">
+<span class="chat-label">Assistant</span></p>
+<ol>
+<li>
+<p>[Confirmation] Do I understand correctly that you want to study the relationship between the defendant's age and the severity of the sentence in drug-crime cases, based on the reasoning sections of Polish court judgments?</p>
+</li>
+<li>
+<p>[Legal framework] Are you interested in specific offense types under the Act of 29 July 2005 on Counteracting Drug Addiction (e.g. Art. 62, 59, 56, 58), and do you want to compare how the legal classification affects the sentence?</p>
+</li>
+<li>
+<p>[Legal framework] Do you also want to analyze relevant provisions of the Penal Code and the Executive Penal Code relevant to sentencing (e.g. Art. 53, 60, 69-72 KK) as potential factors differentiating sentence severity?</p>
+</li>
+<li>
+<p>[Procedural context] Are you limiting the study to convictions, or also including acquittals, discontinuations (including conditional discontinuation), and combined sentences where they occur in drug cases?</p>
+</li>
+<li>
+<p>[Procedural context] Is it important to distinguish between a juvenile defendant, a "young adult" under Art. 115 §10 KK, and an "adult" defendant as separate comparison categories?</p>
+</li>
+<li>
+<p>[Case-law analysis] Are you interested in whether courts differentiate sentence severity depending on typical mitigating/aggravating circumstances (e.g. prior convictions, addiction, financial motive, complicity, recidivism)?</p>
+</li>
+<li>
+<p>[Case-law analysis] Do you want to study the effect of the amount and type of drug/psychotropic substance and the purpose of possession (own use vs. dealing) on sentence severity — independent of the defendant's age?</p>
+</li>
+<li>
+<p>[Temporal context] Are you interested in whether the case law on sentencing for drug offenses has changed over time, and should "time of offense" be an analytical variable?</p>
+</li>
+<li>
+<p>[Special cases] Do you want to separate out cases involving defendants near the age of majority (e.g. 17-19), school/academic-context cases, or cases with parallel offenses, to check whether these contexts modify sentence severity?</p>
+</li>
+</ol>
+<p></div>
+<div class="chat-msg chat-user" markdown="1">
+<span class="chat-label">You</span></p>
+<ol>
+<li>Yes.</li>
+<li>All drug offenses — possession, dealing, production.</li>
+<li>Yes, especially provisions on suspended sentences and conditional discontinuation.</li>
+<li>Convictions and conditional discontinuations. No acquittals.</li>
+<li>Yes, that's an important variable — I want those categories. I'd also like to split the defendant's age into 5 age brackets.</li>
+<li>Yes, all of those circumstances matter.</li>
+<li>Yes, the amount and type of substance matter. So does the purpose.</li>
+<li>No, I'm not interested in how case law changed over time.</li>
+<li>No, I don't want to separate that out, since it would already be captured by the defendant's age. I would like to analyze parallel offenses too, since they may affect the sentence.</li>
+</ol>
+<p></div>
+<div class="chat-msg chat-assistant" markdown="1">
+<span class="chat-label">Assistant</span></p>
+<p>We're studying whether and how the defendant's age affects the type and severity of the criminal response in drug-offense cases, covering convictions and conditional discontinuations (no acquittals), and distinguishing juvenile, young-adult, and adult defendants as well as five age brackets. We also account for the amount and type of substance, the purpose of the act, suspended sentences, and mitigating/aggravating circumstances (prior convictions, recidivism, complicity, financial motive). The legal basis is the Drug Act and the Penal Code; changes in case law over time are out of scope.</p>
+<p></div>
+<div class="chat-msg chat-assistant" markdown="1">
+<span class="chat-label">Assistant</span></p>
+<p>Based on your request, I've prepared an extraction schema for analyzing Polish court rulings in drug-offense cases, focusing on how the defendant's age affects the type and severity of the criminal response. It covers convictions and conditional discontinuations, no acquittals, and distinguishes juvenile, young-adult, and adult defendants, plus a 5-bracket age split.</p>
+<p>The current schema covers three main areas: document and case data, defendant data, and offense and sentence data. It extracts, among other things, the document type, its role and source in the ruling, the offense's legal classification, the type of drug offense, substance amount and category, the purpose of the act, the defendant's age at the time of the offense and at sentencing, plus the sentence type, its severity, suspension, conditional discontinuation, probation period, legal basis, and mitigating/aggravating circumstances. It also captures prior convictions, recidivism, addiction, financial motive, complicity, and parallel offenses.</p>
+<p>The schema is thus tailored to analyzing whether and how age and case context relate to sentence severity in drug cases. If you'd like, you can now point out anything to refine, simplify, or add.</p>
+<p></div>
+<div class="chat-msg chat-user" markdown="1">
+<span class="chat-label">You</span></p>
+<p>I'm satisfied. I want to end the chat.</p>
+<p></div>
+</div></p>
+<p><em>The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run.</em></p>
+</div>
 <div class="tabbed-block">
 <p><div class="chat" markdown="1">
 <div class="chat-msg chat-user" markdown="1">
@@ -1442,75 +1510,6 @@ tab as the source of truth.</p>
 </div></p>
 <p><em>Pytania doprecyzowujące i odpowiedzi pokazane są dosłownie; dłuższe wypowiedzi asystenta skrócono dla czytelności.</em></p>
 </div>
-<div class="tabbed-block">
-<p><div class="chat" markdown="1">
-<div class="chat-msg chat-user" markdown="1">
-<span class="chat-label">You</span></p>
-<p>Generate a schema for extracting data from court rulings on drug-related crimes, with particular focus on the defendant's age and the severity of the sentence handed down.</p>
-<p></div>
-<div class="chat-msg chat-assistant" markdown="1">
-<span class="chat-label">Assistant</span></p>
-<ol>
-<li>
-<p>[Confirmation] Do I understand correctly that you want to study the relationship between the defendant's age and the severity of the sentence in drug-crime cases, based on the reasoning sections of Polish court judgments?</p>
-</li>
-<li>
-<p>[Legal framework] Are you interested in specific offense types under the Act of 29 July 2005 on Counteracting Drug Addiction (e.g. Art. 62, 59, 56, 58), and do you want to compare how the legal classification affects the sentence?</p>
-</li>
-<li>
-<p>[Legal framework] Do you also want to analyze relevant provisions of the Penal Code and the Executive Penal Code relevant to sentencing (e.g. Art. 53, 60, 69-72 KK) as potential factors differentiating sentence severity?</p>
-</li>
-<li>
-<p>[Procedural context] Are you limiting the study to convictions, or also including acquittals, discontinuations (including conditional discontinuation), and combined sentences where they occur in drug cases?</p>
-</li>
-<li>
-<p>[Procedural context] Is it important to distinguish between a juvenile defendant, a "young adult" under Art. 115 §10 KK, and an "adult" defendant as separate comparison categories?</p>
-</li>
-<li>
-<p>[Case-law analysis] Are you interested in whether courts differentiate sentence severity depending on typical mitigating/aggravating circumstances (e.g. prior convictions, addiction, financial motive, complicity, recidivism)?</p>
-</li>
-<li>
-<p>[Case-law analysis] Do you want to study the effect of the amount and type of drug/psychotropic substance and the purpose of possession (own use vs. dealing) on sentence severity — independent of the defendant's age?</p>
-</li>
-<li>
-<p>[Temporal context] Are you interested in whether the case law on sentencing for drug offenses has changed over time, and should "time of offense" be an analytical variable?</p>
-</li>
-<li>
-<p>[Special cases] Do you want to separate out cases involving defendants near the age of majority (e.g. 17-19), school/academic-context cases, or cases with parallel offenses, to check whether these contexts modify sentence severity?</p>
-</li>
-</ol>
-<p></div>
-<div class="chat-msg chat-user" markdown="1">
-<span class="chat-label">You</span></p>
-<ol>
-<li>Yes.</li>
-<li>All drug offenses — possession, dealing, production.</li>
-<li>Yes, especially provisions on suspended sentences and conditional discontinuation.</li>
-<li>Convictions and conditional discontinuations. No acquittals.</li>
-<li>Yes, that's an important variable — I want those categories. I'd also like to split the defendant's age into 5 age brackets.</li>
-<li>Yes, all of those circumstances matter.</li>
-<li>Yes, the amount and type of substance matter. So does the purpose.</li>
-<li>No, I'm not interested in how case law changed over time.</li>
-<li>No, I don't want to separate that out, since it would already be captured by the defendant's age. I would like to analyze parallel offenses too, since they may affect the sentence.</li>
-</ol>
-<p></div>
-<div class="chat-msg chat-assistant" markdown="1">
-<span class="chat-label">Assistant</span></p>
-<p>We're studying whether and how the defendant's age affects the type and severity of the criminal response in drug-offense cases, covering convictions and conditional discontinuations (no acquittals), and distinguishing juvenile, young-adult, and adult defendants as well as five age brackets. We also account for the amount and type of substance, the purpose of the act, suspended sentences, and mitigating/aggravating circumstances (prior convictions, recidivism, complicity, financial motive). The legal basis is the Drug Act and the Penal Code; changes in case law over time are out of scope.</p>
-<p></div>
-<div class="chat-msg chat-assistant" markdown="1">
-<span class="chat-label">Assistant</span></p>
-<p>Based on your request, I've prepared an extraction schema for analyzing Polish court rulings in drug-offense cases, focusing on how the defendant's age affects the type and severity of the criminal response. It covers convictions and conditional discontinuations, no acquittals, and distinguishes juvenile, young-adult, and adult defendants, plus a 5-bracket age split.</p>
-<p>The current schema covers three main areas: document and case data, defendant data, and offense and sentence data. It extracts, among other things, the document type, its role and source in the ruling, the offense's legal classification, the type of drug offense, substance amount and category, the purpose of the act, the defendant's age at the time of the offense and at sentencing, plus the sentence type, its severity, suspension, conditional discontinuation, probation period, legal basis, and mitigating/aggravating circumstances. It also captures prior convictions, recidivism, addiction, financial motive, complicity, and parallel offenses.</p>
-<p>The schema is thus tailored to analyzing whether and how age and case context relate to sentence severity in drug cases. If you'd like, you can now point out anything to refine, simplify, or add.</p>
-<p></div>
-<div class="chat-msg chat-user" markdown="1">
-<span class="chat-label">You</span></p>
-<p>I'm satisfied. I want to end the chat.</p>
-<p></div>
-</div></p>
-<p><em>The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run and has not been reviewed by a native speaker.</em></p>
-</div>
 </div>
 </div>
 <h2 id="the-generated-schema">The generated schema</h2>
@@ -1518,8 +1517,8 @@ tab as the source of truth.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:5"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">GPT-5.4</label><label for="__tabbed_2_2">GPT-5.4 mini</label><label for="__tabbed_2_3">Claude Sonnet 4.6</label><label for="__tabbed_2_4">Gemma 4 E4B IT</label><label for="__tabbed_2_5">GPT-5.4 nano</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><strong>122 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">🇵🇱 Polski</label><label for="__tabbed_3_2">🇬🇧 English</label></div>
+<p><strong>122 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">🇬🇧 English</label><label for="__tabbed_3_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -1532,60 +1531,59 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>usable_for_age_vs_sentence_analysis</code></td>
-<td>enum</td>
-<td>Znaczenie: czy dokument pozwala wiarygodnie zestawić wiek sprawcy z rodzajem lub wysokością reakcji karnej. Typ: enum. Wymagalność: true. Ekstrakcja: uwzględnij kompletność danych o wieku, karze i związku kary z czynem narkotykowym.</td>
-</tr>
-<tr>
-<td><code>sentence_conditionally_suspended</code></td>
-<td>enum</td>
-<td>Znaczenie: czy wykonanie orzeczonej kary zostało warunkowo zawieszone wobec tego oskarżonego. Typ: enum. Wymagalność: true. Dla warunkowego umorzenia, środków wobec nieletnich lub decyzji czysto wykonawczych zwykle użyj <code>nie_dotyczy</code>.</td>
-</tr>
-<tr>
-<td><code>document_relevance_for_study</code></td>
-<td>enum</td>
-<td>Znaczenie: ogólna przydatność dokumentu do badania związku wieku sprawcy z karą za czyn narkotykowy. Typ: enum. Wymagalność: true.</td>
-</tr>
-<tr>
-<td><code>underlying_cases_structured_text</code></td>
+<td><code>document_id</code></td>
 <td>string</td>
-<td>Znaczenie: ustrukturyzowany opis spraw bazowych istotnych dla rekordu. Typ: string. Wymagalność: false. Ekstrakcja: zapisuj jeden segment na sprawę w formacie <code>case_number=...</code>|<code>judgment_date=...</code>|<code>is_drug_offense=tak/nie/nieustalone</code>|<code>sentence_scope=reakcja_koncowa_wobec_oskarzonego/kara_za_glowny_czyn_narkotykowy/kara_laczna/kara_w_sprawie_bazowej_opisana_posrednio/nieustalone</code>|<code>case_role=sprawa_bazowa/sprawa_laczona/sprawa_opisana_posrednio/inna</code>; segmenty oddzielaj średnikiem.</td>
+<td>Technical identifier of the record or document in the corpus. Extracted from source metadata; not constructed from the ruling's content.</td>
 </tr>
 <tr>
-<td><code>sentence_relates_directly_to_drug_offense</code></td>
+<td><code>record_unit</code></td>
 <td>enum</td>
-<td>Znaczenie: czy opisana kara lub reakcja prawna odnosi się bezpośrednio do czynu narkotykowego. Typ: enum. Wymagalność: true.</td>
-</tr>
-<tr>
-<td><code>drug_offense_sentence_identifiable</code></td>
-<td>enum</td>
-<td>Znaczenie: czy z dokumentu da się wyodrębnić karę za sam czyn narkotykowy, odrębnie od kary łącznej lub szerszego rozstrzygnięcia. Typ: enum. Wymagalność: true. To pole chroni przed myleniem kary łącznej z karą za czyn narkotykowy.</td>
-</tr>
-<tr>
-<td><code>age_at_offense_years</code></td>
-<td>integer</td>
-<td>Znaczenie: wiek sprawcy w pełnych latach w chwili popełnienia głównego czynu narkotykowego. Typ: integer. Wymagalność: false. Ekstrakcja: ustalaj przede wszystkim z daty czynu lub początku okresu czynu; nie zgaduj przy braku podstaw.</td>
-</tr>
-<tr>
-<td><code>court_explicitly_referenced_age_in_sentencing</code></td>
-<td>enum</td>
-<td>Znaczenie: czy sąd wprost odwołał się do wieku sprawcy przy uzasadnianiu rodzaju lub wysokości kary albo warunkowego umorzenia. Typ: enum. Wymagalność: true.</td>
+<td>The analytical unit represented by the record — the whole document, a single defendant, a defendant and the main drug offense, or a defendant and an underlying case.</td>
 </tr>
 <tr>
 <td><code>source_document_kind</code></td>
 <td>enum</td>
-<td>Znaczenie: rodzaj dostępnego dokumentu źródłowego, istotny dla kompletności danych o wieku, ilości narkotyku i karze. Typ: enum. Wymagalność: true. Ekstrakcja: rozpoznaj z nagłówka i struktury dokumentu; dla dokumentów wykonawczych lub postanowień użyj najbardziej precyzyjnej wartości.</td>
+<td>Type of source document available, relevant to the completeness of age, drug-quantity, and sentence data.</td>
 </tr>
 <tr>
-<td><code>offense_date</code></td>
-<td>string</td>
-<td>Znaczenie: dokładna data popełnienia głównego czynu narkotykowego, jeśli dokument wskazuje jeden dzień czynu. Typ: string. Wymagalność: false. Kluczowe do ustalenia wieku w chwili czynu.</td>
+<td><code>proceeding_type</code></td>
+<td>enum</td>
+<td>High-level (partly legacy) classification of the type of proceeding or ruling. Used for coarse corpus filtering; finer stage and decision form are coded separately.</td>
+</tr>
+<tr>
+<td><code>document_procedural_stage</code></td>
+<td>enum</td>
+<td>Procedural stage of the analyzed document.</td>
+</tr>
+<tr>
+<td><code>decision_form</code></td>
+<td>enum</td>
+<td>Formal form of the court's decision (judgment, order, etc.).</td>
+</tr>
+<tr>
+<td><code>document_relevance_for_study</code></td>
+<td>enum</td>
+<td>Overall usefulness of the document for studying the age-sentence relationship in drug offenses.</td>
+</tr>
+<tr>
+<td><code>exclusion_reason_primary</code></td>
+<td>enum</td>
+<td>Main reason for excluding the document from the core age/sentence analysis.</td>
+</tr>
+<tr>
+<td><code>usable_for_age_vs_sentence_analysis</code></td>
+<td>enum</td>
+<td>Whether the document reliably allows the defendant's age to be compared against the type or severity of the sentence.</td>
+</tr>
+<tr>
+<td><code>usable_for_drug_quantity_analysis</code></td>
+<td>enum</td>
+<td>Whether the document reliably allows analysis of the drug type and quantity and their relation to the ruling.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
 <table>
 <thead>
 <tr>
@@ -1596,54 +1594,54 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>usable_for_age_vs_sentence_analysis</code></td>
-<td>enum</td>
-<td>Whether the document reliably allows the defendant's age to be compared against the type or severity of the sentence.</td>
-</tr>
-<tr>
-<td><code>sentence_conditionally_suspended</code></td>
-<td>enum</td>
-<td>Whether the sentence was conditionally suspended for this defendant.</td>
-</tr>
-<tr>
-<td><code>document_relevance_for_study</code></td>
-<td>enum</td>
-<td>Overall usefulness of the document for studying the age-sentence relationship in drug offenses.</td>
-</tr>
-<tr>
-<td><code>underlying_cases_structured_text</code></td>
+<td><code>document_id</code></td>
 <td>string</td>
-<td>Structured description of the underlying cases relevant to this record.</td>
+<td>Znaczenie: techniczny identyfikator rekordu lub dokumentu w korpusie. Typ: string. Wymagalność: false. Ekstrakcja: przejmij z metadanych źródła; nie twórz z treści orzeczenia.</td>
 </tr>
 <tr>
-<td><code>sentence_relates_directly_to_drug_offense</code></td>
+<td><code>record_unit</code></td>
 <td>enum</td>
-<td>Whether the described sentence or legal response relates directly to the drug offense.</td>
-</tr>
-<tr>
-<td><code>drug_offense_sentence_identifiable</code></td>
-<td>enum</td>
-<td>Whether the sentence for the drug offense alone can be separated from a combined or broader ruling.</td>
-</tr>
-<tr>
-<td><code>age_at_offense_years</code></td>
-<td>integer</td>
-<td>The offender's age in full years at the time the main drug offense was committed.</td>
-</tr>
-<tr>
-<td><code>court_explicitly_referenced_age_in_sentencing</code></td>
-<td>enum</td>
-<td>Whether the court explicitly referenced the offender's age when justifying the sentence or conditional discontinuation.</td>
+<td>Znaczenie: jednostka analizy reprezentowana przez rekord. Typ: enum. Wymagalność: true. Ekstrakcja: ustal, czy rekord opisuje cały dokument, jednego oskarżonego, oskarżonego i główny czyn narkotykowy, czy oskarżonego i sprawę bazową; pole ogranicza niejednoznaczność przy wielu oskarżonych, czynach i sprawach bazowych.</td>
 </tr>
 <tr>
 <td><code>source_document_kind</code></td>
 <td>enum</td>
-<td>Type of source document available (reasoning, operative part, ruling with reasoning, etc.).</td>
+<td>Znaczenie: rodzaj dostępnego dokumentu źródłowego, istotny dla kompletności danych o wieku, ilości narkotyku i karze. Typ: enum. Wymagalność: true. Ekstrakcja: rozpoznaj z nagłówka i struktury dokumentu; dla dokumentów wykonawczych lub postanowień użyj najbardziej precyzyjnej wartości.</td>
 </tr>
 <tr>
-<td><code>offense_date</code></td>
-<td>string</td>
-<td>Exact date the main drug offense was committed, if the document states a single day.</td>
+<td><code>proceeding_type</code></td>
+<td>enum</td>
+<td>Znaczenie: wysokopoziomowa, częściowo legacy, klasyfikacja rodzaju postępowania lub rozstrzygnięcia. Typ: enum. Wymagalność: true. Ekstrakcja: używaj do zgrubnego filtrowania korpusu; dokładniejszy etap i forma decyzji są kodowane osobno w <code>document_procedural_stage</code>, <code>decision_form</code> i <code>postpenal_decision_type</code>.</td>
+</tr>
+<tr>
+<td><code>document_procedural_stage</code></td>
+<td>enum</td>
+<td>Znaczenie: etap proceduralny, którego dotyczy analizowany dokument. Typ: enum. Wymagalność: true. Ekstrakcja: ustal z nagłówka, sygnatury, treści sentencji i charakteru rozstrzygnięcia.</td>
+</tr>
+<tr>
+<td><code>decision_form</code></td>
+<td>enum</td>
+<td>Znaczenie: formalna postać decyzji sądu. Typ: enum. Wymagalność: true. Ekstrakcja: szukaj słów 'wyrok', 'postanowienie' lub 'zarządzenie' w nagłówku dokumentu.</td>
+</tr>
+<tr>
+<td><code>document_relevance_for_study</code></td>
+<td>enum</td>
+<td>Znaczenie: ogólna przydatność dokumentu do badania związku wieku sprawcy z karą za czyn narkotykowy. Typ: enum. Wymagalność: true.</td>
+</tr>
+<tr>
+<td><code>exclusion_reason_primary</code></td>
+<td>enum</td>
+<td>Znaczenie: główny powód wyłączenia dokumentu z analizy rdzeniowej wieku i kary. Typ: enum. Wymagalność: true. Ekstrakcja: wypełniaj także dla dokumentów potencjalnie przydatnych; jeśli brak podstaw do wyłączenia użyj <code>brak</code>.</td>
+</tr>
+<tr>
+<td><code>usable_for_age_vs_sentence_analysis</code></td>
+<td>enum</td>
+<td>Znaczenie: czy dokument pozwala wiarygodnie zestawić wiek sprawcy z rodzajem lub wysokością reakcji karnej. Typ: enum. Wymagalność: true. Ekstrakcja: uwzględnij kompletność danych o wieku, karze i związku kary z czynem narkotykowym.</td>
+</tr>
+<tr>
+<td><code>usable_for_drug_quantity_analysis</code></td>
+<td>enum</td>
+<td>Znaczenie: czy dokument pozwala wiarygodnie analizować rodzaj i ilość substancji oraz ich związek z rozstrzygnięciem. Typ: enum. Wymagalność: true.</td>
 </tr>
 </tbody>
 </table>
@@ -2936,8 +2934,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>76 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">🇵🇱 Polski</label><label for="__tabbed_4_2">🇬🇧 English</label></div>
+<p><strong>76 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">🇬🇧 English</label><label for="__tabbed_4_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -2950,60 +2948,59 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>sentence_target_charge_identifier</code></td>
-<td>string</td>
-<td>Identyfikator czynu, do którego odnosi się orzeczona kara, zawieszenie albo warunkowe umorzenie. Użyj identyfikatora z <code>charge_identifier</code>; jeśli dotyczy kilku czynów, oddziel je średnikami.</td>
-</tr>
-<tr>
-<td><code>sentence_information_source_part</code></td>
+<td><code>document_type</code></td>
 <td>enum</td>
-<td>Część dokumentu, z której ustalono karę, zawieszenie wykonania kary albo warunkowe umorzenie postępowania.</td>
+<td>Type of document/ruling. Use <code>wyrok_laczny</code> only when the document deals exclusively with a combined sentence; <code>apelacja</code> for appellate rulings.</td>
 </tr>
 <tr>
-<td><code>document_relevance_to_narcotics_study</code></td>
+<td><code>source_document_role</code></td>
 <td>enum</td>
-<td>Ocena przydatności dokumentu do badania zależności między wiekiem a karą w sprawach narkotykowych. Użyj <code>primary</code>, gdy dokument jest bezpośrednio o takim czynie, <code>secondary</code>, gdy jest tylko częściowo relewantny, <code>mixed</code>, gdy łączy kilka typów spraw, <code>not_relevant</code>, gdy nie nadaje się do analizy.</td>
+<td>Role of the document in the study — distinguishes original judgment, appeal, and combined sentence.</td>
 </tr>
 <tr>
-<td><code>sentence_targets_narcotics_offense</code></td>
-<td>boolean</td>
-<td>Czy orzeczona kara lub decyzja procesowa dotyczy czynu narkotykowego, a nie wyłącznie innego równoległego czynu w tej samej sprawie.</td>
-</tr>
-<tr>
-<td><code>sentence_legal_basis_act</code></td>
+<td><code>source_record_scope</code></td>
 <td>enum</td>
-<td>Akt prawny wskazany jako podstawa rozstrzygnięcia o karze, zawieszeniu wykonania kary albo warunkowym umorzeniu.</td>
+<td>Scope of the document the record is drawn from — whole document, single defendant, single charge, single sentence, or mixed.</td>
 </tr>
 <tr>
-<td><code>sentence_basis_articles</code></td>
-<td>string</td>
-<td>Artykuły i paragrafy stanowiące ogólną podstawę wymiaru kary; jeśli jest ich kilka, oddziel je średnikami. Nie używaj tego pola do szczegółowej podstawy zawieszenia lub umorzenia, jeśli można je wydzielić osobno.</td>
+<td><code>source_document_part</code></td>
+<td>enum</td>
+<td>Main part of the document the record was drawn from.</td>
 </tr>
 <tr>
 <td><code>age_information_source_part</code></td>
 <td>enum</td>
-<td>Część dokumentu, z której ustalono wiek oskarżonego. Szczególnie ważne, gdy wiek wynika z uzasadnienia, dat urodzenia albo dat czynu.</td>
+<td>Part of the document from which the defendant's age was determined.</td>
 </tr>
 <tr>
-<td><code>narcotics_offense_is_primary_for_sentence</code></td>
+<td><code>sentence_information_source_part</code></td>
+<td>enum</td>
+<td>Part of the document from which the sentence, its suspension, or conditional discontinuation was determined.</td>
+</tr>
+<tr>
+<td><code>record_level</code></td>
+<td>enum</td>
+<td>Level the record concerns — defendant, offense, sentence, or whole document.</td>
+</tr>
+<tr>
+<td><code>document_relevance_to_narcotics_study</code></td>
+<td>enum</td>
+<td>Usefulness of the document for studying the age-sentence relationship in drug cases.</td>
+</tr>
+<tr>
+<td><code>narcotics_case_is_primary_subject</code></td>
 <td>boolean</td>
-<td>Czy ten czyn narkotykowy jest czynem dominującym dla wymiaru kary w sprawie. Użyj szczególnie przy wielu zarzutach lub wieloczynowości.</td>
+<td>Whether the drug case is the document's main subject.</td>
 </tr>
 <tr>
-<td><code>age_data_available</code></td>
-<td>boolean</td>
-<td>Czy z dokumentu można wiarygodnie ustalić wiek oskarżonego w chwili czynu lub orzekania.</td>
-</tr>
-<tr>
-<td><code>age_not_derived_reason</code></td>
-<td>string</td>
-<td>Krótki powód, dla którego wieku nie dało się wyliczyć lub ustalić. Użyj, gdy brak dat, podano tylko zakres, albo dane są sprzeczne.</td>
+<td><code>case_outcome</code></td>
+<td>enum</td>
+<td>Substantive outcome of the case for the defendant — mainly conviction or conditional discontinuation.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
 <table>
 <thead>
 <tr>
@@ -3014,54 +3011,54 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>sentence_target_charge_identifier</code></td>
-<td>string</td>
-<td>Identifier of the charge that the sentence, suspension, or conditional discontinuation refers to.</td>
-</tr>
-<tr>
-<td><code>sentence_information_source_part</code></td>
+<td><code>document_type</code></td>
 <td>enum</td>
-<td>Part of the document the sentence, suspension, or conditional discontinuation was determined from.</td>
+<td>Typ dokumentu/orzeczenia. Użyj <code>wyrok_laczny</code> tylko wtedy, gdy dokument dotyczy wyłącznie wyroku łącznego. <code>apelacja</code> stosuj, gdy dokumentem jest orzeczenie apelacyjne lub dokument o takim charakterze.</td>
 </tr>
 <tr>
-<td><code>document_relevance_to_narcotics_study</code></td>
+<td><code>source_document_role</code></td>
 <td>enum</td>
-<td>How useful the document is for studying the age-sentence relationship in drug cases (primary, secondary, mixed, not relevant).</td>
+<td>Rola dokumentu w badaniu. Użyj do odróżnienia wyroku pierwotnego, apelacji i wyroku łącznego; pole pomaga filtrować materiały nieporównywalne z orzeczeniami pierwszoinstancyjnymi.</td>
 </tr>
 <tr>
-<td><code>sentence_targets_narcotics_offense</code></td>
-<td>boolean</td>
-<td>Whether the imposed sentence concerns the drug offense, rather than only a parallel offense in the same case.</td>
-</tr>
-<tr>
-<td><code>sentence_legal_basis_act</code></td>
+<td><code>source_record_scope</code></td>
 <td>enum</td>
-<td>Legal act cited as the basis for the sentence, suspension, or conditional discontinuation.</td>
+<td>Zakres dokumentu, z którego pochodzi rekord. Użyj, aby zaznaczyć, czy dane dotyczą całego dokumentu, jednego oskarżonego, jednego czynu, jednej reakcji karnej czy materiału mieszanego.</td>
 </tr>
 <tr>
-<td><code>sentence_basis_articles</code></td>
-<td>string</td>
-<td>Articles and paragraphs forming the general legal basis for the sentence.</td>
+<td><code>source_document_part</code></td>
+<td>enum</td>
+<td>Główna część dokumentu, z której pochodzi rekord. Wybierz część, w której faktycznie odnaleziono daną informację.</td>
 </tr>
 <tr>
 <td><code>age_information_source_part</code></td>
 <td>enum</td>
-<td>Part of the document the defendant's age was established from.</td>
+<td>Część dokumentu, z której ustalono wiek oskarżonego. Szczególnie ważne, gdy wiek wynika z uzasadnienia, dat urodzenia albo dat czynu.</td>
 </tr>
 <tr>
-<td><code>narcotics_offense_is_primary_for_sentence</code></td>
+<td><code>sentence_information_source_part</code></td>
+<td>enum</td>
+<td>Część dokumentu, z której ustalono karę, zawieszenie wykonania kary albo warunkowe umorzenie postępowania.</td>
+</tr>
+<tr>
+<td><code>record_level</code></td>
+<td>enum</td>
+<td>Poziom, którego dotyczy rekord. Użyj <code>defendant</code> dla danych osoby, <code>offense</code> dla danych o czynie, <code>sentence</code> dla danych o reakcji karnej i <code>document</code> dla cech całego orzeczenia.</td>
+</tr>
+<tr>
+<td><code>document_relevance_to_narcotics_study</code></td>
+<td>enum</td>
+<td>Ocena przydatności dokumentu do badania zależności między wiekiem a karą w sprawach narkotykowych. Użyj <code>primary</code>, gdy dokument jest bezpośrednio o takim czynie, <code>secondary</code>, gdy jest tylko częściowo relewantny, <code>mixed</code>, gdy łączy kilka typów spraw, <code>not_relevant</code>, gdy nie nadaje się do analizy.</td>
+</tr>
+<tr>
+<td><code>narcotics_case_is_primary_subject</code></td>
 <td>boolean</td>
-<td>Whether the drug offense is the dominant offense for sentencing purposes in the case.</td>
+<td>Czy sprawa narkotykowa jest głównym przedmiotem dokumentu. Ustaw <code>true</code>, gdy czyn narkotykowy stanowi centralny element orzeczenia; <code>false</code>, gdy pojawia się jedynie ubocznie.</td>
 </tr>
 <tr>
-<td><code>age_data_available</code></td>
-<td>boolean</td>
-<td>Whether the defendant's age at the time of the offense or ruling can be reliably established from the document.</td>
-</tr>
-<tr>
-<td><code>age_not_derived_reason</code></td>
-<td>string</td>
-<td>Short reason why the age could not be computed or established.</td>
+<td><code>case_outcome</code></td>
+<td>enum</td>
+<td>Merytoryczny wynik sprawy wobec oskarżonego. Dla tej analizy używaj przede wszystkim <code>skazanie</code> albo <code>warunkowe_umorzenie</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -3774,8 +3771,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>68 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">🇵🇱 Polski</label><label for="__tabbed_5_2">🇬🇧 English</label></div>
+<p><strong>68 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">🇬🇧 English</label><label for="__tabbed_5_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -3788,9 +3785,92 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>probation_supervision_ordered</code></td>
+<td><code>has_full_reasoning</code></td>
+<td>enum</td>
+<td>Type of reasoning available in the document — full first-instance reasoning, abbreviated, appellate reasoning without its own sentencing rationale, appellate reasoning with its own sentencing rationale, or no reasoning at all.</td>
+</tr>
+<tr>
+<td><code>defendant_age_data_available</code></td>
 <td>boolean</td>
-<td>Czy sąd orzekł dozór kuratora sądowego na podstawie art. 73 §2 k.k. (obowiązkowy dozór przy zawieszeniu kary wobec młodocianego) lub art. 73 §1 k.k. (facultatywny dozór). Szczególnie istotne przy analizie wyroków wobec oskarżonych w kategorii wiekowej młodocianych (defendant_is_young_adult = true). False gdy dozoru nie orzeczono. Null gdy sentence_suspended = false i verdict_type != 'warunkowe_umorzenie'.</td>
+<td>Whether any information on the defendant's age was available in the document (birth date, stated age, ID number, or a computable age).</td>
+</tr>
+<tr>
+<td><code>verdict_type</code></td>
+<td>enum</td>
+<td>Type of ruling — conviction or conditional discontinuation (Art. 66-67 Penal Code). Acquittals are excluded from the analysis.</td>
+</tr>
+<tr>
+<td><code>court_instance</code></td>
+<td>enum</td>
+<td>Instance of the court that issued the ruling — first instance or appellate.</td>
+</tr>
+<tr>
+<td><code>remand_after_cassation</code></td>
+<td>boolean</td>
+<td>Whether the case was remanded for retrial after a Supreme Court cassation or an appellate court's reversal.</td>
+</tr>
+<tr>
+<td><code>defendant_age_at_offense</code></td>
+<td>integer</td>
+<td>Defendant's age in full years at the time of the offense.</td>
+</tr>
+<tr>
+<td><code>defendant_age_at_ruling</code></td>
+<td>integer</td>
+<td>Defendant's age in full years at the time of the first-instance ruling.</td>
+</tr>
+<tr>
+<td><code>defendant_gender</code></td>
+<td>enum</td>
+<td>Defendant's gender, used as a statistical control variable.</td>
+</tr>
+<tr>
+<td><code>defendant_is_young_adult</code></td>
+<td>boolean</td>
+<td>Whether the court recognized the defendant as a "young adult" under Art. 115 §10 of the Penal Code.</td>
+</tr>
+<tr>
+<td><code>multiple_defendants_in_case</code></td>
+<td>boolean</td>
+<td>Whether the same case involves other co-defendants besides the one this record concerns.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>has_full_reasoning</code></td>
+<td>enum</td>
+<td>Typ uzasadnienia dostępnego w dokumencie. 'uzasadnienie_I_instancji_pelne' — pełne uzasadnienie faktyczne i prawne sądu I instancji; 'uzasadnienie_I_instancji_skrocone' — uzasadnienie skrócone lub częściowe sądu I instancji; 'uzasadnienie_odwolawcze' — uzasadnienie sądu II instancji ograniczone do kontroli procesowej, bez własnego merytorycznego uzasadnienia wymiaru kary; 'uzasadnienie_odwolawcze_z_wlasnym_wymiarem_kary' — uzasadnienie sądu II instancji, w którym sąd apelacyjny lub okręgowy samodzielnie wymierzył karę i zawarł własne merytoryczne rozważania o jej wymiarze (np. po uchyleniu i zmianie wyroku I instancji) — ta wartość NIE zeruje pól mitigating_<em>/aggravating_</em>/recidivism_type/addiction_treated_as_mitigating/art_54_kk_applied; 'brak_uzasadnienia' — dokument zawiera wyłącznie sentencję lub protokół bez uzasadnienia. Sentinel: gdy wartość to 'uzasadnienie_odwolawcze' lub 'brak_uzasadnienia', pola mitigating_<em>, aggravating_</em>, recidivism_type, addiction_treated_as_mitigating, art_54_kk_applied powinny mieć wartość null z powodu braku danych.</td>
+</tr>
+<tr>
+<td><code>defendant_age_data_available</code></td>
+<td>boolean</td>
+<td>Czy dane o wieku oskarżonego były dostępne w dokumencie w jakiejkolwiek formie (data urodzenia, wiek wprost podany, PESEL, wiek możliwy do obliczenia). False gdy data urodzenia jest w całości zanonimizowana jako '(...)' lub brak jakiejkolwiek wzmianki o wieku — wówczas pola defendant_age_at_offense i defendant_age_at_ruling będą null z powodu braku danych. UWAGA: jeśli w dokumencie pojawia się wiek wyłącznie w kontekście ofiary/nabywcy (np. małoletni nabywca), a nie oskarżonego, wartość tego pola to false — wiek ofiary nie jest wiekiem oskarżonego.</td>
+</tr>
+<tr>
+<td><code>verdict_type</code></td>
+<td>enum</td>
+<td>Rodzaj orzeczenia: wyrok skazujący lub warunkowe umorzenie postępowania (art. 66–67 k.k.). Orzeczenia uniewinniające są wykluczone z analizy i nie powinny być ekstrahowane.</td>
+</tr>
+<tr>
+<td><code>court_instance</code></td>
+<td>enum</td>
+<td>Instancja sądu wydającego orzeczenie: pierwsza (sąd rejonowy lub okręgowy jako I instancja) lub odwoławcza (sąd okręgowy lub apelacyjny jako II instancja). Umożliwia filtrowanie wyroków I instancji na potrzeby analizy statusu młodocianego.</td>
+</tr>
+<tr>
+<td><code>remand_after_cassation</code></td>
+<td>boolean</td>
+<td>Czy sprawa wróciła do ponownego rozpoznania lub zmiany po kasacji Sądu Najwyższego lub po uchyleniu wyroku przez sąd apelacyjny. True gdy dokument lub jego kontekst wskazuje, że wyrok jest efektem ponownego rozpoznania po kasacji/uchyleniu. Istotne dla interpretacji surowości kary w kontekście zakazu reformationis in peius (art. 434 k.p.k.) oraz porównywalności z wyrokami pierwotnymi. False gdy brak wzmianki o wcześniejszym uchyleniu.</td>
 </tr>
 <tr>
 <td><code>defendant_age_at_offense</code></td>
@@ -3803,103 +3883,19 @@ tab as the source of truth.</p>
 <td>Wiek oskarżonego w chwili wydania wyroku w I instancji (w latach pełnych). Niezbędne do algorytmicznej weryfikacji statusu młodocianego z art. 115 §10 k.k. UWAGA: nie używać wieku ofiary (np. małoletniego nabywcy narkotyków) jako proxy — jeśli wiek pojawia się wyłącznie w kontekście ofiary, przypisać null. Null gdy brak informacji w dokumencie — zob. pole defendant_age_data_available.</td>
 </tr>
 <tr>
-<td><code>sentence_type</code></td>
+<td><code>defendant_gender</code></td>
 <td>enum</td>
-<td>Główny rodzaj orzeczonej kary. Rozróżnić: 'pozbawienie_i_grzywna_zasadnicza' gdy obie kary orzeczone jako zasadnicze; 'pozbawienie_i_grzywna_art71' gdy grzywna orzeczona na podst. art. 71§1 k.k. kumulatywnie przy warunkowym zawieszeniu kary pozbawienia wolności. Przy wyroku łącznym (is_aggregate_sentence = true) raportować typ kary łącznej. Null gdy verdict_type = 'warunkowe_umorzenie'.</td>
+<td>Płeć oskarżonego jako zmienna kontrolna w analizie statystycznej. Wartość 'nieustalona' gdy dokument nie zawiera wyraźnej informacji o płci.</td>
 </tr>
 <tr>
-<td><code>imprisonment_duration_months</code></td>
-<td>integer</td>
-<td>Wymiar orzeczonej kary pozbawienia wolności w miesiącach (np. 2 lata = 24 miesiące). Przy wyroku łącznym (is_aggregate_sentence = true) podawać wymiar kary łącznej, nie kary jednostkowej za czyn narkotykowy. Pole wypełniane wyłącznie gdy sentence_type to 'pozbawienie_wolnosci', 'pozbawienie_i_grzywna_zasadnicza' lub 'pozbawienie_i_grzywna_art71'. Null jeśli nie orzeczono kary pozbawienia wolności lub verdict_type = 'warunkowe_umorzenie'.</td>
-</tr>
-<tr>
-<td><code>sentence_suspended</code></td>
+<td><code>defendant_is_young_adult</code></td>
 <td>boolean</td>
-<td>Czy wykonanie orzeczonej kary pozbawienia wolności zostało warunkowo zawieszone na podstawie art. 69–72 k.k. False jeśli kara bezwzględna lub nie orzeczono kary pozbawienia wolności.</td>
+<td>Czy sąd uznał oskarżonego za młodocianego w rozumieniu art. 115 §10 k.k. (nie ukończył 21 lat w chwili czynu i 24 lat w chwili orzekania w I instancji), co skutkuje zastosowaniem dyrektyw z art. 54 k.k. przy wymiarze kary. True tylko gdy sąd explicite powołuje ten status. Null gdy defendant_age_data_available = false.</td>
 </tr>
 <tr>
-<td><code>sentence_at_statutory_minimum</code></td>
+<td><code>multiple_defendants_in_case</code></td>
 <td>boolean</td>
-<td>Czy orzeczona kara pozbawienia wolności lub ograniczenia wolności jest równa dolnej granicy ustawowego zagrożenia przewidzianego w zastosowanym przepisie (np. 3 lata przy zbrodni z art. 53 ust. 2 u.p.n., 1 rok przy art. 62 ust. 2 u.p.n.). Kluczowe przy zbrodniach narkotykowych, gdzie kara na minimum ustawowym ma inne znaczenie analityczne niż ta sama wartość przy przestępstwie zagrożonym od 6 miesięcy. Null jeśli nie można ustalić ustawowego minimum z treści dokumentu.</td>
-</tr>
-<tr>
-<td><code>is_aggregate_sentence</code></td>
-<td>boolean</td>
-<td>Czy wyrok jest wyrokiem łącznym obejmującym czyny narkotykowe i inne przestępstwa (kara łączna z art. 85–91 k.k.). Pole kluczowe dla poprawnej interpretacji wymiaru kary — wyroki łączne nie są bezpośrednio porównywalne z karami jednostkowymi.</td>
-</tr>
-<tr>
-<td><code>aggravating_financial_motive</code></td>
-<td>boolean</td>
-<td>Okoliczność obciążająca wskazana przez sąd: oskarżony działał w celu osiągnięcia korzyści majątkowej z obrotu narkotykami (motyw finansowy jako element kwalifikacji lub uzasadnienia surowości kary). Null gdy has_full_reasoning in ['uzasadnienie_odwolawcze', 'brak_uzasadnienia'].</td>
-</tr>
-<tr>
-<td><code>aggravating_prior_convictions</code></td>
-<td>boolean</td>
-<td>Okoliczność obciążająca wskazana przez sąd: oskarżony był uprzednio karany sądownie (karalność jako czynnik obciążający, niezależnie od formalnej recydywy z art. 64 k.k.). Pole może być true przy recidivism_type = 'brak' gdy oskarżony był karany, lecz nie spełnia przesłanek art. 64 k.k. Null gdy has_full_reasoning in ['uzasadnienie_odwolawcze', 'brak_uzasadnienia'].</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>probation_supervision_ordered</code></td>
-<td>boolean</td>
-<td>Whether the court ordered probation-officer supervision (mandatory for a suspended sentence against a young adult, or discretionary otherwise).</td>
-</tr>
-<tr>
-<td><code>defendant_age_at_offense</code></td>
-<td>integer</td>
-<td>The defendant's age in full years at the time the offense was committed.</td>
-</tr>
-<tr>
-<td><code>defendant_age_at_ruling</code></td>
-<td>integer</td>
-<td>The defendant's age in full years at the time of the first-instance ruling — needed to verify young-adult status under Art. 115 §10 KK.</td>
-</tr>
-<tr>
-<td><code>sentence_type</code></td>
-<td>enum</td>
-<td>The main type of sentence imposed (imprisonment, restriction of liberty, fine, or combinations).</td>
-</tr>
-<tr>
-<td><code>imprisonment_duration_months</code></td>
-<td>integer</td>
-<td>Length of the imposed prison sentence, in months.</td>
-</tr>
-<tr>
-<td><code>sentence_suspended</code></td>
-<td>boolean</td>
-<td>Whether execution of the prison sentence was conditionally suspended.</td>
-</tr>
-<tr>
-<td><code>sentence_at_statutory_minimum</code></td>
-<td>boolean</td>
-<td>Whether the imposed sentence equals the statutory minimum for the applied provision.</td>
-</tr>
-<tr>
-<td><code>is_aggregate_sentence</code></td>
-<td>boolean</td>
-<td>Whether the ruling is a combined (aggregate) sentence covering the drug offense and other crimes.</td>
-</tr>
-<tr>
-<td><code>aggravating_financial_motive</code></td>
-<td>boolean</td>
-<td>Aggravating circumstance noted by the court: the defendant acted for financial gain from drug dealing.</td>
-</tr>
-<tr>
-<td><code>aggravating_prior_convictions</code></td>
-<td>boolean</td>
-<td>Aggravating circumstance noted by the court: the defendant had prior convictions.</td>
+<td>Czy w tej samej sprawie sądowej oprócz oskarżonego, którego dotyczy ten rekord, występują inni współoskarżeni. True sygnalizuje ryzyko mieszania danych różnych oskarżonych przy ekstrakcji automatycznej — dane ilościowe (ilość narkotyków, wymiar kary) powinny być przypisywane wyłącznie oskarżonemu będącemu jednostką analizy w tym rekordzie, nie współoskarżonym.</td>
 </tr>
 </tbody>
 </table>
@@ -4490,8 +4486,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>25 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">🇵🇱 Polski</label><label for="__tabbed_6_2">🇬🇧 English</label></div>
+<p><strong>25 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">🇬🇧 English</label><label for="__tabbed_6_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -4504,14 +4500,82 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>okres_proby_lat</code></td>
-<td>float</td>
-<td>Określony okres próby (w latach) w przypadku zawieszenia kary lub warunkowego umorzenia.</td>
+<td><code>typ_orzeczenia</code></td>
+<td>enum</td>
+<td>Type of ruling under analysis — must be a conviction or an order of conditional discontinuation.</td>
 </tr>
+<tr>
+<td><code>podstawa_czynu_prawnie</code></td>
+<td>string</td>
+<td>Main legal basis classifying the offense (e.g. Art. 62 of the Drug Act, Art. 157 Penal Code).</td>
+</tr>
+<tr>
+<td><code>typ_czynu_wg_artykulu</code></td>
+<td>enum</td>
+<td>More detailed classification of the offense under the Drug Act (e.g. possession, dealing, production).</td>
+</tr>
+<tr>
+<td><code>rodzaj_substancji</code></td>
+<td>string</td>
+<td>Specific type of narcotic or psychotropic substance.</td>
+</tr>
+<tr>
+<td><code>cel_posiadania</code></td>
+<td>enum</td>
+<td>Declared or established purpose of possessing the substance.</td>
+</tr>
+<tr>
+<td><code>sąd_wydayacy</code></td>
+<td>string</td>
+<td>Name or code of the court that issued the ruling.</td>
+</tr>
+<tr>
+<td><code>case_id</code></td>
+<td>string</td>
+<td>Unique identifier of the court case (case number).</td>
+</tr>
+<tr>
+<td><code>faza_postepowania_orzeczenie</code></td>
+<td>string</td>
+<td>Procedural phase in which the ruling was issued.</td>
+</tr>
+<tr>
+<td><code>data_urodzenia_oskarzonego</code></td>
+<td>string</td>
+<td>Defendant's date of birth.</td>
+</tr>
+<tr>
+<td><code>kategoria_wieku_prawne</code></td>
+<td>enum</td>
+<td>Defendant's age category under procedural definitions (baseline).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td><code>typ_orzeczenia</code></td>
 <td>enum</td>
 <td>Typ orzeczenia, które jest przedmiotem analizy. Musi być skazujące lub postanowienie o warunkowym umorzeniu. Wydobywane z nagłówka lub części rozpoznawczej.</td>
+</tr>
+<tr>
+<td><code>podstawa_czynu_prawnie</code></td>
+<td>string</td>
+<td>Główna podstawa prawna kwalifikująca czyn (np. Art. 62 Ustawy, Art. 157 KK). Wymaga ekstrakcji pełnego brzmienia lub odniesienia.</td>
+</tr>
+<tr>
+<td><code>typ_czynu_wg_artykulu</code></td>
+<td>enum</td>
+<td>Bardziej szczegółowa kwalifikacja czynu zgodnie z Ustawą o przeciwdziałaniu narkomanii (np. posiadanie, obrót, wytwarzanie).</td>
 </tr>
 <tr>
 <td><code>rodzaj_substancji</code></td>
@@ -4524,6 +4588,21 @@ tab as the source of truth.</p>
 <td>Zadeklarowany lub ustalone w sprawie cel posiadania substancji. Często podane w uzasadnieniu.</td>
 </tr>
 <tr>
+<td><code>sąd_wydayacy</code></td>
+<td>string</td>
+<td>Nazwa lub kod sądu, który wydał orzeczenie. Pomaga w analizie rozkładu orzeczeń.</td>
+</tr>
+<tr>
+<td><code>case_id</code></td>
+<td>string</td>
+<td>Unikalny identyfikator sprawy sądowej (sygnatura).</td>
+</tr>
+<tr>
+<td><code>faza_postepowania_orzeczenie</code></td>
+<td>string</td>
+<td>Faza postępowania, w której wydano orzeczenie. Pomaga w kontekstualizacji rozstrzygnięcia.</td>
+</tr>
+<tr>
 <td><code>data_urodzenia_oskarzonego</code></td>
 <td>string</td>
 <td>Data urodzenia oskarżonego. Jest to kluczowa informacja dla kategoryzacji wiekowej.</td>
@@ -4532,90 +4611,6 @@ tab as the source of truth.</p>
 <td><code>kategoria_wieku_prawne</code></td>
 <td>enum</td>
 <td>Kategoria wieku oskarżonego zgodnie z definicjami procesowymi (bazowa).</td>
-</tr>
-<tr>
-<td><code>przedzial_wiekowy_analiza</code></td>
-<td>enum</td>
-<td>Przedział wiekowy (w latach) oskarżonego, obliczony na podstawie 'data_urodzenia_oskarzonego'. Używać tylko jeśli data urodzenia jest dostępna.</td>
-</tr>
-<tr>
-<td><code>warunkowe_umorzenie_zastosowano</code></td>
-<td>enum</td>
-<td>Wskazuje, czy sąd zastosował postanowienie o warunkowym umorzeniu postępowania.</td>
-</tr>
-<tr>
-<td><code>jest_recydywa</code></td>
-<td>boolean</td>
-<td>Wskazuje, czy orzeczenie opiera się na stwierdzonej recydywie (ważny czynnik obciążający).</td>
-</tr>
-<tr>
-<td><code>korzyść_majatkowa_osiągnięta</code></td>
-<td>boolean</td>
-<td>Czy czyn był popełniony w celu osiągnięcia korzyści majątkowej (czynnik obciążający).</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>okres_proby_lat</code></td>
-<td>float</td>
-<td>Probation period (in years) in case of a suspended sentence or conditional discontinuation.</td>
-</tr>
-<tr>
-<td><code>typ_orzeczenia</code></td>
-<td>enum</td>
-<td>Type of ruling under analysis (conviction or conditional-discontinuation decision).</td>
-</tr>
-<tr>
-<td><code>rodzaj_substancji</code></td>
-<td>string</td>
-<td>Specific type of drug or psychotropic substance involved.</td>
-</tr>
-<tr>
-<td><code>cel_posiadania</code></td>
-<td>enum</td>
-<td>Declared or established purpose of possessing the substance (own use, dealing, undetermined).</td>
-</tr>
-<tr>
-<td><code>data_urodzenia_oskarzonego</code></td>
-<td>string</td>
-<td>Defendant's date of birth — key input for age categorization.</td>
-</tr>
-<tr>
-<td><code>kategoria_wieku_prawne</code></td>
-<td>enum</td>
-<td>Defendant's legal age category (minor, young adult under Art. 115, adult).</td>
-</tr>
-<tr>
-<td><code>przedzial_wiekowy_analiza</code></td>
-<td>enum</td>
-<td>Defendant's age bracket, computed from the date of birth.</td>
-</tr>
-<tr>
-<td><code>warunkowe_umorzenie_zastosowano</code></td>
-<td>enum</td>
-<td>Whether the court applied conditional discontinuation of proceedings.</td>
-</tr>
-<tr>
-<td><code>jest_recydywa</code></td>
-<td>boolean</td>
-<td>Whether the ruling is based on established recidivism (an important aggravating factor).</td>
-</tr>
-<tr>
-<td><code>korzyść_majatkowa_osiągnięta</code></td>
-<td>boolean</td>
-<td>Whether the offense was committed for financial gain (an aggravating factor).</td>
 </tr>
 </tbody>
 </table>
@@ -4890,8 +4885,8 @@ tab as the source of truth.</p>
 </details>
 </div>
 <div class="tabbed-block">
-<p><strong>24 fields total.</strong> Below is a representative excerpt; the full schema is available raw beneath it.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">🇵🇱 Polski</label><label for="__tabbed_7_2">🇬🇧 English</label></div>
+<p><strong>24 fields total.</strong> Below are the first 10 fields, in schema order; the full schema is available raw beneath it.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">🇬🇧 English</label><label for="__tabbed_7_2">🇵🇱 Polski</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <table>
@@ -4904,9 +4899,72 @@ tab as the source of truth.</p>
 </thead>
 <tbody>
 <tr>
+<td><code>appeal_procedure_relevant_to_this_sentence</code></td>
+<td>boolean</td>
+<td>Whether this part of the document indicates the case is on appeal, or that the sentence was changed as part of this decision.</td>
+</tr>
+<tr>
+<td><code>appeal_sentence_changed</code></td>
+<td>boolean</td>
+<td>Whether the ruling changed a previously imposed sentence as a result of an appeal.</td>
+</tr>
+<tr>
+<td><code>appeal_change_type</code></td>
+<td>enum</td>
+<td>Direction of the sentence change resulting from the appeal.</td>
+</tr>
+<tr>
+<td><code>defendant_1_age_years_available</code></td>
+<td>boolean</td>
+<td>Whether a numeric age can be computed for defendant slot 1.</td>
+</tr>
+<tr>
 <td><code>defendant_1_age_bucket_5_from_text_present</code></td>
 <td>enum</td>
-<td>Czy dla slota 1 da się przypisać bucket 5 wyłącznie z opisów jakościowych (np. „w wieku nastoletnim”, „nieletni”, „w wieku około 20 lat”), mimo braku możliwości wyliczenia wieku liczbowo?</td>
+<td>Whether a 5-way age bucket can be assigned for slot 1 from qualitative descriptions alone.</td>
+</tr>
+<tr>
+<td><code>defendant_1_age_bucket_5_from_text</code></td>
+<td>enum</td>
+<td>The 5-way age bucket for slot 1 derived from descriptive text.</td>
+</tr>
+<tr>
+<td><code>defendant_1_narcotics_role_in_this_outcome</code></td>
+<td>enum</td>
+<td>Role of narcotics in this specific ruling for defendant slot 1.</td>
+</tr>
+<tr>
+<td><code>defendant_1_drug_amount_info_present</code></td>
+<td>enum</td>
+<td>Whether the text provides drug-amount information for slot 1.</td>
+</tr>
+<tr>
+<td><code>defendant_1_drug_substance_type_info_present</code></td>
+<td>enum</td>
+<td>Whether the text provides substance-type information for slot 1.</td>
+</tr>
+<tr>
+<td><code>defendant_1_drug_action_purpose_info_present</code></td>
+<td>enum</td>
+<td>Whether the text provides information on the purpose of the act (own use vs. dealing) for slot 1.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>appeal_procedure_relevant_to_this_sentence</code></td>
+<td>boolean</td>
+<td>Czy w samej treści/tym fragmencie dokumentu (sentencja lub jednoznaczny opis rozstrzygnięcia w uzasadnieniu) pojawia się informacja, że sprawa ma charakter odwoławczy / rozpoznano apelację lub zmieniono karę w ramach tej właśnie decyzji? Ustawiaj true tylko, gdy apelacja/zmiana w zakresie kary jest wprost istotna dla tego dokumentu; false gdy wzmianka o postępowaniu odwoławczym występuje tylko jako tło w innych sprawach.</td>
 </tr>
 <tr>
 <td><code>appeal_sentence_changed</code></td>
@@ -4924,98 +4982,34 @@ tab as the source of truth.</p>
 <td>Czy dla slota 1 da się wyliczyć wiek liczbowo (np. na podstawie pełnej daty urodzenia + daty czynu/ustalenia, albo na podstawie wskazanego wprost wieku). Jeśli dokument podaje tylko „urodz. (...)” bez daty dziennej/pełnej — ustaw false.</td>
 </tr>
 <tr>
+<td><code>defendant_1_age_bucket_5_from_text_present</code></td>
+<td>enum</td>
+<td>Czy dla slota 1 da się przypisać bucket 5 wyłącznie z opisów jakościowych (np. „w wieku nastoletnim”, „nieletni”, „w wieku około 20 lat”), mimo braku możliwości wyliczenia wieku liczbowo?</td>
+</tr>
+<tr>
+<td><code>defendant_1_age_bucket_5_from_text</code></td>
+<td>enum</td>
+<td>Bucket 5 dla slota 1 wyznaczony z treści opisowej, gdy <code>defendant_1_age_bucket_5_from_text_present=tak</code>. Jeśli nie da się w sposób odtwarzalny przypisać, ustaw <code>brak_danych</code>. Buckety interpretuj zgodnie z <code>age_bucket_scheme_definition</code>.</td>
+</tr>
+<tr>
 <td><code>defendant_1_narcotics_role_in_this_outcome</code></td>
 <td>enum</td>
 <td>Rola narkotyków w tym rozstrzygnięciu dla slota 1: <code>dominujący_w_tym_orzeczeniu</code>, gdy w tej decyzji sąd faktycznie rozstrzyga w oparciu o ustalenia dotyczące narkotyków (kwalifikacja i/lub opis faktów o substancjach/ilości/celu w kontekście kary); <code>tylko_w_tle_wyrokow_jednostkowych</code>, gdy dokument ma charakter wyroku łącznego i szczegóły narkotykowe są jedynie „w tle” kar jednostkowych bez ponownego ustalania; <code>nie_dotyczy_w_tym_orzeczeniu</code>, gdy w tej decyzji nie ma odniesień do narkotyków; <code>nieustalone</code>, gdy nie da się tego rozstrzygnąć.</td>
 </tr>
 <tr>
-<td><code>defendant_1_drug_action_purpose_info_present</code></td>
+<td><code>defendant_1_drug_amount_info_present</code></td>
 <td>enum</td>
-<td>Czy w tekście dla slota 1 jest informacja o celu działania (np. własny użytek vs obrót/korzyść) w kontekście tej decyzji? <code>cel_wprost</code> gdy jest wskazany wprost; <code>cel_pośrednio</code> gdy cel wynika z okoliczności opisanych przez sąd; <code>brak_opisu_celu</code> gdy nie ma opisu celu; <code>nieustalone</code> gdy nie da się ocenić.</td>
+<td>Czy w tekście dla slota 1 jest informacja o ilości (waga/objętość/liczba jednostek) dotycząca narkotyków w kontekście tej decyzji? <code>ilość_wprost</code> gdy jest podana ilość; <code>ilość_pośrednio</code> gdy ilość wynika z przeliczeń/danych zastępczych w opisie; <code>brak_ilości_opisu</code> gdy nie ma ilości; <code>nieustalone</code> gdy nie da się ocenić.</td>
 </tr>
 <tr>
-<td><code>defendant_2_age_years_available</code></td>
-<td>boolean</td>
-<td>Czy dla slota 2 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek).</td>
-</tr>
-<tr>
-<td><code>defendant_2_age_bucket_5_from_text_present</code></td>
+<td><code>defendant_1_drug_substance_type_info_present</code></td>
 <td>enum</td>
-<td>Czy dla slota 2 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo?</td>
-</tr>
-<tr>
-<td><code>defendant_3_age_years_available</code></td>
-<td>boolean</td>
-<td>Czy dla slota 3 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek).</td>
-</tr>
-<tr>
-<td><code>defendant_3_age_bucket_5_from_text_present</code></td>
-<td>enum</td>
-<td>Czy dla slota 3 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo?</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="tabbed-block">
-<p><em>Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.</em></p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>defendant_1_age_bucket_5_from_text_present</code></td>
-<td>enum</td>
-<td>Whether defendant 1's 5-way age bracket can be assigned purely from qualitative descriptions (e.g. "teenage", "minor"), even without a numeric age.</td>
-</tr>
-<tr>
-<td><code>appeal_sentence_changed</code></td>
-<td>boolean</td>
-<td>Whether the appellate decision changed the previously imposed sentence.</td>
-</tr>
-<tr>
-<td><code>appeal_change_type</code></td>
-<td>enum</td>
-<td>Direction of the sentence change resulting from an appeal (harsher, more lenient, changed sentence type).</td>
-</tr>
-<tr>
-<td><code>defendant_1_age_years_available</code></td>
-<td>boolean</td>
-<td>Whether defendant 1's exact numeric age can be computed from the document.</td>
-</tr>
-<tr>
-<td><code>defendant_1_narcotics_role_in_this_outcome</code></td>
-<td>enum</td>
-<td>The role drugs play in this particular ruling for defendant 1 (dominant, background only, not applicable, undetermined).</td>
+<td>Czy w tekście dla slota 1 jest informacja o rodzaju substancji? <code>substancja_wprost</code> gdy nazwa grupy/konkretnej substancji jest wskazana wprost; <code>substancja_pośrednio</code> gdy wynika z kwalifikacji lub opisu bez pełnej nazwy; <code>brak_substancji_opisu</code> gdy nie ma informacji; <code>nieustalone</code> gdy nie da się ocenić.</td>
 </tr>
 <tr>
 <td><code>defendant_1_drug_action_purpose_info_present</code></td>
 <td>enum</td>
-<td>Whether the text states the purpose of defendant 1's action (own use vs. dealing/profit), and how explicitly.</td>
-</tr>
-<tr>
-<td><code>defendant_2_age_years_available</code></td>
-<td>boolean</td>
-<td>Whether defendant 2's exact numeric age can be computed from the document.</td>
-</tr>
-<tr>
-<td><code>defendant_2_age_bucket_5_from_text_present</code></td>
-<td>enum</td>
-<td>Whether defendant 2's 5-way age bracket can be assigned from qualitative descriptions alone.</td>
-</tr>
-<tr>
-<td><code>defendant_3_age_years_available</code></td>
-<td>boolean</td>
-<td>Whether defendant 3's exact numeric age can be computed from the document.</td>
-</tr>
-<tr>
-<td><code>defendant_3_age_bucket_5_from_text_present</code></td>
-<td>enum</td>
-<td>Whether defendant 3's 5-way age bracket can be assigned from qualitative descriptions alone.</td>
+<td>Czy w tekście dla slota 1 jest informacja o celu działania (np. własny użytek vs obrót/korzyść) w kontekście tej decyzji? <code>cel_wprost</code> gdy jest wskazany wprost; <code>cel_pośrednio</code> gdy cel wynika z okoliczności opisanych przez sąd; <code>brak_opisu_celu</code> gdy nie ma opisu celu; <code>nieustalone</code> gdy nie da się ocenić.</td>
 </tr>
 </tbody>
 </table>
