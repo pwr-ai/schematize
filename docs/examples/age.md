@@ -2,6 +2,12 @@
 
 The relationship between a defendant's age and sentence severity in drug-offense cases.
 
+!!! warning "About the English text on this page"
+    This run was performed in Polish — the prompts, conversation, and generated schema field
+    descriptions are all originally in Polish. The English tabs are **machine translations**
+    produced after the fact for readability, not reviewed by a native speaker. Treat the Polish
+    tab as the source of truth.
+
 ## The conversation
 
 === "🇵🇱 Polski"
@@ -146,1061 +152,11 @@ The relationship between a defendant's age and sentence severity in drug-offense
     </div>
     </div>
 
-    *The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. Translated from the original Polish run.*
+    *The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run and has not been reviewed by a native speaker.*
 
 ## The generated schema
 
 Five different LLMs ran the exact same pipeline on this case. Field count and shape vary a lot by model — pick a tab to compare.
-
-=== "GPT-5.4 nano"
-
-    **24 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
-
-    === "🇵🇱 Polski"
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `defendant_1_age_bucket_5_from_text_present` | enum | Czy dla slota 1 da się przypisać bucket 5 wyłącznie z opisów jakościowych (np. „w wieku nastoletnim”, „nieletni”, „w wieku około 20 lat”), mimo braku możliwości wyliczenia wieku liczbowo? |
-        | `appeal_sentence_changed` | boolean | Czy rozstrzygnięcie zmieniło uprzednio orzeczoną karę/jej dolegliwość wskutek środka odwoławczego. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` oraz decyzja jest odwoławcza (np. `decision_procedure_stage=odwoławcze`); w przeciwnym razie ustaw false. |
-        | `appeal_change_type` | enum | Kierunek zmiany kary na skutek apelacji/odwołania. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` i `decision_procedure_stage=odwoławcze`; w przeciwnym razie ustaw `nieustalone`. |
-        | `defendant_1_age_years_available` | boolean | Czy dla slota 1 da się wyliczyć wiek liczbowo (np. na podstawie pełnej daty urodzenia + daty czynu/ustalenia, albo na podstawie wskazanego wprost wieku). Jeśli dokument podaje tylko „urodz. (...)” bez daty dziennej/pełnej — ustaw false. |
-        | `defendant_1_narcotics_role_in_this_outcome` | enum | Rola narkotyków w tym rozstrzygnięciu dla slota 1: `dominujący_w_tym_orzeczeniu`, gdy w tej decyzji sąd faktycznie rozstrzyga w oparciu o ustalenia dotyczące narkotyków (kwalifikacja i/lub opis faktów o substancjach/ilości/celu w kontekście kary); `tylko_w_tle_wyrokow_jednostkowych`, gdy dokument ma charakter wyroku łącznego i szczegóły narkotykowe są jedynie „w tle” kar jednostkowych bez ponownego ustalania; `nie_dotyczy_w_tym_orzeczeniu`, gdy w tej decyzji nie ma odniesień do narkotyków; `nieustalone`, gdy nie da się tego rozstrzygnąć. |
-        | `defendant_1_drug_action_purpose_info_present` | enum | Czy w tekście dla slota 1 jest informacja o celu działania (np. własny użytek vs obrót/korzyść) w kontekście tej decyzji? `cel_wprost` gdy jest wskazany wprost; `cel_pośrednio` gdy cel wynika z okoliczności opisanych przez sąd; `brak_opisu_celu` gdy nie ma opisu celu; `nieustalone` gdy nie da się ocenić. |
-        | `defendant_2_age_years_available` | boolean | Czy dla slota 2 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek). |
-        | `defendant_2_age_bucket_5_from_text_present` | enum | Czy dla slota 2 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo? |
-        | `defendant_3_age_years_available` | boolean | Czy dla slota 3 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek). |
-        | `defendant_3_age_bucket_5_from_text_present` | enum | Czy dla slota 3 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo? |
-
-    === "🇬🇧 English"
-
-        *Descriptions translated from the model original Polish output.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `defendant_1_age_bucket_5_from_text_present` | enum | Whether defendant 1's 5-way age bracket can be assigned purely from qualitative descriptions (e.g. "teenage", "minor"), even without a numeric age. |
-        | `appeal_sentence_changed` | boolean | Whether the appellate decision changed the previously imposed sentence. |
-        | `appeal_change_type` | enum | Direction of the sentence change resulting from an appeal (harsher, more lenient, changed sentence type). |
-        | `defendant_1_age_years_available` | boolean | Whether defendant 1's exact numeric age can be computed from the document. |
-        | `defendant_1_narcotics_role_in_this_outcome` | enum | The role drugs play in this particular ruling for defendant 1 (dominant, background only, not applicable, undetermined). |
-        | `defendant_1_drug_action_purpose_info_present` | enum | Whether the text states the purpose of defendant 1's action (own use vs. dealing/profit), and how explicitly. |
-        | `defendant_2_age_years_available` | boolean | Whether defendant 2's exact numeric age can be computed from the document. |
-        | `defendant_2_age_bucket_5_from_text_present` | enum | Whether defendant 2's 5-way age bracket can be assigned from qualitative descriptions alone. |
-        | `defendant_3_age_years_available` | boolean | Whether defendant 3's exact numeric age can be computed from the document. |
-        | `defendant_3_age_bucket_5_from_text_present` | enum | Whether defendant 3's 5-way age bracket can be assigned from qualitative descriptions alone. |
-
-    ??? note "Show full schema (24 fields, raw JSON, original language)"
-
-        ```json
-        [
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy w samej treści/tym fragmencie dokumentu (sentencja lub jednoznaczny opis rozstrzygnięcia w uzasadnieniu) pojawia się informacja, że sprawa ma charakter odwoławczy / rozpoznano apelację lub zmieniono karę w ramach tej właśnie decyzji? Ustawiaj true tylko, gdy apelacja/zmiana w zakresie kary jest wprost istotna dla tego dokumentu; false gdy wzmianka o postępowaniu odwoławczym występuje tylko jako tło w innych sprawach.",
-            "name": "appeal_procedure_relevant_to_this_sentence"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy rozstrzygnięcie zmieniło uprzednio orzeczoną karę/jej dolegliwość wskutek środka odwoławczego. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` oraz decyzja jest odwoławcza (np. `decision_procedure_stage=odwoławcze`); w przeciwnym razie ustaw false.",
-            "name": "appeal_sentence_changed"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "zaostrzenie",
-              "zlagodzenie",
-              "zmiana_rodzaju_kary",
-              "nieustalone"
-            ],
-            "description": "Kierunek zmiany kary na skutek apelacji/odwołania. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` i `decision_procedure_stage=odwoławcze`; w przeciwnym razie ustaw `nieustalone`.",
-            "name": "appeal_change_type"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy dla slota 1 da się wyliczyć wiek liczbowo (np. na podstawie pełnej daty urodzenia + daty czynu/ustalenia, albo na podstawie wskazanego wprost wieku). Jeśli dokument podaje tylko „urodz. (...)” bez daty dziennej/pełnej — ustaw false.",
-            "name": "defendant_1_age_years_available"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "tak",
-              "nie",
-              "nieustalone"
-            ],
-            "description": "Czy dla slota 1 da się przypisać bucket 5 wyłącznie z opisów jakościowych (np. „w wieku nastoletnim”, „nieletni”, „w wieku około 20 lat”), mimo braku możliwości wyliczenia wieku liczbowo?",
-            "name": "defendant_1_age_bucket_5_from_text_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "bucket_1",
-              "bucket_2",
-              "bucket_3",
-              "bucket_4",
-              "bucket_5",
-              "brak_danych"
-            ],
-            "description": "Bucket 5 dla slota 1 wyznaczony z treści opisowej, gdy `defendant_1_age_bucket_5_from_text_present=tak`. Jeśli nie da się w sposób odtwarzalny przypisać, ustaw `brak_danych`. Buckety interpretuj zgodnie z `age_bucket_scheme_definition`.",
-            "name": "defendant_1_age_bucket_5_from_text"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "dominujący_w_tym_orzeczeniu",
-              "tylko_w_tle_wyrokow_jednostkowych",
-              "nie_dotyczy_w_tym_orzeczeniu",
-              "nieustalone"
-            ],
-            "description": "Rola narkotyków w tym rozstrzygnięciu dla slota 1: `dominujący_w_tym_orzeczeniu`, gdy w tej decyzji sąd faktycznie rozstrzyga w oparciu o ustalenia dotyczące narkotyków (kwalifikacja i/lub opis faktów o substancjach/ilości/celu w kontekście kary); `tylko_w_tle_wyrokow_jednostkowych`, gdy dokument ma charakter wyroku łącznego i szczegóły narkotykowe są jedynie „w tle” kar jednostkowych bez ponownego ustalania; `nie_dotyczy_w_tym_orzeczeniu`, gdy w tej decyzji nie ma odniesień do narkotyków; `nieustalone`, gdy nie da się tego rozstrzygnąć.",
-            "name": "defendant_1_narcotics_role_in_this_outcome"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "ilość_wprost",
-              "ilość_pośrednio",
-              "brak_ilości_opisu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 1 jest informacja o ilości (waga/objętość/liczba jednostek) dotycząca narkotyków w kontekście tej decyzji? `ilość_wprost` gdy jest podana ilość; `ilość_pośrednio` gdy ilość wynika z przeliczeń/danych zastępczych w opisie; `brak_ilości_opisu` gdy nie ma ilości; `nieustalone` gdy nie da się ocenić.",
-            "name": "defendant_1_drug_amount_info_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "substancja_wprost",
-              "substancja_pośrednio",
-              "brak_substancji_opisu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 1 jest informacja o rodzaju substancji? `substancja_wprost` gdy nazwa grupy/konkretnej substancji jest wskazana wprost; `substancja_pośrednio` gdy wynika z kwalifikacji lub opisu bez pełnej nazwy; `brak_substancji_opisu` gdy nie ma informacji; `nieustalone` gdy nie da się ocenić.",
-            "name": "defendant_1_drug_substance_type_info_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "cel_wprost",
-              "cel_pośrednio",
-              "brak_opisu_celu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 1 jest informacja o celu działania (np. własny użytek vs obrót/korzyść) w kontekście tej decyzji? `cel_wprost` gdy jest wskazany wprost; `cel_pośrednio` gdy cel wynika z okoliczności opisanych przez sąd; `brak_opisu_celu` gdy nie ma opisu celu; `nieustalone` gdy nie da się ocenić.",
-            "name": "defendant_1_drug_action_purpose_info_present"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy dla slota 2 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek).",
-            "name": "defendant_2_age_years_available"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "tak",
-              "nie",
-              "nieustalone"
-            ],
-            "description": "Czy dla slota 2 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo?",
-            "name": "defendant_2_age_bucket_5_from_text_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "bucket_1",
-              "bucket_2",
-              "bucket_3",
-              "bucket_4",
-              "bucket_5",
-              "brak_danych"
-            ],
-            "description": "Bucket 5 dla slota 2 wyznaczony z treści opisowej, gdy `defendant_2_age_bucket_5_from_text_present=tak`. Buckety interpretuj zgodnie z `age_bucket_scheme_definition`.",
-            "name": "defendant_2_age_bucket_5_from_text"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "dominujący_w_tym_orzeczeniu",
-              "tylko_w_tle_wyrokow_jednostkowych",
-              "nie_dotyczy_w_tym_orzeczeniu",
-              "nieustalone"
-            ],
-            "description": "Rola narkotyków w tym rozstrzygnięciu dla slota 2 (analogicznie jak dla slota 1).",
-            "name": "defendant_2_narcotics_role_in_this_outcome"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "ilość_wprost",
-              "ilość_pośrednio",
-              "brak_ilości_opisu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 2 jest informacja o ilości narkotyków w kontekście tej decyzji (analogicznie jak dla slota 1).",
-            "name": "defendant_2_drug_amount_info_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "substancja_wprost",
-              "substancja_pośrednio",
-              "brak_substancji_opisu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 2 jest informacja o rodzaju substancji (analogicznie jak dla slota 1).",
-            "name": "defendant_2_drug_substance_type_info_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "cel_wprost",
-              "cel_pośrednio",
-              "brak_opisu_celu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 2 jest informacja o celu działania (analogicznie jak dla slota 1).",
-            "name": "defendant_2_drug_action_purpose_info_present"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy dla slota 3 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek).",
-            "name": "defendant_3_age_years_available"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "tak",
-              "nie",
-              "nieustalone"
-            ],
-            "description": "Czy dla slota 3 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo?",
-            "name": "defendant_3_age_bucket_5_from_text_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "bucket_1",
-              "bucket_2",
-              "bucket_3",
-              "bucket_4",
-              "bucket_5",
-              "brak_danych"
-            ],
-            "description": "Bucket 5 dla slota 3 wyznaczony z treści opisowej, gdy `defendant_3_age_bucket_5_from_text_present=tak`. Buckety interpretuj zgodnie z `age_bucket_scheme_definition`.",
-            "name": "defendant_3_age_bucket_5_from_text"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "dominujący_w_tym_orzeczeniu",
-              "tylko_w_tle_wyrokow_jednostkowych",
-              "nie_dotyczy_w_tym_orzeczeniu",
-              "nieustalone"
-            ],
-            "description": "Rola narkotyków w tym rozstrzygnięciu dla slota 3 (analogicznie jak dla slota 1).",
-            "name": "defendant_3_narcotics_role_in_this_outcome"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "ilość_wprost",
-              "ilość_pośrednio",
-              "brak_ilości_opisu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 3 jest informacja o ilości narkotyków w kontekście tej decyzji (analogicznie jak dla slota 1).",
-            "name": "defendant_3_drug_amount_info_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "substancja_wprost",
-              "substancja_pośrednio",
-              "brak_substancji_opisu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 3 jest informacja o rodzaju substancji (analogicznie jak dla slota 1).",
-            "name": "defendant_3_drug_substance_type_info_present"
-          },
-          {
-            "type_": "enum",
-            "enum_name": null,
-            "enum_values": [
-              "cel_wprost",
-              "cel_pośrednio",
-              "brak_opisu_celu",
-              "nieustalone"
-            ],
-            "description": "Czy w tekście dla slota 3 jest informacja o celu działania (analogicznie jak dla slota 1).",
-            "name": "defendant_3_drug_action_purpose_info_present"
-          }
-        ]
-        ```
-
-=== "GPT-5.4 mini"
-
-    **76 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
-
-    === "🇵🇱 Polski"
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `sentence_target_charge_identifier` | string | Identyfikator czynu, do którego odnosi się orzeczona kara, zawieszenie albo warunkowe umorzenie. Użyj identyfikatora z `charge_identifier`; jeśli dotyczy kilku czynów, oddziel je średnikami. |
-        | `sentence_information_source_part` | enum | Część dokumentu, z której ustalono karę, zawieszenie wykonania kary albo warunkowe umorzenie postępowania. |
-        | `document_relevance_to_narcotics_study` | enum | Ocena przydatności dokumentu do badania zależności między wiekiem a karą w sprawach narkotykowych. Użyj `primary`, gdy dokument jest bezpośrednio o takim czynie, `secondary`, gdy jest tylko częściowo relewantny, `mixed`, gdy łączy kilka typów spraw, `not_relevant`, gdy nie nadaje się do analizy. |
-        | `sentence_targets_narcotics_offense` | boolean | Czy orzeczona kara lub decyzja procesowa dotyczy czynu narkotykowego, a nie wyłącznie innego równoległego czynu w tej samej sprawie. |
-        | `sentence_legal_basis_act` | enum | Akt prawny wskazany jako podstawa rozstrzygnięcia o karze, zawieszeniu wykonania kary albo warunkowym umorzeniu. |
-        | `sentence_basis_articles` | string | Artykuły i paragrafy stanowiące ogólną podstawę wymiaru kary; jeśli jest ich kilka, oddziel je średnikami. Nie używaj tego pola do szczegółowej podstawy zawieszenia lub umorzenia, jeśli można je wydzielić osobno. |
-        | `age_information_source_part` | enum | Część dokumentu, z której ustalono wiek oskarżonego. Szczególnie ważne, gdy wiek wynika z uzasadnienia, dat urodzenia albo dat czynu. |
-        | `narcotics_offense_is_primary_for_sentence` | boolean | Czy ten czyn narkotykowy jest czynem dominującym dla wymiaru kary w sprawie. Użyj szczególnie przy wielu zarzutach lub wieloczynowości. |
-        | `age_data_available` | boolean | Czy z dokumentu można wiarygodnie ustalić wiek oskarżonego w chwili czynu lub orzekania. |
-        | `age_not_derived_reason` | string | Krótki powód, dla którego wieku nie dało się wyliczyć lub ustalić. Użyj, gdy brak dat, podano tylko zakres, albo dane są sprzeczne. |
-
-    === "🇬🇧 English"
-
-        *Descriptions translated from the model original Polish output.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `sentence_target_charge_identifier` | string | Identifier of the charge that the sentence, suspension, or conditional discontinuation refers to. |
-        | `sentence_information_source_part` | enum | Part of the document the sentence, suspension, or conditional discontinuation was determined from. |
-        | `document_relevance_to_narcotics_study` | enum | How useful the document is for studying the age-sentence relationship in drug cases (primary, secondary, mixed, not relevant). |
-        | `sentence_targets_narcotics_offense` | boolean | Whether the imposed sentence concerns the drug offense, rather than only a parallel offense in the same case. |
-        | `sentence_legal_basis_act` | enum | Legal act cited as the basis for the sentence, suspension, or conditional discontinuation. |
-        | `sentence_basis_articles` | string | Articles and paragraphs forming the general legal basis for the sentence. |
-        | `age_information_source_part` | enum | Part of the document the defendant's age was established from. |
-        | `narcotics_offense_is_primary_for_sentence` | boolean | Whether the drug offense is the dominant offense for sentencing purposes in the case. |
-        | `age_data_available` | boolean | Whether the defendant's age at the time of the offense or ruling can be reliably established from the document. |
-        | `age_not_derived_reason` | string | Short reason why the age could not be computed or established. |
-
-    ??? note "Show full schema (76 fields, raw JSON, original language)"
-
-        ```json
-        [
-          {
-            "type_": "enum",
-            "enum_name": "document_type",
-            "enum_values": [
-              "wyrok_skazujacy",
-              "warunkowe_umorzenie",
-              "wyrok_laczny",
-              "apelacja",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Typ dokumentu/orzeczenia. Użyj `wyrok_laczny` tylko wtedy, gdy dokument dotyczy wyłącznie wyroku łącznego. `apelacja` stosuj, gdy dokumentem jest orzeczenie apelacyjne lub dokument o takim charakterze.",
-            "name": "document_type"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "source_document_role",
-            "enum_values": [
-              "original_judgment",
-              "appeal",
-              "combined_sentence",
-              "other",
-              "nieustalone"
-            ],
-            "description": "Rola dokumentu w badaniu. Użyj do odróżnienia wyroku pierwotnego, apelacji i wyroku łącznego; pole pomaga filtrować materiały nieporównywalne z orzeczeniami pierwszoinstancyjnymi.",
-            "name": "source_document_role"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "source_record_scope",
-            "enum_values": [
-              "whole_document",
-              "single_defendant",
-              "single_charge",
-              "single_sentence",
-              "mixed",
-              "nieustalone"
-            ],
-            "description": "Zakres dokumentu, z którego pochodzi rekord. Użyj, aby zaznaczyć, czy dane dotyczą całego dokumentu, jednego oskarżonego, jednego czynu, jednej reakcji karnej czy materiału mieszanego.",
-            "name": "source_record_scope"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "source_document_part",
-            "enum_values": [
-              "sentencja",
-              "uzasadnienie",
-              "apelacja",
-              "postanowienie",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Główna część dokumentu, z której pochodzi rekord. Wybierz część, w której faktycznie odnaleziono daną informację.",
-            "name": "source_document_part"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "age_information_source_part",
-            "enum_values": [
-              "sentencja",
-              "uzasadnienie",
-              "apelacja",
-              "postanowienie",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Część dokumentu, z której ustalono wiek oskarżonego. Szczególnie ważne, gdy wiek wynika z uzasadnienia, dat urodzenia albo dat czynu.",
-            "name": "age_information_source_part"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "sentence_information_source_part",
-            "enum_values": [
-              "sentencja",
-              "uzasadnienie",
-              "apelacja",
-              "postanowienie",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Część dokumentu, z której ustalono karę, zawieszenie wykonania kary albo warunkowe umorzenie postępowania.",
-            "name": "sentence_information_source_part"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "record_level",
-            "enum_values": [
-              "document",
-              "defendant",
-              "offense",
-              "sentence",
-              "nieustalone"
-            ],
-            "description": "Poziom, którego dotyczy rekord. Użyj `defendant` dla danych osoby, `offense` dla danych o czynie, `sentence` dla danych o reakcji karnej i `document` dla cech całego orzeczenia.",
-            "name": "record_level"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "document_relevance_to_narcotics_study",
-            "enum_values": [
-              "primary",
-              "secondary",
-              "mixed",
-              "not_relevant",
-              "nieustalone"
-            ],
-            "description": "Ocena przydatności dokumentu do badania zależności między wiekiem a karą w sprawach narkotykowych. Użyj `primary`, gdy dokument jest bezpośrednio o takim czynie, `secondary`, gdy jest tylko częściowo relewantny, `mixed`, gdy łączy kilka typów spraw, `not_relevant`, gdy nie nadaje się do analizy.",
-            "name": "document_relevance_to_narcotics_study"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy sprawa narkotykowa jest głównym przedmiotem dokumentu. Ustaw `true`, gdy czyn narkotykowy stanowi centralny element orzeczenia; `false`, gdy pojawia się jedynie ubocznie.",
-            "name": "narcotics_case_is_primary_subject"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "case_outcome",
-            "enum_values": [
-              "skazanie",
-              "warunkowe_umorzenie",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Merytoryczny wynik sprawy wobec oskarżonego. Dla tej analizy używaj przede wszystkim `skazanie` albo `warunkowe_umorzenie`.",
-            "name": "case_outcome"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy dokument jest wyrokiem łącznym. Ustaw `true` tylko wtedy, gdy sentencja dotyczy połączenia wcześniej orzeczonych kar.",
-            "name": "is_combined_sentence"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy w sprawie występują wcześniejsze wyroki lub skazania objęte wyrokiem łącznym. Pole stosuj wyłącznie przy `document_type=wyrok_laczny`.",
-            "name": "underlying_judgments_present"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Liczba wcześniejszych wyroków lub spraw objętych wyrokiem łącznym, jeśli dokument jest wyrokiem łącznym i da się to jednoznacznie ustalić.",
-            "name": "underlying_judgment_count"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Oznaczenie oskarżonego, którego dotyczy rekord, np. inicjały, numer porządkowy albo inny identyfikator z dokumentu. Przydatne przy wielu oskarżonych.",
-            "name": "defendant_identifier"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Oznaczenie czynu lub zarzutu, którego dotyczy rekord, np. numer czynu, punkt sentencji albo krótki opis. Przydatne przy wielu czynach w jednej sprawie.",
-            "name": "charge_identifier"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy orzeczona kara lub decyzja procesowa dotyczy czynu narkotykowego, a nie wyłącznie innego równoległego czynu w tej samej sprawie.",
-            "name": "sentence_targets_narcotics_offense"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Identyfikator czynu, do którego odnosi się orzeczona kara, zawieszenie albo warunkowe umorzenie. Użyj identyfikatora z `charge_identifier`; jeśli dotyczy kilku czynów, oddziel je średnikami.",
-            "name": "sentence_target_charge_identifier"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Liczba odrębnych czynów narkotykowych przypisanych temu oskarżonemu w dokumencie. Jeśli sprawa obejmuje kilka zarzutów narkotykowych, podaj liczbę możliwie jednoznacznie.",
-            "name": "narcotics_offense_count"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "narcotics_offense_main_type",
-            "enum_values": [
-              "posiadanie",
-              "udzielanie",
-              "obrót",
-              "wprowadzanie_do_obrotu",
-              "wytwarzanie",
-              "przerabianie",
-              "uprawa",
-              "nabycie",
-              "przemyt",
-              "przechowywanie",
-              "inne_narkotyczne",
-              "nieustalone"
-            ],
-            "description": "Główny typ czynu narkotykowego przypisanego rekordowi. Jeśli w sprawie jest kilka czynów, wybierz typ najbardziej związany z wymiarem kary.",
-            "name": "narcotics_offense_main_type"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy ten czyn narkotykowy jest czynem dominującym dla wymiaru kary w sprawie. Użyj szczególnie przy wielu zarzutach lub wieloczynowości.",
-            "name": "narcotics_offense_is_primary_for_sentence"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Wszystkie typy czynów narkotykowych występujące w tym rekordzie, oddzielone średnikami. Użyj tego pola szczególnie w sprawach wieloczynowych.",
-            "name": "narcotics_offense_types"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Pozostałe typy czynów narkotykowych występujące u tego oskarżonego; jeśli jest ich kilka, oddziel je średnikami.",
-            "name": "narcotics_offense_additional_types"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "offense_legal_basis_act",
-            "enum_values": [
-              "ustawa_o_przeciwdziałaniu_narkomanii",
-              "kodeks_karny",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Akt prawny wskazany jako podstawa kwalifikacji czynu narkotykowego.",
-            "name": "offense_legal_basis_act"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Artykuły, paragrafy i inne jednostki redakcyjne stanowiące podstawę kwalifikacji czynu narkotykowego; jeśli jest ich kilka, oddziel je średnikami.",
-            "name": "offense_legal_basis_articles"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "substance_category",
-            "enum_values": [
-              "środek_odurzający",
-              "substancja_psychotropowa",
-              "nowa_substancja_psychoaktywna",
-              "mieszana",
-              "nieustalone"
-            ],
-            "description": "Kategoria substancji objętej czynem, jeśli została wskazana w orzeczeniu.",
-            "name": "substance_category"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Nazwa środka odurzającego, substancji psychotropowej lub nowej substancji psychoaktywnej; jeśli wskazano kilka substancji, oddziel je średnikami.",
-            "name": "substance_name"
-          },
-          {
-            "type_": "float",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Ilość substancji wskazana w orzeczeniu jako wartość liczbowa, w jednostce podanej w `substance_quantity_unit`. Używaj tylko wtedy, gdy liczba jest jednoznaczna.",
-            "name": "substance_quantity"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Tekstowy zapis ilości substancji, jeśli nie da się jej pewnie sprowadzić do jednej liczby, np. 'kilka gramów', 'około 10 porcji', 'znaczna ilość'.",
-            "name": "substance_quantity_text"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy ilość substancji jest nieprecyzyjna, szacunkowa albo opisana bez jednoznacznej wartości liczbowej.",
-            "name": "quantity_uncertain"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "substance_quantity_unit",
-            "enum_values": [
-              "g",
-              "mg",
-              "kg",
-              "ml",
-              "tabletki",
-              "porcje",
-              "dawki",
-              "sztuki",
-              "opakowania",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Jednostka, w której podano ilość substancji; jeśli ilość jest opisana słownie lub wielkościowo, użyj `inne` albo `nieustalone`.",
-            "name": "substance_quantity_unit"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "substance_quantity_basis",
-            "enum_values": [
-              "netto",
-              "brutto",
-              "nieustalone"
-            ],
-            "description": "Podstawa podanej ilości substancji. Ustal, czy chodzi o ilość netto czy brutto; jeśli dokument tego nie rozróżnia, użyj `nieustalone`.",
-            "name": "substance_quantity_basis"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "purpose_of_action",
-            "enum_values": [
-              "na_wlasny_uzytek",
-              "sprzedaż_lub_dalsza_odsprzedaż",
-              "osiągnięcie_korzyści_majątkowej",
-              "dystrybucja",
-              "wprowadzenie_do_obrotu",
-              "inne",
-              "nieustalony"
-            ],
-            "description": "Ustalony lub wskazany w uzasadnieniu cel działania oskarżonego, np. na własny użytek, sprzedaż, dalsza odsprzedaż, wprowadzenie do obrotu, dystrybucja lub osiągnięcie korzyści majątkowej.",
-            "name": "purpose_of_action"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Dodatkowy opis celu działania, jeśli cel nie mieści się w wartościach enuma albo wymaga doprecyzowania. Zachowaj możliwie wierne brzmienie z dokumentu.",
-            "name": "purpose_of_action_description"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy z dokumentu można wiarygodnie ustalić wiek oskarżonego w chwili czynu lub orzekania.",
-            "name": "age_data_available"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Krótki powód, dla którego wieku nie dało się wyliczyć lub ustalić. Użyj, gdy brak dat, podano tylko zakres, albo dane są sprzeczne.",
-            "name": "age_not_derived_reason"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Data urodzenia oskarżonego, najlepiej w formacie YYYY-MM-DD; jeśli dokument podaje tylko rok albo inny zakres, zachowaj zapis tekstowy.",
-            "name": "date_of_birth"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Data popełnienia czynu lub zakres dat czynu, jeśli taki zakres podano w dokumentach. Pole służy do wyliczania wieku w chwili czynu.",
-            "name": "offense_date"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Dokładny wiek oskarżonego w chwili popełnienia czynu, jeśli można go wiarygodnie wyliczyć z daty urodzenia i daty czynu albo jeśli wiek podano wprost.",
-            "name": "age_at_offense_years"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "age_at_offense_bracket_5",
-            "enum_values": [
-              "poniżej_18",
-              "18_20",
-              "21_24",
-              "25_34",
-              "35_plus"
-            ],
-            "description": "Pięcioklasowy przedział wieku oskarżonego w chwili czynu. Stosuj stałe granice analityczne: poniżej 18 lat, 18–20, 21–24, 25–34, 35+.",
-            "name": "age_at_offense_bracket_5"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "age_status_at_offense",
-            "enum_values": [
-              "nieletni",
-              "młodociany",
-              "dorosły",
-              "nieustalony"
-            ],
-            "description": "Status wieku oskarżonego w chwili popełnienia czynu. Użyj kategorii wynikającej z treści dokumentu i przepisów; nie myl jej z samym wiekiem liczbowym.",
-            "name": "age_status_at_offense"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "offense_age_source",
-            "enum_values": [
-              "wprost_podany",
-              "wyliczony",
-              "przyblizony",
-              "nieustalony"
-            ],
-            "description": "Źródło informacji o wieku w chwili czynu. Użyj `wprost_podany`, gdy wiek jest zapisany wprost; `wyliczony`, gdy wynika z dat; `przyblizony`, gdy podano zakres lub opis przybliżony; `nieustalony`, gdy brak pewności.",
-            "name": "offense_age_source"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "offense_age_confidence",
-            "enum_values": [
-              "wysoka",
-              "srednia",
-              "niska",
-              "nieustalona"
-            ],
-            "description": "Ocena pewności ekstrakcji wieku w chwili czynu na podstawie treści dokumentu i możliwości jednoznacznego ustalenia dat.",
-            "name": "offense_age_confidence"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Dokładny wiek oskarżonego w chwili orzekania w pierwszej instancji, jeśli można go wiarygodnie wyliczyć lub jeśli podano go wprost.",
-            "name": "age_at_judgment_years"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "age_at_judgment_bracket_5",
-            "enum_values": [
-              "poniżej_18",
-              "18_20",
-              "21_24",
-              "25_34",
-              "35_plus"
-            ],
-            "description": "Pięcioklasowy przedział wieku oskarżonego w chwili orzekania; stosuj te same granice co dla wieku w chwili czynu.",
-            "name": "age_at_judgment_bracket_5"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "age_status_at_judgment",
-            "enum_values": [
-              "nieletni",
-              "młodociany",
-              "dorosły",
-              "nieustalony"
-            ],
-            "description": "Status wieku oskarżonego w chwili orzekania. Przydatne zwłaszcza wtedy, gdy dokument podaje daty pozwalające odróżnić wiek w chwili czynu i w chwili wyroku.",
-            "name": "age_status_at_judgment"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "judgment_age_source",
-            "enum_values": [
-              "wprost_podany",
-              "wyliczony",
-              "przyblizony",
-              "nieustalony"
-            ],
-            "description": "Źródło informacji o wieku w chwili orzekania. Użyj tych samych zasad co dla wieku w chwili czynu.",
-            "name": "judgment_age_source"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "judgment_age_confidence",
-            "enum_values": [
-              "wysoka",
-              "srednia",
-              "niska",
-              "nieustalona"
-            ],
-            "description": "Ocena pewności ekstrakcji wieku w chwili orzekania.",
-            "name": "judgment_age_confidence"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "sentence_main_type",
-            "enum_values": [
-              "pozbawienie_wolności",
-              "grzywna",
-              "ograniczenie_wolności",
-              "kara_łączona",
-              "brak",
-              "inna",
-              "nieustalony"
-            ],
-            "description": "Główny rodzaj reakcji karnej orzeczonej wobec oskarżonego. Przy warunkowym umorzeniu użyj `brak`.",
-            "name": "sentence_main_type"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Wymiar kary pozbawienia wolności w miesiącach, jeśli została orzeczona. Jeżeli kara podana jest w latach i miesiącach, przelicz ją na miesiące.",
-            "name": "imprisonment_months"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy wykonanie orzeczonej kary pozbawienia wolności zostało warunkowo zawieszone.",
-            "name": "imprisonment_suspended"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Okres próby przy warunkowym zawieszeniu wykonania kary pozbawienia wolności, w miesiącach.",
-            "name": "suspension_period_months"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Opis obowiązków, środków probacyjnych lub warunków związanych z zawieszeniem kary albo warunkowym umorzeniem postępowania.",
-            "name": "probation_obligations_description"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy zastosowano warunkowe umorzenie postępowania wobec tego oskarżonego.",
-            "name": "conditional_discontinuance_present"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Okres próby przy warunkowym umorzeniu postępowania, w miesiącach.",
-            "name": "conditional_discontinuance_period_months"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Liczba stawek dziennych grzywny, jeśli grzywnę orzeczono w takiej postaci.",
-            "name": "fine_daily_rates"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Wysokość jednej stawki dziennej grzywny w złotych, jeśli została wskazana.",
-            "name": "fine_daily_rate_amount_pln"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Łączna wysokość orzeczonej grzywny w złotych.",
-            "name": "fine_amount_pln"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Wymiar kary ograniczenia wolności w miesiącach, jeśli została orzeczona.",
-            "name": "restriction_of_liberty_months"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Liczba godzin pracy społecznej lub innego obowiązku w ramach ograniczenia wolności, jeśli została wskazana.",
-            "name": "restriction_of_liberty_hours_per_month"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Dodatkowe sankcje, środki karne, przepadek, świadczenia pieniężne lub inne elementy reakcji karnej, które wpływają na ocenę surowości, a nie zostały ujęte osobno.",
-            "name": "additional_sanctions_description"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "sentence_legal_basis_act",
-            "enum_values": [
-              "kodeks_karny",
-              "ustawa_o_przeciwdziałaniu_narkomanii",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Akt prawny wskazany jako podstawa rozstrzygnięcia o karze, zawieszeniu wykonania kary albo warunkowym umorzeniu.",
-            "name": "sentence_legal_basis_act"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Artykuły i paragrafy stanowiące ogólną podstawę wymiaru kary; jeśli jest ich kilka, oddziel je średnikami. Nie używaj tego pola do szczegółowej podstawy zawieszenia lub umorzenia, jeśli można je wydzielić osobno.",
-            "name": "sentence_basis_articles"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Artykuły i paragrafy stanowiące podstawę warunkowego zawieszenia wykonania kary; jeśli występują, wyodrębnij je z sentencji lub uzasadnienia.",
-            "name": "suspension_basis_articles"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Artykuły i paragrafy stanowiące podstawę warunkowego umorzenia postępowania; jeśli występują, wyodrębnij je z sentencji lub uzasadnienia.",
-            "name": "conditional_discontinuance_basis_articles"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy w orzeczeniu wskazano uprzednią karalność oskarżonego.",
-            "name": "prior_conviction_present"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy w sprawie stwierdzono recydywę.",
-            "name": "recidivism_present"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy oskarżony był uzależniony od środków odurzających lub substancji psychotropowych.",
-            "name": "addiction_present"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy działanie miało na celu osiągnięcie korzyści majątkowej.",
-            "name": "profit_motive_present"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy czyn został popełniony wspólnie z inną osobą lub innymi osobami.",
-            "name": "cooffending_present"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Konkretnie wskazane okoliczności łagodzące w sprawie; jeśli jest ich kilka, oddziel je średnikami.",
-            "name": "mitigating_circumstances_list"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Konkretnie wskazane okoliczności obciążające w sprawie; jeśli jest ich kilka, oddziel je średnikami.",
-            "name": "aggravating_circumstances_list"
-          },
-          {
-            "type_": "boolean",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Czy wobec tego oskarżonego występowały inne, równoległe czyny zabronione rozpoznawane w tej samej sprawie. Nie używaj tego pola dla wyroku łącznego ani dla wcześniejszych wyroków.",
-            "name": "defendant_parallel_offenses_present"
-          },
-          {
-            "type_": "integer",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Liczba równoległych czynów zabronionych uwzględnionych wobec tego oskarżonego w tej samej sprawie, jeśli da się ją ustalić.",
-            "name": "defendant_parallel_offenses_count"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Rodzaje równoległych czynów zabronionych występujących wobec tego oskarżonego; jeśli jest ich kilka, oddziel je średnikami.",
-            "name": "defendant_parallel_offense_types"
-          },
-          {
-            "type_": "enum",
-            "enum_name": "defendant_parallel_offense_legal_basis_act",
-            "enum_values": [
-              "ustawa_o_przeciwdziałaniu_narkomanii",
-              "kodeks_karny",
-              "inne",
-              "nieustalone"
-            ],
-            "description": "Akt prawny wskazany jako podstawa równoległych czynów zabronionych, jeśli został wymieniony.",
-            "name": "defendant_parallel_offense_legal_basis_act"
-          },
-          {
-            "type_": "string",
-            "enum_name": null,
-            "enum_values": [],
-            "description": "Artykuły, paragrafy i inne jednostki redakcyjne dotyczące równoległych czynów zabronionych wobec tego oskarżonego; jeśli jest ich kilka, oddziel je średnikami.",
-            "name": "defendant_parallel_offense_legal_basis_articles"
-          }
-        ]
-        ```
 
 === "GPT-5.4"
 
@@ -1223,7 +179,7 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
     === "🇬🇧 English"
 
-        *Descriptions translated from the model original Polish output.*
+        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
 
         | Field | Type | Description |
         |---|---|---|
@@ -2523,6 +1479,747 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
         ]
         ```
 
+=== "GPT-5.4 mini"
+
+    **76 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+
+    === "🇵🇱 Polski"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `sentence_target_charge_identifier` | string | Identyfikator czynu, do którego odnosi się orzeczona kara, zawieszenie albo warunkowe umorzenie. Użyj identyfikatora z `charge_identifier`; jeśli dotyczy kilku czynów, oddziel je średnikami. |
+        | `sentence_information_source_part` | enum | Część dokumentu, z której ustalono karę, zawieszenie wykonania kary albo warunkowe umorzenie postępowania. |
+        | `document_relevance_to_narcotics_study` | enum | Ocena przydatności dokumentu do badania zależności między wiekiem a karą w sprawach narkotykowych. Użyj `primary`, gdy dokument jest bezpośrednio o takim czynie, `secondary`, gdy jest tylko częściowo relewantny, `mixed`, gdy łączy kilka typów spraw, `not_relevant`, gdy nie nadaje się do analizy. |
+        | `sentence_targets_narcotics_offense` | boolean | Czy orzeczona kara lub decyzja procesowa dotyczy czynu narkotykowego, a nie wyłącznie innego równoległego czynu w tej samej sprawie. |
+        | `sentence_legal_basis_act` | enum | Akt prawny wskazany jako podstawa rozstrzygnięcia o karze, zawieszeniu wykonania kary albo warunkowym umorzeniu. |
+        | `sentence_basis_articles` | string | Artykuły i paragrafy stanowiące ogólną podstawę wymiaru kary; jeśli jest ich kilka, oddziel je średnikami. Nie używaj tego pola do szczegółowej podstawy zawieszenia lub umorzenia, jeśli można je wydzielić osobno. |
+        | `age_information_source_part` | enum | Część dokumentu, z której ustalono wiek oskarżonego. Szczególnie ważne, gdy wiek wynika z uzasadnienia, dat urodzenia albo dat czynu. |
+        | `narcotics_offense_is_primary_for_sentence` | boolean | Czy ten czyn narkotykowy jest czynem dominującym dla wymiaru kary w sprawie. Użyj szczególnie przy wielu zarzutach lub wieloczynowości. |
+        | `age_data_available` | boolean | Czy z dokumentu można wiarygodnie ustalić wiek oskarżonego w chwili czynu lub orzekania. |
+        | `age_not_derived_reason` | string | Krótki powód, dla którego wieku nie dało się wyliczyć lub ustalić. Użyj, gdy brak dat, podano tylko zakres, albo dane są sprzeczne. |
+
+    === "🇬🇧 English"
+
+        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `sentence_target_charge_identifier` | string | Identifier of the charge that the sentence, suspension, or conditional discontinuation refers to. |
+        | `sentence_information_source_part` | enum | Part of the document the sentence, suspension, or conditional discontinuation was determined from. |
+        | `document_relevance_to_narcotics_study` | enum | How useful the document is for studying the age-sentence relationship in drug cases (primary, secondary, mixed, not relevant). |
+        | `sentence_targets_narcotics_offense` | boolean | Whether the imposed sentence concerns the drug offense, rather than only a parallel offense in the same case. |
+        | `sentence_legal_basis_act` | enum | Legal act cited as the basis for the sentence, suspension, or conditional discontinuation. |
+        | `sentence_basis_articles` | string | Articles and paragraphs forming the general legal basis for the sentence. |
+        | `age_information_source_part` | enum | Part of the document the defendant's age was established from. |
+        | `narcotics_offense_is_primary_for_sentence` | boolean | Whether the drug offense is the dominant offense for sentencing purposes in the case. |
+        | `age_data_available` | boolean | Whether the defendant's age at the time of the offense or ruling can be reliably established from the document. |
+        | `age_not_derived_reason` | string | Short reason why the age could not be computed or established. |
+
+    ??? note "Show full schema (76 fields, raw JSON, original language)"
+
+        ```json
+        [
+          {
+            "type_": "enum",
+            "enum_name": "document_type",
+            "enum_values": [
+              "wyrok_skazujacy",
+              "warunkowe_umorzenie",
+              "wyrok_laczny",
+              "apelacja",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Typ dokumentu/orzeczenia. Użyj `wyrok_laczny` tylko wtedy, gdy dokument dotyczy wyłącznie wyroku łącznego. `apelacja` stosuj, gdy dokumentem jest orzeczenie apelacyjne lub dokument o takim charakterze.",
+            "name": "document_type"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "source_document_role",
+            "enum_values": [
+              "original_judgment",
+              "appeal",
+              "combined_sentence",
+              "other",
+              "nieustalone"
+            ],
+            "description": "Rola dokumentu w badaniu. Użyj do odróżnienia wyroku pierwotnego, apelacji i wyroku łącznego; pole pomaga filtrować materiały nieporównywalne z orzeczeniami pierwszoinstancyjnymi.",
+            "name": "source_document_role"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "source_record_scope",
+            "enum_values": [
+              "whole_document",
+              "single_defendant",
+              "single_charge",
+              "single_sentence",
+              "mixed",
+              "nieustalone"
+            ],
+            "description": "Zakres dokumentu, z którego pochodzi rekord. Użyj, aby zaznaczyć, czy dane dotyczą całego dokumentu, jednego oskarżonego, jednego czynu, jednej reakcji karnej czy materiału mieszanego.",
+            "name": "source_record_scope"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "source_document_part",
+            "enum_values": [
+              "sentencja",
+              "uzasadnienie",
+              "apelacja",
+              "postanowienie",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Główna część dokumentu, z której pochodzi rekord. Wybierz część, w której faktycznie odnaleziono daną informację.",
+            "name": "source_document_part"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "age_information_source_part",
+            "enum_values": [
+              "sentencja",
+              "uzasadnienie",
+              "apelacja",
+              "postanowienie",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Część dokumentu, z której ustalono wiek oskarżonego. Szczególnie ważne, gdy wiek wynika z uzasadnienia, dat urodzenia albo dat czynu.",
+            "name": "age_information_source_part"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "sentence_information_source_part",
+            "enum_values": [
+              "sentencja",
+              "uzasadnienie",
+              "apelacja",
+              "postanowienie",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Część dokumentu, z której ustalono karę, zawieszenie wykonania kary albo warunkowe umorzenie postępowania.",
+            "name": "sentence_information_source_part"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "record_level",
+            "enum_values": [
+              "document",
+              "defendant",
+              "offense",
+              "sentence",
+              "nieustalone"
+            ],
+            "description": "Poziom, którego dotyczy rekord. Użyj `defendant` dla danych osoby, `offense` dla danych o czynie, `sentence` dla danych o reakcji karnej i `document` dla cech całego orzeczenia.",
+            "name": "record_level"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "document_relevance_to_narcotics_study",
+            "enum_values": [
+              "primary",
+              "secondary",
+              "mixed",
+              "not_relevant",
+              "nieustalone"
+            ],
+            "description": "Ocena przydatności dokumentu do badania zależności między wiekiem a karą w sprawach narkotykowych. Użyj `primary`, gdy dokument jest bezpośrednio o takim czynie, `secondary`, gdy jest tylko częściowo relewantny, `mixed`, gdy łączy kilka typów spraw, `not_relevant`, gdy nie nadaje się do analizy.",
+            "name": "document_relevance_to_narcotics_study"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy sprawa narkotykowa jest głównym przedmiotem dokumentu. Ustaw `true`, gdy czyn narkotykowy stanowi centralny element orzeczenia; `false`, gdy pojawia się jedynie ubocznie.",
+            "name": "narcotics_case_is_primary_subject"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "case_outcome",
+            "enum_values": [
+              "skazanie",
+              "warunkowe_umorzenie",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Merytoryczny wynik sprawy wobec oskarżonego. Dla tej analizy używaj przede wszystkim `skazanie` albo `warunkowe_umorzenie`.",
+            "name": "case_outcome"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy dokument jest wyrokiem łącznym. Ustaw `true` tylko wtedy, gdy sentencja dotyczy połączenia wcześniej orzeczonych kar.",
+            "name": "is_combined_sentence"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy w sprawie występują wcześniejsze wyroki lub skazania objęte wyrokiem łącznym. Pole stosuj wyłącznie przy `document_type=wyrok_laczny`.",
+            "name": "underlying_judgments_present"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Liczba wcześniejszych wyroków lub spraw objętych wyrokiem łącznym, jeśli dokument jest wyrokiem łącznym i da się to jednoznacznie ustalić.",
+            "name": "underlying_judgment_count"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Oznaczenie oskarżonego, którego dotyczy rekord, np. inicjały, numer porządkowy albo inny identyfikator z dokumentu. Przydatne przy wielu oskarżonych.",
+            "name": "defendant_identifier"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Oznaczenie czynu lub zarzutu, którego dotyczy rekord, np. numer czynu, punkt sentencji albo krótki opis. Przydatne przy wielu czynach w jednej sprawie.",
+            "name": "charge_identifier"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy orzeczona kara lub decyzja procesowa dotyczy czynu narkotykowego, a nie wyłącznie innego równoległego czynu w tej samej sprawie.",
+            "name": "sentence_targets_narcotics_offense"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Identyfikator czynu, do którego odnosi się orzeczona kara, zawieszenie albo warunkowe umorzenie. Użyj identyfikatora z `charge_identifier`; jeśli dotyczy kilku czynów, oddziel je średnikami.",
+            "name": "sentence_target_charge_identifier"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Liczba odrębnych czynów narkotykowych przypisanych temu oskarżonemu w dokumencie. Jeśli sprawa obejmuje kilka zarzutów narkotykowych, podaj liczbę możliwie jednoznacznie.",
+            "name": "narcotics_offense_count"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "narcotics_offense_main_type",
+            "enum_values": [
+              "posiadanie",
+              "udzielanie",
+              "obrót",
+              "wprowadzanie_do_obrotu",
+              "wytwarzanie",
+              "przerabianie",
+              "uprawa",
+              "nabycie",
+              "przemyt",
+              "przechowywanie",
+              "inne_narkotyczne",
+              "nieustalone"
+            ],
+            "description": "Główny typ czynu narkotykowego przypisanego rekordowi. Jeśli w sprawie jest kilka czynów, wybierz typ najbardziej związany z wymiarem kary.",
+            "name": "narcotics_offense_main_type"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy ten czyn narkotykowy jest czynem dominującym dla wymiaru kary w sprawie. Użyj szczególnie przy wielu zarzutach lub wieloczynowości.",
+            "name": "narcotics_offense_is_primary_for_sentence"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Wszystkie typy czynów narkotykowych występujące w tym rekordzie, oddzielone średnikami. Użyj tego pola szczególnie w sprawach wieloczynowych.",
+            "name": "narcotics_offense_types"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Pozostałe typy czynów narkotykowych występujące u tego oskarżonego; jeśli jest ich kilka, oddziel je średnikami.",
+            "name": "narcotics_offense_additional_types"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "offense_legal_basis_act",
+            "enum_values": [
+              "ustawa_o_przeciwdziałaniu_narkomanii",
+              "kodeks_karny",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Akt prawny wskazany jako podstawa kwalifikacji czynu narkotykowego.",
+            "name": "offense_legal_basis_act"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Artykuły, paragrafy i inne jednostki redakcyjne stanowiące podstawę kwalifikacji czynu narkotykowego; jeśli jest ich kilka, oddziel je średnikami.",
+            "name": "offense_legal_basis_articles"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "substance_category",
+            "enum_values": [
+              "środek_odurzający",
+              "substancja_psychotropowa",
+              "nowa_substancja_psychoaktywna",
+              "mieszana",
+              "nieustalone"
+            ],
+            "description": "Kategoria substancji objętej czynem, jeśli została wskazana w orzeczeniu.",
+            "name": "substance_category"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Nazwa środka odurzającego, substancji psychotropowej lub nowej substancji psychoaktywnej; jeśli wskazano kilka substancji, oddziel je średnikami.",
+            "name": "substance_name"
+          },
+          {
+            "type_": "float",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Ilość substancji wskazana w orzeczeniu jako wartość liczbowa, w jednostce podanej w `substance_quantity_unit`. Używaj tylko wtedy, gdy liczba jest jednoznaczna.",
+            "name": "substance_quantity"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Tekstowy zapis ilości substancji, jeśli nie da się jej pewnie sprowadzić do jednej liczby, np. 'kilka gramów', 'około 10 porcji', 'znaczna ilość'.",
+            "name": "substance_quantity_text"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy ilość substancji jest nieprecyzyjna, szacunkowa albo opisana bez jednoznacznej wartości liczbowej.",
+            "name": "quantity_uncertain"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "substance_quantity_unit",
+            "enum_values": [
+              "g",
+              "mg",
+              "kg",
+              "ml",
+              "tabletki",
+              "porcje",
+              "dawki",
+              "sztuki",
+              "opakowania",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Jednostka, w której podano ilość substancji; jeśli ilość jest opisana słownie lub wielkościowo, użyj `inne` albo `nieustalone`.",
+            "name": "substance_quantity_unit"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "substance_quantity_basis",
+            "enum_values": [
+              "netto",
+              "brutto",
+              "nieustalone"
+            ],
+            "description": "Podstawa podanej ilości substancji. Ustal, czy chodzi o ilość netto czy brutto; jeśli dokument tego nie rozróżnia, użyj `nieustalone`.",
+            "name": "substance_quantity_basis"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "purpose_of_action",
+            "enum_values": [
+              "na_wlasny_uzytek",
+              "sprzedaż_lub_dalsza_odsprzedaż",
+              "osiągnięcie_korzyści_majątkowej",
+              "dystrybucja",
+              "wprowadzenie_do_obrotu",
+              "inne",
+              "nieustalony"
+            ],
+            "description": "Ustalony lub wskazany w uzasadnieniu cel działania oskarżonego, np. na własny użytek, sprzedaż, dalsza odsprzedaż, wprowadzenie do obrotu, dystrybucja lub osiągnięcie korzyści majątkowej.",
+            "name": "purpose_of_action"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Dodatkowy opis celu działania, jeśli cel nie mieści się w wartościach enuma albo wymaga doprecyzowania. Zachowaj możliwie wierne brzmienie z dokumentu.",
+            "name": "purpose_of_action_description"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy z dokumentu można wiarygodnie ustalić wiek oskarżonego w chwili czynu lub orzekania.",
+            "name": "age_data_available"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Krótki powód, dla którego wieku nie dało się wyliczyć lub ustalić. Użyj, gdy brak dat, podano tylko zakres, albo dane są sprzeczne.",
+            "name": "age_not_derived_reason"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Data urodzenia oskarżonego, najlepiej w formacie YYYY-MM-DD; jeśli dokument podaje tylko rok albo inny zakres, zachowaj zapis tekstowy.",
+            "name": "date_of_birth"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Data popełnienia czynu lub zakres dat czynu, jeśli taki zakres podano w dokumentach. Pole służy do wyliczania wieku w chwili czynu.",
+            "name": "offense_date"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Dokładny wiek oskarżonego w chwili popełnienia czynu, jeśli można go wiarygodnie wyliczyć z daty urodzenia i daty czynu albo jeśli wiek podano wprost.",
+            "name": "age_at_offense_years"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "age_at_offense_bracket_5",
+            "enum_values": [
+              "poniżej_18",
+              "18_20",
+              "21_24",
+              "25_34",
+              "35_plus"
+            ],
+            "description": "Pięcioklasowy przedział wieku oskarżonego w chwili czynu. Stosuj stałe granice analityczne: poniżej 18 lat, 18–20, 21–24, 25–34, 35+.",
+            "name": "age_at_offense_bracket_5"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "age_status_at_offense",
+            "enum_values": [
+              "nieletni",
+              "młodociany",
+              "dorosły",
+              "nieustalony"
+            ],
+            "description": "Status wieku oskarżonego w chwili popełnienia czynu. Użyj kategorii wynikającej z treści dokumentu i przepisów; nie myl jej z samym wiekiem liczbowym.",
+            "name": "age_status_at_offense"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "offense_age_source",
+            "enum_values": [
+              "wprost_podany",
+              "wyliczony",
+              "przyblizony",
+              "nieustalony"
+            ],
+            "description": "Źródło informacji o wieku w chwili czynu. Użyj `wprost_podany`, gdy wiek jest zapisany wprost; `wyliczony`, gdy wynika z dat; `przyblizony`, gdy podano zakres lub opis przybliżony; `nieustalony`, gdy brak pewności.",
+            "name": "offense_age_source"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "offense_age_confidence",
+            "enum_values": [
+              "wysoka",
+              "srednia",
+              "niska",
+              "nieustalona"
+            ],
+            "description": "Ocena pewności ekstrakcji wieku w chwili czynu na podstawie treści dokumentu i możliwości jednoznacznego ustalenia dat.",
+            "name": "offense_age_confidence"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Dokładny wiek oskarżonego w chwili orzekania w pierwszej instancji, jeśli można go wiarygodnie wyliczyć lub jeśli podano go wprost.",
+            "name": "age_at_judgment_years"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "age_at_judgment_bracket_5",
+            "enum_values": [
+              "poniżej_18",
+              "18_20",
+              "21_24",
+              "25_34",
+              "35_plus"
+            ],
+            "description": "Pięcioklasowy przedział wieku oskarżonego w chwili orzekania; stosuj te same granice co dla wieku w chwili czynu.",
+            "name": "age_at_judgment_bracket_5"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "age_status_at_judgment",
+            "enum_values": [
+              "nieletni",
+              "młodociany",
+              "dorosły",
+              "nieustalony"
+            ],
+            "description": "Status wieku oskarżonego w chwili orzekania. Przydatne zwłaszcza wtedy, gdy dokument podaje daty pozwalające odróżnić wiek w chwili czynu i w chwili wyroku.",
+            "name": "age_status_at_judgment"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "judgment_age_source",
+            "enum_values": [
+              "wprost_podany",
+              "wyliczony",
+              "przyblizony",
+              "nieustalony"
+            ],
+            "description": "Źródło informacji o wieku w chwili orzekania. Użyj tych samych zasad co dla wieku w chwili czynu.",
+            "name": "judgment_age_source"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "judgment_age_confidence",
+            "enum_values": [
+              "wysoka",
+              "srednia",
+              "niska",
+              "nieustalona"
+            ],
+            "description": "Ocena pewności ekstrakcji wieku w chwili orzekania.",
+            "name": "judgment_age_confidence"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "sentence_main_type",
+            "enum_values": [
+              "pozbawienie_wolności",
+              "grzywna",
+              "ograniczenie_wolności",
+              "kara_łączona",
+              "brak",
+              "inna",
+              "nieustalony"
+            ],
+            "description": "Główny rodzaj reakcji karnej orzeczonej wobec oskarżonego. Przy warunkowym umorzeniu użyj `brak`.",
+            "name": "sentence_main_type"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Wymiar kary pozbawienia wolności w miesiącach, jeśli została orzeczona. Jeżeli kara podana jest w latach i miesiącach, przelicz ją na miesiące.",
+            "name": "imprisonment_months"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy wykonanie orzeczonej kary pozbawienia wolności zostało warunkowo zawieszone.",
+            "name": "imprisonment_suspended"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Okres próby przy warunkowym zawieszeniu wykonania kary pozbawienia wolności, w miesiącach.",
+            "name": "suspension_period_months"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Opis obowiązków, środków probacyjnych lub warunków związanych z zawieszeniem kary albo warunkowym umorzeniem postępowania.",
+            "name": "probation_obligations_description"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy zastosowano warunkowe umorzenie postępowania wobec tego oskarżonego.",
+            "name": "conditional_discontinuance_present"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Okres próby przy warunkowym umorzeniu postępowania, w miesiącach.",
+            "name": "conditional_discontinuance_period_months"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Liczba stawek dziennych grzywny, jeśli grzywnę orzeczono w takiej postaci.",
+            "name": "fine_daily_rates"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Wysokość jednej stawki dziennej grzywny w złotych, jeśli została wskazana.",
+            "name": "fine_daily_rate_amount_pln"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Łączna wysokość orzeczonej grzywny w złotych.",
+            "name": "fine_amount_pln"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Wymiar kary ograniczenia wolności w miesiącach, jeśli została orzeczona.",
+            "name": "restriction_of_liberty_months"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Liczba godzin pracy społecznej lub innego obowiązku w ramach ograniczenia wolności, jeśli została wskazana.",
+            "name": "restriction_of_liberty_hours_per_month"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Dodatkowe sankcje, środki karne, przepadek, świadczenia pieniężne lub inne elementy reakcji karnej, które wpływają na ocenę surowości, a nie zostały ujęte osobno.",
+            "name": "additional_sanctions_description"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "sentence_legal_basis_act",
+            "enum_values": [
+              "kodeks_karny",
+              "ustawa_o_przeciwdziałaniu_narkomanii",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Akt prawny wskazany jako podstawa rozstrzygnięcia o karze, zawieszeniu wykonania kary albo warunkowym umorzeniu.",
+            "name": "sentence_legal_basis_act"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Artykuły i paragrafy stanowiące ogólną podstawę wymiaru kary; jeśli jest ich kilka, oddziel je średnikami. Nie używaj tego pola do szczegółowej podstawy zawieszenia lub umorzenia, jeśli można je wydzielić osobno.",
+            "name": "sentence_basis_articles"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Artykuły i paragrafy stanowiące podstawę warunkowego zawieszenia wykonania kary; jeśli występują, wyodrębnij je z sentencji lub uzasadnienia.",
+            "name": "suspension_basis_articles"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Artykuły i paragrafy stanowiące podstawę warunkowego umorzenia postępowania; jeśli występują, wyodrębnij je z sentencji lub uzasadnienia.",
+            "name": "conditional_discontinuance_basis_articles"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy w orzeczeniu wskazano uprzednią karalność oskarżonego.",
+            "name": "prior_conviction_present"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy w sprawie stwierdzono recydywę.",
+            "name": "recidivism_present"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy oskarżony był uzależniony od środków odurzających lub substancji psychotropowych.",
+            "name": "addiction_present"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy działanie miało na celu osiągnięcie korzyści majątkowej.",
+            "name": "profit_motive_present"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy czyn został popełniony wspólnie z inną osobą lub innymi osobami.",
+            "name": "cooffending_present"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Konkretnie wskazane okoliczności łagodzące w sprawie; jeśli jest ich kilka, oddziel je średnikami.",
+            "name": "mitigating_circumstances_list"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Konkretnie wskazane okoliczności obciążające w sprawie; jeśli jest ich kilka, oddziel je średnikami.",
+            "name": "aggravating_circumstances_list"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy wobec tego oskarżonego występowały inne, równoległe czyny zabronione rozpoznawane w tej samej sprawie. Nie używaj tego pola dla wyroku łącznego ani dla wcześniejszych wyroków.",
+            "name": "defendant_parallel_offenses_present"
+          },
+          {
+            "type_": "integer",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Liczba równoległych czynów zabronionych uwzględnionych wobec tego oskarżonego w tej samej sprawie, jeśli da się ją ustalić.",
+            "name": "defendant_parallel_offenses_count"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Rodzaje równoległych czynów zabronionych występujących wobec tego oskarżonego; jeśli jest ich kilka, oddziel je średnikami.",
+            "name": "defendant_parallel_offense_types"
+          },
+          {
+            "type_": "enum",
+            "enum_name": "defendant_parallel_offense_legal_basis_act",
+            "enum_values": [
+              "ustawa_o_przeciwdziałaniu_narkomanii",
+              "kodeks_karny",
+              "inne",
+              "nieustalone"
+            ],
+            "description": "Akt prawny wskazany jako podstawa równoległych czynów zabronionych, jeśli został wymieniony.",
+            "name": "defendant_parallel_offense_legal_basis_act"
+          },
+          {
+            "type_": "string",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Artykuły, paragrafy i inne jednostki redakcyjne dotyczące równoległych czynów zabronionych wobec tego oskarżonego; jeśli jest ich kilka, oddziel je średnikami.",
+            "name": "defendant_parallel_offense_legal_basis_articles"
+          }
+        ]
+        ```
+
 === "Claude Sonnet 4.6"
 
     **68 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
@@ -2544,7 +2241,7 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
     === "🇬🇧 English"
 
-        *Descriptions translated from the model original Polish output.*
+        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
 
         | Field | Type | Description |
         |---|---|---|
@@ -3163,7 +2860,7 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
     === "🇬🇧 English"
 
-        *Descriptions translated from the model original Polish output.*
+        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
 
         | Field | Type | Description |
         |---|---|---|
@@ -3444,3 +3141,313 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
           }
         ]
         ```
+
+=== "GPT-5.4 nano"
+
+    **24 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+
+    === "🇵🇱 Polski"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `defendant_1_age_bucket_5_from_text_present` | enum | Czy dla slota 1 da się przypisać bucket 5 wyłącznie z opisów jakościowych (np. „w wieku nastoletnim”, „nieletni”, „w wieku około 20 lat”), mimo braku możliwości wyliczenia wieku liczbowo? |
+        | `appeal_sentence_changed` | boolean | Czy rozstrzygnięcie zmieniło uprzednio orzeczoną karę/jej dolegliwość wskutek środka odwoławczego. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` oraz decyzja jest odwoławcza (np. `decision_procedure_stage=odwoławcze`); w przeciwnym razie ustaw false. |
+        | `appeal_change_type` | enum | Kierunek zmiany kary na skutek apelacji/odwołania. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` i `decision_procedure_stage=odwoławcze`; w przeciwnym razie ustaw `nieustalone`. |
+        | `defendant_1_age_years_available` | boolean | Czy dla slota 1 da się wyliczyć wiek liczbowo (np. na podstawie pełnej daty urodzenia + daty czynu/ustalenia, albo na podstawie wskazanego wprost wieku). Jeśli dokument podaje tylko „urodz. (...)” bez daty dziennej/pełnej — ustaw false. |
+        | `defendant_1_narcotics_role_in_this_outcome` | enum | Rola narkotyków w tym rozstrzygnięciu dla slota 1: `dominujący_w_tym_orzeczeniu`, gdy w tej decyzji sąd faktycznie rozstrzyga w oparciu o ustalenia dotyczące narkotyków (kwalifikacja i/lub opis faktów o substancjach/ilości/celu w kontekście kary); `tylko_w_tle_wyrokow_jednostkowych`, gdy dokument ma charakter wyroku łącznego i szczegóły narkotykowe są jedynie „w tle” kar jednostkowych bez ponownego ustalania; `nie_dotyczy_w_tym_orzeczeniu`, gdy w tej decyzji nie ma odniesień do narkotyków; `nieustalone`, gdy nie da się tego rozstrzygnąć. |
+        | `defendant_1_drug_action_purpose_info_present` | enum | Czy w tekście dla slota 1 jest informacja o celu działania (np. własny użytek vs obrót/korzyść) w kontekście tej decyzji? `cel_wprost` gdy jest wskazany wprost; `cel_pośrednio` gdy cel wynika z okoliczności opisanych przez sąd; `brak_opisu_celu` gdy nie ma opisu celu; `nieustalone` gdy nie da się ocenić. |
+        | `defendant_2_age_years_available` | boolean | Czy dla slota 2 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek). |
+        | `defendant_2_age_bucket_5_from_text_present` | enum | Czy dla slota 2 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo? |
+        | `defendant_3_age_years_available` | boolean | Czy dla slota 3 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek). |
+        | `defendant_3_age_bucket_5_from_text_present` | enum | Czy dla slota 3 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo? |
+
+    === "🇬🇧 English"
+
+        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `defendant_1_age_bucket_5_from_text_present` | enum | Whether defendant 1's 5-way age bracket can be assigned purely from qualitative descriptions (e.g. "teenage", "minor"), even without a numeric age. |
+        | `appeal_sentence_changed` | boolean | Whether the appellate decision changed the previously imposed sentence. |
+        | `appeal_change_type` | enum | Direction of the sentence change resulting from an appeal (harsher, more lenient, changed sentence type). |
+        | `defendant_1_age_years_available` | boolean | Whether defendant 1's exact numeric age can be computed from the document. |
+        | `defendant_1_narcotics_role_in_this_outcome` | enum | The role drugs play in this particular ruling for defendant 1 (dominant, background only, not applicable, undetermined). |
+        | `defendant_1_drug_action_purpose_info_present` | enum | Whether the text states the purpose of defendant 1's action (own use vs. dealing/profit), and how explicitly. |
+        | `defendant_2_age_years_available` | boolean | Whether defendant 2's exact numeric age can be computed from the document. |
+        | `defendant_2_age_bucket_5_from_text_present` | enum | Whether defendant 2's 5-way age bracket can be assigned from qualitative descriptions alone. |
+        | `defendant_3_age_years_available` | boolean | Whether defendant 3's exact numeric age can be computed from the document. |
+        | `defendant_3_age_bucket_5_from_text_present` | enum | Whether defendant 3's 5-way age bracket can be assigned from qualitative descriptions alone. |
+
+    ??? note "Show full schema (24 fields, raw JSON, original language)"
+
+        ```json
+        [
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy w samej treści/tym fragmencie dokumentu (sentencja lub jednoznaczny opis rozstrzygnięcia w uzasadnieniu) pojawia się informacja, że sprawa ma charakter odwoławczy / rozpoznano apelację lub zmieniono karę w ramach tej właśnie decyzji? Ustawiaj true tylko, gdy apelacja/zmiana w zakresie kary jest wprost istotna dla tego dokumentu; false gdy wzmianka o postępowaniu odwoławczym występuje tylko jako tło w innych sprawach.",
+            "name": "appeal_procedure_relevant_to_this_sentence"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy rozstrzygnięcie zmieniło uprzednio orzeczoną karę/jej dolegliwość wskutek środka odwoławczego. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` oraz decyzja jest odwoławcza (np. `decision_procedure_stage=odwoławcze`); w przeciwnym razie ustaw false.",
+            "name": "appeal_sentence_changed"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "zaostrzenie",
+              "zlagodzenie",
+              "zmiana_rodzaju_kary",
+              "nieustalone"
+            ],
+            "description": "Kierunek zmiany kary na skutek apelacji/odwołania. Koduj tylko jeśli `appeal_procedure_relevant_to_this_sentence=true` i `decision_procedure_stage=odwoławcze`; w przeciwnym razie ustaw `nieustalone`.",
+            "name": "appeal_change_type"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy dla slota 1 da się wyliczyć wiek liczbowo (np. na podstawie pełnej daty urodzenia + daty czynu/ustalenia, albo na podstawie wskazanego wprost wieku). Jeśli dokument podaje tylko „urodz. (...)” bez daty dziennej/pełnej — ustaw false.",
+            "name": "defendant_1_age_years_available"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "tak",
+              "nie",
+              "nieustalone"
+            ],
+            "description": "Czy dla slota 1 da się przypisać bucket 5 wyłącznie z opisów jakościowych (np. „w wieku nastoletnim”, „nieletni”, „w wieku około 20 lat”), mimo braku możliwości wyliczenia wieku liczbowo?",
+            "name": "defendant_1_age_bucket_5_from_text_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "bucket_1",
+              "bucket_2",
+              "bucket_3",
+              "bucket_4",
+              "bucket_5",
+              "brak_danych"
+            ],
+            "description": "Bucket 5 dla slota 1 wyznaczony z treści opisowej, gdy `defendant_1_age_bucket_5_from_text_present=tak`. Jeśli nie da się w sposób odtwarzalny przypisać, ustaw `brak_danych`. Buckety interpretuj zgodnie z `age_bucket_scheme_definition`.",
+            "name": "defendant_1_age_bucket_5_from_text"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "dominujący_w_tym_orzeczeniu",
+              "tylko_w_tle_wyrokow_jednostkowych",
+              "nie_dotyczy_w_tym_orzeczeniu",
+              "nieustalone"
+            ],
+            "description": "Rola narkotyków w tym rozstrzygnięciu dla slota 1: `dominujący_w_tym_orzeczeniu`, gdy w tej decyzji sąd faktycznie rozstrzyga w oparciu o ustalenia dotyczące narkotyków (kwalifikacja i/lub opis faktów o substancjach/ilości/celu w kontekście kary); `tylko_w_tle_wyrokow_jednostkowych`, gdy dokument ma charakter wyroku łącznego i szczegóły narkotykowe są jedynie „w tle” kar jednostkowych bez ponownego ustalania; `nie_dotyczy_w_tym_orzeczeniu`, gdy w tej decyzji nie ma odniesień do narkotyków; `nieustalone`, gdy nie da się tego rozstrzygnąć.",
+            "name": "defendant_1_narcotics_role_in_this_outcome"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "ilość_wprost",
+              "ilość_pośrednio",
+              "brak_ilości_opisu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 1 jest informacja o ilości (waga/objętość/liczba jednostek) dotycząca narkotyków w kontekście tej decyzji? `ilość_wprost` gdy jest podana ilość; `ilość_pośrednio` gdy ilość wynika z przeliczeń/danych zastępczych w opisie; `brak_ilości_opisu` gdy nie ma ilości; `nieustalone` gdy nie da się ocenić.",
+            "name": "defendant_1_drug_amount_info_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "substancja_wprost",
+              "substancja_pośrednio",
+              "brak_substancji_opisu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 1 jest informacja o rodzaju substancji? `substancja_wprost` gdy nazwa grupy/konkretnej substancji jest wskazana wprost; `substancja_pośrednio` gdy wynika z kwalifikacji lub opisu bez pełnej nazwy; `brak_substancji_opisu` gdy nie ma informacji; `nieustalone` gdy nie da się ocenić.",
+            "name": "defendant_1_drug_substance_type_info_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "cel_wprost",
+              "cel_pośrednio",
+              "brak_opisu_celu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 1 jest informacja o celu działania (np. własny użytek vs obrót/korzyść) w kontekście tej decyzji? `cel_wprost` gdy jest wskazany wprost; `cel_pośrednio` gdy cel wynika z okoliczności opisanych przez sąd; `brak_opisu_celu` gdy nie ma opisu celu; `nieustalone` gdy nie da się ocenić.",
+            "name": "defendant_1_drug_action_purpose_info_present"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy dla slota 2 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek).",
+            "name": "defendant_2_age_years_available"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "tak",
+              "nie",
+              "nieustalone"
+            ],
+            "description": "Czy dla slota 2 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo?",
+            "name": "defendant_2_age_bucket_5_from_text_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "bucket_1",
+              "bucket_2",
+              "bucket_3",
+              "bucket_4",
+              "bucket_5",
+              "brak_danych"
+            ],
+            "description": "Bucket 5 dla slota 2 wyznaczony z treści opisowej, gdy `defendant_2_age_bucket_5_from_text_present=tak`. Buckety interpretuj zgodnie z `age_bucket_scheme_definition`.",
+            "name": "defendant_2_age_bucket_5_from_text"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "dominujący_w_tym_orzeczeniu",
+              "tylko_w_tle_wyrokow_jednostkowych",
+              "nie_dotyczy_w_tym_orzeczeniu",
+              "nieustalone"
+            ],
+            "description": "Rola narkotyków w tym rozstrzygnięciu dla slota 2 (analogicznie jak dla slota 1).",
+            "name": "defendant_2_narcotics_role_in_this_outcome"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "ilość_wprost",
+              "ilość_pośrednio",
+              "brak_ilości_opisu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 2 jest informacja o ilości narkotyków w kontekście tej decyzji (analogicznie jak dla slota 1).",
+            "name": "defendant_2_drug_amount_info_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "substancja_wprost",
+              "substancja_pośrednio",
+              "brak_substancji_opisu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 2 jest informacja o rodzaju substancji (analogicznie jak dla slota 1).",
+            "name": "defendant_2_drug_substance_type_info_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "cel_wprost",
+              "cel_pośrednio",
+              "brak_opisu_celu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 2 jest informacja o celu działania (analogicznie jak dla slota 1).",
+            "name": "defendant_2_drug_action_purpose_info_present"
+          },
+          {
+            "type_": "boolean",
+            "enum_name": null,
+            "enum_values": [],
+            "description": "Czy dla slota 3 da się wyliczyć wiek liczbowo (pełna data urodzenia i odniesienie czasowe lub wskazany wprost wiek).",
+            "name": "defendant_3_age_years_available"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "tak",
+              "nie",
+              "nieustalone"
+            ],
+            "description": "Czy dla slota 3 da się przypisać bucket 5 wyłącznie z opisów jakościowych, mimo braku możliwości wyliczenia wieku liczbowo?",
+            "name": "defendant_3_age_bucket_5_from_text_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "bucket_1",
+              "bucket_2",
+              "bucket_3",
+              "bucket_4",
+              "bucket_5",
+              "brak_danych"
+            ],
+            "description": "Bucket 5 dla slota 3 wyznaczony z treści opisowej, gdy `defendant_3_age_bucket_5_from_text_present=tak`. Buckety interpretuj zgodnie z `age_bucket_scheme_definition`.",
+            "name": "defendant_3_age_bucket_5_from_text"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "dominujący_w_tym_orzeczeniu",
+              "tylko_w_tle_wyrokow_jednostkowych",
+              "nie_dotyczy_w_tym_orzeczeniu",
+              "nieustalone"
+            ],
+            "description": "Rola narkotyków w tym rozstrzygnięciu dla slota 3 (analogicznie jak dla slota 1).",
+            "name": "defendant_3_narcotics_role_in_this_outcome"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "ilość_wprost",
+              "ilość_pośrednio",
+              "brak_ilości_opisu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 3 jest informacja o ilości narkotyków w kontekście tej decyzji (analogicznie jak dla slota 1).",
+            "name": "defendant_3_drug_amount_info_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "substancja_wprost",
+              "substancja_pośrednio",
+              "brak_substancji_opisu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 3 jest informacja o rodzaju substancji (analogicznie jak dla slota 1).",
+            "name": "defendant_3_drug_substance_type_info_present"
+          },
+          {
+            "type_": "enum",
+            "enum_name": null,
+            "enum_values": [
+              "cel_wprost",
+              "cel_pośrednio",
+              "brak_opisu_celu",
+              "nieustalone"
+            ],
+            "description": "Czy w tekście dla slota 3 jest informacja o celu działania (analogicznie jak dla slota 1).",
+            "name": "defendant_3_drug_action_purpose_info_present"
+          }
+        ]
+        ```
+

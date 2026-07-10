@@ -4,7 +4,13 @@
   <p style="font-size: 1.1rem; color: var(--md-default-fg-color--light); max-width: 640px; margin: 0 auto;">Three real runs of the schematize pipeline, end to end: the clarification chat, then the extraction schema it produced.</p>
 </div>
 
-Each case below is a real, unedited pipeline run against a real research question — no cherry-picking of a "nice" answer. The clarifying-question exchange is shown verbatim in Polish and in an English translation; the assistant's longer turns are condensed for readability. The same case was then run through five different LLMs, so you can compare how schema shape and coverage change with the model.
+Each case below is a real, unedited pipeline run against a real research question — no cherry-picking of a "nice" answer. All runs were conducted in Polish; the assistant's longer turns are condensed for readability. The same case was then run through five different LLMs, so you can compare how schema shape and coverage change with the model.
+
+!!! warning "About the English text on these pages"
+    Every run shown here was performed in Polish — the prompts, conversation, and generated schema
+    field descriptions are all originally in Polish. The English versions on each page are **machine
+    translations** produced after the fact for readability, not translations reviewed by a native
+    speaker. If anything reads oddly in English, treat the Polish tab as the source of truth.
 
 <div class="grid cards case-cards" markdown>
 

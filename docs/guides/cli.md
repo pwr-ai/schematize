@@ -31,6 +31,23 @@ All scripts auto-load a `.env` file in the working directory (see [Configuration
 
 ---
 
+## Verbosity
+
+`schematize-run` accepts a `--verbosity` flag controlling how much of the pipeline is logged:
+
+| Value | Behaviour |
+|-------|-----------|
+| `minimal` (default) | Only the problem-definition helper dialogue and the final conversation are logged; every other step is shown as a progress bar |
+| `all` | Every agent's output is logged at INFO level |
+| `debug` | Same as `all`, plus DEBUG-level logging (prompts sent to the LLM, token usage) |
+
+```bash
+schematize-run --verbosity all
+schematize-run --verbosity debug
+```
+
+---
+
 ## Mocked runner cases
 
 The mocked runner replays pre-written answers instead of prompting for live user input — useful for
@@ -74,9 +91,6 @@ schematize-run-mocked +case=my_case cases_path=/path/to/my/cases model_name=gpt-
 shape:
 
 ```text
-👤 Human:
-Study personal-rights violations and assess their severity.
---------------------------------------------------
 🤖 ProblemDefinerHelperAgent:
 A few clarifying questions: which jurisdiction? civil only? ...
 --------------------------------------------------

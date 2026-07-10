@@ -15,6 +15,7 @@
 
 
 [Documentation](https://pwr-ai.github.io/schematize) ·
+[**Examples**](https://pwr-ai.github.io/schematize/examples/) ·
 [Quickstart](https://pwr-ai.github.io/schematize/quickstart/) ·
 [Pipeline](https://pwr-ai.github.io/schematize/pipeline/) ·
 [API reference](https://pwr-ai.github.io/schematize/api/schema_generator/)
@@ -32,6 +33,10 @@ problem. A multi-agent [LangGraph](https://langchain-ai.github.io/langgraph/) pi
 clarifying questions, drafts a schema, critiques and refines it, **tests it against real documents
 from your corpus**, and opens a chat for final tweaks.
 
+**See it in action first:** [worked examples](https://pwr-ai.github.io/schematize/examples/) show
+three real, unedited pipeline runs — the clarifying-question chat and the resulting schema — each
+run through five different LLMs.
+
 ## Why schematize?
 
 - **Designing extraction schemas by hand is slow and brittle.** You guess the fields, miss edge
@@ -41,10 +46,10 @@ from your corpus**, and opens a chat for final tweaks.
 - **schematize closes the loop:** clarify → draft → criteria-based refinement → **data-grounded
   refinement against retrieved documents** → interactive chat. The output is a Pydantic model you
   can plug straight into an extraction pipeline.
-- **Use any LLM.** schematize accepts any LangChain chat model and any OpenAI-compatible endpoint, so
-  you can run it through a [LiteLLM](https://github.com/BerriAI/litellm) proxy — which is exactly how
-  we ran our experiments — and reach OpenAI, Anthropic, Gemini, or local models through one
-  interface. No provider lock-in.
+- **Use any LLM.** schematize accepts any LangChain chat model and talks to it through the
+  OpenAI-compatible API, so the official OpenAI API, [LiteLLM](https://github.com/BerriAI/litellm),
+  [vLLM](https://github.com/vllm-project/vllm), Ollama, and many other providers/servers work out of
+  the box. We ran our experiments through a LiteLLM proxy. No provider lock-in.
 - **Bring your own data.** Implementing a retriever is one async method; HuggingFace and Weaviate
   adapters are built in. A schema-coverage evaluator is included too.
 

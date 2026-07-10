@@ -8,6 +8,8 @@
 
 Instead of hand-crafting a JSON schema, you describe what you want to extract. The pipeline asks clarifying questions, drafts a schema, refines it against quality criteria, tests it against real documents from your corpus, and opens a chat so you can make final adjustments.
 
+**See it in action first:** browse the [worked examples](examples/index.md) — three real, unedited pipeline runs, each run through five different LLMs.
+
 ## Why schematize?
 
 Hand-crafting an extraction schema means guessing at fields, missing edge cases, and only finding out when extraction quality is poor. Asking an LLM for a schema once is better, but you still get an untested first draft with no critique loop and no contact with your real data.
@@ -17,7 +19,7 @@ schematize closes that loop: clarify → draft → criteria-based refinement →
 ## Key features
 
 - Five-stage pipeline: clarification, query generation, criteria-based refinement, data-grounded refinement, and interactive chat.
-- Model-agnostic. Any LangChain `BaseChatModel` works, including a LiteLLM proxy in front of open- or closed-weight models — see [Configuration](configuration.md#using-any-provider-via-litellm).
+- Model-agnostic. Any LangChain `BaseChatModel` works, and the built-in setup speaks the OpenAI-compatible API — official OpenAI, LiteLLM, vLLM, Ollama, and many others — see [Configuration](configuration.md#llm-access).
 - Data connectors are pluggable — implement one async method, or use the bundled HuggingFace and Weaviate adapters.
 - Typed output. Schemas are Pydantic models, so they plug directly into an extractor.
 - An expert-question coverage evaluator is included, so you can score how well a schema answers the questions your domain experts actually care about.
