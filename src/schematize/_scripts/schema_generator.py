@@ -119,7 +119,7 @@ def main(
         recursion_limit=100,
     )
 
-    typer.echo("Describe the schema to generate:")
+    typer.echo("👤 Describe the schema to generate:")
     input_text = input()
 
     final_state = schema_system.stream_graph_updates(input_text, verbosity=verbosity)

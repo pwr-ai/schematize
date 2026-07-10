@@ -69,7 +69,7 @@ _NODE_TO_AGENT = {
 
 class HumanFeedback:
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        feedback = input("🤖 Human (feedback): ")
+        feedback = input("👤 Human (feedback): ")
         return {"user_feedback": feedback, "messages": [HumanMessage(content=feedback)]}
 
 

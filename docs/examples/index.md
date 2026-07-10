@@ -9,8 +9,7 @@ Each case below is a real, unedited pipeline run against a real research questio
 !!! info "About the English text on these pages"
     Every run shown here was performed in Polish — the prompts, conversation, and generated schema
     field descriptions are all originally in Polish. The English versions on each page are machine
-    translations produced after the fact for readability, not translations reviewed by a native
-    speaker. If anything reads oddly in English, treat the Polish tab as the source of truth.
+    translations produced after the fact for readability.
 
 <div class="grid cards case-cards" markdown>
 

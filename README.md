@@ -94,7 +94,7 @@ class MyRetriever:
         ]
 
 
-# 2. Load bundled prompts for your language/domain (en|pl × law|tax).
+# 2. Load bundled prompts for your language/domain (en|pl × law|tax, plus en/general).
 prompts = load_prompts(language="en", system_type="law")
 
 llm = ChatOpenAI(model="gpt-4o", temperature=0.2)

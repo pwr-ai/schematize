@@ -78,7 +78,7 @@ class ChatAgent:
 
 class HumanMessageAgent:
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        message = input("🤖 Human (message): ")
+        message = input("👤 Human (message): ")
         return {
             "messages": [HumanMessage(content=message)],
             "final_messages": [HumanMessage(content=message)],
