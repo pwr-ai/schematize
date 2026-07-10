@@ -216,6 +216,9 @@ The experiments from our paper are driven by the mocked runner (schema generatio
 (schema scoring against expert questions). Cases live in [`data/cases/`](data/cases/) and expert
 question sets in [`data/eval/`](data/eval/) (`pl_age`, `pl_personal_rights`, `pl_medical_errors`).
 
+The paper's experiments use the `pl`/`law` domain (Polish legal judgments); `tax` and `general` are
+additional prompt sets for use beyond the paper.
+
 ```bash
 git clone https://github.com/pwr-ai/schematize && cd schematize
 uv sync --extra scripts --extra huggingface

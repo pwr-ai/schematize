@@ -8,6 +8,7 @@ from langchain_openai import ChatOpenAI
 
 from schematize.agents.agent_state import agent_state_to_json
 from schematize.agents.schema_generator import SchemaGenerator, SchemaGeneratorPrompts
+from schematize.settings import SUPPORTED_LANGUAGES, SUPPORTED_SYSTEM_TYPES
 from schematize.utils.load import load_prompts
 
 app = typer.Typer()
@@ -17,7 +18,7 @@ app = typer.Typer()
 def main(
     model: Annotated[str, typer.Option()] = "gpt-4o-mini",
     language: Annotated[str, typer.Option(help="pl or en")] = "en",
-    system_type: Annotated[str, typer.Option(help="tax or law")] = "tax",
+    system_type: Annotated[str, typer.Option(help="tax, law, or general")] = "tax",
     temperature: Annotated[float, typer.Option()] = 0.2,
     max_tokens: Annotated[int, typer.Option()] = 32_000,
     reasoning_effort: Annotated[Optional[str], typer.Option(help="low | medium | high")] = None,
@@ -43,10 +44,10 @@ def main(
 ) -> None:
     load_dotenv(".env")
 
-    if language not in ("pl", "en"):
-        raise typer.BadParameter(f"language must be 'pl' or 'en', got '{language}'")
-    if system_type not in ("tax", "law"):
-        raise typer.BadParameter(f"system_type must be 'tax' or 'law', got '{system_type}'")
+    if language not in SUPPORTED_LANGUAGES:
+        raise typer.BadParameter(f"language must be one of {SUPPORTED_LANGUAGES}, got '{language}'")
+    if system_type not in SUPPORTED_SYSTEM_TYPES:
+        raise typer.BadParameter(f"system_type must be one of {SUPPORTED_SYSTEM_TYPES}, got '{system_type}'")
 
     prompts = load_prompts(language, system_type)
 

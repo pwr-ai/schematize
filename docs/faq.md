@@ -90,4 +90,8 @@ prompts["schema_generator_prompt"] = "Your custom schema-generation prompt..."
 generator = SchemaGenerator(llm=llm, retriever=retriever, prompts=SchemaGeneratorPrompts(**prompts))
 ```
 
-See [Configuration](configuration.md) for the prompt keys and bundled combinations.
+If your documents aren't tax or law, the bundled `system_type="general"` (English only) gives you a
+domain-neutral prompt set as a starting point instead of overriding every key by hand.
+
+See [Prompts](prompts.md) for the prompt keys, required placeholders, and how to bundle an entirely new
+language or `system_type`/domain, or [Configuration](configuration.md) for the bundled combinations.

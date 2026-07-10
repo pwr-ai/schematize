@@ -78,8 +78,12 @@ prompts = load_prompts(language="en", system_type="law")
 |-----------|--------------|--------|
 | `"en"` | `"law"` | English legal judgments |
 | `"en"` | `"tax"` | English tax interpretations |
+| `"en"` | `"general"` | Domain-neutral, for any document corpus |
 | `"pl"` | `"law"` | Polish legal judgments |
 | `"pl"` | `"tax"` | Polish tax interpretations |
+
+The paper's experiments use the `pl`/`law` combination; the others are additional prompt sets for use
+beyond the paper.
 
 `load_prompts` returns a flat dict of named prompt strings. Wrap it in `SchemaGeneratorPrompts` before passing to `SchemaGenerator`:
 
@@ -97,6 +101,9 @@ prompts["schema_generator_prompt"] = "Your custom schema generator prompt..."
 
 generator = SchemaGenerator(llm=llm, retriever=retriever, prompts=SchemaGeneratorPrompts(**prompts))
 ```
+
+See [Prompts](prompts.md) for the directory convention, required placeholders per prompt, and how to bundle
+a new language or `system_type`/domain.
 
 ---
 
