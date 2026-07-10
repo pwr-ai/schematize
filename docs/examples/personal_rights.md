@@ -2,9 +2,9 @@
 
 Assessing the severity of personal-rights violations, and whether cases are becoming more trivial over time.
 
-!!! warning "About the English text on this page"
+!!! info "About the English text on this page"
     This run was performed in Polish — the prompts, conversation, and generated schema field
-    descriptions are all originally in Polish. The English tabs are **machine translations**
+    descriptions are all originally in Polish. The English tabs are machine translations
     produced after the fact for readability.
 
 ## The conversation

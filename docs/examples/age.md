@@ -2,9 +2,9 @@
 
 The relationship between a defendant's age and sentence severity in drug-offense cases.
 
-!!! warning "About the English text on this page"
+!!! info "About the English text on this page"
     This run was performed in Polish — the prompts, conversation, and generated schema field
-    descriptions are all originally in Polish. The English tabs are **machine translations**
+    descriptions are all originally in Polish. The English tabs are machine translations
     produced after the fact for readability.
 
 ## The conversation
