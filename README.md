@@ -4,7 +4,7 @@
 
 # schematize
 
-**Turn a plain-English research problem into a typed, data-tested extraction schema.**
+**Turn a plain research problem into a typed, data-tested extraction schema.**
 
 
 [![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)

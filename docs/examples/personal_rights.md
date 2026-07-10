@@ -5,10 +5,83 @@ Assessing the severity of personal-rights violations, and whether cases are beco
 !!! warning "About the English text on this page"
     This run was performed in Polish — the prompts, conversation, and generated schema field
     descriptions are all originally in Polish. The English tabs are **machine translations**
-    produced after the fact for readability, not reviewed by a native speaker. Treat the Polish
-    tab as the source of truth.
+    produced after the fact for readability.
 
 ## The conversation
+
+=== "🇬🇧 English"
+
+    <div class="chat" markdown="1">
+    <div class="chat-msg chat-user" markdown="1">
+    <span class="chat-label">You</span>
+
+    I'd like to study personal-rights violation cases. I'd like to assess how severely the perpetrator violated the victim's personal rights.
+
+    </div>
+    <div class="chat-msg chat-assistant" markdown="1">
+    <span class="chat-label">Assistant</span>
+
+    1. [Confirmation] I understand you want to analyze Polish court rulings on personal-rights violations and how courts "weigh" the degree (intensity) of the violation when ruling on protection and possible compensation — is that right?
+
+    2. [Confirmation] Are you interested in assessing "how severely the perpetrator violated personal rights" as an element of establishing unlawfulness and fault, or rather as a factor affecting the scope of protection (e.g. the amount of compensation), or both?
+
+    3. [Legal framework] Do you want to focus on claims under Art. 24 §1-2 and Art. 448 of the Civil Code, or also claims under special provisions (e.g. Press Law on corrections and liability for publications)?
+
+    4. [Legal framework] Is it important to distinguish the type of personal right (e.g. reputation/good name, privacy, image, inviolability of the home, secrecy of correspondence) as a variable affecting the assessed degree of violation?
+
+    5. [Procedural context] Are you analyzing civil proceedings for the protection of personal rights, or also situations where a personal-rights violation arises "incidentally" in other proceedings (e.g. employment, family), and do you want to compare them?
+
+    6. [Procedural context] Are you interested in whether the assessment of violation intensity differs between first- and second-instance courts (e.g. in changing the compensation amount or the wording of an apology)?
+
+    7. [Case-law analysis] Which "degree of violation" criteria do you want to study in the rulings' reasoning — e.g. reach of the violation (local vs. nationwide), duration, repetition, intent, the perpetrator's motive, effects on the plaintiff's private and professional life?
+
+    8. [Case-law analysis] Do you want to check whether courts require a specific standard of evidence to prove the intensity of harm (e.g. witness testimony, medical records, a psychologist's opinion) and whether that affects the ruling?
+
+    9. [Temporal context] Are you interested in whether the case law on assessing violation intensity has evolved over time — e.g. alongside the growing significance of violations online and on social media?
+
+    10. [Special cases] Do you want to separate out specific case categories as distinct analysis segments — e.g. violations online, through the media, by an employer, or by public authorities?
+
+    </div>
+    <div class="chat-msg chat-user" markdown="1">
+    <span class="chat-label">You</span>
+
+    1. Yes, though I'm less interested in how courts "weigh" it and more in what people actually bring to court in the first place — whether cases are becoming increasingly trivial.
+    2. More the unlawfulness — whether the court found a violation at all. Compensation is secondary, but still relevant.
+    3. I'm mainly interested in Art. 24 KC and Art. 23 KC. But if other provisions were invoked, I'd like to know about them.
+    4. Yes, the type of personal right is very important.
+    5. Only civil protection of personal rights.
+    6. No.
+    7. Above all, what exactly the perpetrator did or said — that's the core of it. I want to know whether someone was sued over being called a "jackass", a "moron", or something more serious. The place and circumstances of the incident matter too.
+    8. I'd like a subjective annotator rating (0-5 scale) of how severe the violation was, objectively. That's key to my hypothesis — that year over year, people complain about increasingly trivial things.
+    9. Yes.
+    10. Yes, I'd like to categorize by the place of the violation: public place, private place, workplace. There should be a separate field for social media.
+
+    </div>
+    <div class="chat-msg chat-assistant" markdown="1">
+    <span class="chat-label">Assistant</span>
+
+    We're studying personal-rights violation cases (Art. 23-24 KC), focusing first on whether the court found an unlawful violation at all, with the compensation amount as a secondary concern. Key variables are the perpetrator's exact conduct, the type of personal right violated, the place and channel of the violation (with special attention to social media), and a subjective annotator rating of violation severity on a 0-5 scale — the latter aimed at testing the hypothesis that increasingly trivial cases are reaching the courts over time.
+
+    </div>
+    <div class="chat-msg chat-assistant" markdown="1">
+    <span class="chat-label">Assistant</span>
+
+    Based on your request, I've prepared a schema for analyzing civil personal-rights protection cases, meant to help check what kinds of conduct people actually bring to court and whether increasingly trivial complaints appear over time. We focus mainly on Art. 23 and 24 KC, and secondarily on Art. 448 KC and other provisions where invoked in a case.
+
+    The generated schema extracts, above all: the date and year of the ruling, the court and instance, the relationship between the parties, the legal basis, the type of personal right violated, a description of the plaintiff's specific complaint, the number of episodes, the category of the perpetrator's conduct, a key quote, the place and channel of the violation, whether it involved social media, the reach of the incident, and whether the violation was a one-off, repeated, or continuous act. Separately, it records whether the court found a violation and unlawfulness, the case outcome, the claims made, and what was awarded.
+
+    For your hypothesis, the fields assessing case severity also matter: a subjective 0-5 severity scale and a simplified classification of the complaint as trivial, moderate, or serious. This lets you compare whether cases are indeed becoming less significant over time, and in which contexts this happens most often. If you'd like, you can now point out anything else to change, simplify, or add.
+
+    </div>
+    <div class="chat-msg chat-user" markdown="1">
+    <span class="chat-label">You</span>
+
+    I'm satisfied. I want to end the chat.
+
+    </div>
+    </div>
+
+    *The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run.*
 
 === "🇵🇱 Polski"
 
@@ -86,120 +159,43 @@ Assessing the severity of personal-rights violations, and whether cases are beco
 
     *Pytania doprecyzowujące i odpowiedzi pokazane są dosłownie; dłuższe wypowiedzi asystenta skrócono dla czytelności.*
 
-=== "🇬🇧 English"
-
-    <div class="chat" markdown="1">
-    <div class="chat-msg chat-user" markdown="1">
-    <span class="chat-label">You</span>
-
-    I'd like to study personal-rights violation cases. I'd like to assess how severely the perpetrator violated the victim's personal rights.
-
-    </div>
-    <div class="chat-msg chat-assistant" markdown="1">
-    <span class="chat-label">Assistant</span>
-
-    1. [Confirmation] I understand you want to analyze Polish court rulings on personal-rights violations and how courts "weigh" the degree (intensity) of the violation when ruling on protection and possible compensation — is that right?
-
-    2. [Confirmation] Are you interested in assessing "how severely the perpetrator violated personal rights" as an element of establishing unlawfulness and fault, or rather as a factor affecting the scope of protection (e.g. the amount of compensation), or both?
-
-    3. [Legal framework] Do you want to focus on claims under Art. 24 §1-2 and Art. 448 of the Civil Code, or also claims under special provisions (e.g. Press Law on corrections and liability for publications)?
-
-    4. [Legal framework] Is it important to distinguish the type of personal right (e.g. reputation/good name, privacy, image, inviolability of the home, secrecy of correspondence) as a variable affecting the assessed degree of violation?
-
-    5. [Procedural context] Are you analyzing civil proceedings for the protection of personal rights, or also situations where a personal-rights violation arises "incidentally" in other proceedings (e.g. employment, family), and do you want to compare them?
-
-    6. [Procedural context] Are you interested in whether the assessment of violation intensity differs between first- and second-instance courts (e.g. in changing the compensation amount or the wording of an apology)?
-
-    7. [Case-law analysis] Which "degree of violation" criteria do you want to study in the rulings' reasoning — e.g. reach of the violation (local vs. nationwide), duration, repetition, intent, the perpetrator's motive, effects on the plaintiff's private and professional life?
-
-    8. [Case-law analysis] Do you want to check whether courts require a specific standard of evidence to prove the intensity of harm (e.g. witness testimony, medical records, a psychologist's opinion) and whether that affects the ruling?
-
-    9. [Temporal context] Are you interested in whether the case law on assessing violation intensity has evolved over time — e.g. alongside the growing significance of violations online and on social media?
-
-    10. [Special cases] Do you want to separate out specific case categories as distinct analysis segments — e.g. violations online, through the media, by an employer, or by public authorities?
-
-    </div>
-    <div class="chat-msg chat-user" markdown="1">
-    <span class="chat-label">You</span>
-
-    1. Yes, though I'm less interested in how courts "weigh" it and more in what people actually bring to court in the first place — whether cases are becoming increasingly trivial.
-    2. More the unlawfulness — whether the court found a violation at all. Compensation is secondary, but still relevant.
-    3. I'm mainly interested in Art. 24 KC and Art. 23 KC. But if other provisions were invoked, I'd like to know about them.
-    4. Yes, the type of personal right is very important.
-    5. Only civil protection of personal rights.
-    6. No.
-    7. Above all, what exactly the perpetrator did or said — that's the core of it. I want to know whether someone was sued over being called a "jackass", a "moron", or something more serious. The place and circumstances of the incident matter too.
-    8. I'd like a subjective annotator rating (0-5 scale) of how severe the violation was, objectively. That's key to my hypothesis — that year over year, people complain about increasingly trivial things.
-    9. Yes.
-    10. Yes, I'd like to categorize by the place of the violation: public place, private place, workplace. There should be a separate field for social media.
-
-    </div>
-    <div class="chat-msg chat-assistant" markdown="1">
-    <span class="chat-label">Assistant</span>
-
-    We're studying personal-rights violation cases (Art. 23-24 KC), focusing first on whether the court found an unlawful violation at all, with the compensation amount as a secondary concern. Key variables are the perpetrator's exact conduct, the type of personal right violated, the place and channel of the violation (with special attention to social media), and a subjective annotator rating of violation severity on a 0-5 scale — the latter aimed at testing the hypothesis that increasingly trivial cases are reaching the courts over time.
-
-    </div>
-    <div class="chat-msg chat-assistant" markdown="1">
-    <span class="chat-label">Assistant</span>
-
-    Based on your request, I've prepared a schema for analyzing civil personal-rights protection cases, meant to help check what kinds of conduct people actually bring to court and whether increasingly trivial complaints appear over time. We focus mainly on Art. 23 and 24 KC, and secondarily on Art. 448 KC and other provisions where invoked in a case.
-
-    The generated schema extracts, above all: the date and year of the ruling, the court and instance, the relationship between the parties, the legal basis, the type of personal right violated, a description of the plaintiff's specific complaint, the number of episodes, the category of the perpetrator's conduct, a key quote, the place and channel of the violation, whether it involved social media, the reach of the incident, and whether the violation was a one-off, repeated, or continuous act. Separately, it records whether the court found a violation and unlawfulness, the case outcome, the claims made, and what was awarded.
-
-    For your hypothesis, the fields assessing case severity also matter: a subjective 0-5 severity scale and a simplified classification of the complaint as trivial, moderate, or serious. This lets you compare whether cases are indeed becoming less significant over time, and in which contexts this happens most often. If you'd like, you can now point out anything else to change, simplify, or add.
-
-    </div>
-    <div class="chat-msg chat-user" markdown="1">
-    <span class="chat-label">You</span>
-
-    I'm satisfied. I want to end the chat.
-
-    </div>
-    </div>
-
-    *The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run and has not been reviewed by a native speaker.*
-
 ## The generated schema
 
 Five different LLMs ran the exact same pipeline on this case. Field count and shape vary a lot by model — pick a tab to compare.
 
 === "GPT-5.4"
 
-    **92 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **92 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `case_number` | string | Case number of the analyzed ruling. Usually in the header; used for deduplication and audit. |
+        | `court_name` | string | Full name of the court that issued the ruling, e.g. Regional Court in Warsaw. |
+        | `court_level` | enum | Level of the court that issued the analyzed ruling. |
+        | `judgment_date` | string | Date the ruling was issued, in YYYY-MM-DD format, if it follows from the document. |
+        | `judgment_year` | integer | Year the analyzed ruling was issued. |
+        | `incident_year` | integer | Year of the main alleged violation. Code the year of the event, not the ruling. |
+        | `incident_time_precision` | enum | Precision with which the time of the violation was established. |
+        | `proceeding_stage` | enum | Procedural stage of the analyzed ruling. |
+        | `claim_outcome` | enum | Overall outcome of the claim in the analyzed ruling. |
+        | `claimant_entity_type` | enum | Type of entity on the claimant's side. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `content_composition_text` | string | Typ: string. Wymagane: nie. Opis kompozycji materiału, gdy naruszenie wynika z zestawienia tekstu, zdjęcia, podpisu, tytułu, grafiki lub częściowej anonimizacji. Szczególnie ważne w mediach i sprawach wizerunkowych. |
-        | `removal_of_effects_claimed` | enum | Typ: enum. Wymagane: nie. Czy powód żądał usunięcia skutków naruszenia w innej formie niż przeprosiny, np. usunięcia wpisu, zdjęcia lub publikacji. Wartości: yes, no, unclear. |
+        | `case_number` | string | Typ: string. Wymagane: nie. Sygnatura akt analizowanego orzeczenia. Zwykle w nagłówku; służy do deduplikacji i audytu. Jeśli brak, pozostawić puste. |
+        | `court_name` | string | Typ: string. Wymagane: nie. Pełna nazwa sądu, który wydał orzeczenie, np. Sąd Okręgowy w Warszawie. Szukać w nagłówku. |
+        | `court_level` | enum | Typ: enum. Wymagane: nie. Szczebel sądu, który wydał analizowane orzeczenie. Wartości: district_court, regional_court, appellate_court, supreme_court, unclear. |
+        | `judgment_date` | string | Typ: string. Wymagane: nie. Data wydania orzeczenia w formacie YYYY-MM-DD, jeśli wynika z dokumentu. Zwykle w nagłówku lub sentencji. |
+        | `judgment_year` | integer | Typ: integer. Wymagane: tak. Rok wydania analizowanego orzeczenia, np. 2021. Kluczowe pole do analiz zmian w czasie. |
         | `incident_year` | integer | Typ: integer. Wymagane: nie. Rok głównego zarzucanego naruszenia. Kodować rok zdarzenia, a nie rok orzeczenia; przy dłuższym okresie wpisać rok głównego incydentu albo początek serii. |
         | `incident_time_precision` | enum | Typ: enum. Wymagane: nie. Precyzja ustalenia czasu naruszenia. Wartości: exact_date, month_only, year_only, approximate_period, unclear. |
-        | `art_448_kc_invoked` | enum | Typ: enum. Wymagane: nie. Czy w sprawie powołano art. 448 KC, zwłaszcza przy roszczeniu o zadośćuczynienie lub sumę na cel społeczny. Wartości: yes, no, unclear. |
-        | `court_recognized_personal_interests` | string | Typ techniczny: string. Wymagane: tak. Dobra osobiste, których naruszenie sąd uznał albo omawiał jako prawnie relewantne, zapisane jako lista JSON w stringu. Dozwolone etykiety jak w `claimant_personal_interests` oraz dodatkowo none_recognized. Kodować perspektywę sądu. |
-        | `core_allegation_category` | enum | Typ: enum. Wymagane: tak. Standaryzowana kategoria sedna zarzutu, ważna dla badania błahości i ciężaru sprawy. Wartości: simple_insult, vulgar_abuse, crime_accusation, financial_dishonesty_accusation, professional_incompetence_accusation, immorality_accusation, mental_health_or_addiction_accusation, privacy_disclosure, image_violation, correspondence_disclosure, physical_intrusion_or_humiliation, other, unclear. |
-        | `harm_mechanism` | enum | Typ: enum. Wymagane: nie. Dominujący mechanizm naruszenia, jeśli jeden wyraźnie przeważa. Przy kilku mechanizmach ważniejsze jest `harm_mechanisms`. Wartości: direct_insult, false_factual_allegation, misleading_juxtaposition, disclosure_of_private_facts, unauthorized_image_use, intrusion_into_private_sphere, humiliating_treatment_or_behavior, unauthorized_correspondence_disclosure, other, unclear. |
-        | `harm_mechanisms` | string | Typ techniczny: string. Wymagane: tak. Wszystkie relewantne mechanizmy naruszenia zapisane jako lista JSON w stringu. Dozwolone etykiety: direct_insult, false_factual_allegation, misleading_juxtaposition, disclosure_of_private_facts, unauthorized_image_use, intrusion_into_private_sphere, humiliating_treatment_or_behavior, unauthorized_correspondence_disclosure, other, unclear. |
-        | `visual_component_present` | enum | Typ: enum. Wymagane: nie. Czy materiał miał istotny komponent wizualny wpływający na naruszenie, np. zdjęcie, karykaturę, zrzut ekranu. Wartości: yes, no, unclear. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `content_composition_text` | string | Description of how the material was composed, when the violation results from a combination of text, photo, caption, or partial anonymization. |
-        | `removal_of_effects_claimed` | enum | Whether the plaintiff sought removal of the violation's effects (e.g. deleting a post/photo), beyond an apology. |
-        | `incident_year` | integer | Year of the main alleged violation (year of the incident, not of the ruling). |
-        | `incident_time_precision` | enum | Precision with which the timing of the violation could be established. |
-        | `art_448_kc_invoked` | enum | Whether Art. 448 KC was invoked in the case. |
-        | `court_recognized_personal_interests` | string | Personal rights the court recognized or discussed as legally relevant, from the court's own perspective. |
-        | `core_allegation_category` | enum | Standardized category of the core allegation — key for studying the triviality/severity of the complaint. |
-        | `harm_mechanism` | enum | Dominant mechanism of the violation, if one clearly predominates. |
-        | `harm_mechanisms` | string | All relevant violation mechanisms present in the case. |
-        | `visual_component_present` | enum | Whether the material had a significant visual component contributing to the violation (photo, caricature, screenshot). |
-
+        | `proceeding_stage` | enum | Typ: enum. Wymagane: tak. Etap postępowania, którego dotyczy analizowane orzeczenie. Wartości: first_instance, appeal, cassation, other, unclear. |
+        | `claim_outcome` | enum | Typ: enum. Wymagane: tak. Ogólny wynik powództwa w analizowanym orzeczeniu. Wartości: upheld, dismissed, partially_upheld, discontinued_or_rejected, unclear. |
+        | `claimant_entity_type` | enum | Typ: enum. Wymagane: tak. Typ podmiotu po stronie powodowej. Wartości: natural_person, legal_person, mixed, unclear. |
     ??? note "Show full schema (92 fields, raw JSON, original language)"
 
         ```json
@@ -1163,40 +1159,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "GPT-5.4 mini"
 
-    **50 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **50 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `data_orzeczenia` | string | Full date the ruling was issued, in YYYY-MM-DD format, if it can be established from the document. |
+        | `rok_orzeczenia` | integer | Year the ruling was issued. |
+        | `sygnatura_akt` | string | Case number of the ruling, if stated in the document. |
+        | `nazwa_sadu` | string | Full name of the court that issued the ruling, if it can be clearly established. |
+        | `instancja_sadu` | enum | Instance level of the court that issued the ruling. |
+        | `relacja_stron` | enum | Closest identifiable relationship between the parties, or the type of the violator. |
+        | `powolano_art_23_kc` | boolean | Whether Art. 23 of the Civil Code was cited as a legal basis. |
+        | `powolano_art_24_kc` | boolean | Whether Art. 24 of the Civil Code was cited as a legal basis. |
+        | `powolano_art_448_kc` | boolean | Whether Art. 448 of the Civil Code was cited as a legal basis. |
+        | `inne_podstawy_prawne` | boolean | Whether any other substantive legal provisions beyond Art. 23, 24, and 448 of the Civil Code were cited. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `dodatkowe_kategorie_zachowania` | string | Dodatkowe kategorie zachowania, jeśli jeden epizod łączy kilka form naruszenia, np. obelgę, pomówienie i publikację internetową. Wpisz je po przecinku lub średniku; jeśli brak, pozostaw puste. |
-        | `czy_stwierdzono_naruszenie_dobra_osobistego` | enum | Czy sąd stwierdził naruszenie dobra osobistego. |
+        | `data_orzeczenia` | string | Pełna data wydania orzeczenia w formacie YYYY-MM-DD, jeśli da się ją ustalić z dokumentu. Pole pomocnicze do analizy temporalnej. Jeśli dokument nie zawiera pełnej daty, pozostaw puste. |
+        | `rok_orzeczenia` | integer | Rok wydania orzeczenia. Pole pomocnicze do badania zmian w czasie i porównywania spraw z różnych lat. Jeśli nie da się go jednoznacznie ustalić, pozostaw puste. |
+        | `sygnatura_akt` | string | Sygnatura akt orzeczenia, jeśli jest podana w dokumencie. Wpisz dokładnie w brzmieniu z orzeczenia. |
+        | `nazwa_sadu` | string | Pełna nazwa sądu, który wydał orzeczenie, jeśli da się ją jednoznacznie ustalić. Zapisz możliwie dokładnie, np. 'Sąd Okręgowy w ...'. |
+        | `instancja_sadu` | enum | Poziom instancji sądu, który wydał orzeczenie. |
         | `relacja_stron` | enum | Najbliższa możliwa relacja między stronami albo typ sprawcy naruszenia, jeśli da się ją ustalić z dokumentu. Wybierz najtrafniejszą kategorię; jeśli relacja jest nietypowa, użyj `inna`. |
-        | `rodzaj_dobra_osobistego` | enum | Główne dobro osobiste wskazane jako naruszone w sprawie. Wybierz najbardziej centralne dobro, nawet jeśli naruszono także inne. |
-        | `inne_naruszone_dobra_osobiste` | string | Pozostałe dobra osobiste naruszone w sprawie, jeśli było ich więcej niż jedno. Wpisz je po przecinku lub średniku; uwzględnij także dobra współnaruszone. |
-        | `liczba_odrebnych_zarzutow` | integer | Liczba odrębnych zarzutów lub epizodów naruszenia możliwych do wyodrębnienia z orzeczenia, jeśli da się ją ustalić. Pomocne przy sprawach wielowątkowych. |
-        | `miejsce_naruszenia` | enum | Miejsce lub podstawowy kontekst naruszenia. Dla naruszeń online użyj `internet`; dla SMS, e-maili i prywatnych wiadomości użyj `korespondencja_prywatna`, jeśli to najbardziej trafne. |
-        | `czy_portal_spolecznosciowy` | boolean | Czy naruszenie miało miejsce na portalu społecznościowym, np. Facebook, X, Instagram lub podobnej platformie. Ustaw true niezależnie od tego, czy platforma była jedynym kanałem, czy jednym z kilku. |
-        | `kanal_naruszenia` | enum | Kanał lub forma przekazu, przez którą doszło do naruszenia, niezależnie od miejsca zdarzenia. Dla Facebooka, Instagrama i podobnych użyj `portal_spolecznosciowy`; dla wiadomości tekstowych `sms`; dla prywatnych czatów `komunikator`; dla listów i kartek pocztowych użyj odpowiednio `korespondencja_pocztowa` albo `kartka_pocztowa`. |
-        | `publicznosc_zdarzenia` | enum | Skala odbiorców zdarzenia lub publikacji, jeśli da się ją ustalić z orzeczenia. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `dodatkowe_kategorie_zachowania` | string | Additional behavior categories, if one episode combines several forms of violation. |
-        | `czy_stwierdzono_naruszenie_dobra_osobistego` | enum | Whether the court found a personal-rights violation. |
-        | `relacja_stron` | enum | Closest identifiable relationship between the parties, or the type of perpetrator. |
-        | `rodzaj_dobra_osobistego` | enum | Main personal right identified as violated in the case. |
-        | `inne_naruszone_dobra_osobiste` | string | Other personal rights violated in the case, if more than one. |
-        | `liczba_odrebnych_zarzutow` | integer | Number of distinct complaints/violation episodes identifiable in the ruling. |
-        | `miejsce_naruszenia` | enum | Place or primary context of the violation (public, private, workplace, internet, private correspondence, other). |
-        | `czy_portal_spolecznosciowy` | boolean | Whether the violation took place on a social media platform. |
-        | `kanal_naruszenia` | enum | Channel or form of communication through which the violation occurred. |
-        | `publicznosc_zdarzenia` | enum | Scale of the audience reached by the incident or publication. |
-
+        | `powolano_art_23_kc` | boolean | Czy w sprawie powołano art. 23 KC jako podstawę prawną. |
+        | `powolano_art_24_kc` | boolean | Czy w sprawie powołano art. 24 KC jako podstawę prawną. |
+        | `powolano_art_448_kc` | boolean | Czy w sprawie powołano art. 448 KC jako podstawę prawną. |
+        | `inne_podstawy_prawne` | boolean | Czy w sprawie przywołano jakiekolwiek inne materialnoprawne przepisy poza art. 23, 24 i 448 KC. Nie liczyć przepisów procesowych, kosztów ani technicznych podstaw postępowania. |
     ??? note "Show full schema (50 fields, raw JSON, original language)"
 
         ```json
@@ -1681,40 +1674,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "Claude Sonnet 4.6"
 
-    **57 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **57 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `sygnatura_akt` | string | Case number of the ruling — identifier needed for deduplication and linking first- and second-instance rulings in the same case. |
+        | `sygnatura_akt_i_instancji` | string | First-instance case number, given in appellate rulings; filled only for second-instance rulings. |
+        | `rok_orzeczenia` | integer | Year the ruling was issued — used as an auxiliary variable in temporal analysis. |
+        | `rok_wniesienia_powodztwa` | integer | Year the claim was filed — key for the trivialization hypothesis. |
+        | `rok_zdarzenia` | integer | Year the personal-rights violation actually occurred — may precede the year the claim was filed. |
+        | `instancja_sadowa` | enum | Court instance in which the analyzed ruling was issued. |
+        | `powod_osoba_publiczna` | enum | Whether the claimant is a public figure — courts apply different personal-rights protection standards to public figures. |
+        | `powod_osoba_prawna` | boolean | Whether the claimant is a legal person (company, association, foundation, etc.). |
+        | `dobro_czesc_dobre_imie` | boolean | Whether the claimant sought protection of honor/good name (Art. 23 Civil Code). |
+        | `dobro_godnosc_osobista` | boolean | Whether the claimant sought protection of personal dignity (Art. 23 Civil Code). |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `charakter_pisemny_offline` | boolean | Czy naruszenie miało charakter pisemny offline (list, pismo urzędowe, notatka, dokument papierowy, kopia dokumentu przekazana bezpośrednio innej osobie — z wyłączeniem publikacji w mediach i Internecie). Obejmuje również udostępnianie kserokopii dokumentacji medycznej lub służbowej przekazanej fizycznie poza systemem internetowym. |
-        | `kategoria_pozwanego` | enum | Kategoria podmiotu pozwanego (sprawcy naruszenia). Wartość 'biegly_sadowy_ekspert' stosować gdy pozwany działał w charakterze biegłego sądowego lub niezależnego eksperta w postępowaniu — ma to znaczenie dla oceny bezprawności (szczególna podstawa działania). |
-        | `sad_uznal_samo_naruszenie` | boolean | Czy sąd stwierdził, że do naruszenia dobra osobistego w ogóle doszło (niezależnie od oceny bezprawności) — pole odrębne od 'sad_uznal_bezprawne_naruszenie'. Sąd może uznać, że naruszenie nastąpiło, lecz uznać je za niezbezprawne (np. gdy pozwany skutecznie obalił domniemanie bezprawności). |
-        | `sad_uznal_bezprawne_naruszenie` | boolean | Czy sąd stwierdził, że doszło do bezprawnego naruszenia dobra osobistego w rozumieniu art. 24 KC — pole odrębne od 'sad_uznal_samo_naruszenie'. True tylko gdy sąd stwierdził zarówno naruszenie, jak i jego bezprawność (pozwany nie obalił domniemania bezprawności). |
-        | `czy_pozwany_obalil_bezprawnosc` | enum | Czy pozwany podnosił okoliczności wyłączające bezprawność (np. działanie w uzasadnionym interesie publicznym, dozwolona krytyka, zgoda uprawnionego) i jaki był wynik: 'tak' — pozwany skutecznie obalił domniemanie bezprawności; 'nie' — pozwany podnosił zarzut, ale sąd go odrzucił; 'nie_badano' — sąd nie badał bezprawności, bo oddalił powództwo już na etapie stwierdzenia braku naruszenia dobra osobistego |
-        | `uzasadnienie_sadowe_kluczowe` | string | Cytat lub krótkie streszczenie fragmentu uzasadnienia sądu dotyczącego oceny powagi naruszenia lub stopnia krzywdy — pomocne przy weryfikacji subiektywnej oceny anotatora |
+        | `sygnatura_akt` | string | Sygnatura akt sprawy — identyfikator orzeczenia niezbędny do deduplikacji i łączenia orzeczeń I i II instancji w tej samej sprawie (np. I ACa 123/20) |
+        | `sygnatura_akt_i_instancji` | string | Sygnatura akt sądu I instancji — podawana w orzeczeniach apelacyjnych (np. I C 1497/12); wypełnić tylko dla orzeczeń II instancji, gdy sygnatura niższego sądu jest podana w treści orzeczenia |
+        | `rok_orzeczenia` | integer | Rok wydania orzeczenia — używany pomocniczo w analizie temporalnej |
+        | `rok_wniesienia_powodztwa` | integer | Rok wniesienia powództwa (rok złożenia pozwu) — kluczowy dla hipotezy trywializacji. Jeśli data pozwu nie jest wprost podana w treści orzeczenia, dopuszczalne jest wnioskowanie roku z sygnatury akt sądu I instancji: ostatnie cyfry po ukośniku oznaczają rok wpływu sprawy (np. 'I C 318/17' → rok 2017). Pole pozostaje puste, gdy brak jakichkolwiek podstaw do ustalenia roku. |
         | `rok_zdarzenia` | integer | Rok faktycznego zdarzenia naruszenia dobra osobistego (np. rok opublikowania artykułu, rok wypowiedzenia słów, rok działania sprawcy) — może być wcześniejszy niż rok wniesienia powództwa. Istotny dla hipotezy trywializacji, gdy chcemy datować samo zdarzenie, nie postępowanie. Pole opcjonalne — wypełnić tylko gdy rok zdarzenia da się ustalić z treści orzeczenia lub uzasadnienia. |
-        | `dobro_wizerunek` | boolean | Czy powód dochodził ochrony dobra osobistego: wizerunek (art. 23 KC) |
-        | `naruszenie_obejmowalo_dane_medyczne_wrazliwe` | boolean | Czy naruszenie obejmowało ujawnienie lub bezprawne wykorzystanie danych medycznych lub wrażliwych danych zdrowotnych/psychiatrycznych (np. udostępnienie dokumentacji medycznej, ujawnienie diagnozy psychiatrycznej, przekazanie wyników badań osobie trzeciej bez zgody). Pole istotnie różnicuje powagę naruszeń prywatności — wypełnić niezależnie od dobro_prywatnosc. |
-        | `opis_zachowania_sprawcy` | string | Opis konkretnego zachowania sprawcy — co dokładnie powiedział, napisał lub zrobił (sedno analizy: cytowane słowa, gesty, opublikowane treści, działania fizyczne itp.). To pole jest kluczowe dla oceny powagi naruszenia. Podawać cytaty jeśli dostępne. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `charakter_pisemny_offline` | boolean | Whether the violation was offline and in writing (letter, official document, note), excluding media/internet publications. |
-        | `kategoria_pozwanego` | enum | Category of the defendant (individual, employer, press/TV, website, public authority, expert witness, other). |
-        | `sad_uznal_samo_naruszenie` | boolean | Whether the court found that a violation of personal rights occurred at all, regardless of unlawfulness. |
-        | `sad_uznal_bezprawne_naruszenie` | boolean | Whether the court found the violation to be unlawful under Art. 24 KC. |
-        | `czy_pozwany_obalil_bezprawnosc` | enum | Whether the defendant raised circumstances excluding unlawfulness, and whether they succeeded. |
-        | `uzasadnienie_sadowe_kluczowe` | string | Quote or short summary of the reasoning on the severity of the violation or harm. |
-        | `rok_zdarzenia` | integer | Year the violation actually occurred (may precede the year the claim was filed). |
-        | `dobro_wizerunek` | boolean | Whether the plaintiff sought protection of their image (Art. 23 KC). |
-        | `naruszenie_obejmowalo_dane_medyczne_wrazliwe` | boolean | Whether the violation involved disclosure of sensitive medical/health data. |
-        | `opis_zachowania_sprawcy` | string | Description of the perpetrator's specific conduct — what exactly was said, written, or done. |
-
+        | `instancja_sadowa` | enum | Instancja sądowa, w której wydano analizowane orzeczenie |
+        | `powod_osoba_publiczna` | enum | Czy powód jest osobą publiczną (polityk, celebryta, przedsiębiorca znany publicznie, urzędnik publiczny itp.) — sądy stosują inne standardy ochrony dóbr osobistych wobec osób publicznych; dotyczy wyłącznie osób fizycznych. Wartość 'nieustalono' stosować gdy dane osobowe są zanonimizowane i nie można ustalić statusu powoda (standardowa sytuacja w polskich orzeczeniach). |
+        | `powod_osoba_prawna` | boolean | Czy powód jest osobą prawną (spółka, stowarzyszenie, fundacja itp.) — standard ochrony dóbr osobistych osób prawnych (np. dobrego imienia przedsiębiorcy) różni się od ochrony osób fizycznych |
+        | `dobro_czesc_dobre_imie` | boolean | Czy powód dochodził ochrony dobra osobistego: cześć / dobre imię (art. 23 KC) |
+        | `dobro_godnosc_osobista` | boolean | Czy powód dochodził ochrony dobra osobistego: godność osobista (art. 23 KC) |
     ??? note "Show full schema (57 fields, raw JSON, original language)"
 
         ```json
@@ -2191,40 +2181,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "Gemma 4 E4B IT"
 
-    **22 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **22 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `orzeczenie_id` | string | Unique identifier of the analyzed court ruling. May be the case number. |
+        | `podstawa_prawna_glowna` | string | Main provision of civil law (or other legal basis) the court relied on in its reasoning. |
+        | `rodzaj_dobra_osobistego` | string | Type of personal right whose violation is the subject of the dispute (e.g. honor, privacy). |
+        | `kontekst_naruszenia` | enum | Precise categorization of the context and place where the violation occurred. |
+        | `uznanie_naruszenia_bezprawnego` | boolean | Whether the court found that an unlawful violation of personal rights occurred. |
+        | `sadowa_argumentacja_klasyfikacji` | string | Detailed description of the substantive criteria the court used to justify the degree or unlawfulness of the violation. |
+        | `specyfika_wypowiedzi_zarzutu` | string | Specific category of the claim the plaintiff is disputing. |
+        | `skalowana_ocena_ciężaru_sprawy_anotatora` | float | Subjective, quantitative assessment (0.0-5.0 scale) of the actual severity of the violation, made by the annotator. |
+        | `opis_konkretnych_czynow_sprawcy` | string | Detailed, qualitative description of the key and most severe acts or statements of the perpetrator. |
+        | `przykładowe_czyny_sprawcy_list` | string | Multiple, short categories of the perpetrator's observed acts (a list of tags). |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
+        | `orzeczenie_id` | string | Unikalny identyfikator analizowanego orzeczenia sądowego. Może być sygnтурой akt. |
+        | `podstawa_prawna_glowna` | string | Główny przepis prawa cywilnego (lub inna podstawa prawna), na który sąd się powołał w uzasadnieniu (np. art. 24 KC). |
         | `rodzaj_dobra_osobistego` | string | Rodzaj dobra osobistego, którego naruszenie jest przedmiotem sporu (np. cześć, prywatność). |
+        | `kontekst_naruszenia` | enum | Precyzyjna kategoryzacja kontekstowa i miejsca, w którym doszło do naruszenia (np. obelga na ulicy vs. post na Facebooku). |
         | `uznanie_naruszenia_bezprawnego` | boolean | Czy sąd uznał, że nastąpiło bezprawne naruszenie dóbr osobistych (ustalił bezprawność działania sprawcy). |
         | `sadowa_argumentacja_klasyfikacji` | string | Szczegółowy opis kryteriów merytorycznych, na podstawie których sąd uzasadnił stopień lub bezprawność naruszenia (np. 'Drastyczność czynu'). |
-        | `kryterium_zasiegu_naruszenia` | string | Ocena zasięgu publikacji/rozpowszechnienia naruszenia (np. lokalnie vs. globalnie w sieci). |
-        | `kontekst_naruszenia` | enum | Precyzyjna kategoryzacja kontekstowa i miejsca, w którym doszło do naruszenia (np. obelga na ulicy vs. post na Facebooku). |
+        | `specyfika_wypowiedzi_zarzutu` | string | Specyficzna kategoria zarzutu, który powód kwestionuje. Klasyfikacja pogłębia 'rodzaj_zarzutu_powoda_typ' i jest kluczowa do badania trendu 'błahe/poważne'. |
         | `skalowana_ocena_ciężaru_sprawy_anotatora` | float | Subiektywna, ilościowa ocena (skala 0.0 do 5.0) rzeczywistego stopnia naruszenia, dokonana przez analityka, odzwierciedlająca obiektywną wagę sprawy. |
         | `opis_konkretnych_czynow_sprawcy` | string | Szczegółowy, jakościowy opis kluczowych i najbardziej drastycznych czynów lub wypowiedzi sprawcy (np. 'Użycie określenia X', 'Publikacja zdjęcia Y'). |
-        | `kryterium_umyślności_sprawcy` | string | Ocena stopnia intencji sprawcy w doprowadzeniu do naruszenia. Dodano 'RAŻĄCE_NIEDBALSTWO' dla analizy 'błahego' charakteru zarzutów. |
-        | `skutki_dla_powoda` | string | Opis zidentyfikowanych negatywnych skutków naruszenia dla powoda, które zostały udokumentowane w akcie procesowym. |
-        | `zmiana_standardu_oceny_sadu` | string | Kategoryzuje, czy sąd dokonuje ewentualnej zmiany paradygmatu w ocenie stopnia naruszenia w danym orzeczeniu. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `rodzaj_dobra_osobistego` | string | Type of personal right at the center of the dispute (e.g. reputation, privacy). |
-        | `uznanie_naruszenia_bezprawnego` | boolean | Whether the court found an unlawful violation of personal rights. |
-        | `sadowa_argumentacja_klasyfikacji` | string | Detailed description of the substantive criteria the court used to justify the degree or unlawfulness of the violation. |
-        | `kryterium_zasiegu_naruszenia` | string | Assessment of the reach of the publication/dissemination of the violation (local vs. global online). |
-        | `kontekst_naruszenia` | enum | Precise categorization of the context and place where the violation occurred. |
-        | `skalowana_ocena_ciężaru_sprawy_anotatora` | float | Subjective, quantitative annotator rating (0.0-5.0) of the objective severity of the violation. |
-        | `opis_konkretnych_czynow_sprawcy` | string | Detailed, qualitative description of the perpetrator's key and most severe acts or statements. |
-        | `kryterium_umyślności_sprawcy` | string | Assessment of the perpetrator's degree of intent (deliberate, gross negligence, unintentional, undetermined). |
-        | `skutki_dla_powoda` | string | Description of the documented negative effects of the violation on the plaintiff. |
-        | `zmiana_standardu_oceny_sadu` | string | Whether the court shifted the standard used to assess violation severity, relative to established case law. |
-
+        | `przykładowe_czyny_sprawcy_list` | string | Wielokrotne, skrótowe kategorie czynów sprawcy, które zostały zaobserwowane (lista tagów). |
     ??? note "Show full schema (22 fields, raw JSON, original language)"
 
         ```json
@@ -2486,40 +2473,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "GPT-5.4 nano"
 
-    **80 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **80 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `case_id` | string | Case identifier used to aggregate records across instances. |
+        | `record_unit` | enum | Extraction unit — whether one record corresponds to a single document/instance or to the whole case. |
+        | `judgment_year` | integer | Year the ruling was issued, usually from the header or operative part. |
+        | `judgment_year_is_approx` | boolean | Whether `judgment_year` is approximate (e.g. only a year is visible, no full date). |
+        | `incident_year` | integer | Year of the incident underlying the case's main factual axis. |
+        | `incident_year_is_approx` | boolean | Whether `incident_year` is approximate/uncertain. |
+        | `filing_year` | integer | Year the claim was filed. |
+        | `filing_year_is_approx` | boolean | Whether `filing_year` is approximate/uncertain. |
+        | `court_instance` | enum | Instance of the court in the analyzed document. |
+        | `court_type` | enum | Type of court, if it can be established from the header. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `court_dismissal_reason_for_merits_non_infringement` | enum | required: false. Przyczyna merytoryczna (bez osi przedawnienia) dla oddalenia/nieuznania w zakresie naruszenia/bezprawności/ustaleń faktów. W razie braku jednej jasnej osi — wybierz najbardziej zgodne. |
-        | `annotator_severity_0_to_5` | integer | required: true. Subiektywna ocena anotatora: obiektywnie odczytywana poważność naruszenia dla `primary_act` w skali 0–5 (kluczowe dla hipotezy o „błahości”). |
-        | `evidence_parties_testimony_only` | enum | required: false. Czy podstawą ustaleń były zasadniczo zeznania stron (bez innych istotnych źródeł dla intensywności/krzywdy)? |
-        | `infringement_issue_review_scope` | enum | required: false. Zakres rozpoznania w instancji w odniesieniu do „czy doszło do naruszenia/bezprawności” vs „jak ukształtowano remedium”: (1) badano od zera przesłanki naruszenia/bezprawności; (2) utrzymano naruszenie w mocy (tzn. nie przeliczano/nie podważano kluczowej kwalifikacji); (3) ograniczono się do wysokości/środków; (4) ograniczono się głównie do dopasowania formy niemajątkowej (np. treść przeprosin) przy założeniu naruszenia; (5) nieustalone. Koduj na podstawie sentencji + zakresu uzasadnienia/„kontroli” w instancji. |
-        | `number_of_alleged_acts` | integer | required: false. Liczba wyodrębnionych w sprawie aktów/zachowań naruszenia (wg opisu w uzasadnieniu/ustaleniach). Wypełniaj tylko, jeśli dokument pozwala policzyć jednoznacznie; w razie niepewności nie wypełniaj. |
-        | `court_infringement_result` | enum | required: true. Rozstrzygnięcie co do naruszenia dóbr osobistych w analizowanym dokumencie/instancji. |
-        | `court_non_infringement_or_dismissal_reason` | enum | required: false. Główna przyczyna oddalenia/nieuznania w możliwie najczytelniejszym fragmencie uzasadnienia. Jeśli dokument wskazuje równolegle co najmniej dwie istotne osie (np. przedawnienie + merytoryczny brak naruszenia), preferuj pola rozdzielone poniżej i traktuj to pole jako „jednowątkowe” tylko gdy da się je obronić. |
-        | `court_unlawfulness_result` | enum | required: true. Jak sąd ujął bezprawność z art. 24 k.c.: uznał brak wyłączeń (bez wyłączeń) / uznał wyłączenie / nie analizował wprost / brak danych. |
-        | `unlawfulness_exclusion_type` | enum | required: false. Jeśli sąd uznał wyłączenie bezprawności: najbardziej pasująca kategoria argumentu. Używaj `swoboda_wypowiedzi_granice_krytyki`, gdy sąd operuje granicami wypowiedzi/krytyki i swobodą wypowiedzi. |
-        | `good_personal_categories_additional` | string | required: false. Dodatkowe kategorie dóbr osobistych, jeśli jest ich więcej niż jedna (np. 'prywatność,wizerunek'). |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `court_dismissal_reason_for_merits_non_infringement` | enum | Substantive reason (excluding limitation) for dismissing the claim on the merits of violation/unlawfulness/facts. |
-        | `annotator_severity_0_to_5` | integer | Subjective annotator rating of how objectively severe the violation was, on a 0-5 scale. |
-        | `evidence_parties_testimony_only` | enum | Whether the findings were based essentially only on the parties' testimony. |
-        | `infringement_issue_review_scope` | enum | Scope of the instance's review — whether it re-examined the violation from scratch, upheld it, or only addressed remedies/form. |
-        | `number_of_alleged_acts` | integer | Number of distinct violation acts/episodes identified in the case. |
-        | `court_infringement_result` | enum | The court's ruling on whether a personal-rights violation occurred. |
-        | `court_non_infringement_or_dismissal_reason` | enum | Main reason for dismissal or non-recognition of the violation. |
-        | `court_unlawfulness_result` | enum | How the court addressed unlawfulness under Art. 24 KC (no exclusions found, exclusion found, not directly analyzed, no data). |
-        | `unlawfulness_exclusion_type` | enum | If unlawfulness was excluded, the category of argument that best matches (consent, legitimate interest, exercise of a right, freedom of expression, etc.). |
-        | `good_personal_categories_additional` | string | Additional personal-right categories, if more than one was violated. |
-
+        | `case_id` | string | required: true. Identyfikator sprawy do agregacji rekordów między instancjami (np. wspólny identyfikator w bazie). |
+        | `record_unit` | enum | required: true. Jednostka ekstrakcji: czy jeden rekord odpowiada jednemu dokumentowi/instancji, czy scałej sprawie. Zalecane: `dokument_instancja`. |
+        | `judgment_year` | integer | required: true. Rok wydania wyroku/rozstrzygnięcia w analizowanym dokumencie, zwykle z nagłówka lub sentencji (format: rok). |
+        | `judgment_year_is_approx` | boolean | required: false. Czy `judgment_year` jest przybliżony (np. widoczny tylko rok bez pełnej daty). |
+        | `incident_year` | integer | required: false. Rok zdarzenia/incydentu dla osi głównej faktycznej sprawy. Wypełniaj tylko gdy dokument pozwala wskazać jeden rok. |
+        | `incident_year_is_approx` | boolean | required: false. Czy `incident_year` jest przybliżony/niepewny (dotyczy wyłącznie, gdy wypełniasz `incident_year`). |
+        | `filing_year` | integer | required: false. Rok wniesienia pozwu/zgłoszenia roszczeń (z komparycji/akt). Jeśli brak wprost, nie zgaduj. |
+        | `filing_year_is_approx` | boolean | required: false. Czy `filing_year` jest przybliżony/nieustalony w sposób pewny. |
+        | `court_instance` | enum | required: true. Instancja sądu w analizowanym dokumencie. |
+        | `court_type` | enum | required: false. Typ sądu (jeśli da się ustalić z nagłówka). |
     ??? note "Show full schema (80 fields, raw JSON, original language)"
 
         ```json

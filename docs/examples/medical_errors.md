@@ -5,10 +5,83 @@ How civil courts determine compensation and damages for medical malpractice.
 !!! warning "About the English text on this page"
     This run was performed in Polish — the prompts, conversation, and generated schema field
     descriptions are all originally in Polish. The English tabs are **machine translations**
-    produced after the fact for readability, not reviewed by a native speaker. Treat the Polish
-    tab as the source of truth.
+    produced after the fact for readability.
 
 ## The conversation
+
+=== "🇬🇧 English"
+
+    <div class="chat" markdown="1">
+    <div class="chat-msg chat-user" markdown="1">
+    <span class="chat-label">You</span>
+
+    How do civil courts determine the amount of compensation for pain and suffering (zadośćuczynienie) in medical malpractice cases, and what circumstances affect the amounts awarded to patients?
+
+    </div>
+    <div class="chat-msg chat-assistant" markdown="1">
+    <span class="chat-label">Assistant</span>
+
+    1. [Confirmation] I understand you want to study which criteria and arguments civil courts cite when setting the amount of compensation for harm caused by medical malpractice, and which circumstances correlate with the amounts awarded — is that right?
+
+    2. [Confirmation] Are you interested only in monetary compensation for non-pecuniary harm ("zadośćuczynienie", Art. 445 §1 / 448 Civil Code), or also related claims such as damages for pecuniary loss ("odszkodowanie", Art. 444) and an annuity ("renta", Art. 444 §2)?
+
+    3. [Legal framework] Is it important to distinguish the basis of liability — tort liability, vicarious/risk-based liability for a subordinate, and the liability of the medical entity (e.g. organizational fault) — and do you want to check whether the choice of legal basis affects the amount awarded?
+
+    4. [Procedural context] Do you want to compare how first- and second-instance courts assess the amount (including how often the appellate court changes it), as one of the main study variables?
+
+    5. [Procedural context] Are you interested in whether the defendant's status (a physician as an individual, a hospital/medical entity, or a liability insurer) differentiates the amount awarded or how it's justified?
+
+    6. [Case-law analysis] Do you want to study the influence of expert opinions (e.g. findings on causation, degree of permanent health impairment, prognosis) on the amount awarded, and which elements of the opinion courts treat as decisive?
+
+    7. [Case-law analysis] Which substantive circumstances should be the key potential "amount determinants" for you — e.g. duration and intensity of suffering, irreversibility of effects, patient's age, disability, loss of independence, impact on family and professional life?
+
+    8. [Case-law analysis] Are you interested in how courts justify the "appropriateness" of the amount — e.g. whether they compare it to other rulings, invoke a compensatory function, or reference the standard of living — and do you want to compare these argumentation patterns across courts?
+
+    9. [Temporal context] Do you want to study whether the practice of awarding amounts has changed over time (e.g. an upward trend), and whether courts link this to factors such as inflation or evolving patient-protection standards?
+
+    10. [Special cases] Do you want to separate out specific categories of errors and consequences (e.g. diagnostic vs. treatment vs. perinatal error; patient death and claims by relatives) and compare whether these case types lead to significantly different amounts and different reasoning?
+
+    </div>
+    <div class="chat-msg chat-user" markdown="1">
+    <span class="chat-label">You</span>
+
+    1. Yes, I want to find the variables that predict the amount.
+    2. Compensation (zadośćuczynienie) and damages (odszkodowanie). Not the annuity.
+    3. No, the legal basis isn't a variable I care about.
+    4. Yes, I want to know how often the appellate court changes the amount, and in which direction.
+    5. Yes, especially the difference between a hospital and an insurer.
+    6. Yes. Whether the court based the amount on the percentage impairment from the expert opinion, or went beyond it.
+    7. All the circumstances listed matter.
+    8. Yes, whether courts compare themselves to other rulings, and whether they do so explicitly.
+    9. No.
+    10. Yes, categorize the errors and consequences.
+
+    </div>
+    <div class="chat-msg chat-assistant" markdown="1">
+    <span class="chat-label">Assistant</span>
+
+    We're studying how civil courts determine the amount of compensation (zadośćuczynienie) and damages (odszkodowanie) for medical malpractice, and which circumstances predict the amount awarded. We account for the defendant's type (hospital, physician, insurer), the role of expert opinions (including percentage health impairment), differences between first and second instance, and the category of medical error and its consequences for the patient (pain and suffering, permanent impairment, disability, impact on family and professional life, death). The legal basis is Art. 445 and 448 KC (compensation) and Art. 444 KC (damages); the choice of liability basis is not a separate study variable.
+
+    </div>
+    <div class="chat-msg chat-assistant" markdown="1">
+    <span class="chat-label">Assistant</span>
+
+    Based on your question, I've prepared an extraction schema for analyzing civil rulings in medical malpractice cases, to check which circumstances predict the amount of compensation and damages awarded and how courts justify those amounts. The schema targets patient cases against hospitals, medical entities, physicians, and insurers, covering both first instance and whether the appellate court changes the amount, and in which direction.
+
+    The generated schema includes fields to capture the claim type and outcome, amounts claimed and awarded, the distinction between compensation and damages, the defendant type, the type of medical error, and consequences for the patient such as pain and suffering, permanent impairment, disability, loss of independence, impact on family and professional life, or death. It also extracts information about the expert opinion, including the percentage health impairment and whether the court based the amount on it, as well as whether the court explicitly compared the case to other rulings and invoked the compensatory function and an individualized assessment of harm.
+
+    The schema also lets you separately record the different categories of medical error, the consequence for the patient, and how the awards were assessed, so you can later study which variables actually correlate with the amounts awarded. If you'd like, you can now point out anything to refine, simplify, or add.
+
+    </div>
+    <div class="chat-msg chat-user" markdown="1">
+    <span class="chat-label">You</span>
+
+    I'm satisfied. I want to end the chat.
+
+    </div>
+    </div>
+
+    *The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run.*
 
 === "🇵🇱 Polski"
 
@@ -86,120 +159,43 @@ How civil courts determine compensation and damages for medical malpractice.
 
     *Pytania doprecyzowujące i odpowiedzi pokazane są dosłownie; dłuższe wypowiedzi asystenta skrócono dla czytelności.*
 
-=== "🇬🇧 English"
-
-    <div class="chat" markdown="1">
-    <div class="chat-msg chat-user" markdown="1">
-    <span class="chat-label">You</span>
-
-    How do civil courts determine the amount of compensation for pain and suffering (zadośćuczynienie) in medical malpractice cases, and what circumstances affect the amounts awarded to patients?
-
-    </div>
-    <div class="chat-msg chat-assistant" markdown="1">
-    <span class="chat-label">Assistant</span>
-
-    1. [Confirmation] I understand you want to study which criteria and arguments civil courts cite when setting the amount of compensation for harm caused by medical malpractice, and which circumstances correlate with the amounts awarded — is that right?
-
-    2. [Confirmation] Are you interested only in monetary compensation for non-pecuniary harm ("zadośćuczynienie", Art. 445 §1 / 448 Civil Code), or also related claims such as damages for pecuniary loss ("odszkodowanie", Art. 444) and an annuity ("renta", Art. 444 §2)?
-
-    3. [Legal framework] Is it important to distinguish the basis of liability — tort liability, vicarious/risk-based liability for a subordinate, and the liability of the medical entity (e.g. organizational fault) — and do you want to check whether the choice of legal basis affects the amount awarded?
-
-    4. [Procedural context] Do you want to compare how first- and second-instance courts assess the amount (including how often the appellate court changes it), as one of the main study variables?
-
-    5. [Procedural context] Are you interested in whether the defendant's status (a physician as an individual, a hospital/medical entity, or a liability insurer) differentiates the amount awarded or how it's justified?
-
-    6. [Case-law analysis] Do you want to study the influence of expert opinions (e.g. findings on causation, degree of permanent health impairment, prognosis) on the amount awarded, and which elements of the opinion courts treat as decisive?
-
-    7. [Case-law analysis] Which substantive circumstances should be the key potential "amount determinants" for you — e.g. duration and intensity of suffering, irreversibility of effects, patient's age, disability, loss of independence, impact on family and professional life?
-
-    8. [Case-law analysis] Are you interested in how courts justify the "appropriateness" of the amount — e.g. whether they compare it to other rulings, invoke a compensatory function, or reference the standard of living — and do you want to compare these argumentation patterns across courts?
-
-    9. [Temporal context] Do you want to study whether the practice of awarding amounts has changed over time (e.g. an upward trend), and whether courts link this to factors such as inflation or evolving patient-protection standards?
-
-    10. [Special cases] Do you want to separate out specific categories of errors and consequences (e.g. diagnostic vs. treatment vs. perinatal error; patient death and claims by relatives) and compare whether these case types lead to significantly different amounts and different reasoning?
-
-    </div>
-    <div class="chat-msg chat-user" markdown="1">
-    <span class="chat-label">You</span>
-
-    1. Yes, I want to find the variables that predict the amount.
-    2. Compensation (zadośćuczynienie) and damages (odszkodowanie). Not the annuity.
-    3. No, the legal basis isn't a variable I care about.
-    4. Yes, I want to know how often the appellate court changes the amount, and in which direction.
-    5. Yes, especially the difference between a hospital and an insurer.
-    6. Yes. Whether the court based the amount on the percentage impairment from the expert opinion, or went beyond it.
-    7. All the circumstances listed matter.
-    8. Yes, whether courts compare themselves to other rulings, and whether they do so explicitly.
-    9. No.
-    10. Yes, categorize the errors and consequences.
-
-    </div>
-    <div class="chat-msg chat-assistant" markdown="1">
-    <span class="chat-label">Assistant</span>
-
-    We're studying how civil courts determine the amount of compensation (zadośćuczynienie) and damages (odszkodowanie) for medical malpractice, and which circumstances predict the amount awarded. We account for the defendant's type (hospital, physician, insurer), the role of expert opinions (including percentage health impairment), differences between first and second instance, and the category of medical error and its consequences for the patient (pain and suffering, permanent impairment, disability, impact on family and professional life, death). The legal basis is Art. 445 and 448 KC (compensation) and Art. 444 KC (damages); the choice of liability basis is not a separate study variable.
-
-    </div>
-    <div class="chat-msg chat-assistant" markdown="1">
-    <span class="chat-label">Assistant</span>
-
-    Based on your question, I've prepared an extraction schema for analyzing civil rulings in medical malpractice cases, to check which circumstances predict the amount of compensation and damages awarded and how courts justify those amounts. The schema targets patient cases against hospitals, medical entities, physicians, and insurers, covering both first instance and whether the appellate court changes the amount, and in which direction.
-
-    The generated schema includes fields to capture the claim type and outcome, amounts claimed and awarded, the distinction between compensation and damages, the defendant type, the type of medical error, and consequences for the patient such as pain and suffering, permanent impairment, disability, loss of independence, impact on family and professional life, or death. It also extracts information about the expert opinion, including the percentage health impairment and whether the court based the amount on it, as well as whether the court explicitly compared the case to other rulings and invoked the compensatory function and an individualized assessment of harm.
-
-    The schema also lets you separately record the different categories of medical error, the consequence for the patient, and how the awards were assessed, so you can later study which variables actually correlate with the amounts awarded. If you'd like, you can now point out anything to refine, simplify, or add.
-
-    </div>
-    <div class="chat-msg chat-user" markdown="1">
-    <span class="chat-label">You</span>
-
-    I'm satisfied. I want to end the chat.
-
-    </div>
-    </div>
-
-    *The clarifying questions and answers are shown verbatim; the assistant's longer turns are condensed for readability. The English text is machine-translated from the original Polish run and has not been reviewed by a native speaker.*
-
 ## The generated schema
 
 Five different LLMs ran the exact same pipeline on this case. Field count and shape vary a lot by model — pick a tab to compare.
 
 === "GPT-5.4"
 
-    **150 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **150 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `case_signature` | string | Case number of the analyzed ruling, copied exactly from the header or operative part. |
+        | `judgment_date_iso` | string | Normalized date the ruling was issued, in YYYY-MM-DD format. |
+        | `court_name` | string | Full name of the court that issued the ruling. |
+        | `court_division` | string | Name of the adjudicating division, if stated in the header. |
+        | `is_document_in_scope` | enum | Whether the document falls within the scope of the study on civil medical-malpractice cases and compensation/damages amounts. |
+        | `out_of_scope_reason` | enum | Main reason the document is considered out of scope or partially out of scope. |
+        | `out_of_scope_secondary_reason` | enum | Additional reason for exclusion, when the document meets more than one out-of-scope category. |
+        | `out_of_scope_reason_excerpt` | string | Short justification for excluding or partially excluding the document, ideally a brief quote or summary. |
+        | `proceeding_type` | enum | Main type of proceeding. Use `civil_medical_malpractice` only when the case's core is civil liability for treatment, diagnosis, a procedure, childbirth, or medical care. |
+        | `proceeding_type_secondary` | enum | Secondary classification of the proceeding type for borderline or mixed cases. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `odszkodowanie_base_amount_before_reductions_pln` | float | Required: false. Typ: float. Kwota bazowa odszkodowania ustalona przed redukcjami typu przyczynienie lub zaliczenie świadczeń, w PLN. Wypełniaj tylko przy jawnej kalkulacji sądu; nie rekonstruuj. |
-        | `zadoscuczynienie_base_amount_before_reductions_pln` | float | Required: false. Typ: float. Kwota bazowa zadośćuczynienia ustalona przez sąd przed redukcjami typu przyczynienie lub zaliczenie wcześniejszych świadczeń, w PLN. Wypełniaj tylko gdy sąd podaje tę bazę explicite; nie rekonstruuj jej z arytmetyki pośredniej. |
-        | `odszkodowanie_amount_after_offsets_before_final_pln` | float | Required: false. Typ: float. Kwota odszkodowania po zastosowaniu offsetów lub zaliczeń, ale przed finalną kwotą zasądzoną, jeśli sąd pokazuje taki etap kalkulacji wprost. Nie wyliczaj samodzielnie. |
+        | `case_signature` | string | Required: false. Typ: string. Sygnatura akt analizowanego orzeczenia. Przepisz dokładnie z nagłówka lub sentencji. |
+        | `judgment_date_iso` | string | Required: false. Typ: string. Znormalizowana data wydania orzeczenia w formacie YYYY-MM-DD. Wypełniaj tylko gdy data wynika wprost z dokumentu. |
+        | `court_name` | string | Required: false. Typ: string. Pełna nazwa sądu, który wydał analizowane orzeczenie. Przepisz z nagłówka. |
+        | `court_division` | string | Required: false. Typ: string. Nazwa wydziału orzekającego, jeśli wskazana w nagłówku. |
         | `is_document_in_scope` | enum | Required: true. Typ: enum. Czy dokument mieści się w zakresie badania spraw cywilnych dotyczących błędów medycznych i analizy kwot zadośćuczynienia lub odszkodowania. To pole ma priorytet walidacyjny: gdy wartość to no, pola merytoryczne med-mal powinny pozostać puste albo przyjmować not_applicable. |
-        | `odszkodowanie_amount_scope` | enum | Required: false. Typ: enum. Zakres kwoty odszkodowania w rekordzie: na osobę czy łącznie dla wszystkich powodów. |
-        | `zadoscuczynienie_amount_after_offsets_before_final_pln` | float | Required: false. Typ: float. Kwota zadośćuczynienia po zastosowaniu offsetów lub zaliczeń, ale przed finalną kwotą zasądzoną, jeśli sąd pokazuje taki etap kalkulacji wprost. Nie wyliczaj samodzielnie. |
-        | `odszkodowanie_claimed_initial_pln` | float | Required: false. Typ: float. Kwota odszkodowania pierwotnie dochodzona w pozwie lub przed zmianami powództwa, w PLN. |
-        | `odszkodowanie_claimed_pln` | float | Required: false. Typ: float. Końcowa kwota odszkodowania dochodzona na moment wyrokowania w analizowanej instancji, w PLN. |
-        | `odszkodowanie_awarded_pln` | float | Required: false. Typ: float. Łączna kwota odszkodowania zasądzona w analizowanym orzeczeniu, w PLN. |
-        | `odszkodowanie_pretrial_payment_pln` | float | Required: false. Typ: float. Kwota wcześniejszej wypłaty odnoszona do odszkodowania, w PLN. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `odszkodowanie_base_amount_before_reductions_pln` | float | Base damages amount established by the court before reductions (e.g. contributory negligence, offsets). |
-        | `zadoscuczynienie_base_amount_before_reductions_pln` | float | Base compensation amount established by the court before reductions. |
-        | `odszkodowanie_amount_after_offsets_before_final_pln` | float | Damages amount after offsets/deductions, but before the final awarded amount, when the court shows this calculation step explicitly. |
-        | `is_document_in_scope` | enum | Whether the document falls within the scope of the medical-malpractice compensation study. |
-        | `odszkodowanie_amount_scope` | enum | Whether the damages amount is per claimant or aggregated across all claimants. |
-        | `zadoscuczynienie_amount_after_offsets_before_final_pln` | float | Compensation amount after offsets/deductions, but before the final awarded amount. |
-        | `odszkodowanie_claimed_initial_pln` | float | Damages amount originally claimed in the initial complaint. |
-        | `odszkodowanie_claimed_pln` | float | Final damages amount claimed at the time of the ruling under analysis. |
-        | `odszkodowanie_awarded_pln` | float | Total damages amount awarded in the ruling under analysis. |
-        | `odszkodowanie_pretrial_payment_pln` | float | Amount of any pre-trial payment credited against the damages. |
-
+        | `out_of_scope_reason` | enum | Required: false. Typ: enum. Główny powód uznania dokumentu za poza zakresem lub częściowo poza zakresem. Dla dokumentów w pełni relewantnych użyj not_applicable. |
+        | `out_of_scope_secondary_reason` | enum | Required: false. Typ: enum. Dodatkowy powód wyłączenia, gdy dokument spełnia więcej niż jedną kategorię poza zakresem. |
+        | `out_of_scope_reason_excerpt` | string | Required: false. Typ: string. Krótkie uzasadnienie wyłączenia lub częściowego wyłączenia dokumentu, najlepiej w formie krótkiego cytatu albo streszczenia. |
+        | `proceeding_type` | enum | Required: true. Typ: enum. Główny rodzaj postępowania. Używaj civil_medical_malpractice tylko gdy rdzeniem sprawy jest odpowiedzialność cywilna za leczenie, diagnozę, zabieg, poród lub opiekę medyczną. |
+        | `proceeding_type_secondary` | enum | Required: false. Typ: enum. Pomocnicza klasyfikacja rodzaju postępowania dla przypadków granicznych lub mieszanych. |
     ??? note "Show full schema (150 fields, raw JSON, original language)"
 
         ```json
@@ -1884,40 +1880,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "GPT-5.4 mini"
 
-    **83 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **83 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `case_domain` | enum | Domain of the case established from the ruling's content — medical malpractice, another civil case, or undetermined. |
+        | `is_medical_malpractice_case` | boolean | Whether the document concerns a medical-malpractice case and patient claims. Used as a quick domain filter. |
+        | `medical_error_alleged_but_not_adjudicated` | boolean | Whether a medical error is alleged but not substantively ruled on by the court. |
+        | `liability_found` | boolean | Whether the court found the defendant liable for the medical event or its consequences. |
+        | `medical_error_found_by_court` | boolean | Whether the court explicitly found that a medical error occurred. |
+        | `remedy_type` | enum | Which remedy is being analyzed in the ruling — compensation, damages, both, or a single combined amount. |
+        | `claim_amounts_separated` | boolean | Whether the document clearly separates the compensation and damages amounts. |
+        | `amount_claimed_total` | float | Total amount claimed by the plaintiff, if the document states a single sum or does not separate the claims. |
+        | `amount_claimed_zadoscuczynienie` | float | Compensation amount claimed by the plaintiff, if the document clearly separates the claims. |
+        | `amount_claimed_odszkodowanie` | float | Damages amount claimed by the plaintiff, if the document clearly separates the claims. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `claim_amounts_separated` | boolean | Czy dokument wyraźnie rozdziela kwoty zadośćuczynienia i odszkodowania. Użyj `false`, gdy występuje tylko jedna łączna kwota lub rozbicie nie jest podane. |
+        | `case_domain` | enum | Domena sprawy ustalona na podstawie treści orzeczenia. Użyj `bled_medyczny`, gdy dokument dotyczy błędu medycznego i roszczeń pacjenta; `inna_sprawa_cywilna`, gdy sprawa nie jest medyczna; `nieustalone`, gdy nie da się tego potwierdzić. |
+        | `is_medical_malpractice_case` | boolean | Czy dokument dotyczy sprawy o błąd medyczny i roszczenia pacjenta. Używaj jako szybkiego filtra domeny; powinno być spójne z `case_domain`. |
+        | `medical_error_alleged_but_not_adjudicated` | boolean | Czy w dokumencie pojawia się zarzut błędu medycznego, ale sąd nie rozstrzyga go merytorycznie lub nie przesądza o nim wprost. Pomaga odróżnić zarzut strony od sądowego ustalenia. |
+        | `liability_found` | boolean | Czy sąd ustalił odpowiedzialność pozwanego za zdarzenie medyczne lub jego skutki. Używaj tylko wtedy, gdy odpowiedzialność wynika wprost z sentencji albo uzasadnienia. |
+        | `medical_error_found_by_court` | boolean | Czy sąd wprost stwierdził wystąpienie błędu medycznego. Nie myl z samym zarzutem strony; pole ma odzwierciedlać ustalenie sądu. |
         | `remedy_type` | enum | Jakie świadczenie jest analizowane w orzeczeniu. Użyj `jedna_laczna_kwota`, gdy dokument podaje jedną łączną kwotę bez wyraźnego rozbicia na zadośćuczynienie i odszkodowanie. |
+        | `claim_amounts_separated` | boolean | Czy dokument wyraźnie rozdziela kwoty zadośćuczynienia i odszkodowania. Użyj `false`, gdy występuje tylko jedna łączna kwota lub rozbicie nie jest podane. |
+        | `amount_claimed_total` | float | Łączna kwota dochodzona przez powoda, jeśli dokument podaje jedną sumę albo nie rozdziela roszczeń. Podawaj w złotych; gdy brak danych, pozostaw puste. |
+        | `amount_claimed_zadoscuczynienie` | float | Kwota zadośćuczynienia dochodzona przez powoda, jeśli dokument wyraźnie rozdziela żądania. Jeśli podana jest tylko jedna łączna kwota, pozostaw puste i użyj `amount_claimed_total`. |
         | `amount_claimed_odszkodowanie` | float | Kwota odszkodowania dochodzona przez powoda, jeśli dokument wyraźnie rozdziela żądania. Jeśli podana jest tylko jedna łączna kwota, pozostaw puste i użyj `amount_claimed_total`. |
-        | `amount_awarded_odszkodowanie_first_instance` | float | Kwota odszkodowania zasądzona w I instancji. Jeśli brak takiego rozstrzygnięcia, pozostaw puste; w przypadku wprost oddalonego roszczenia użyj 0.0. |
-        | `amount_awarded_odszkodowanie_final` | float | Końcowa kwota odszkodowania wynikająca z analizowanego orzeczenia po rozpoznaniu sprawy, także po apelacji. Jeśli brak rozbicia lub brak świadczenia, pozostaw puste albo użyj 0.0 przy wprost oddalonym roszczeniu. |
-        | `amount_assessment_present` | boolean | Czy sąd w dokumencie ustala, miarkuje albo wprost ocenia konkretną kwotę świadczenia. Użyj `false`, gdy brak takiej oceny, nawet jeśli sprawa dotyczy roszczenia o zadośćuczynienie lub odszkodowanie. |
-        | `appellate_change_amount_odszkodowanie` | float | O ile zmieniła się kwota odszkodowania w II instancji względem kwoty sprzed zmiany. Podawaj jako dodatnią wartość w złotych, jeśli da się to ustalić. |
-        | `medical_expenses_amount` | float | Kwota kosztów leczenia lub innych wydatków medycznych uwzględnionych jako element odszkodowania, jeśli została wyodrębniona w orzeczeniu. Wartość w złotych. |
-        | `rehabilitation_expenses_amount` | float | Kwota kosztów rehabilitacji uwzględnionych jako element odszkodowania, jeśli została wyodrębniona w orzeczeniu. Wartość w złotych. |
-        | `care_expenses_amount` | float | Kwota kosztów opieki osób trzecich uwzględnionych jako element odszkodowania, jeśli została wyodrębniona w orzeczeniu. Wartość w złotych. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `claim_amounts_separated` | boolean | Whether the document clearly separates the compensation amount from the damages amount. |
-        | `remedy_type` | enum | Which type of remedy is analyzed in the ruling (compensation, damages, both, or a single combined amount). |
-        | `amount_claimed_odszkodowanie` | float | Damages amount claimed by the plaintiff, if the claims are clearly separated. |
-        | `amount_awarded_odszkodowanie_first_instance` | float | Damages amount awarded at first instance. |
-        | `amount_awarded_odszkodowanie_final` | float | Final damages amount resulting from the ruling under analysis, including after appeal. |
-        | `amount_assessment_present` | boolean | Whether the court actually determines or assesses a specific remedy amount in the document. |
-        | `appellate_change_amount_odszkodowanie` | float | By how much the damages amount changed on appeal, relative to the prior amount. |
-        | `medical_expenses_amount` | float | Medical/treatment costs included as part of the awarded damages, if separately identified. |
-        | `rehabilitation_expenses_amount` | float | Rehabilitation costs included as part of the awarded damages, if separately identified. |
-        | `care_expenses_amount` | float | Third-party care costs included as part of the awarded damages, if separately identified. |
-
     ??? note "Show full schema (83 fields, raw JSON, original language)"
 
         ```json
@@ -2733,40 +2726,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "Claude Sonnet 4.6"
 
-    **62 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **62 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `czy_sprawa_dotyczy_bledu_medycznego` | boolean | Whether the analyzed document concerns a medical-malpractice case. Filtering field — fill in before extracting the remaining fields. |
+        | `sygnatura_akt` | string | Case number of the court ruling — unique identifier needed for dataset management and deduplication. |
+        | `rok_orzeczenia` | integer | Year the analyzed ruling was issued. |
+        | `instancja_sadu` | enum | Instance and type of court that issued the ruling — first-instance regional court (high claim value), first-instance district court (low claim value), or appellate court as second instance. |
+        | `identyfikator_sadu` | string | Name or identifier of the court that issued the ruling — enables grouping rulings by court or appellate district. |
+        | `wydzial_sadu` | string | Division of the court that issued the ruling (e.g. civil, labor, commercial) — enables filtering to civil divisions. |
+        | `rodzaj_pozwanego` | enum | Status of the defendant — physician as a natural person, hospital/medical entity, liability insurer, or a combination. |
+        | `podmiot_leczniczy_publiczny_prywatny` | enum | Whether the defendant (or insured) medical entity is public or private. |
+        | `typ_bledu_medycznego` | enum | Type of medical error underlying the claim — diagnostic, therapeutic/surgical, perinatal, pharmacological, anesthesiological, nursing, other. |
+        | `kategoria_skutku_zdrowotnego` | enum | Category of health outcome resulting from the medical error. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `kwota_odszkodowania_zadana` | float | Kwota odszkodowania żądana przez powoda w PLN (szkoda majątkowa z art. 444 § 1 k.c.); wartość 0 jeśli roszczenie o odszkodowanie nie było dochodzone |
-        | `kwota_odszkodowania_zasadzona` | float | Kwota odszkodowania zasądzonego przez sąd w PLN (szkoda majątkowa z art. 444 § 1 k.c.); wartość 0 jeśli powództwo w tym zakresie zostało oddalone |
-        | `kwota_odszkodowania_sad_i_instancji` | float | Kwota odszkodowania zasądzona przez sąd I instancji w PLN (art. 444 § 1 k.c.) — uzupełniać wyłącznie dla orzeczeń sądu II instancji; wartość 0 jeśli sąd I instancji oddalił powództwo; pole 'kwota_odszkodowania_i_instancji_znana' wskazuje, czy wartość jest dostępna; pole kluczowe dla Q6 |
-        | `kwota_odszkodowania_i_instancji_znana` | boolean | Czy kwota odszkodowania zasądzona przez sąd I instancji jest znana i dostępna w analizowanym orzeczeniu; false dla orzeczeń sądu I instancji lub gdy kwota I instancji nie jest podana w uzasadnieniu; pole pomocnicze dla 'kwota_odszkodowania_sad_i_instancji' |
-        | `kwota_zadoscuczynienia_zadana` | float | Kwota zadośćuczynienia żądana przez powoda w PLN; wartość 0 jeśli roszczenie o zadośćuczynienie nie było dochodzone |
-        | `kwota_zadoscuczynienia_zasadzona` | float | Kwota zadośćuczynienia zasądzona przez sąd w PLN; wartość 0 jeśli powództwo w tym zakresie zostało oddalone |
-        | `swiadczenia_zaliczone_na_poczet_zadoscuczynienia` | float | Kwota zewnętrznych świadczeń (np. wypłaconych przez ubezpieczyciela przed procesem, ZUS, inne podmioty) odliczona przez sąd od należnego zadośćuczynienia przy ustalaniu kwoty zasądzonej; wartość 0 jeśli sąd nie dokonał odliczeń lub brak informacji o odliczeniach; pole istotne dla prawidłowej interpretacji kwoty netto zasądzonej w kontekście modeli predykcyjnych Q1, Q2, Q5 |
-        | `kwota_zadoscuczynienia_na_powoda_min` | float | Minimalna kwota zadośćuczynienia zasądzona na jednego powoda w PLN — w sprawach wieloosobowych (liczba_powodow > 1) pozwala uchwycić rozpiętość kwot indywidualnych; równa kwocie zasądzonej dla pojedynczego powoda; pole kluczowe dla Q10 |
-        | `kwota_zadoscuczynienia_na_powoda_max` | float | Maksymalna kwota zadośćuczynienia zasądzona na jednego powoda w PLN — w sprawach wieloosobowych (liczba_powodow > 1) pozwala uchwycić rozpiętość kwot indywidualnych; równa kwocie zasądzonej dla pojedynczego powoda; pole kluczowe dla Q10 |
-        | `kwota_zadoscuczynienia_sad_i_instancji` | float | Kwota zadośćuczynienia zasądzona przez sąd I instancji w PLN — uzupełniać wyłącznie dla orzeczeń sądu II instancji; wartość 0 jeśli sąd I instancji oddalił powództwo; pole 'kwota_zadoscuczynienia_i_instancji_znana' wskazuje, czy wartość jest dostępna; pole kluczowe dla Q6 |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `kwota_odszkodowania_zadana` | float | Damages amount claimed by the plaintiff (PLN); 0 if damages were not claimed. |
-        | `kwota_odszkodowania_zasadzona` | float | Damages amount awarded by the court (PLN); 0 if the claim was dismissed. |
-        | `kwota_odszkodowania_sad_i_instancji` | float | Damages amount awarded by the first-instance court (PLN) — only for second-instance rulings. |
-        | `kwota_odszkodowania_i_instancji_znana` | boolean | Whether the first-instance damages amount is known and available in the ruling under analysis. |
-        | `kwota_zadoscuczynienia_zadana` | float | Compensation amount claimed by the plaintiff (PLN); 0 if compensation was not claimed. |
-        | `kwota_zadoscuczynienia_zasadzona` | float | Compensation amount awarded by the court (PLN); 0 if the claim was dismissed. |
-        | `swiadczenia_zaliczone_na_poczet_zadoscuczynienia` | float | External payments (e.g. from an insurer, social security) offset against the compensation by the court. |
-        | `kwota_zadoscuczynienia_na_powoda_min` | float | Minimum compensation amount awarded per plaintiff, in multi-plaintiff cases. |
-        | `kwota_zadoscuczynienia_na_powoda_max` | float | Maximum compensation amount awarded per plaintiff, in multi-plaintiff cases. |
-        | `kwota_zadoscuczynienia_sad_i_instancji` | float | Compensation amount awarded by the first-instance court (PLN) — only for second-instance rulings. |
-
+        | `czy_sprawa_dotyczy_bledu_medycznego` | boolean | Czy analizowany dokument dotyczy sprawy o błąd medyczny (malpractice) — true jeśli przedmiotem sprawy jest roszczenie wynikające z działania lub zaniechania personelu medycznego; false jeśli dokument dotyczy innej domeny (np. wypadek komunikacyjny, błąd budowlany) nawet jeśli powołuje te same artykuły k.c. (art. 445 § 1, art. 444); pole filtrujące — wypełnić jako pierwsze przed ekstrakcją pozostałych pól |
+        | `sygnatura_akt` | string | Sygnatura akt sprawy sądowej (np. 'I C 123/20') — unikalny identyfikator orzeczenia niezbędny do zarządzania zbiorem danych i deduplikacji |
+        | `rok_orzeczenia` | integer | Rok wydania analizowanego orzeczenia (np. 2021) — standardowy atrybut zbioru danych sądowych; wymagany |
+        | `instancja_sadu` | enum | Instancja i rodzaj sądu, który wydał analizowane orzeczenie; 'pierwsza_sad_okregowy' = sąd okręgowy orzekający jako I instancja (wysoki WPS); 'pierwsza_sad_rejonowy' = sąd rejonowy orzekający jako I instancja (niski WPS, np. roszczenia do 75 000 PLN); 'druga' = sąd apelacyjny jako II instancja; szukaj w nagłówku orzeczenia |
+        | `identyfikator_sadu` | string | Nazwa lub identyfikator sądu, który wydał orzeczenie (np. 'Sąd Okręgowy w Warszawie' lub 'Sąd Apelacyjny w Krakowie') — umożliwia grupowanie orzeczeń według sądu lub okręgu apelacyjnego dla porównań międzysądowych; pole kluczowe dla Q7 i Q8 |
+        | `wydzial_sadu` | string | Wydział sądu, który wydał orzeczenie (np. 'cywilny', 'pracy', 'gospodarczy') — umożliwia filtrowanie rekordów do wydziałów cywilnych oraz detekcję nieadekwatnych dokumentów (np. z wydziałów pracy) mogących zaburzyć analizy porównawcze; szukaj w nagłówku orzeczenia lub sygnaturze akt |
+        | `rodzaj_pozwanego` | enum | Status pozwanego w sprawie — lekarz jako osoba fizyczna, szpital/podmiot leczniczy, ubezpieczyciel OC lub kombinacja; pole kluczowe dla Q5 |
+        | `podmiot_leczniczy_publiczny_prywatny` | enum | Czy podmiot leczniczy będący pozwanym (lub ubezpieczany) jest podmiotem publicznym (SP ZOZ, jednostka samorządowa) czy prywatnym (spółka, praktyka prywatna); 'nieustalony' jeśli brak danych w orzeczeniu; pole kluczowe dla Q5 — może różnicować kwoty niezależnie od formalnego statusu pozwanego |
+        | `typ_bledu_medycznego` | enum | Rodzaj błędu medycznego stanowiącego podstawę faktyczną roszczenia; 'diagnostyczny' = błąd w rozpoznaniu choroby; 'terapeutyczny_chirurgiczny' = błąd w leczeniu lub zabiegu chirurgicznym; 'okoloporodowy' = błąd podczas porodu lub opieki perinatalnej; 'farmakologiczny' = błąd w doborze lub dawkowaniu leku; 'anestezjologiczny' = błąd związany ze znieczuleniem; pole kluczowe dla Q3 |
+        | `kategoria_skutku_zdrowotnego` | enum | Kategoria skutku zdrowotnego będącego następstwem błędu medycznego; pole kluczowe dla Q4 i Q10 |
     ??? note "Show full schema (62 fields, raw JSON, original language)"
 
         ```json
@@ -3297,40 +3287,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "Gemma 4 E4B IT"
 
-    **23 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **23 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `instancja_sadowa` | string | Court instance issuing the ruling (first instance or appeal). |
+        | `charakter_roszczenia_klasyfikacja` | enum | Main nature of the claim examined in the ruling, to which the awarded amounts relate. |
+        | `typ_sprawy_podstawy_odpowiedzialnosci` | enum | Precise legal basis of liability (e.g. tort liability vs. medical-entity organizational liability, including informational liability). |
+        | `typ_bledu_medycznego` | enum | Categorization of the type of medical error that caused the harm. |
+        | `status_pozwanego` | enum | Legal status of the defendant (physician, medical entity, insurer). |
+        | `charakter_szkody_fizycznej` | enum | Categorization of the nature of the patient's permanent health impairment. |
+        | `analiza_opinii_biegla` | enum | Granular assessment of how the court used the expert's findings. |
+        | `zgodnosc_biegly_vs_kwota` | enum | Assessment of the correlation between the expert's percentage impairment and the awarded amount. |
+        | `wiek_pacjenta` | integer | Patient's age at the time of the event or the ruling, key for damage assessment. |
+        | `procent_uszczerbku_glowny` | float | Main percentage of permanent health impairment, if stated by the expert and accepted by the court. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `kwoty_zasadzone` | string | Lista szczegółowych zasądzonych kwot. Każdy element listy powinien być obiektem zawierającym kwotę ('value') i jej typ ('type': 'zadośćuczynienie' lub 'odszkodowanie'). |
-        | `total_odszkodowanie_pln` | float | Suma wszystkich kwot zasądzonych tytułem odszkodowania w tym orzeczeniu. |
-        | `zgodnosc_biegly_vs_kwota` | enum | Ocena korelacji między procentowym uszczerbkiem (z opinii) a kwotą zasądzoną (Q2). |
-        | `opis_wplywu_zawodowego` | string | Szczegółowy opis stopnia wpływu uszczerbku na zdolność pacjenta do wykonywania pracy (kluczowy dla odszkodowania). |
-        | `specyficzne_koszty_leczenia_PLN` | string | Szczegółowy wykaz zasądzonych kosztów leczenia, rehabilitacji i opieki po zdarzeniu (składnik odszkodowania). |
-        | `utracony_dochod_PLN` | string | Szczegółowy wykaz zasądzonych dochodów, które pacjent utracił lub utracił przewidywany (składnik odszkodowania). |
-        | `total_zadośćuczynienie_pln` | float | Suma wszystkich kwot zasądzonych tytułem zadośćuczynienia w tym orzeczeniu. |
+        | `instancja_sadowa` | string | Instancja sądowa wydająca orzeczenie (I instancji lub apelacyjna). |
         | `charakter_roszczenia_klasyfikacja` | enum | Główny charakter roszczenia badanego w orzeczeniu, do którego odnoszą się zasądzane kwoty. |
         | `typ_sprawy_podstawy_odpowiedzialnosci` | enum | Precyzyjna podstawa prawna odpowiedzialności, kluczowa dla kontekstu (np. deliktowa vs. odpowiedzialność podmiotu leczniczego, w tym informacyjna). |
         | `typ_bledu_medycznego` | enum | Kategoryzacja samego typu błędu medycznego, który doprowadził do szkody (kluczowa dla Q10). |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `kwoty_zasadzone` | string | List of individual awarded amounts, each tagged with its type (compensation or damages). |
-        | `total_odszkodowanie_pln` | float | Sum of all amounts awarded as damages in this ruling. |
-        | `zgodnosc_biegly_vs_kwota` | enum | Whether the awarded amount matches the percentage health impairment from the expert opinion, or diverges from it. |
-        | `opis_wplywu_zawodowego` | string | Description of how the health impairment affects the patient's ability to work. |
-        | `specyficzne_koszty_leczenia_PLN` | string | Detailed breakdown of awarded treatment, rehabilitation, and care costs. |
-        | `utracony_dochod_PLN` | string | Detailed breakdown of the patient's lost or expected income awarded as damages. |
-        | `total_zadośćuczynienie_pln` | float | Sum of all amounts awarded as compensation in this ruling. |
-        | `charakter_roszczenia_klasyfikacja` | enum | Main nature of the claim the awarded amounts relate to (compensation, damages, or both). |
-        | `typ_sprawy_podstawy_odpowiedzialnosci` | enum | Precise legal basis of liability (tort, organizational liability of the medical entity, informational, other). |
-        | `typ_bledu_medycznego` | enum | Category of the medical error that caused the harm (diagnostic, treatment, informational, surgical, other). |
-
+        | `status_pozwanego` | enum | Status prawny podmiotu pozwanego (lekarz, szpital/podmiot, ubezpieczyciel), kluczowa zmienna porównawcza. |
+        | `charakter_szkody_fizycznej` | enum | Kategoryzacja charakteru trwałego uszczerbku na zdrowiu pacjenta (skutek). |
+        | `analiza_opinii_biegla` | enum | Granularna ocena, jak sąd wykorzystał ustalenia biegłych (Q2). |
+        | `zgodnosc_biegly_vs_kwota` | enum | Ocena korelacji między procentowym uszczerbkiem (z opinii) a kwotą zasądzoną (Q2). |
+        | `wiek_pacjenta` | integer | Wiek pacjenta w chwili wystąpienia zdarzenia lub orzekania, kluczowy dla miarkowania. |
+        | `procent_uszczerbku_glowny` | float | Główny procentowy stopień trwałego uszczerbku na zdrowiu, jeśli podany przez biegłego i przyjęty przez sąd. |
     ??? note "Show full schema (23 fields, raw JSON, original language)"
 
         ```json
@@ -3550,40 +3537,37 @@ Five different LLMs ran the exact same pipeline on this case. Field count and sh
 
 === "GPT-5.4 nano"
 
-    **48 fields total.** Below is a representative excerpt; the full schema is available raw beneath it.
+    **48 fields total.** Below are the first 10 fields, in schema order; the full schema is available raw beneath it.
+
+    === "🇬🇧 English"
+
+        | Field | Type | Description |
+        |---|---|---|
+        | `claim_type_primary` | enum | Dominant type of monetary claim analyzed — compensation, damages, both, or other. |
+        | `liability_source` | enum | Nature/source of liability described in the reasoning or facts — medical error, workplace accident, other tort. |
+        | `defendant_status_primary` | enum | Dominant status of the defendant — medical entity/hospital, insurer, physician as a natural person, State Treasury/public entity, etc. |
+        | `pct_uszczerbek_source_type` | enum | Source of the percentage/numeric parameter used to determine the extent of permanent health impairment. |
+        | `expert_opinion_used` | boolean | Whether a credible expert/medical opinion was used to determine the extent of the harm. |
+        | `expert_provided_pct_uszczerbek` | boolean | Whether a percentage figure appears in the ruling in the context of permanent health impairment. |
+        | `expert_pct_uszczerbek_source_explicit` | boolean | Whether the court explicitly states that the percentage/numeric parameter comes from an expert opinion or other medical document. |
+        | `expert_pct_uszczerbek_value_present` | boolean | Whether the reasoning explicitly states a specific percentage value for the permanent impairment. |
+        | `expert_pct_uszczerbek_value` | float | Value of the percentage impairment (in %), if stated explicitly. |
+        | `court_explicitly_connected_pct_to_amount` | boolean | Whether the reasoning explicitly ties the awarded amount to a percentage impairment value. |
 
     === "🇵🇱 Polski"
 
         | Field | Type | Description |
         |---|---|---|
-        | `zado_s_amount_definition` | enum | Definicja, czy kwota zadośćuczynienia w danych dotyczy kwoty głównej (bez odsetek) czy jest podana wraz z odsetkami/częściowo z odsetkami. Odczytuj wg sentencji (np. czy sąd rozdziela: „kwota z odsetkami od dnia…”). |
-        | `awarded_zadosc_pln_present` | boolean | Czy zasądzona kwota zadośćuczynienia jest podana. UWAGA spójność: jeśli `has_zadosc=true` i `zadosc_disposition_category` wskazuje oddalenie w całości/części, ustaw domyślnie `awarded_zadosc_zero_amount=true`, `awarded_zadosc_pln=0` oraz `awarded_zadosc_pln_present=true` (jeżeli w sentencji nie ma wprost „0 zł”, kodowanie wykonaj na podstawie wyniku: brak uwzględnienia). |
-        | `claimed_odszkodowanie_pln_present` | boolean | Czy żądana kwota odszkodowania jest podana w materiale (w pozwie/żądaniu/ustaleniach)? Gate: przy braku odszkodowania ustaw `nie_dotyczy`. |
-        | `claimed_odszkodowanie_pln` | float | Żądana kwota odszkodowania (PLN), jeśli wskazana w materiale lub w ustaleniach sądu. |
-        | `awarded_odszkodowanie_pln_present` | boolean | Czy sąd zasądził/uwzględnił odszkodowanie oraz czy kwota jest podana (albo wynika z braku uwzględnienia)? Gate: jeśli `has_odszkodowanie=false` -> `nie_dotyczy`/pomijaj. |
-        | `awarded_odszkodowanie_pln` | float | Łączna kwota zasądzona tytułem odszkodowania (szkoda majątkowa), w PLN. Jeśli roszczenie oddalono w całości i dokument pozwala to zakodować jako 0, wpisz 0. |
-        | `awarded_odszkodowanie_zero_amount` | boolean | Czy sąd rozstrzygnął, że odszkodowanie nie przysługuje (wartość uwzględniona = 0). Używaj jako analogii do `awarded_zadosc_zero_amount` dla zadośćuczynienia. |
         | `claim_type_primary` | enum | Dominujący typ świadczenia/roszczenia pieniężnego, którego wysokość ma być analizowana (rdzeń ilościowy). Wypełniaj na podstawie sentencji/rozstrzygnięcia. Jeśli w tej samej sprawie występują równolegle zarówno zadośćuczynienie, jak i odszkodowanie, wybierz `oba_zadośćuczynienie_i_odszkodowanie` (żeby ograniczyć arbitralność). |
+        | `liability_source` | enum | Charakter/źródło odpowiedzialności opisane w uzasadnieniu lub w podstawie faktycznej. Jeśli zdarzenie nie jest „medycznym błędem” (np. wypadek przy pracy), ustaw wartość inną niż `błąd_medyczny`. |
+        | `defendant_status_primary` | enum | Dominujący status pozwanego (lub strony dominującej w odpowiedzialności). Dobieraj kategorię wg tego, kto jest wskazywany jako podmiot odpowiedzialny (zwykle wątek odpowiedzialności organizacyjnej/organizacyjno-instytucjonalnej, ubezpieczyciel/OC, itd.). W sprawach ze Skarbem Państwa wybieraj `skarb_panstwa_jednostka_publiczna` (np. dyrektor szpitala w strukturze publicznej/jednostka publiczna). Jeśli rozstrzygnięcie dotyczy konkretnie dyrektora jednostki penitencjarnej – wybierz `dyrektor_jednostki_penitencjarnej`. |
+        | `pct_uszczerbek_source_type` | enum | Źródło parametru procentowego/liczbowego używanego do ustaleń o rozmiarze trwałych następstw (np. uszczerbek w %). Jeśli sąd operuje innym dokumentem medycznym/orzeczeniem poza ZUS – koduj jako `inne_orzeczenie_medyczne`. |
+        | `expert_opinion_used` | boolean | Czy w sprawie wykorzystano wiarygodne źródło opiniodawcze/medyczne do ustaleń rozmiaru krzywdy/niepełnosprawności/uszczerbku (np. opinie biegłych sądowych i/lub orzeczenia ZUS)? |
+        | `expert_provided_pct_uszczerbek` | boolean | Czy w treści orzeczenia/uzasadnienia pojawia się liczba w formie procentu w kontekście uszczerbku/trwałych następstw (niezależnie od tego, czy pochodzi z opinii biegłych czy z orzeczeń ZUS)? |
+        | `expert_pct_uszczerbek_source_explicit` | boolean | Czy sąd wprost wskazuje, że podany procent/liczbowy parametr pochodzi z opinii biegłych lub innego dokumentu medycznego/ZUS (np. „biegli przyjęli 8%”, „z orzeczenia wynika 8%”)? |
+        | `expert_pct_uszczerbek_value_present` | boolean | Czy uzasadnienie zawiera wprost konkretną wartość procentową (lub równoważny parametr liczbowy) w kontekście trwałych następstw? Uwaga: różne formy liczb (np. „8 procent”) też wliczają się do tej kategorii. |
+        | `expert_pct_uszczerbek_value` | float | Wartość procentowego uszczerbku (w %), jeśli wskazana wprost (lub równoważny parametr liczbowy przeliczony do procentów na poziomie tekstu – gdy tekst nie rozróżnia jednostek, wpisz liczbę). |
         | `court_explicitly_connected_pct_to_amount` | boolean | Czy uzasadnienie miarkowania wprost łączy zastosowaną kwotę z wartością procentu/uszczerbku (np. „kwota odpowiada 8%” / „w oparciu o 8% zasądza…”)? Jeśli sąd wspomina procent, ale nie pokazuje mechanizmu „% → kwota”, koduj `false`. |
-        | `claimed_zadosc_pln_present` | boolean | Czy żądana kwota zadośćuczynienia jest podana w materiale (w pozwie/żądaniu/ustaleniach)? Gate: przy braku zadośćuczynienia ustaw `nie_dotyczy`. |
-
-    === "🇬🇧 English"
-
-        *Descriptions machine-translated from the model's original Polish output; not reviewed by a native speaker.*
-
-        | Field | Type | Description |
-        |---|---|---|
-        | `zado_s_amount_definition` | enum | Whether the compensation amount is principal only, or includes/partly includes interest. |
-        | `awarded_zadosc_pln_present` | boolean | Whether the awarded compensation amount is stated in the ruling. |
-        | `claimed_odszkodowanie_pln_present` | boolean | Whether the claimed damages amount is stated in the pleadings or findings. |
-        | `claimed_odszkodowanie_pln` | float | Damages amount claimed by the plaintiff (PLN), if stated. |
-        | `awarded_odszkodowanie_pln_present` | boolean | Whether the court awarded damages and whether the amount is stated (or follows from a dismissal). |
-        | `awarded_odszkodowanie_pln` | float | Total damages amount awarded (PLN). |
-        | `awarded_odszkodowanie_zero_amount` | boolean | Whether the court ruled that no damages are due (awarded amount = 0). |
-        | `claim_type_primary` | enum | Dominant type of monetary claim being analyzed (compensation, damages, both, or other). |
-        | `court_explicitly_connected_pct_to_amount` | boolean | Whether the reasoning explicitly ties the awarded amount to a percentage health impairment. |
-        | `claimed_zadosc_pln_present` | boolean | Whether the claimed compensation amount is stated in the pleadings or findings. |
-
     ??? note "Show full schema (48 fields, raw JSON, original language)"
 
         ```json
