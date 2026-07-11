@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass
 from typing import Any
 
@@ -65,6 +66,12 @@ _NODE_TO_AGENT = {
     "human_message": "Human",
     "user_feedback_node": "Human",
 }
+
+
+def _format_schema(schema: SchemaFields | None) -> str:
+    if schema is None:
+        return "None"
+    return json.dumps(schema.model_dump(mode="json"), indent=2, ensure_ascii=False)
 
 
 class HumanFeedback:
@@ -314,10 +321,11 @@ class SchemaGenerator:
                             pbar.close()
                             pbar = None
                         if node_name == "summarizer":
+                            schema_str = _format_schema(latest_schema)
                             if minimal:
-                                tqdm.write(f"📋 Schema:\n{latest_schema}\n{'-' * 50}")
+                                tqdm.write(f"📋 Schema:\n{schema_str}\n{'-' * 50}")
                             else:
-                                logger.info("📋 Schema:\n{}\n{}", latest_schema, "-" * 50)
+                                logger.info("📋 Schema:\n{}\n{}", schema_str, "-" * 50)
                         if node_name not in _SELF_ECHOING_NODES:
                             for msg in update.get("messages", []):
                                 if minimal:

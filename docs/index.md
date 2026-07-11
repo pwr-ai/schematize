@@ -4,6 +4,21 @@
   <p style="font-size: 1.1rem; color: var(--md-default-fg-color--light); max-width: 560px; margin: 0 auto;">Automated extraction-schema generation using a multi-agent LangGraph pipeline.</p>
 </div>
 
+<div align="center" markdown="1">
+
+[![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)
+[![Docs](https://img.shields.io/badge/docs-pwr--ai.github.io-blue.svg)](https://pwr-ai.github.io/schematize)
+[![Python](https://img.shields.io/pypi/pyversions/schematize.svg)](https://pypi.org/project/schematize/)
+[![CI](https://github.com/pwr-ai/schematize/actions/workflows/ci.yml/badge.svg)](https://github.com/pwr-ai/schematize/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+[GitHub repo](https://github.com/pwr-ai/schematize) ·
+[Examples](https://pwr-ai.github.io/schematize/examples/) ·
+[PyPI](https://pypi.org/project/schematize/)
+
+</div>
+
 **schematize** turns a natural language research question into a typed, validated extraction schema, ready to drive structured information extraction from document collections.
 
 Instead of hand-crafting a JSON schema, you describe what you want to extract. The pipeline asks clarifying questions, drafts a schema, refines it against quality criteria, tests it against real documents from your corpus, and opens a chat so you can make final adjustments.
