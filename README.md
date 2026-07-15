@@ -4,6 +4,8 @@
 
 # schematize
 
+<img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/dept-logo.png" alt="Department of Artificial Intelligence logo" height="48"> &nbsp; <img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/pwr-logo.png" alt="Wrocław University of Science and Technology logo" height="40" style="background:#fff;padding:4px 8px;border-radius:4px;">
+
 **Turn a plain research problem into a typed, data-tested extraction schema.**
 
 
