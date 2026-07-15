@@ -1,11 +1,11 @@
 import yaml
 
-from schematize.settings import PROMPTS_PATH
+from schematize.settings import PROMPTS_PATH, SUPPORTED_LANGUAGES, SUPPORTED_SYSTEM_TYPES
 
 
 def load_prompts(language: str, system_type: str) -> dict[str, str]:
-    assert language in ["pl", "en"], "Invalid language"
-    assert system_type in ["law", "tax"], "Invalid system type"
+    assert language in SUPPORTED_LANGUAGES, "Invalid language"
+    assert system_type in SUPPORTED_SYSTEM_TYPES, "Invalid system type"
     prompt_names = [
         "problem_definer_helper",
         "problem_definer",

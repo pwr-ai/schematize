@@ -14,6 +14,8 @@ Set your LLM API key:
 export API_KEY=sk-...
 ```
 
+See [Installation → Environment variables](installation.md#environment-variables) for the full list of variables (e.g. for the Weaviate retriever) and how to load them from a `.env` file.
+
 ---
 
 ## Step 1 — Set up the LLM
@@ -141,3 +143,24 @@ generator = SchemaGenerator(
 ```
 
 When `skip_problem_definition=True`, the user input is used directly as the problem definition.
+
+---
+
+## Running from the command line
+
+The steps above can be replaced with a single command if you install the `[scripts]` extra:
+
+```bash
+pip install "schematize[scripts]"
+```
+
+```bash
+schematize-run --model gpt-4o --dataset JuDDGES/pl-court-raw --max-documents 10000
+```
+
+You'll be prompted to describe the schema to generate, then the same interactive pipeline from
+[Step 5](#step-5--run-the-pipeline) runs in your terminal. The resulting state is written to
+`state.json`.
+
+See the [CLI reference](guides/cli.md) for the full list of options (retriever selection, refinement
+rounds, output path, etc.).

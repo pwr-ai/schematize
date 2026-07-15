@@ -6,10 +6,15 @@ Scripts and adapters read configuration from environment variables. The recommen
 
 ### LLM access
 
+schematize talks to your LLM through the **OpenAI-compatible chat completions API** (via
+`ChatOpenAI`), so any provider or server implementing that API works — the official OpenAI API,
+[LiteLLM](https://github.com/BerriAI/litellm), [vLLM](https://github.com/vllm-project/vllm), Ollama,
+and many others. Point `API_URL` at whichever one you're using.
+
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `API_KEY` | Yes | API key for the LLM provider |
-| `API_URL` | No | Base URL for the LLM endpoint. Omit for the provider default (e.g. OpenAI). Set for self-hosted models via LiteLLM or an OpenAI-compatible endpoint. |
+| `API_URL` | No | Base URL for the LLM endpoint. Omit for the provider default (the official OpenAI API). Set for LiteLLM, vLLM, Ollama, or any other OpenAI-compatible endpoint. |
 
 Example `.env`:
 
@@ -23,6 +28,13 @@ For a local Ollama model:
 ```env
 API_KEY=ollama
 API_URL=http://localhost:11434/v1
+```
+
+For a self-hosted [vLLM](https://github.com/vllm-project/vllm) server:
+
+```env
+API_KEY=vllm
+API_URL=http://localhost:8000/v1
 ```
 
 ### Using any provider via LiteLLM
@@ -78,8 +90,12 @@ prompts = load_prompts(language="en", system_type="law")
 |-----------|--------------|--------|
 | `"en"` | `"law"` | English legal judgments |
 | `"en"` | `"tax"` | English tax interpretations |
+| `"en"` | `"general"` | Domain-neutral, for any document corpus |
 | `"pl"` | `"law"` | Polish legal judgments |
 | `"pl"` | `"tax"` | Polish tax interpretations |
+
+The paper's experiments use the `pl`/`law` combination; the others are additional prompt sets for use
+beyond the paper.
 
 `load_prompts` returns a flat dict of named prompt strings. Wrap it in `SchemaGeneratorPrompts` before passing to `SchemaGenerator`:
 
@@ -97,6 +113,9 @@ prompts["schema_generator_prompt"] = "Your custom schema generator prompt..."
 
 generator = SchemaGenerator(llm=llm, retriever=retriever, prompts=SchemaGeneratorPrompts(**prompts))
 ```
+
+See [Prompts](prompts.md) for the directory convention, required placeholders per prompt, and how to bundle
+a new language or `system_type`/domain.
 
 ---
 

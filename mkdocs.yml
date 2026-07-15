@@ -75,6 +75,7 @@ nav:
       - Evaluator: api/evaluator.md
       - Agent State: api/state.md
   - Configuration: configuration.md
+  - Prompts: prompts.md
   - FAQ: faq.md
 
 markdown_extensions:

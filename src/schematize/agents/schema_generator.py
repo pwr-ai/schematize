@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass
 from typing import Any
 
@@ -6,6 +7,7 @@ from langchain_core.messages import HumanMessage
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 from loguru import logger
+from tqdm import tqdm
 
 from schematize.agents.agent_state import AgentState
 from schematize.agents.basic_agents import (
@@ -42,6 +44,12 @@ class SchemaGeneratorPrompts:
     init_chat_first_message_prompt: str
 
 
+VERBOSITY_LEVELS = ("minimal", "all", "debug")
+
+_PROBLEM_HELPER_NODES = {"llm_problem_definer_helper", "user_feedback_node", "llm_problem_definer"}
+_FINAL_CONVERSATION_NODES = {"summarizer", "human_message", "chat"}
+_SELF_ECHOING_NODES = {"user_feedback_node", "human_message"}
+
 _NODE_TO_AGENT = {
     "llm_problem_definer_helper": "ProblemDefinerHelperAgent",
     "llm_problem_definer": "ProblemDefinerAgent",
@@ -60,9 +68,15 @@ _NODE_TO_AGENT = {
 }
 
 
+def _format_schema(schema: SchemaFields | None) -> str:
+    if schema is None:
+        return "None"
+    return json.dumps(schema.model_dump(mode="json"), indent=2, ensure_ascii=False)
+
+
 class HumanFeedback:
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        feedback = input("Please provide feedback: ")
+        feedback = input("👤 Human (feedback): ")
         return {"user_feedback": feedback, "messages": [HumanMessage(content=feedback)]}
 
 
@@ -242,12 +256,31 @@ class SchemaGenerator:
 
         return graph_builder.compile(**(compilation_kwargs or {}))
 
-    def stream_graph_updates(self, user_input: str, current_schema: SchemaFields | None = None) -> None:
+    def stream_graph_updates(
+        self,
+        user_input: str,
+        current_schema: SchemaFields | None = None,
+        verbosity: str = "all",
+    ) -> None:
+        """Run the pipeline end-to-end, logging progress as it goes.
+
+        Args:
+            user_input: Natural language description of the desired extraction schema.
+            current_schema: Existing schema to refine, if any.
+            verbosity: One of `"minimal"`, `"all"`, `"debug"`. `"minimal"` only logs the
+                problem-definition helper dialogue and the final conversation, showing a
+                progress bar for every intermediate step. `"all"` logs every agent's output
+                at INFO level. `"debug"` behaves like `"all"` but relies on a DEBUG-level
+                sink being configured, surfacing prompts and token usage. Default: `"all"`.
+        """
         if self.use_interrupt:
             raise NotImplementedError(
                 "Can't use stream_graph_updates with use_interrupt set!"
             )
-        logger.info("👤 Human:\n{}\n{}", user_input, "-" * 50)
+        if verbosity not in VERBOSITY_LEVELS:
+            raise ValueError(f"verbosity must be one of {VERBOSITY_LEVELS}, got '{verbosity}'")
+        minimal = verbosity == "minimal"
+
         initial_state = AgentState(
             messages=[],
             user_input=user_input,
@@ -266,20 +299,47 @@ class SchemaGenerator:
         )
 
         final_state = None
-        for event_type, data in self.graph.stream(
-            initial_state,
-            stream_mode=["updates", "values"],
-            config={"recursion_limit": self.recursion_limit},
-        ):
-            if event_type == "updates":
-                for node_name, update in data.items():
-                    agent = _NODE_TO_AGENT.get(node_name, node_name)
-                    for msg in update.get("messages", []):
-                        logger.info("🤖 {}:\n{}\n{}", agent, msg.content, "-" * 50)
-                    for usage in update.get("token_usage", []):
-                        logger.info("📊 {} | tokens: {}", agent, usage)
-            else:
-                final_state = data
+        latest_schema = current_schema
+        pbar = None
+        try:
+            for event_type, data in self.graph.stream(
+                initial_state,
+                stream_mode=["updates", "values"],
+                config={"recursion_limit": self.recursion_limit},
+            ):
+                if event_type == "updates":
+                    for node_name, update in data.items():
+                        agent = _NODE_TO_AGENT.get(node_name, node_name)
+                        visible = node_name in _PROBLEM_HELPER_NODES | _FINAL_CONVERSATION_NODES
+                        if minimal and not visible:
+                            if pbar is None:
+                                pbar = tqdm(desc=agent, unit="step", leave=False)
+                            pbar.set_description(agent)
+                            pbar.update(1)
+                            continue
+                        if pbar is not None:
+                            pbar.close()
+                            pbar = None
+                        if node_name == "summarizer":
+                            schema_str = _format_schema(latest_schema)
+                            if minimal:
+                                tqdm.write(f"📋 Schema:\n{schema_str}\n{'-' * 50}")
+                            else:
+                                logger.info("📋 Schema:\n{}\n{}", schema_str, "-" * 50)
+                        if node_name not in _SELF_ECHOING_NODES:
+                            for msg in update.get("messages", []):
+                                if minimal:
+                                    tqdm.write(f"🤖 {agent}:\n{msg.content}\n{'-' * 50}")
+                                else:
+                                    logger.info("🤖 {}:\n{}\n{}", agent, msg.content, "-" * 50)
+                        for usage in update.get("token_usage", []):
+                            logger.debug("📊 {} | tokens: {}", agent, usage)
+                else:
+                    final_state = data
+                    latest_schema = data.get("current_schema", latest_schema)
+        finally:
+            if pbar is not None:
+                pbar.close()
 
         return final_state
 

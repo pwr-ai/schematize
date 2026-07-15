@@ -1,5 +1,7 @@
 from importlib.metadata import version
 
+import pytest
+
 import schematize
 
 
@@ -125,3 +127,35 @@ def test_load_prompts_en_tax():
 def test_load_prompts_pl_law():
     prompts = schematize.load_prompts("pl", "law")
     assert "problem_definer_helper_prompt" in prompts
+
+
+def test_load_prompts_en_general():
+    prompts = schematize.load_prompts("en", "general")
+    assert "problem_definer_helper_prompt" in prompts
+    assert "schema_generator_prompt" in prompts
+
+
+PROMPT_KEYS = [
+    "problem_definer_helper_prompt",
+    "problem_definer_prompt",
+    "schema_refiner_prompt",
+    "schema_assessment_prompt",
+    "schema_generator_prompt",
+    "query_generator_prompt",
+    "schema_data_assessment_prompt",
+    "schema_data_assessment_merger_prompt",
+    "schema_data_refiner_prompt",
+    "init_chat_generation_summarizer_prompt",
+    "init_chat_system_message_prompt",
+    "init_chat_first_message_prompt",
+]
+
+
+@pytest.mark.parametrize(
+    ("language", "system_type"),
+    [("en", "tax"), ("en", "law"), ("pl", "tax"), ("pl", "law"), ("en", "general")],
+)
+def test_load_prompts_all_keys_present(language, system_type):
+    prompts = schematize.load_prompts(language, system_type)
+    for key in PROMPT_KEYS:
+        assert key in prompts

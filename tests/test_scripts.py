@@ -22,6 +22,7 @@ def test_interactive_script_runs_end_to_end(monkeypatch, tmp_path, fake_llm, fak
     result = CliRunner().invoke(
         script.app,
         [
+            "--model", "gpt-4o-mini",
             "--retriever-type", "weaviate",
             "--collection-name", "Contracts",
             "--output", str(output),

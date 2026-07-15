@@ -103,6 +103,11 @@ class _BaseHuggingFaceRetriever:
         model = SentenceTransformer(self.embedding_model, device=self.device, **self.model_kwargs)
         split = f"{self.split}[:{self.max_documents}]" if self.max_documents else self.split
         dataset = load_dataset(self.dataset_name, split=split)
+        if self.text_column not in dataset.column_names:
+            raise ValueError(
+                f"text_column={self.text_column!r} not found in {self.dataset_name!r}. "
+                f"Available columns: {dataset.column_names}"
+            )
         logger.info(f"Loaded {len(dataset)} documents, embedding with {self.embedding_model}")
 
         def _embed(batch: dict[str, list]) -> dict[str, list]:

@@ -104,11 +104,10 @@ class SchemaDataAssessmentAgent:
         documents = await self.retriever(query, max_docs=self.top_k)
         sampled = self.random.sample(documents, min(self.num_examples, len(documents)))
         logger.info(
-            "{} | retrieved {} docs, sampled {}: {}",
+            "{} | retrieved {} docs, sampled {}.",
             type(self).__name__,
             len(documents),
             len(sampled),
-            [str(d)[:120] for d in sampled],
         )
         return sampled
 

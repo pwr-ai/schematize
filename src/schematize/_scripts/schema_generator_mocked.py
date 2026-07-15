@@ -13,6 +13,7 @@ from omegaconf import DictConfig
 
 from schematize.agents.agent_state import AgentState, agent_state_to_json
 from schematize.agents.schema_generator import SchemaGenerator, SchemaGeneratorPrompts
+from schematize.settings import SUPPORTED_LANGUAGES, SUPPORTED_SYSTEM_TYPES
 from schematize.utils.langchain import setup_langchain_llm_cache
 from schematize.utils.load import load_prompts
 
@@ -28,8 +29,8 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 @hydra.main(version_base=None, config_path=_CONFIG_PATH, config_name="run_mocked")
 def main(cfg: DictConfig) -> None:
     
-    assert cfg.case.language in ["pl", "en"], "Invalid language"
-    assert cfg.case.system_type in ["law", "tax"], "Invalid system type"
+    assert cfg.case.language in SUPPORTED_LANGUAGES, "Invalid language"
+    assert cfg.case.system_type in SUPPORTED_SYSTEM_TYPES, "Invalid system type"
 
     if cfg.llm_cache:
         setup_langchain_llm_cache()

@@ -4239,7 +4239,7 @@ wheels = [
 
 [[package]]
 name = "schematize"
-version = "0.1.2"
+version = "0.1.7"
 source = { editable = "." }
 dependencies = [
     { name = "langchain" },
@@ -4252,6 +4252,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
+    { name = "tqdm" },
     { name = "typer" },
     { name = "typing-extensions" },
 ]
@@ -4284,7 +4285,6 @@ notebooks = [
 scripts = [
     { name = "hydra-core" },
     { name = "hydra-joblib-launcher" },
-    { name = "tqdm" },
 ]
 weaviate = [
     { name = "weaviate-client" },
@@ -4329,7 +4329,7 @@ requires-dist = [
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1" },
     { name = "seaborn", marker = "extra == 'notebooks'", specifier = ">=0.13" },
     { name = "sentence-transformers", marker = "extra == 'huggingface'", specifier = ">=3.0" },
-    { name = "tqdm", marker = "extra == 'scripts'", specifier = ">=4.0" },
+    { name = "tqdm", specifier = ">=4.0" },
     { name = "typer", specifier = ">=0.26.7" },
     { name = "typing-extensions", specifier = ">=4.0" },
     { name = "weaviate-client", marker = "extra == 'weaviate'", specifier = ">=4.11" },
