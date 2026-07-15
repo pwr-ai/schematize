@@ -6,7 +6,7 @@ from openai import AuthenticationError
 from schematize.utils.load import load_prompts
 from schematize.utils.retry import RetryingChain
 
-# --- 1. Bad API key must not be retried -------------------------------------------------
+# 1. Bad API key must not be retried
 
 
 class _AlwaysAuthFails:
@@ -32,7 +32,7 @@ def test_authentication_error_is_not_retried():
     assert fake.calls == 1
 
 
-# --- 2. EOFError on non-interactive stdin -----------------------------------------------
+# 2. EOFError on non-interactive stdin
 
 
 def test_human_message_agent_eof_raises_clear_error(monkeypatch):
@@ -51,7 +51,7 @@ def test_human_feedback_eof_raises_clear_error(monkeypatch):
         HumanFeedback()({})
 
 
-# --- 4. Malformed WV_PORT ------------------------------------------------------------------
+# 4. Malformed WV_PORT
 
 
 def test_bad_wv_port_raises_clear_error(monkeypatch):
@@ -63,7 +63,7 @@ def test_bad_wv_port_raises_clear_error(monkeypatch):
         WeaviateRetriever(collection_name="X")
 
 
-# --- 5. Weaviate unreachable ---------------------------------------------------------------
+# 5. Weaviate unreachable
 
 
 def test_weaviate_unreachable_raises_clear_error():
@@ -77,7 +77,7 @@ def test_weaviate_unreachable_raises_clear_error():
         asyncio.run(retriever("q"))
 
 
-# --- 6. Bad language/system_type ------------------------------------------------------------
+# 6. Bad language/system_type
 
 
 def test_load_prompts_bad_language_message():
@@ -90,7 +90,7 @@ def test_load_prompts_bad_system_type_message():
         load_prompts("en", "xx")
 
 
-# --- 9. current_schema=None at output time --------------------------------------------------
+# 9. current_schema=None at output time
 
 
 def test_mocked_script_reports_missing_schema(tmp_path):

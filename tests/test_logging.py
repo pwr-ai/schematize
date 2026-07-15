@@ -17,7 +17,7 @@ def log_sink():
     logger.remove(sink_id)
 
 
-# --- 1. Aggregate token/cost summary ----------------------------------------------------
+# 1. Aggregate token/cost summary
 
 
 def test_stream_graph_updates_logs_token_total(make_generator, log_sink):
@@ -29,7 +29,7 @@ def test_stream_graph_updates_logs_token_total(make_generator, log_sink):
     assert any(f"total={expected_total}" in m for m in log_sink)
 
 
-# --- 2. Per-node timing -------------------------------------------------------------------
+# 2. Per-node timing
 
 
 class _SlowChain:
@@ -47,7 +47,7 @@ def test_retrying_chain_logs_elapsed_time(log_sink):
     assert any(re.search(r"SlowThing.*elapsed.*\d+\.\d+s", m) for m in log_sink)
 
 
-# --- 3. Repeated loop iterations are distinguishable in the log ---------------------------
+# 3. Repeated loop iterations are distinguishable in the log
 
 
 def test_repeated_node_passes_are_numbered_in_log(make_generator, log_sink):
@@ -59,7 +59,7 @@ def test_repeated_node_passes_are_numbered_in_log(make_generator, log_sink):
     assert any("pass 2" in m for m in assessment_lines)
 
 
-# --- 4. DEBUG prompt dumps log only interpolated inputs, not static boilerplate -----------
+# 4. DEBUG prompt dumps log only interpolated inputs, not static boilerplate
 
 
 def test_debug_log_skips_static_prompt_boilerplate(log_sink):
@@ -74,7 +74,7 @@ def test_debug_log_skips_static_prompt_boilerplate(log_sink):
     assert not any("STATIC_BOILERPLATE_TEXT_XYZ" in m for m in debug_lines)
 
 
-# --- 7. Model/endpoint identity is logged -------------------------------------------------
+# 7. Model/endpoint identity is logged
 
 
 def test_cli_logs_resolved_model_and_api_url(monkeypatch, tmp_path, fake_llm, fake_retriever):
@@ -116,7 +116,7 @@ def test_cli_logs_resolved_model_and_api_url(monkeypatch, tmp_path, fake_llm, fa
     assert "http://example.invalid/v1" in result.output
 
 
-# --- 8. input() prompt has a trailing newline ---------------------------------------------
+# 8. input() prompt has a trailing newline
 
 
 def test_human_feedback_prompt_ends_with_newline(monkeypatch):
