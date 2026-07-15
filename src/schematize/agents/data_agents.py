@@ -33,7 +33,7 @@ class QueryGeneratorAgent:
             "user_feedback": state["user_feedback"],
             "problem_definition": state["problem_definition"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         logger.info("{} | query: {}", type(self).__name__, response["parsed"].query)
         return {"messages": [response["raw"]], "query": response["parsed"].query, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
@@ -94,7 +94,7 @@ class SchemaDataAssessmentAgent:
                 "current_schema": current_schema,
                 "example_document": document_text,
             }
-            logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+            logger.debug("{} | inputs: {}", type(self).__name__, inputs)
             tasks.append(self.chain.ainvoke(inputs))
         responses = await asyncio.gather(*tasks)
         data_assessment_results = [self.parser.parse(r.content) for r in responses]
@@ -133,7 +133,7 @@ class SchemaDataAssessmentMergerAgent:
             "current_schema": state["current_schema"],
             "data_assessment_results": data_assessment_results_str,
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         return {"messages": [response["raw"]], "merged_data_assessment": response["parsed"].model_dump(), "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 
@@ -154,7 +154,7 @@ class SchemaDataRefinerAgent:
             "current_schema": state["current_schema"],
             "merged_data_assessment": state["merged_data_assessment"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "data_refinement_rounds": 1, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}

@@ -9,7 +9,7 @@ from langgraph.types import interrupt
 from loguru import logger
 from tqdm import tqdm
 
-from schematize.agents.agent_state import AgentState
+from schematize.agents.agent_state import AgentState, summarize_token_usage
 from schematize.agents.basic_agents import (
     ProblemDefinerAgent,
     ProblemDefinerHelperAgent,
@@ -77,7 +77,7 @@ def _format_schema(schema: SchemaFields | None) -> str:
 class HumanFeedback:
     def __call__(self, state: AgentState) -> dict[str, Any]:
         try:
-            feedback = input("👤 Human (feedback): ")
+            feedback = input("👤 Human (feedback): \n")
         except EOFError as exc:
             raise RuntimeError(
                 "schematize requires interactive stdin at this step; got EOF. Run "
@@ -307,6 +307,7 @@ class SchemaGenerator:
         final_state = None
         latest_schema = current_schema
         pbar = None
+        node_call_count: dict[str, int] = {}
         try:
             for event_type, data in self.graph.stream(
                 initial_state,
@@ -316,6 +317,9 @@ class SchemaGenerator:
                 if event_type == "updates":
                     for node_name, update in data.items():
                         agent = _NODE_TO_AGENT.get(node_name, node_name)
+                        node_call_count[node_name] = node_call_count.get(node_name, 0) + 1
+                        pass_no = node_call_count[node_name]
+                        agent_label = f"{agent} (pass {pass_no})"
                         visible = node_name in _PROBLEM_HELPER_NODES | _FINAL_CONVERSATION_NODES
                         if minimal and not visible:
                             if pbar is None:
@@ -335,9 +339,9 @@ class SchemaGenerator:
                         if node_name not in _SELF_ECHOING_NODES:
                             for msg in update.get("messages", []):
                                 if minimal:
-                                    tqdm.write(f"🤖 {agent}:\n{msg.content}\n{'-' * 50}")
+                                    tqdm.write(f"🤖 {agent_label}:\n{msg.content}\n{'-' * 50}")
                                 else:
-                                    logger.info("🤖 {}:\n{}\n{}", agent, msg.content, "-" * 50)
+                                    logger.info("🤖 {}:\n{}\n{}", agent_label, msg.content, "-" * 50)
                         for usage in update.get("token_usage", []):
                             logger.debug("📊 {} | tokens: {}", agent, usage)
                 else:
@@ -346,6 +350,16 @@ class SchemaGenerator:
         finally:
             if pbar is not None:
                 pbar.close()
+
+        if final_state is not None:
+            totals = summarize_token_usage(final_state.get("token_usage", []))
+            logger.info(
+                "📊 Total tokens: input={} output={} total={} ({} calls)",
+                totals["input_tokens"],
+                totals["output_tokens"],
+                totals["total_tokens"],
+                totals["calls"],
+            )
 
         return final_state
 
