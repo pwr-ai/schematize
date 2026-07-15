@@ -107,14 +107,14 @@ def test_weaviate_import_guard():
 def test_load_prompts_bad_language():
     import pytest
 
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValueError, match="de"):
         schematize.load_prompts("de", "tax")
 
 
 def test_load_prompts_bad_system_type():
     import pytest
 
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValueError, match="medical"):
         schematize.load_prompts("en", "medical")
 
 

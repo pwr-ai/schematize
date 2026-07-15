@@ -78,7 +78,13 @@ class ChatAgent:
 
 class HumanMessageAgent:
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        message = input("👤 Human (message): ")
+        try:
+            message = input("👤 Human (message): ")
+        except EOFError as exc:
+            raise RuntimeError(
+                "schematize requires interactive stdin at this step; got EOF. Run "
+                "in a terminal, or pre-script all expected responses on stdin."
+            ) from exc
         return {
             "messages": [HumanMessage(content=message)],
             "final_messages": [HumanMessage(content=message)],

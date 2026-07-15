@@ -6,10 +6,11 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import BasePromptTemplate
 from langchain_core.runnables import Runnable
 from loguru import logger
-from openai import OpenAIError
+from openai import AuthenticationError, NotFoundError, OpenAIError, PermissionDeniedError
 from pydantic import ValidationError
 
 _RETRYABLE_ERRORS = (OpenAIError, ValidationError)
+_NON_RETRYABLE_ERRORS = (AuthenticationError, PermissionDeniedError, NotFoundError)
 
 
 class RetryingChain:
@@ -30,7 +31,7 @@ class RetryingChain:
             try:
                 return self.chain.invoke(inputs)
             except _RETRYABLE_ERRORS as exc:
-                if attempt == self._max_retries:
+                if isinstance(exc, _NON_RETRYABLE_ERRORS) or attempt == self._max_retries:
                     raise
                 logger.info(
                     "{} | {}: {}; retrying {}/{}",
@@ -46,7 +47,7 @@ class RetryingChain:
             try:
                 return await self.chain.ainvoke(inputs)
             except _RETRYABLE_ERRORS as exc:
-                if attempt == self._max_retries:
+                if isinstance(exc, _NON_RETRYABLE_ERRORS) or attempt == self._max_retries:
                     raise
                 logger.warning(
                     "{} | {}: {}; retrying {}/{}",

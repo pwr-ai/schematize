@@ -76,7 +76,13 @@ def _format_schema(schema: SchemaFields | None) -> str:
 
 class HumanFeedback:
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        feedback = input("👤 Human (feedback): ")
+        try:
+            feedback = input("👤 Human (feedback): ")
+        except EOFError as exc:
+            raise RuntimeError(
+                "schematize requires interactive stdin at this step; got EOF. Run "
+                "in a terminal, or pre-script all expected responses on stdin."
+            ) from exc
         return {"user_feedback": feedback, "messages": [HumanMessage(content=feedback)]}
 
 
