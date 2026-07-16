@@ -15,7 +15,7 @@ CASES=(pl_age pl_personal_rights pl_medical_errors)
 VARIANTS=(query_only full_dialogue)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$(dirname "$SCRIPT_DIR")"
+cd "$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 for generation_model in "${GENERATION_MODELS[@]}"; do
     GENERATION_NAME="schematiq_${generation_model}_query_only"

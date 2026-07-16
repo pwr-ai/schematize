@@ -5,7 +5,7 @@ case dialogue as query, and writes a schematize-compatible ``state.json`` so
 ``scripts/evaluate_schema.py`` can score it unchanged.
 
 Usage:
-    uv run python baselines/run_schematiq_baseline.py --case pl_age --model gpt-5.4-mini
+    uv run python scripts/schematiq/run_schematiq_baseline.py --case pl_age --model gpt-5.4-mini
 """
 
 import asyncio
@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 
 app = typer.Typer(add_completion=False)
 
-REPO_ROOT = Path(__file__).parent.parent
+REPO_ROOT = Path(__file__).parent.parent.parent
 _DEFAULT_CASES = REPO_ROOT / "data/cases"
 _DEFAULT_OUTPUT = REPO_ROOT / "outputs/schematiq"
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Clone ScheMatiQ (pinned) and install schematiq-lib into the uv environment.
-# Usage: bash baselines/setup_schematiq.sh [ref]
+# Usage: bash scripts/schematiq/setup_schematiq.sh [ref]
 set -euo pipefail
 
 REPO_URL="https://github.com/shaharl6000/ScheMatiQ"
@@ -8,7 +8,7 @@ REPO_URL="https://github.com/shaharl6000/ScheMatiQ"
 REF="${1:-dc8f93d941840ae4e15f1ed3cc53b52312049229}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 TARGET="$SCRIPT_DIR/ScheMatiQ"
 
 if [[ ! -d "$TARGET/.git" ]]; then
@@ -27,6 +27,6 @@ uv run python -c "import schematiq; print('schematiq', schematiq.__version__, 'O
 cat <<'EOF'
 
 Next steps:
-  API_KEY=<litellm-key> API_URL=http://localhost:4000 bash baselines/baseline_schematiq.sh
-  API_KEY=<litellm-key> API_URL=http://localhost:4000 bash baselines/eval_schematiq.sh
+  API_KEY=<litellm-key> API_URL=http://localhost:4000 bash scripts/schematiq/baseline_schematiq.sh
+  API_KEY=<litellm-key> API_URL=http://localhost:4000 bash scripts/schematiq/eval_schematiq.sh
 EOF

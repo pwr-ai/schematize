@@ -14,7 +14,7 @@ CASES=( pl_personal_rights) # pl_age pl_medical_errors
 FULL_DIALOGUE_FLAG="--full-dialogue" # "--no-full-dialogue" # 
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$(dirname "$SCRIPT_DIR")"
+cd "$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 MAX_ATTEMPTS=5
 
@@ -23,7 +23,7 @@ run_with_retries() {
     local attempt=1
     while (( attempt <= MAX_ATTEMPTS )); do
         echo "=== Baseline: ScheMatiQ / ${model} / ${case} (attempt ${attempt}/${MAX_ATTEMPTS}) ==="
-        uv run python baselines/run_schematiq_baseline.py --case "${case}" --model "${model}" ${FULL_DIALOGUE_FLAG} && return 0
+        uv run python scripts/schematiq/run_schematiq_baseline.py --case "${case}" --model "${model}" ${FULL_DIALOGUE_FLAG} && return 0
         echo "=== Baseline: ScheMatiQ / ${model} / ${case} failed (attempt ${attempt}/${MAX_ATTEMPTS}) ==="
         (( attempt++ ))
     done

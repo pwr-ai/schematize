@@ -45,7 +45,7 @@ htmlcov/
 .DS_Store
 
 # baselines: third-party clone + local retrieval index cache
-baselines/ScheMatiQ/
+scripts/schematiq/ScheMatiQ/
 .cache/
 
 # mkdocs build output
