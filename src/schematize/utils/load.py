@@ -4,8 +4,10 @@ from schematize.settings import PROMPTS_PATH, SUPPORTED_LANGUAGES, SUPPORTED_SYS
 
 
 def load_prompts(language: str, system_type: str) -> dict[str, str]:
-    assert language in SUPPORTED_LANGUAGES, "Invalid language"
-    assert system_type in SUPPORTED_SYSTEM_TYPES, "Invalid system type"
+    if language not in SUPPORTED_LANGUAGES:
+        raise ValueError(f"language must be one of {SUPPORTED_LANGUAGES}, got {language!r}")
+    if system_type not in SUPPORTED_SYSTEM_TYPES:
+        raise ValueError(f"system_type must be one of {SUPPORTED_SYSTEM_TYPES}, got {system_type!r}")
     prompt_names = [
         "problem_definer_helper",
         "problem_definer",

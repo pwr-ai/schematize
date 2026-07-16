@@ -26,7 +26,7 @@ class InitChatAgent:
             "problem_definition": state["problem_definition"],
             "current_schema": state["current_schema"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         generation_summary = self.parser.parse(response.content)
         message = self._format_message(generation_summary, state)
@@ -78,7 +78,13 @@ class ChatAgent:
 
 class HumanMessageAgent:
     def __call__(self, state: AgentState) -> dict[str, Any]:
-        message = input("👤 Human (message): ")
+        try:
+            message = input("👤 Human (message): \n")
+        except EOFError as exc:
+            raise RuntimeError(
+                "schematize requires interactive stdin at this step; got EOF. Run "
+                "in a terminal, or pre-script all expected responses on stdin."
+            ) from exc
         return {
             "messages": [HumanMessage(content=message)],
             "final_messages": [HumanMessage(content=message)],

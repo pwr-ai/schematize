@@ -1,15 +1,17 @@
 from __future__ import annotations
 
+import time
 from typing import Any
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.prompts import BasePromptTemplate
 from langchain_core.runnables import Runnable
 from loguru import logger
-from openai import OpenAIError
+from openai import AuthenticationError, NotFoundError, OpenAIError, PermissionDeniedError
 from pydantic import ValidationError
 
 _RETRYABLE_ERRORS = (OpenAIError, ValidationError)
+_NON_RETRYABLE_ERRORS = (AuthenticationError, PermissionDeniedError, NotFoundError)
 
 
 class RetryingChain:
@@ -26,11 +28,12 @@ class RetryingChain:
         self._name = name
 
     def invoke(self, inputs: Any) -> Any:
+        start = time.perf_counter()
         for attempt in range(self._max_retries + 1):
             try:
-                return self.chain.invoke(inputs)
+                result = self.chain.invoke(inputs)
             except _RETRYABLE_ERRORS as exc:
-                if attempt == self._max_retries:
+                if isinstance(exc, _NON_RETRYABLE_ERRORS) or attempt == self._max_retries:
                     raise
                 logger.info(
                     "{} | {}: {}; retrying {}/{}",
@@ -40,13 +43,17 @@ class RetryingChain:
                     attempt + 1,
                     self._max_retries,
                 )
+                continue
+            logger.debug("{} | elapsed: {:.2f}s", self._name, time.perf_counter() - start)
+            return result
 
     async def ainvoke(self, inputs: Any) -> Any:
+        start = time.perf_counter()
         for attempt in range(self._max_retries + 1):
             try:
-                return await self.chain.ainvoke(inputs)
+                result = await self.chain.ainvoke(inputs)
             except _RETRYABLE_ERRORS as exc:
-                if attempt == self._max_retries:
+                if isinstance(exc, _NON_RETRYABLE_ERRORS) or attempt == self._max_retries:
                     raise
                 logger.warning(
                     "{} | {}: {}; retrying {}/{}",
@@ -56,6 +63,9 @@ class RetryingChain:
                     attempt + 1,
                     self._max_retries,
                 )
+                continue
+            logger.debug("{} | elapsed: {:.2f}s", self._name, time.perf_counter() - start)
+            return result
 
 
 class StructuredOutputRunner(RetryingChain):

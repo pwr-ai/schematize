@@ -21,7 +21,7 @@ class ProblemDefinerHelperAgent:
 
     def __call__(self, state: AgentState) -> dict[str, Any]:
         inputs = {"user_input": state["user_input"]}
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         parsed_response = self.parser.parse(response.content)
         return {"messages": [response], "problem_help": parsed_response, "token_usage": [msg_usage(response, type(self).__name__)]}
@@ -39,7 +39,7 @@ class ProblemDefinerAgent:
             "problem_help": state["problem_help"],
             "user_feedback": state["user_feedback"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         parsed_response = self.parser.parse(response.content)
         return {"messages": [response], "problem_definition": parsed_response, "token_usage": [msg_usage(response, type(self).__name__)]}
@@ -59,7 +59,7 @@ class SchemaGeneratorAgent:
             "user_feedback": state["user_feedback"],
             "problem_definition": state["problem_definition"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
@@ -84,7 +84,7 @@ class SchemaAssessmentAgent:
             "problem_definition": state["problem_definition"],
             "current_schema": state["current_schema"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         return {"messages": [response["raw"]], "assessment_result": response["parsed"].model_dump(), "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
 
@@ -105,7 +105,7 @@ class SchemaRefinerAgent:
             "current_schema": state["current_schema"],
             "assessment_result": state["assessment_result"],
         }
-        logger.debug("{} | prompt:\n{}", type(self).__name__, self.prompt.format(**inputs))
+        logger.debug("{} | inputs: {}", type(self).__name__, inputs)
         response = self.chain.invoke(inputs)
         parsed = response["parsed"]
         update_dict = {"messages": [response["raw"]], "refinement_rounds": 1, "token_usage": [msg_usage(response["raw"], type(self).__name__)]}

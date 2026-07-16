@@ -88,8 +88,17 @@ def main(cfg: DictConfig) -> None:
     logger.info("State saved to {}", output_path)
 
     schema_path = Path(cfg.output) / "schema.json"
-    schema_path.write_text(final_state.get("current_schema").model_dump_json(indent=2), encoding="utf-8")
+    write_schema(schema_path, final_state.get("current_schema"))
     logger.info("Schema saved to {}", schema_path)
+
+
+def write_schema(schema_path: Path, current_schema) -> None:
+    if current_schema is None:
+        raise RuntimeError(
+            "Pipeline finished without producing a schema — check the state file's "
+            "`messages`/`token_usage` for the failure."
+        )
+    schema_path.write_text(current_schema.model_dump_json(indent=2), encoding="utf-8")
 
 def _build_retriever(r_cfg):
     if r_cfg.type == "weaviate":

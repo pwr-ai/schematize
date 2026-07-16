@@ -34,6 +34,15 @@ def msg_usage(msg, node: str) -> dict:
     return {"node": node, **usage}
 
 
+def summarize_token_usage(token_usage: list[dict]) -> dict[str, int]:
+    totals = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
+    for usage in token_usage:
+        for key in totals:
+            totals[key] += usage.get(key) or 0
+    totals["calls"] = len(token_usage)
+    return totals
+
+
 class AgentStateEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, (AIMessage, HumanMessage, SystemMessage)):

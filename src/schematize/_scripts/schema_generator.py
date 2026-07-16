@@ -94,9 +94,11 @@ def main(
         kwargs = dict(dataset_name=dataset, text_column=text_column, max_documents=max_documents, index_path=index_path)
         retriever = MMLWRobertaV2Retriever(**kwargs) if retriever_type == "mmlw" else HuggingFaceRetriever(**kwargs)
 
+    resolved_api_url = api_url or os.getenv("API_URL")
+    logger.info("Using model={} api_url={}", model, resolved_api_url)
     llm = ChatOpenAI(
         model=model,
-        base_url=api_url or os.getenv("API_URL"),
+        base_url=resolved_api_url,
         api_key=api_key or os.getenv("API_KEY"),
         temperature=temperature,
         max_tokens=max_tokens,

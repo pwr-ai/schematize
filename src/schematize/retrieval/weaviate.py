@@ -27,18 +27,28 @@ except ImportError as _err:
     ) from _err
 
 
+def _parse_port(env_var: str, default: str) -> int:
+    value = os.environ.get(env_var, default)
+    try:
+        return int(value)
+    except ValueError as exc:
+        raise ValueError(f"{env_var}={value!r} is not a valid port number") from exc
+
+
 class _WeaviateDatabase:
     def __init__(
         self,
-        host: str = os.environ.get("WV_URL", "localhost"),
-        port: int = int(os.environ.get("WV_PORT", "8080")),
-        grpc_port: int = int(os.environ.get("WV_GRPC_PORT", "50051")),
-        api_key: str = os.environ.get("WV_API_KEY", ""),
+        host: str | None = None,
+        port: int | None = None,
+        grpc_port: int | None = None,
+        api_key: str | None = None,
     ):
-        self.host = host
-        self.port = port
-        self.grpc_port = grpc_port
-        self._api_key = api_key
+        self.host = host if host is not None else os.environ.get("WV_URL", "localhost")
+        self.port = port if port is not None else _parse_port("WV_PORT", "8080")
+        self.grpc_port = (
+            grpc_port if grpc_port is not None else _parse_port("WV_GRPC_PORT", "50051")
+        )
+        self._api_key = api_key if api_key is not None else os.environ.get("WV_API_KEY", "")
         self.client: weaviate.WeaviateAsyncClient
 
     async def __aenter__(self) -> "_WeaviateDatabase":
@@ -51,7 +61,15 @@ class _WeaviateDatabase:
             grpc_secure=False,
             auth_credentials=Auth.api_key(self._api_key),
         )
-        await self.client.connect()
+        try:
+            await self.client.connect()
+        except Exception as exc:
+            if self.client.is_connected():
+                await self.client.close()
+            raise ConnectionError(
+                f"Could not connect to Weaviate at {self.host}:{self.port} (check "
+                "WV_URL/WV_PORT or that the server is running)"
+            ) from exc
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback) -> None:
@@ -82,10 +100,10 @@ class WeaviateRetriever:
         collection_name: str,
         target_vector: Optional[str] = None,
         filters: Optional[dict[str, str]] = None,
-        host: str = os.environ.get("WV_URL", "localhost"),
-        port: int = int(os.environ.get("WV_PORT", "8080")),
-        grpc_port: int = int(os.environ.get("WV_GRPC_PORT", "50051")),
-        api_key: str = os.environ.get("WV_API_KEY", ""),
+        host: Optional[str] = None,
+        port: Optional[int] = None,
+        grpc_port: Optional[int] = None,
+        api_key: Optional[str] = None,
     ) -> None:
         self.collection_name = collection_name
         self.target_vector = target_vector

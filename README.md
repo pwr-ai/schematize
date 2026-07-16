@@ -20,6 +20,10 @@
 [Pipeline](https://pwr-ai.github.io/schematize/pipeline/) ·
 [API reference](https://pwr-ai.github.io/schematize/api/schema_generator/)
 
+<br>
+
+<img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo_dep.svg" alt="Department of Artificial Intelligence logo" height="48" style="background:#fff;padding:4px 8px;border-radius:4px;"> &nbsp; <img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo_pwr.png" alt="Wrocław University of Science and Technology logo" height="40" style="background:#fff;padding:4px 8px;border-radius:4px;">
+
 </div>
 
 ---
