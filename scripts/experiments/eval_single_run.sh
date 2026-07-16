@@ -3,14 +3,13 @@ set -euo pipefail
 
 MODEL=${1:-gpt-5.4-mini}
 GENERATION_MODELS=(
-    # gpt-5.4-nano
-    # gpt-5.4-mini
-    # gpt-5.4
-    # llama-4-scout-17b
-    # qwen3.6-35b-a3b
+    claude-sonnet-4.6
+    gpt-5.4-nano
+    gpt-5.4-mini
+    gpt-5.4
+    llama-4-scout-17b
+    qwen3.6-35b-a3b
     gemma-4-e4b-it
-    # claude-sonnet-4.6
-    # claude-opus-4-7
 )
 CASES=(pl_age pl_personal_rights pl_medical_errors)
 
