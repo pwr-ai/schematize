@@ -22,7 +22,7 @@
 
 <br>
 
-<img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo_dep.svg" alt="Department of Artificial Intelligence logo" height="48" style="background:#fff;padding:4px 8px;border-radius:4px;"> &nbsp; <img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo_pwr.png" alt="Wrocław University of Science and Technology logo" height="40" style="background:#fff;padding:4px 8px;border-radius:4px;">
+<img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo_dep.svg" alt="Department of Artificial Intelligence logo" height="96" style="background:#fff;padding:4px 8px;border-radius:4px;"> &nbsp; <img src="https://raw.githubusercontent.com/pwr-ai/schematize/master/docs/assets/logo_pwr.png" alt="Wrocław University of Science and Technology logo" height="80" style="background:#fff;padding:4px 8px;border-radius:4px;">
 
 </div>
 
