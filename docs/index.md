@@ -20,7 +20,7 @@
 <br>
 
 <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem;">
-  <img src="assets/logo_dep.svg" alt="Department of Artificial Intelligence logo" style="height: 96px; background: #fff; padding: 4px 8px; border-radius: 4px;">
+  <img src="assets/logo_dep.svg" alt="Department of Artificial Intelligence logo" style="height: 80px; background: #fff; padding: 4px 8px; border-radius: 4px;">
   <img src="assets/logo_pwr.png" alt="Wrocław University of Science and Technology logo" style="height: 80px; background: #fff; padding: 4px 8px; border-radius: 4px;">
 </div>
 
