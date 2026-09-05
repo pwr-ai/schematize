@@ -22,13 +22,34 @@ jobs:
         run: uv python install 3.12
 
       - name: Install dependencies
-        run: uv sync --extra dev --extra scripts
+        run: uv sync --extra dev --extra research
 
       - name: Lint
-        run: uv run ruff check src/schematize tests
+        run: uv run ruff check src/schematize research/scripts tests
+
+      - name: Type check
+        run: uv run mypy src/schematize
 
       - name: Test
         run: uv run coverage run -m pytest && uv run coverage report -mi
+
+  docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv python install 3.12
+      - run: uv sync --extra docs
+      - run: uv run mkdocs build --strict
+
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv python install 3.12
+      - run: uv sync --extra dev
+      - run: uv run pre-commit run --all-files
 
   install-check:
     strategy:

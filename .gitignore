@@ -9,6 +9,7 @@ build/
 .venv/
 venv/
 .uv/
+.uv-cache/
 
 # hydra outputs
 outputs/
@@ -45,7 +46,7 @@ htmlcov/
 .DS_Store
 
 # baselines: third-party clone + local retrieval index cache
-scripts/schematiq/ScheMatiQ/
+research/scripts/schematiq/ScheMatiQ/
 .cache/
 
 # mkdocs build output

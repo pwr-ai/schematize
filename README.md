@@ -76,7 +76,6 @@ Optional adapters and tooling:
 ```bash
 pip install "schematize[huggingface]"   # FAISS retriever over HuggingFace datasets
 pip install "schematize[weaviate]"      # hybrid-search retriever for a Weaviate instance
-pip install "schematize[scripts]"       # Hydra-based CLI runners
 ```
 
 Requires Python 3.12+. Full options in the [installation guide](https://pwr-ai.github.io/schematize/installation/).
@@ -207,57 +206,58 @@ print(result.covered_questions, "/", result.total_questions)
 
 More in the [evaluation guide](https://pwr-ai.github.io/schematize/guides/evaluation/).
 
-## Command-line runners
+## Command-line runner
 
-With the `[scripts]` extra you get three console scripts:
+The installed package provides an interactive runner:
 
 ```bash
 schematize-run                              # interactive pipeline
-schematize-run-mocked +case=en_age          # replay a stored case (no live prompts)
-schematize-evaluate +case_name=age          # evaluate against expert questions
 ```
 
-See the [CLI guide](https://pwr-ai.github.io/schematize/guides/cli/) for mocked-case files and options.
+See the [CLI guide](https://pwr-ai.github.io/schematize/guides/cli/) for options.
 
 ## Reproducing our study
 
-The experiments from our paper are driven by the mocked runner (schema generation) and the evaluator
-(schema scoring against expert questions). Cases live in [`data/cases/`](data/cases/) and expert
-question sets in [`data/eval/`](data/eval/) (`pl_age`, `pl_personal_rights`, `pl_medical_errors`).
+Paper-specific configurations, cases, baselines, and analysis notebooks live in
+[`research/`](research/). They are reproducibility assets, not part of the
+installed library API. Cases live in [`research/data/cases/`](research/data/cases/)
+and expert question sets in [`research/data/eval/`](research/data/eval/)
+(`pl_age`, `pl_personal_rights`, `pl_medical_errors`).
 
 The paper's experiments use the `pl`/`law` domain (Polish legal judgments); `tax` and `general` are
 additional prompt sets for use beyond the paper.
 
 ```bash
 git clone https://github.com/pwr-ai/schematize && cd schematize
-uv sync --extra scripts --extra huggingface
+uv sync --extra dev --extra research --extra huggingface
 
 # Configure the LLM in a .env file (we used a LiteLLM proxy — see "Use any LLM" above)
 printf 'API_KEY=...\nAPI_URL=...\n' > .env
 
 # 1. Generate schemas for every case (multiple runs per case)
-bash scripts/experiments/search_params.sh
+bash research/scripts/experiments/search_params.sh
 
 # 2. Ablation over pipeline components (no problem-definition / no refinement / no data-grounding)
-bash scripts/experiments/ablation.sh <model>
+bash research/scripts/experiments/ablation.sh
 
 # 3. Evaluate generated schemas against expert questions
-bash scripts/experiments/eval_multirun.sh <eval_model> <generation_model>
+bash research/scripts/experiments/eval_multirun.sh <eval_model> <generation_model>
 ```
 
-The shell scripts in [`scripts/experiments/`](scripts/experiments/) are thin Hydra wrappers; edit the
-`MODEL`/`CASES` variables at the top to change the grid. Results are written to the Hydra output
-directory.
-
-> **Note:** exact model names, seeds, and hyperparameters used in the paper are documented in the
-> [reproduction guide](https://pwr-ai.github.io/schematize/) — fill in once the study is published.
+Run `make research-check` first to validate this setup without calling an LLM.
+See [`research/README.md`](research/README.md) for the full workflow, the
+annotation protocol, dependencies, and paper configuration.
 
 ## Citation
 
 If you use schematize in your research, please cite:
 
 ```bibtex
-TBA
+@software{schematize,
+  title = {schematize},
+  author = {Sawczyn, Albert and Binkowski, Jakub and Tagowski, Kamil and others},
+  url = {https://github.com/pwr-ai/schematize}
+}
 ```
 
 ## Development
@@ -268,6 +268,28 @@ make check    # ruff lint
 make test     # pytest + coverage
 make fix      # ruff --fix
 ```
+
+## Contributing
+
+Use Python 3.12 or later. Before opening a pull request, run:
+
+```bash
+make all
+uv run mypy src/schematize
+uv sync --extra docs && uv run mkdocs build --strict
+```
+
+- Keep the public API limited to exports in `schematize.__all__`.
+- Add or update tests for behaviour changes, including prompt-loading coverage
+  when adding a language or domain.
+- Do not modify `research/`; it contains paper-specific reproduction materials
+  and is not part of the supported contribution surface.
+- Do not commit API keys, retrieval indexes, Hydra outputs, generated wheels, or
+  notebook execution output.
+
+Describe the user-visible behaviour, tests run, and any compatibility impact in
+your pull request. For changes to a public API or bundled prompt, update the
+corresponding documentation and changelog entry.
 
 ## License
 

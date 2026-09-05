@@ -76,6 +76,7 @@ nav:
       - Agent State: api/state.md
   - Configuration: configuration.md
   - Prompts: prompts.md
+  - Research and reproducibility: reproduction.md
   - FAQ: faq.md
 
 markdown_extensions:
