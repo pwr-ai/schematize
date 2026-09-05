@@ -59,7 +59,7 @@ nav:
   - Pipeline: pipeline.md
   - Examples:
       - Overview: examples/index.md
-      - Age at Sentencing: examples/age.md
+      - Drug offences: examples/age.md
       - Medical Malpractice Compensation: examples/medical_errors.md
       - Personal Rights Violations: examples/personal_rights.md
   - Guides:
