@@ -118,7 +118,7 @@ def main(
         base_url=resolved_api_url,
         api_key=SecretStr(resolved_api_key) if resolved_api_key else None,
         temperature=temperature,
-        max_tokens=max_tokens,
+        max_completion_tokens=max_tokens,
         use_responses_api=False,
         reasoning_effort=reasoning_effort,
     )
