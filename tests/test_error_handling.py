@@ -1,5 +1,8 @@
 """Regression tests for the fresh-install possible issues."""
 
+import importlib.util
+from pathlib import Path
+
 import pytest
 from openai import AuthenticationError
 
@@ -94,7 +97,11 @@ def test_load_prompts_bad_system_type_message():
 
 
 def test_mocked_script_reports_missing_schema(tmp_path):
-    from schematize._scripts.schema_generator_mocked import write_schema
+    path = Path(__file__).resolve().parents[1] / "research/scripts/schema_generator_mocked.py"
+    spec = importlib.util.spec_from_file_location("schema_generator_mocked", path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
 
     with pytest.raises(RuntimeError, match="without producing a schema"):
-        write_schema(tmp_path / "schema.json", None)
+        module.write_schema(tmp_path / "schema.json", None)

@@ -13,7 +13,7 @@ Each case below is a real, unedited pipeline run against a real research questio
 
 <div class="grid cards case-cards" markdown>
 
--   **[:material-gavel: Age at Sentencing](age.md)**
+-   **[:material-gavel: Drug offences](age.md)**
 
     ---
 

@@ -13,7 +13,7 @@ class FieldType(StrEnum):
     enum = "enum"
 
 
-TYPE_MAP = {
+TYPE_MAP: dict[FieldType, type[Any]] = {
     FieldType.string: str,
     FieldType.integer: int,
     FieldType.boolean: bool,
@@ -37,8 +37,11 @@ class FieldDef(BaseModel):
     description: str = Field(..., description="Description of the field")
 
     def to_field(self) -> tuple[Any, FieldInfo]:
+        py_type: type[Any]
         if self.type_ == FieldType.enum:
-            py_type = Enum(self.enum_name, {v: v for v in self.enum_values})  # type: ignore[misc]
+            if self.enum_name is None:
+                raise ValueError("enum_name is required when type_ is 'enum'")
+            py_type = Enum(self.enum_name, {v: v for v in self.enum_values})  # type: ignore[misc, no-redef]
         else:
             py_type = TYPE_MAP[self.type_]
         return (py_type, Field(default=..., description=self.description))
@@ -68,7 +71,8 @@ class DynamicModelFactory:
     """
 
     def __call__(self, spec: SchemaFields) -> type[BaseModel]:
+        fields: dict[str, Any] = {field.name: field.to_field() for field in spec.fields}
         return create_model(
             "SchemaModel",
-            **{field.name: field.to_field() for field in spec.fields},
+            **fields,
         )

@@ -64,7 +64,11 @@ class ChatAgent:
         )
         response = self.chain.invoke(final_messages)
         parsed = response["parsed"]
-        update_dict = {"messages": [response["raw"]], "final_messages": [response["raw"]], "token_usage": [msg_usage(response["raw"], type(self).__name__)]}
+        update_dict: dict[str, Any] = {
+            "messages": [response["raw"]],
+            "final_messages": [response["raw"]],
+            "token_usage": [msg_usage(response["raw"], type(self).__name__)],
+        }
 
         if parsed.is_refined:
             update_dict["current_schema"] = parsed.schema_
