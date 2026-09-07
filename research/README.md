@@ -28,11 +28,11 @@ generated results to the gitignored `outputs/` and `multirun/` directories.
 ## Reproduction workflow
 
 1. Search for the best hyperparameter configuration with
-   `scripts/experiments/search_params.sh`.
-2. Generate full-system schemas with `scripts/experiments/final_run.sh`.
-3. Run the baseline and ablation scripts under `scripts/experiments/`.
+   `research/scripts/experiments/search_params.sh`.
+2. Generate full-system schemas with `research/scripts/experiments/final_run.sh`.
+3. Run the baseline and ablation scripts under `research/scripts/experiments/`.
 4. Evaluate the generated states with the corresponding `eval_*.sh` scripts.
-5. Run `scripts/schematiq/setup_schematiq.sh` before the ScheMatiQ baseline.
+5. Run `research/scripts/schematiq/setup_schematiq.sh` before the ScheMatiQ baseline.
    It clones the pinned third-party baseline into a gitignored directory.
 6. Open the notebooks after results have been generated.
 
