@@ -1,5 +1,4 @@
-lint_dirs := src/schematize tests
-research_lint_dirs := research/scripts tests/research
+lint_dirs := src/schematize research/scripts tests
 
 .PHONY: fix check check-types test all research-check
 
@@ -19,5 +18,5 @@ test:
 all: check check-types test
 
 research-check:
-	uv run ruff check $(research_lint_dirs)
+	uv run ruff check research/scripts tests/research
 	uv run pytest tests/research

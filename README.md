@@ -263,7 +263,7 @@ If you use schematize in your research, please cite:
 ## Development
 
 ```bash
-uv sync --extra dev
+uv sync --extra dev --extra research
 make check    # ruff lint
 make test     # pytest + coverage
 make fix      # ruff --fix
@@ -274,8 +274,8 @@ make fix      # ruff --fix
 Use Python 3.12 or later. Before opening a pull request, run:
 
 ```bash
+uv sync --extra dev --extra research
 make all
-uv run mypy src/schematize
 uv sync --extra docs && uv run mkdocs build --strict
 ```
 
@@ -289,7 +289,7 @@ uv sync --extra docs && uv run mkdocs build --strict
 
 Describe the user-visible behaviour, tests run, and any compatibility impact in
 your pull request. For changes to a public API or bundled prompt, update the
-corresponding documentation and changelog entry.
+corresponding documentation.
 
 ## License
 

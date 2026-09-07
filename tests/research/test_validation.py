@@ -7,7 +7,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-import nbformat
 import pytest
 import yaml
 
@@ -133,14 +132,33 @@ def test_parameter_search_scripts_use_paper_generation_model(path: Path) -> None
     assert "claude-sonnet-4.6" not in text
 
 
+def _code_without_ipython_magics(source: str) -> str:
+    lines = [
+        line
+        for line in source.splitlines()
+        if not line.lstrip().startswith(("%", "!"))
+    ]
+    return "\n".join(lines)
+
+
+def test_notebook_magic_strip_keeps_comparisons() -> None:
+    source = "%matplotlib inline\nx = 1\nif a != b:\n    y = 2\n!echo hi\n"
+    tree = ast.parse(_code_without_ipython_magics(source))
+    names = {node.id for node in ast.walk(tree) if isinstance(node, ast.Name)}
+    assert names == {"x", "a", "b", "y"}
+
+
 @pytest.mark.parametrize("path", sorted((RESEARCH / "notebooks").glob("*.ipynb")))
 def test_research_notebooks_are_clean_and_parse(path: Path) -> None:
+    nbformat = pytest.importorskip("nbformat")
     notebook = nbformat.read(path, as_version=4)
     for cell in notebook.cells:
         assert not cell.get("outputs"), f"{path} contains committed cell output"
-        if cell.cell_type != "code" or "%" in cell.source or "!" in cell.source:
+        if cell.cell_type != "code":
             continue
-        ast.parse(cell.source)
+        code = _code_without_ipython_magics(cell.source)
+        if code.strip():
+            ast.parse(code)
 
 
 @pytest.mark.parametrize(
@@ -156,6 +174,7 @@ def test_research_notebooks_are_clean_and_parse(path: Path) -> None:
     ],
 )
 def test_hydra_runners_validate_without_network(script: str, arguments: list[str]) -> None:
+    pytest.importorskip("hydra")
     result = _run(str(RESEARCH / "scripts" / script), *arguments)
     assert result.returncode == 0, result.stderr
     assert "Validated" in result.stdout + result.stderr

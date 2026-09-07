@@ -32,8 +32,9 @@ generator = SchemaGenerator(
 
 The human-in-the-loop steps (clarification, final chat) read from the terminal via `input()`.
 The `use_interrupt=True` mode for driving these via LangGraph interrupts is **not yet implemented**
-and raises `NotImplementedError`. To run end-to-end without prompts, skip the interactive stages or
-use the [mocked CLI runner](guides/cli.md).
+and raises `NotImplementedError`. To run end-to-end without prompts, skip the interactive stages
+with the `skip_*` flags, or use the mocked runners in
+[`research/`](https://github.com/pwr-ai/schematize/tree/master/research).
 
 ---
 

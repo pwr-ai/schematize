@@ -105,7 +105,7 @@ def main(
     logger.info("Schema saved to {}", schema_path)
 
     # Write state.json in the same format the full pipeline produces so that
-    # schematize-evaluate can point at this directory directly via state_dir=...
+    # research/scripts/evaluate_schema.py can point at this directory via state_dir=...
     state_path = out_dir / "state.json"
     state_path.write_text(
         json.dumps(
