@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use schematize, please cite the accompanying paper."
 type: software
 title: schematize
-version: 0.1.8
+version: 0.2.0
 license: MIT
 repository-code: https://github.com/pwr-ai/schematize
 authors:
