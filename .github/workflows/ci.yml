@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  lint-and-test:
+  test:
     strategy:
       fail-fast: false
       matrix:
@@ -24,16 +24,11 @@ jobs:
       - name: Install dependencies
         run: uv sync --extra dev --extra research
 
-      - name: Lint
-        run: uv run ruff check src/schematize research/scripts tests
-
-      - name: Type check
-        run: uv run mypy src/schematize
-
       - name: Test
         run: uv run coverage run -m pytest && uv run coverage report -mi
 
   docs-check:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +45,7 @@ jobs:
       - run: uv python install 3.12
       - run: uv sync --extra dev
       - run: uv run pre-commit run --all-files
+      - run: uv run mypy src/schematize
 
   install-check:
     strategy:

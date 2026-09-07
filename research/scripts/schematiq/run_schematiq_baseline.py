@@ -35,7 +35,7 @@ def _load_case(cases_path: Path, case_name: str) -> dict:
     if not case_file.exists():
         available = [p.stem for p in cases_path.glob("*.yaml")]
         raise typer.BadParameter(f"Case '{case_name}' not found. Available: {available}")
-    return yaml.safe_load(case_file.read_text())
+    return yaml.safe_load(case_file.read_text(encoding="utf-8"))
 
 
 def build_query(case: dict, full_dialogue: bool) -> str:
@@ -223,7 +223,8 @@ def main(
             },
             indent=2,
             ensure_ascii=False,
-        )
+        ),
+        encoding="utf-8",
     )
     typer.echo(f"Saved {state_path}")
 

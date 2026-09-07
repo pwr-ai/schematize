@@ -32,7 +32,7 @@ app = typer.Typer(add_completion=False)
 
 
 def _load_prompt(prompt_path: Path) -> str:
-    with prompt_path.open() as f:
+    with prompt_path.open(encoding="utf-8") as f:
         data = yaml.safe_load(f)
     key = next(iter(data))
     return data[key]
@@ -43,7 +43,7 @@ def _load_case(cases_path: Path, case_name: str) -> dict:
     if not case_file.exists():
         available = [p.stem for p in cases_path.glob("*.yaml")]
         raise typer.BadParameter(f"Case '{case_name}' not found. Available: {available}")
-    with case_file.open() as f:
+    with case_file.open(encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -101,7 +101,7 @@ def main(
     schema_dict = parsed.model_dump()
 
     schema_path = out_dir / "schema.json"
-    schema_path.write_text(parsed.model_dump_json(indent=2))
+    schema_path.write_text(parsed.model_dump_json(indent=2), encoding="utf-8")
     logger.info("Schema saved to {}", schema_path)
 
     # Write state.json in the same format the full pipeline produces so that
@@ -115,7 +115,8 @@ def main(
                 "token_usage": [msg_usage(response["raw"], "SchemaGeneratorBaseline")],
             },
             indent=2,
-        )
+        ),
+        encoding="utf-8",
     )
     logger.info("State saved to {}", state_path)
 

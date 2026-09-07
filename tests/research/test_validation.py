@@ -2,6 +2,7 @@
 
 import ast
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -12,6 +13,43 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 RESEARCH = ROOT / "research"
+
+
+def _posix_bash() -> str | None:
+    """Locate a POSIX bash. On Windows, PATH often hits the WSL stub first."""
+    candidates: list[Path] = []
+    if sys.platform == "win32":
+        candidates.extend(
+            Path(p)
+            for p in (
+                r"C:\Program Files\Git\bin\bash.exe",
+                r"C:\Program Files\Git\usr\bin\bash.exe",
+            )
+        )
+    which = shutil.which("bash")
+    if which:
+        candidates.append(Path(which))
+
+    seen: set[str] = set()
+    for candidate in candidates:
+        resolved = str(candidate)
+        if resolved in seen or not candidate.is_file():
+            continue
+        seen.add(resolved)
+        if sys.platform == "win32" and "system32" in resolved.lower():
+            continue
+        probe = subprocess.run(
+            [resolved, "--version"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if probe.returncode == 0 and "bash" in (probe.stdout + probe.stderr).lower():
+            return resolved
+    return None
+
+
+_BASH = _posix_bash()
 
 
 def _run(*args: str) -> subprocess.CompletedProcess[str]:
@@ -31,9 +69,10 @@ def test_research_yaml_is_valid(path: Path) -> None:
     assert yaml.safe_load(path.read_text(encoding="utf-8")) is not None
 
 
+@pytest.mark.skipif(_BASH is None, reason="POSIX bash is not available")
 @pytest.mark.parametrize("path", sorted(RESEARCH.rglob("*.sh")))
 def test_research_shell_scripts_parse(path: Path) -> None:
-    result = subprocess.run(["bash", "-n", str(path)], text=True, capture_output=True, check=False)
+    result = subprocess.run([_BASH, "-n", str(path)], text=True, capture_output=True, check=False)
     assert result.returncode == 0, result.stderr
 
 
