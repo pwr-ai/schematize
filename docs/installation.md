@@ -28,21 +28,16 @@ pip install "schematize[huggingface]"
 
 Adds [`HuggingFaceRetriever`](guides/huggingface.md) and [`MMLWRobertaV2Retriever`](guides/huggingface.md) for FAISS-indexed retrieval over HuggingFace datasets.
 
-### CLI scripts
+### Research reproduction
+
+The paper's Hydra runners and analysis notebooks live outside the distributable
+package. From a source checkout, install them with:
 
 ```bash
-pip install "schematize[scripts]"
+uv sync --extra dev --extra research --extra huggingface
 ```
 
-Installs Hydra-based CLI runners (`schematize-run`, `schematize-run-mocked`, `schematize-evaluate`). See the [CLI reference](#cli-scripts).
-
-### Notebooks
-
-```bash
-pip install "schematize[notebooks]"
-```
-
-Adds pandas, matplotlib, Jupyter, and ipykernel for exploratory work in notebooks.
+See the [research README](https://github.com/pwr-ai/schematize/tree/master/research).
 
 ### Development
 
@@ -89,18 +84,14 @@ Scripts auto-load a `.env` file in the working directory via `python-dotenv`.
 
 ---
 
-## CLI scripts
+## CLI runner
 
-After installing with `[scripts]`, three console scripts are available:
+The package installs one supported console command:
 
 | Command | Description |
 |---------|-------------|
 | `schematize-run` | Interactive pipeline (prompts for user input at each step) |
-| `schematize-run-mocked` | Replay a pre-written test case (no live LLM calls) |
-| `schematize-evaluate` | Run the schema evaluator against expert questions |
 
 ```bash
 schematize-run
-schematize-run-mocked +case=en_age
-schematize-evaluate +case_name=age
 ```

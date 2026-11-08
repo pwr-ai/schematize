@@ -68,7 +68,7 @@ To bundle a brand-new domain (e.g. a new subject area) or language:
 2. Add the new `language`/`system_type` value to `SUPPORTED_LANGUAGES` / `SUPPORTED_SYSTEM_TYPES` in
    `src/schematize/settings.py` — this is the single place that gates which values `load_prompts` and the
    CLI/Hydra scripts accept.
-3. If you use the Hydra-based runners (`schematize-run-mocked`, ablation script), add a matching
-   `config/case/*.yaml` with the new `language`/`system_type`.
+3. If you reproduce the paper with the Hydra runners, add a matching
+   `research/config/case/*.yaml` with the new `language`/`system_type`.
 4. Add a test in `tests/test_public_api.py` asserting `load_prompts(language, system_type)` returns all
    expected keys, then run `uv run pytest`.

@@ -1,6 +1,8 @@
+import importlib.util
 import json
 import sys
 import types
+from pathlib import Path
 
 import pytest
 from typer.testing import CliRunner
@@ -43,12 +45,23 @@ def test_interactive_script_runs_end_to_end(monkeypatch, tmp_path, fake_llm, fak
     assert state["end_conversation"] is True
 
 
-# The mocked Hydra runner needs the [scripts] extra; skip cleanly when absent.
+# The mocked research runner needs the [research] extra; skip cleanly when absent.
 pytest.importorskip("hydra")
+
+_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _load_research_script(name: str):
+    path = _ROOT / "research" / "scripts" / name
+    spec = importlib.util.spec_from_file_location(name.removesuffix(".py"), path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_load_cases(tmp_path):
-    from schematize._scripts.schema_generator_mocked import load_cases
+    load_cases = _load_research_script("schema_generator_mocked.py").load_cases
 
     (tmp_path / "sample.yaml").write_text("user_input: hello\nhuman_message: bye\n")
     cases = load_cases(tmp_path)
@@ -57,11 +70,10 @@ def test_load_cases(tmp_path):
 
 
 def test_mock_node_factories():
-    from schematize._scripts.schema_generator_mocked import (
-        create_mock_human_message,
-        create_mock_problem_helper,
-        create_mock_user_feedback,
-    )
+    script = _load_research_script("schema_generator_mocked.py")
+    create_mock_human_message = script.create_mock_human_message
+    create_mock_problem_helper = script.create_mock_problem_helper
+    create_mock_user_feedback = script.create_mock_user_feedback
 
     helper = create_mock_problem_helper("help text")({})
     assert helper["problem_help"] == "help text"

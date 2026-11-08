@@ -1,6 +1,6 @@
 import json
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, cast
 
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
@@ -213,7 +213,7 @@ class SchemaGenerator:
         self.graph = self.build_graph(compilation_kwargs=graph_compilation_kwargs)
 
     def build_graph(self, compilation_kwargs: dict[str, Any] | None = None):
-        graph_builder = StateGraph(AgentState)
+        graph_builder: Any = StateGraph(AgentState)
 
         if self.skip_problem_definition:
             graph_builder.add_edge(START, "llm_query_generator")
@@ -267,7 +267,7 @@ class SchemaGenerator:
         user_input: str,
         current_schema: SchemaFields | None = None,
         verbosity: str = "all",
-    ) -> None:
+    ) -> AgentState | None:
         """Run the pipeline end-to-end, logging progress as it goes.
 
         Args:
@@ -301,10 +301,12 @@ class SchemaGenerator:
             data_assessment_results=None,
             merged_data_assessment=None,
             data_refinement_rounds=0,
+            final_messages=[],
+            end_conversation=False,
             token_usage=[],
         )
 
-        final_state = None
+        final_state: AgentState | None = None
         latest_schema = current_schema
         pbar = None
         node_call_count: dict[str, int] = {}
@@ -345,7 +347,7 @@ class SchemaGenerator:
                         for usage in update.get("token_usage", []):
                             logger.debug("📊 {} | tokens: {}", agent, usage)
                 else:
-                    final_state = data
+                    final_state = cast(AgentState, data)
                     latest_schema = data.get("current_schema", latest_schema)
         finally:
             if pbar is not None:
@@ -381,16 +383,17 @@ class SchemaGenerator:
             assessment_result=None,
             merged_data_assessment=None,
             data_refinement_rounds=0,
+            data_assessment_results=None,
             final_messages=[],
+            end_conversation=False,
             token_usage=[],
-            cumulative_token_usage=None,
         )
         config = {"recursion_limit": self.recursion_limit} if self.recursion_limit is not None else {}
         result = self.graph.invoke(initial_state, config=config)
         return result
 
     def route_after_assessment(self, state: AgentState) -> str:
-        assessment = state.get("assessment_result", {})
+        assessment = state["assessment_result"] or {}
         refinement_rounds = state.get("refinement_rounds", 0)
         needs_refinement = assessment.get("needs_refinement", False)
         max_rounds_reached = refinement_rounds >= self.max_refinement_rounds
@@ -402,7 +405,7 @@ class SchemaGenerator:
         return "summarizer" if self.skip_data_grounded else "llm_schema_data_assessment"
 
     def route_after_data_assessment_merger(self, state: AgentState) -> str:
-        assessment = state.get("merged_data_assessment", {})
+        assessment = state["merged_data_assessment"] or {}
         needs_refinement = assessment.get("needs_refinement", False)
         data_refinement_rounds = state.get("data_refinement_rounds", 0)
         max_rounds_reached = data_refinement_rounds >= self.max_data_refinement_rounds

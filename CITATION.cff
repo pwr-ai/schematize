@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use schematize, please cite the accompanying paper."
+type: software
+title: schematize
+version: 0.2.0
+license: MIT
+repository-code: https://github.com/pwr-ai/schematize
+authors:
+  - family-names: Sawczyn
+    given-names: Albert
+  - family-names: Binkowski
+    given-names: Jakub
+  - family-names: Tagowski
+    given-names: Kamil
+  - family-names: Augustyniak
+    given-names: Łukasz
+  - family-names: Kaczmarek-Templin
+    given-names: Berenika
+  - family-names: Kajdanowicz
+    given-names: Tomasz
+preferred-citation:
+  type: article
+  title: "Schematize: An Agentic System for Generating and Refining Information-Extraction Schemas for Legal Research"
+  authors:
+    - family-names: Sawczyn
+      given-names: Albert
+    - family-names: Binkowski
+      given-names: Jakub
+    - family-names: Tagowski
+      given-names: Kamil
+    - family-names: Augustyniak
+      given-names: Łukasz
+    - family-names: Kaczmarek-Templin
+      given-names: Berenika
+    - family-names: Kajdanowicz
+      given-names: Tomasz

@@ -8,6 +8,7 @@ import typer
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from loguru import logger
+from pydantic import SecretStr
 
 from schematize.agents.agent_state import agent_state_to_json
 from schematize.agents.schema_generator import (
@@ -15,6 +16,7 @@ from schematize.agents.schema_generator import (
     SchemaGenerator,
     SchemaGeneratorPrompts,
 )
+from schematize.retrieval.base import DocumentRetriever
 from schematize.settings import SUPPORTED_LANGUAGES, SUPPORTED_SYSTEM_TYPES
 from schematize.utils.load import load_prompts
 
@@ -72,11 +74,12 @@ def main(
         try:
             from schematize.retrieval.weaviate import WeaviateRetriever
         except ImportError:
-            raise typer.Exit("Weaviate retriever requires: pip install schematize[weaviate]")
+            typer.echo("Weaviate retriever requires: pip install schematize[weaviate]", err=True)
+            raise typer.Exit(1)
         if not collection_name:
             raise typer.BadParameter("--collection-name is required for weaviate retriever")
         filters = dict(f.split("=", 1) for f in (wv_filter or []))
-        retriever = WeaviateRetriever(
+        retriever: DocumentRetriever = WeaviateRetriever(
             collection_name=collection_name,
             target_vector=target_vector,
             filters=filters,
@@ -88,20 +91,34 @@ def main(
                 MMLWRobertaV2Retriever,
             )
         except ImportError:
-            raise typer.Exit("HuggingFace retriever requires: pip install schematize[huggingface]")
+            typer.echo("HuggingFace retriever requires: pip install schematize[huggingface]", err=True)
+            raise typer.Exit(1)
         if not dataset:
             raise typer.BadParameter("--dataset is required for huggingface/mmlw retriever")
-        kwargs = dict(dataset_name=dataset, text_column=text_column, max_documents=max_documents, index_path=index_path)
-        retriever = MMLWRobertaV2Retriever(**kwargs) if retriever_type == "mmlw" else HuggingFaceRetriever(**kwargs)
+        if retriever_type == "mmlw":
+            retriever = MMLWRobertaV2Retriever(
+                dataset_name=dataset,
+                text_column=text_column,
+                max_documents=max_documents,
+                index_path=index_path,
+            )
+        else:
+            retriever = HuggingFaceRetriever(
+                dataset_name=dataset,
+                text_column=text_column,
+                max_documents=max_documents,
+                index_path=index_path,
+            )
 
     resolved_api_url = api_url or os.getenv("API_URL")
+    resolved_api_key = api_key or os.getenv("API_KEY")
     logger.info("Using model={} api_url={}", model, resolved_api_url)
     llm = ChatOpenAI(
         model=model,
         base_url=resolved_api_url,
-        api_key=api_key or os.getenv("API_KEY"),
+        api_key=SecretStr(resolved_api_key) if resolved_api_key else None,
         temperature=temperature,
-        max_tokens=max_tokens,
+        max_completion_tokens=max_tokens,
         use_responses_api=False,
         reasoning_effort=reasoning_effort,
     )
@@ -125,6 +142,9 @@ def main(
     input_text = input()
 
     final_state = schema_system.stream_graph_updates(input_text, verbosity=verbosity)
+    if final_state is None:
+        typer.echo("Schema generation produced no final state.", err=True)
+        raise typer.Exit(1)
 
     with output.open("w", encoding="utf-8") as f:
         f.write(agent_state_to_json(final_state))
