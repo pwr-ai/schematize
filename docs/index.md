@@ -6,6 +6,8 @@
 
 <div align="center" markdown="1">
 
+🎉 **Our paper was accepted at [EMNLP 2026 System Demonstrations](https://aclanthology.org/2026.emnlp-demos.66/)** 🎉
+
 [![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)
 [![Docs](https://img.shields.io/badge/docs-pwr--ai.github.io-blue.svg)](https://pwr-ai.github.io/schematize)
 [![Python](https://img.shields.io/pypi/pyversions/schematize.svg)](https://pypi.org/project/schematize/)
@@ -16,8 +18,6 @@
 [GitHub repo](https://github.com/pwr-ai/schematize) ·
 [Examples](https://pwr-ai.github.io/schematize/examples/) ·
 [PyPI](https://pypi.org/project/schematize/)
-
-<br>
 
 <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem;">
   <img src="assets/logo_dep.svg" alt="Department of Artificial Intelligence logo" style="height: 80px; background: #fff; padding: 4px 8px; border-radius: 4px;">
@@ -111,3 +111,31 @@ model_cls = DynamicModelFactory()(SchemaFields(**state["current_schema"]))
 - [Evaluate a schema](guides/evaluation.md)
 - [Use the command-line runners](guides/cli.md)
 - [Browse the API reference](api/schema_generator.md)
+
+## Citation
+
+If you use schematize in your research, please cite our [EMNLP 2026 System Demonstrations paper](https://aclanthology.org/2026.emnlp-demos.66/):
+
+```bibtex
+@inproceedings{sawczyn-etal-2026-schematize,
+    title = "Schematize: An Agentic System for Generating and Refining Information-Extraction Schemas for Legal Research",
+    author = "Sawczyn, Albert  and
+      Binkowski, Jakub  and
+      Tagowski, Kamil  and
+      Augustyniak, Lukasz  and
+      Kaczmarek-Templin, Berenika  and
+      Kajdanowicz, Tomasz Jan",
+    editor = "Agrawal, Sweta  and
+      Abad, Alberto",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing: System Demonstrations",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-demos.66/",
+    doi = "10.18653/2026.emnlp-demos.66",
+    pages = "696--705",
+    ISBN = "979-8-89176-461-3",
+    abstract = "Empirical legal research often relies on turning research questions into structured data extracted from large collections of rulings and judgments. Designing the extraction schema and then extracting the data remain a manual, expertise-heavy bottleneck. We present schematize, an open-source multi-agent system that interactively turns a researcher{'}s problem statement into a validated extraction schema that can later be used for autonomous extraction. Schematize couples (i) a clarification dialogue that elicits implicit expert intent, (ii) iterative schema generation, (iii) data-grounded refinement that tests the schema against documents, and (iv) chat-based post-editing. We evaluated the system with human legal professional, introducing our novel methodology, and schematize achieves top performance in most of tested configurations. While the system is designed to be domain-agnostic and applicable to any document collection, we tailor and evaluate it on legal research problems. We release schematize as a pip-installable Python package with full documentation."
+}
+```
