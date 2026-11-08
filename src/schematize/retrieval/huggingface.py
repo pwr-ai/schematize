@@ -151,8 +151,8 @@ class _BaseHuggingFaceRetriever:
             show_progress_bar=False,
             normalize_embeddings=True,
         )
-        query_vec = np.array(query_vec, dtype=np.float32)
-        _, results = self._dataset.get_nearest_examples("embeddings", query_vec, k=max_docs)
+        query_array = np.array(query_vec, dtype=np.float32)
+        _, results = self._dataset.get_nearest_examples("embeddings", query_array, k=max_docs)
         n = len(next(iter(results.values())))
         logger.info(f"Found {n} results")
         return [{k: v[i] for k, v in results.items() if k != "embeddings"} for i in range(n)]

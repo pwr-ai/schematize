@@ -111,6 +111,8 @@ model_cls = DynamicModelFactory()(SchemaFields(**state["current_schema"]))
 - [Evaluate a schema](guides/evaluation.md)
 - [Use the command-line runners](guides/cli.md)
 - [Browse the API reference](api/schema_generator.md)
+- [Reproduce the research study](reproduction.md)
+
 
 ## Citation
 

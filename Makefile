@@ -1,18 +1,22 @@
-lint_dirs := src/schematize scripts tests
+lint_dirs := src/schematize research/scripts tests
 
-.PHONY: fix check check-types test all
+.PHONY: fix check check-types test all research-check
 
 fix:
-	ruff check --fix $(lint_dirs)
+	uv run ruff check --fix $(lint_dirs)
 
 check:
-	ruff check $(lint_dirs)
+	uv run ruff check $(lint_dirs)
 
 check-types:
-	mypy --install-types --non-interactive $(lint_dirs)
+	uv run mypy src/schematize
 
 test:
-	coverage run -m pytest
-	coverage report -mi
+	uv run coverage run -m pytest
+	uv run coverage report -mi
 
-all: check test
+all: check check-types test
+
+research-check:
+	uv run ruff check research/scripts tests/research
+	uv run pytest tests/research

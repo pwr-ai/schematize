@@ -63,7 +63,7 @@ class AgreementEvaluation:
 
 
 def _build_batch_model(n: int) -> type[BaseModel]:
-    fields = {
+    fields: dict[str, Any] = {
         f"question_{i + 1}": (CoverageAssessment, Field(description=f"Assessment for question {i + 1}"))
         for i in range(n)
     }
