@@ -1,10 +1,10 @@
 [project]
 name = "schematize"
-version = "0.2.0"
+version = "0.2.1"
 description = "Agentic system for automated extraction-schema generation from natural language descriptions"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "Albert Sawczyn", email = "albert.sawczyn@pwr.edu.pl"}, { name = "Jakub Binkowski", email = "jakub.binkowski@pwr.edu.pl" }]
+authors = [{ name = "Albert Sawczyn", email = "albert.sawczyn@pwr.edu.pl"}, { name = "Jakub Binkowski", email = "jakub.binkowski@pwr.edu.pl" }, { name = "Kamil Tagowski", email = "kamil.tagowski@pwr.edu.pl" }]
 requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
