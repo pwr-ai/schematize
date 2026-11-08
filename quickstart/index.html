@@ -404,6 +404,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../reproduction/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Research and reproducibility
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../faq/" class="md-tabs__link">
         
   
@@ -809,7 +828,7 @@
   <span class="md-ellipsis">
     
   
-    Age at Sentencing
+    Drug offences
   
 
     
@@ -1345,6 +1364,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../reproduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research and reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../faq/" class="md-nav__link">
         
   
@@ -1610,13 +1656,10 @@ or a <a href="https://github.com/BerriAI/litellm">LiteLLM</a> proxy in front of 
 <p>When <code>skip_problem_definition=True</code>, the user input is used directly as the problem definition.</p>
 <hr />
 <h2 id="running-from-the-command-line">Running from the command line</h2>
-<p>The steps above can be replaced with a single command if you install the <code>[scripts]</code> extra:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[scripts]&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>schematize-run<span class="w"> </span>--model<span class="w"> </span>gpt-4o<span class="w"> </span>--dataset<span class="w"> </span>JuDDGES/pl-court-raw<span class="w"> </span>--max-documents<span class="w"> </span><span class="m">10000</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>schematize-run<span class="w"> </span>--model<span class="w"> </span>gpt-4o<span class="w"> </span>--dataset<span class="w"> </span>JuDDGES/pl-court-raw<span class="w"> </span>--max-documents<span class="w"> </span><span class="m">10000</span>
 </code></pre></div>
 <p>You'll be prompted to describe the schema to generate, then the same interactive pipeline from
-<a href="#step-5--run-the-pipeline">Step 5</a> runs in your terminal. The resulting state is written to
+<a href="#step-5-run-the-pipeline">Step 5</a> runs in your terminal. The resulting state is written to
 <code>state.json</code>.</p>
 <p>See the <a href="../guides/cli/">CLI reference</a> for the full list of options (retriever selection, refinement
 rounds, output path, etc.).</p>

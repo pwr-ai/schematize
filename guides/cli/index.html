@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#command-line-runners" class="md-skip">
+        <a href="#command-line-runner" class="md-skip">
           Skip to content
         </a>
       
@@ -404,6 +404,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../../reproduction/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Research and reproducibility
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../../faq/" class="md-tabs__link">
         
   
@@ -663,7 +682,7 @@
   <span class="md-ellipsis">
     
   
-    Age at Sentencing
+    Drug offences
   
 
     
@@ -987,10 +1006,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mocked-runner-cases" class="md-nav__link">
+  <a href="#paper-reproduction-runners" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mocked runner cases
+        Paper reproduction runners
       
     </span>
   </a>
@@ -1284,6 +1303,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reproduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research and reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../faq/" class="md-nav__link">
         
   
@@ -1342,10 +1388,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mocked-runner-cases" class="md-nav__link">
+  <a href="#paper-reproduction-runners" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mocked runner cases
+        Paper reproduction runners
       
     </span>
   </a>
@@ -1383,43 +1429,13 @@
   
 
 
-<h1 id="command-line-runners">Command-Line Runners</h1>
-<p>The <code>[scripts]</code> extra installs three <a href="https://hydra.cc/">Hydra</a>-based console scripts for running the
-pipeline and evaluator without writing Python.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[scripts]&quot;</span>
+<h1 id="command-line-runner">Command-Line Runner</h1>
+<p>The installed package provides <code>schematize-run</code>, an interactive runner for the
+pipeline. It prompts for the user input and each human-in-the-loop response.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>schematize-run
 </code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>schematize-run</code></td>
-<td>Interactive pipeline — prompts for your input at each human-in-the-loop step</td>
-</tr>
-<tr>
-<td><code>schematize-run-mocked</code></td>
-<td>Replays a stored case file instead of prompting (great for demos and CI)</td>
-</tr>
-<tr>
-<td><code>schematize-evaluate</code></td>
-<td>Scores generated schemas against expert questions</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>schematize-run
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>schematize-run-mocked<span class="w"> </span>+case<span class="o">=</span>en_age<span class="w"> </span><span class="nv">cases_path</span><span class="o">=</span>data/cases<span class="w"> </span><span class="nv">model_name</span><span class="o">=</span>gpt-4o
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>schematize-evaluate<span class="w"> </span>+case_name<span class="o">=</span>age
-</code></pre></div>
-<p>Or run the scripts directly from a cloned repo:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>scripts/schema_generator.py
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>scripts/schema_generator_mocked.py<span class="w"> </span>+case<span class="o">=</span>en_age<span class="w"> </span><span class="nv">cases_path</span><span class="o">=</span>data/cases<span class="w"> </span><span class="nv">model_name</span><span class="o">=</span>gpt-4o
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>python<span class="w"> </span>scripts/evaluate_schema.py<span class="w"> </span>+case_name<span class="o">=</span>age
-</code></pre></div>
-<p>All scripts auto-load a <code>.env</code> file in the working directory (see <a href="../../configuration/">Configuration</a>).</p>
+<p>It auto-loads a <code>.env</code> file in the working directory (see
+<a href="../../configuration/">Configuration</a>).</p>
 <hr />
 <h2 id="verbosity">Verbosity</h2>
 <p><code>schematize-run</code> accepts a <code>--verbosity</code> flag controlling how much of the pipeline is logged:</p>
@@ -1445,71 +1461,29 @@ pipeline and evaluator without writing Python.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>schematize-run<span class="w"> </span>--verbosity<span class="w"> </span>all
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>schematize-run<span class="w"> </span>--verbosity<span class="w"> </span>debug
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>schematize-run<span class="w"> </span>--verbosity<span class="w"> </span>all
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>schematize-run<span class="w"> </span>--verbosity<span class="w"> </span>debug
 </code></pre></div>
 <hr />
-<h2 id="mocked-runner-cases">Mocked runner cases</h2>
-<p>The mocked runner replays pre-written answers instead of prompting for live user input — useful for
-reproducible demos, regression checks, and CI. A case is a YAML file that can define any combination
-of the human-supplied inputs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># my_case.yaml</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">user_input</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Extract</span><span class="nv"> </span><span class="s">information</span><span class="nv"> </span><span class="s">about</span><span class="nv"> </span><span class="s">personal</span><span class="nv"> </span><span class="s">injury</span><span class="nv"> </span><span class="s">lawsuits&quot;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nt">problem_help</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;The</span><span class="nv"> </span><span class="s">schema</span><span class="nv"> </span><span class="s">should</span><span class="nv"> </span><span class="s">capture</span><span class="nv"> </span><span class="s">plaintiff,</span><span class="nv"> </span><span class="s">defendant,</span><span class="nv"> </span><span class="s">compensation,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">verdict.&quot;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">user_feedback</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Add</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">court</span><span class="nv"> </span><span class="s">name.&quot;</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">human_message</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Can</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">also</span><span class="nv"> </span><span class="s">add</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">date</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">ruling?&quot;</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>user_input</code></td>
-<td>Initial prompt passed to the pipeline</td>
-</tr>
-<tr>
-<td><code>problem_help</code></td>
-<td>Mocked response during the problem-definition step</td>
-</tr>
-<tr>
-<td><code>user_feedback</code></td>
-<td>Mocked human feedback during schema refinement</td>
-</tr>
-<tr>
-<td><code>human_message</code></td>
-<td>Mocked final human message in the interactive chat</td>
-</tr>
-</tbody>
-</table>
-<p>All keys are optional — omit any you want to answer interactively. The filename (without <code>.yaml</code>)
-becomes the case name used with <code>+case=&lt;name&gt;</code>.</p>
-<p>Example cases live in <a href="https://github.com/pwr-ai/schematize/tree/master/data/cases"><code>data/cases/</code></a>
-in the repository. Point the runner at that directory — or your own — with <code>cases_path</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># From a cloned repo</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>schematize-run-mocked<span class="w"> </span>+case<span class="o">=</span>en_age<span class="w"> </span><span class="nv">cases_path</span><span class="o">=</span>data/cases<span class="w"> </span><span class="nv">model_name</span><span class="o">=</span>gpt-4o
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># After pip install, point at your own cases</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>schematize-run-mocked<span class="w"> </span>+case<span class="o">=</span>my_case<span class="w"> </span><span class="nv">cases_path</span><span class="o">=</span>/path/to/my/cases<span class="w"> </span><span class="nv">model_name</span><span class="o">=</span>gpt-4o
-</code></pre></div>
-<hr />
+<h2 id="paper-reproduction-runners">Paper reproduction runners</h2>
+<p>The mocked runner, evaluator, ablations, and baseline integrations are maintained
+under <a href="https://github.com/pwr-ai/schematize/tree/master/research">the research directory</a> for reproducing the paper. Install
+their dependencies from a clone with <code>uv sync --extra research --extra
+huggingface</code>, then validate them offline with <code>make research-check</code>.</p>
 <h2 id="example-terminal-session">Example terminal session</h2>
 <p><code>stream_graph_updates</code> logs each agent's output as the graph runs, so you can watch the schema take
 shape:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>🤖 ProblemDefinerHelperAgent:
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>A few clarifying questions: which jurisdiction? civil only? ...
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>--------------------------------------------------
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>🤖 SchemaGeneratorAgent:
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>{&quot;fields&quot;: [{&quot;name&quot;: &quot;violation_type&quot;, &quot;type_&quot;: &quot;enum&quot;, ...}]}
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>--------------------------------------------------
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>🤖 SchemaDataAssessmentAgent:
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>Field `compensation_amount` is often unfillable — many rulings dismiss the claim.
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>--------------------------------------------------
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>📊 SchemaDataRefinerAgent | tokens: {...}
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>--------------------------------------------------
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>🤖 ProblemDefinerHelperAgent:
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>A few clarifying questions: which jurisdiction? civil only? ...
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>--------------------------------------------------
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>🤖 SchemaGeneratorAgent:
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>{&quot;fields&quot;: [{&quot;name&quot;: &quot;violation_type&quot;, &quot;type_&quot;: &quot;enum&quot;, ...}]}
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>--------------------------------------------------
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>🤖 SchemaDataAssessmentAgent:
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Field `compensation_amount` is often unfillable — many rulings dismiss the claim.
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>--------------------------------------------------
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>📊 SchemaDataRefinerAgent | tokens: {...}
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>--------------------------------------------------
 </code></pre></div>
 <p>See the <a href="../../pipeline/">Pipeline</a> page for what each stage does.</p>
 

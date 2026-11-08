@@ -16,7 +16,7 @@
         <link rel="prev" href="../configuration/">
       
       
-        <link rel="next" href="../faq/">
+        <link rel="next" href="../reproduction/">
       
       
         
@@ -404,6 +404,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../reproduction/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Research and reproducibility
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../faq/" class="md-tabs__link">
         
   
@@ -663,7 +682,7 @@
   <span class="md-ellipsis">
     
   
-    Age at Sentencing
+    Drug offences
   
 
     
@@ -1279,6 +1298,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../reproduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research and reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../faq/" class="md-nav__link">
         
   
@@ -1487,8 +1533,8 @@ before wrapping in <code>SchemaGeneratorPrompts</code>.</p>
 <li>Add the new <code>language</code>/<code>system_type</code> value to <code>SUPPORTED_LANGUAGES</code> / <code>SUPPORTED_SYSTEM_TYPES</code> in
    <code>src/schematize/settings.py</code> — this is the single place that gates which values <code>load_prompts</code> and the
    CLI/Hydra scripts accept.</li>
-<li>If you use the Hydra-based runners (<code>schematize-run-mocked</code>, ablation script), add a matching
-   <code>config/case/*.yaml</code> with the new <code>language</code>/<code>system_type</code>.</li>
+<li>If you reproduce the paper with the Hydra runners, add a matching
+   <code>research/config/case/*.yaml</code> with the new <code>language</code>/<code>system_type</code>.</li>
 <li>Add a test in <code>tests/test_public_api.py</code> asserting <code>load_prompts(language, system_type)</code> returns all
    expected keys, then run <code>uv run pytest</code>.</li>
 </ol>
@@ -1546,13 +1592,13 @@ before wrapping in <code>SchemaGeneratorPrompts</code>.</p>
         
         
           
-          <a href="../faq/" class="md-footer__link md-footer__link--next" aria-label="Next: FAQ">
+          <a href="../reproduction/" class="md-footer__link md-footer__link--next" aria-label="Next: Research and reproducibility">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                FAQ
+                Research and reproducibility
               </div>
             </div>
             <div class="md-footer__button md-icon">

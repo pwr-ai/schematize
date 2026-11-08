@@ -404,6 +404,25 @@
   
   
     <li class="md-tabs__item">
+      <a href="../reproduction/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Research and reproducibility
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
       <a href="../faq/" class="md-tabs__link">
         
   
@@ -600,21 +619,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cli-scripts" class="md-nav__link">
+  <a href="#research-reproduction" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI scripts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notebooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notebooks
+        Research reproduction
       
     </span>
   </a>
@@ -671,10 +679,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-scripts_1" class="md-nav__link">
+  <a href="#cli-runner" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI scripts
+        CLI runner
       
     </span>
   </a>
@@ -837,7 +845,7 @@
   <span class="md-ellipsis">
     
   
-    Age at Sentencing
+    Drug offences
   
 
     
@@ -1373,6 +1381,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../reproduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research and reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../faq/" class="md-nav__link">
         
   
@@ -1465,21 +1500,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cli-scripts" class="md-nav__link">
+  <a href="#research-reproduction" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI scripts
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#notebooks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notebooks
+        Research reproduction
       
     </span>
   </a>
@@ -1536,10 +1560,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-scripts_1" class="md-nav__link">
+  <a href="#cli-runner" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI scripts
+        CLI runner
       
     </span>
   </a>
@@ -1581,43 +1605,41 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[huggingface]&quot;</span>
 </code></pre></div>
 <p>Adds <a href="../guides/huggingface/"><code>HuggingFaceRetriever</code></a> and <a href="../guides/huggingface/"><code>MMLWRobertaV2Retriever</code></a> for FAISS-indexed retrieval over HuggingFace datasets.</p>
-<h3 id="cli-scripts">CLI scripts</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[scripts]&quot;</span>
+<h3 id="research-reproduction">Research reproduction</h3>
+<p>The paper's Hydra runners and analysis notebooks live outside the distributable
+package. From a source checkout, install them with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>uv<span class="w"> </span>sync<span class="w"> </span>--extra<span class="w"> </span>dev<span class="w"> </span>--extra<span class="w"> </span>research<span class="w"> </span>--extra<span class="w"> </span>huggingface
 </code></pre></div>
-<p>Installs Hydra-based CLI runners (<code>schematize-run</code>, <code>schematize-run-mocked</code>, <code>schematize-evaluate</code>). See the <a href="#cli-scripts">CLI reference</a>.</p>
-<h3 id="notebooks">Notebooks</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[notebooks]&quot;</span>
-</code></pre></div>
-<p>Adds pandas, matplotlib, Jupyter, and ipykernel for exploratory work in notebooks.</p>
+<p>See the <a href="https://github.com/pwr-ai/schematize/tree/master/research">research README</a>.</p>
 <h3 id="development">Development</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[dev]&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[dev]&quot;</span>
 </code></pre></div>
 <p>Adds pytest, coverage, ruff, mypy, and pre-commit.</p>
 <h3 id="multiple-extras-at-once">Multiple extras at once</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[weaviate,dev]&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;schematize[weaviate,dev]&quot;</span>
 </code></pre></div>
 <hr />
 <h2 id="installing-with-uv">Installing with uv</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>add<span class="w"> </span>schematize
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;schematize[huggingface]&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>uv<span class="w"> </span>add<span class="w"> </span>schematize
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">&quot;schematize[huggingface]&quot;</span>
 </code></pre></div>
 <hr />
 <h2 id="environment-variables">Environment variables</h2>
 <p>Set these before running the pipeline. See <a href="../configuration/">Configuration</a> for details.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># LLM access (required)</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">API_KEY</span><span class="o">=</span>sk-...
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nv">API_URL</span><span class="o">=</span>https://api.openai.com/v1<span class="w">   </span><span class="c1"># optional, for self-hosted endpoints</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># Weaviate (only needed with [weaviate] extra)</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nv">WV_URL</span><span class="o">=</span>localhost
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nv">WV_PORT</span><span class="o">=</span><span class="m">8080</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nv">WV_GRPC_PORT</span><span class="o">=</span><span class="m">50051</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nv">WV_API_KEY</span><span class="o">=</span>...
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># LLM access (required)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nv">API_KEY</span><span class="o">=</span>sk-...
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">API_URL</span><span class="o">=</span>https://api.openai.com/v1<span class="w">   </span><span class="c1"># optional, for self-hosted endpoints</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Weaviate (only needed with [weaviate] extra)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="nv">WV_URL</span><span class="o">=</span>localhost
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nv">WV_PORT</span><span class="o">=</span><span class="m">8080</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nv">WV_GRPC_PORT</span><span class="o">=</span><span class="m">50051</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nv">WV_API_KEY</span><span class="o">=</span>...
 </code></pre></div>
 <p>Scripts auto-load a <code>.env</code> file in the working directory via <code>python-dotenv</code>.</p>
 <hr />
-<h2 id="cli-scripts_1">CLI scripts</h2>
-<p>After installing with <code>[scripts]</code>, three console scripts are available:</p>
+<h2 id="cli-runner">CLI runner</h2>
+<p>The package installs one supported console command:</p>
 <table>
 <thead>
 <tr>
@@ -1630,19 +1652,9 @@
 <td><code>schematize-run</code></td>
 <td>Interactive pipeline (prompts for user input at each step)</td>
 </tr>
-<tr>
-<td><code>schematize-run-mocked</code></td>
-<td>Replay a pre-written test case (no live LLM calls)</td>
-</tr>
-<tr>
-<td><code>schematize-evaluate</code></td>
-<td>Run the schema evaluator against expert questions</td>
-</tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>schematize-run
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>schematize-run-mocked<span class="w"> </span>+case<span class="o">=</span>en_age
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>schematize-evaluate<span class="w"> </span>+case_name<span class="o">=</span>age
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>schematize-run
 </code></pre></div>
 
 
