@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "If you use schematize, please cite the accompanying paper."
 title: "Schematize"
+version: 0.2.3
 repository-code: https://github.com/pwr-ai/schematize
 authors:
   - family-names: Sawczyn

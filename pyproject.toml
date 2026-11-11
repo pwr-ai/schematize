@@ -1,6 +1,6 @@
 [project]
 name = "schematize"
-version = "0.2.2"
+version = "0.2.3"
 description = "Agentic system for automated extraction-schema generation from natural language descriptions"
 readme = "README.md"
 license = { text = "MIT" }
