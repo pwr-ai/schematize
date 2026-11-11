@@ -97,6 +97,7 @@ def test_load_prompts_bad_system_type_message():
 
 
 def test_mocked_script_reports_missing_schema(tmp_path):
+    pytest.importorskip("hydra")
     path = Path(__file__).resolve().parents[1] / "research/scripts/schema_generator_mocked.py"
     spec = importlib.util.spec_from_file_location("schema_generator_mocked", path)
     assert spec and spec.loader
