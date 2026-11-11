@@ -1,9 +1,6 @@
 cff-version: 1.2.0
 message: "If you use schematize, please cite the accompanying paper."
-type: software
-title: schematize
-version: 0.2.2
-license: MIT
+title: "Schematize"
 repository-code: https://github.com/pwr-ai/schematize
 authors:
   - family-names: Sawczyn
@@ -19,7 +16,7 @@ authors:
   - family-names: Kajdanowicz
     given-names: Tomasz
 preferred-citation:
-  type: article
+  type: conference-paper
   title: "Schematize: An Agentic System for Generating and Refining Information-Extraction Schemas for Legal Research"
   authors:
     - family-names: Sawczyn
@@ -34,3 +31,21 @@ preferred-citation:
       given-names: Berenika
     - family-names: Kajdanowicz
       given-names: Tomasz
+  editors:
+    - family-names: Agrawal
+      given-names: Sweta
+    - family-names: Abad
+      given-names: Alberto
+  collection-title: "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing: System Demonstrations"
+  conference:
+    name: "EMNLP 2026 System Demonstrations"
+    address: "Budapest, Hungary"
+  publisher:
+    name: "Association for Computational Linguistics"
+  month: 10
+  year: 2026
+  url: "https://aclanthology.org/2026.emnlp-demos.66/"
+  doi: "10.18653/2026.emnlp-demos.66"
+  isbn: "979-8-89176-461-3"
+  start: 696
+  end: 705

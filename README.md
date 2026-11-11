@@ -6,7 +6,7 @@
 
 **Turn a plain research problem into a typed, data-tested extraction schema.**
 
-🎉 **Our paper was accepted at [EMNLP 2026 System Demonstrations](https://aclanthology.org/2026.emnlp-demos.66/)**🎉
+🎉 **Our paper was accepted at [EMNLP 2026 System Demonstrations](https://aclanthology.org/2026.emnlp-demos.66/)** 🎉
 
 [![PyPI version](https://img.shields.io/pypi/v/schematize.svg)](https://pypi.org/project/schematize/)
 [![Docs](https://img.shields.io/badge/docs-pwr--ai.github.io-blue.svg)](https://pwr-ai.github.io/schematize)
